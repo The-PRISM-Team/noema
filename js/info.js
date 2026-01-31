@@ -1,6 +1,6 @@
 let infoLabel = document.getElementById('info')
 let labels = [
-    'DO NOT SHARE THIS PROJECT WITH ANYONE UNLESS GIVEN PERMISSION!!',
+    'Open Developer Beta. Expect bugs.',
     'TASM UI v1.0'
 ]
 
