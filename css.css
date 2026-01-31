@@ -451,33 +451,6 @@ body {
     padding: 20px;
     top: 25px;
 }
-.disclaimer {
-    font-size: 4vw;
-    position: fixed;
-    top: 70%;
-    left: 50%;
-    color: #fff;
-    text-align: center;
-    transform: translate(-50%, -50%);
-    transition:
-    opacity 3s ease,
-    top 3s ease;
-    font-family: monospace;
-    font-weight: lighter;
-    display: none;
-}
-
-.ui:not(.open) .disclaimer:not(.inactive) {
-    opacity: 50%;
-}
-.ui.open .disclaimer:not(.inactive) {
-    opacity: 25%;
-}
-
-.disclaimer.inactive {
-    opacity: 60%;
-    top: 50%;
-}
 
 .band-dialog {
     display: block;
