@@ -117,7 +117,6 @@ function init() {
     if (localStorage.openUI === 'true')
         ui.classList.add('open');
 
-    document.getElementById('disclaimer').style.display = 'inline'
     document.getElementById('outer-ui').style.display = 'block'
     requestAnimationFrame(()=>document.body.querySelector('.time-bar').style.transform = 'translate(-50%, 0%)')
 
@@ -478,7 +477,6 @@ navigator.getBattery().then(battery => {
 async function updateLoop(timestamp) {
     if (Date.now() - lastActivity > 60e3 * 1.5) {
         ui.classList.add('inactive')
-        document.getElementById('disclaimer').classList.add('inactive')
     } else {
         let suboptions = document.getElementById(`ui-content${selectedOption}`).querySelectorAll('.ui-suboption')
         if (Date.now() - lastActivity > 9e3) {
@@ -491,7 +489,6 @@ async function updateLoop(timestamp) {
             })
         }
         ui.classList.remove('inactive')
-        document.getElementById('disclaimer').classList.remove('inactive')
     }
 
     if (Date.now() - lastActivity < 10 * 60e3) {
