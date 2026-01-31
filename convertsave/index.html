@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>NSF Converter</title>
+        <link rel="stylesheet" href="./css.css" />
+    </head>
+    <body>
+        <a id='status'></a>
+        <h1>Noema Save File Converter</h1>
+        <br>
+        <br>
+        <a class="head">Select a save file...</a>
+        <input type="file" id="file"/>
+        <div id='convert' style="display: none;">
+            <br>
+            <br>
+            <a class="head">Select a (safe) format to convert to...</a>
+            <br>
+            <select id='convert-to'></select>
+            <br>
+            <br>
+            <button id='convert-btn'>Convert!</button>
+        </div>
+        <script src="./main.js"></script>
+    </body>
+</html>

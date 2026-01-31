@@ -1,0 +1,58 @@
+body {
+    min-width: 100vw;
+    min-height: 100vh;
+    overflow-x: hidden;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    flex-direction: column;
+    gap: 5px;
+
+    font-size: 2vw;
+    font-family: Arial;
+    color: #fff;
+    text-shadow: 0px 0px 15px #000;
+
+    background: linear-gradient(-15deg, #666 0%, #888 100%);
+}
+body * {
+    display: inline-flex;
+}
+a.head {
+    font-size: 3vw;
+    margin-bottom: 20px;
+    font-weight: bold;
+    text-decoration: underline;
+    text-decoration-color: #fff;
+}
+
+input {
+    margin: 10px;
+    padding: 5px;
+    background-color: #0008;
+    border-radius: 15px;
+    transform: scale(150%)
+}
+select {
+    transform: scale(150%)
+}
+button, input[type=file]::file-selector-button {
+    border-radius: 15px;
+}
+button {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    transform: scale(175%);
+}
+
+#status {
+    display: none;
+    background-color: #0008;
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    padding: 5px;
+    border-radius: 0px 0px 10px 0px;
+}
