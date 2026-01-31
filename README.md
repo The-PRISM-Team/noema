@@ -1,3 +1,4 @@
+(rework README)
 # Noema ODB Repo
 This is the official repository for Project Noema's Open Developer Beta, used for the development of Noema v0.16.0 and v0.17.0, NGP (Noema Game Package) file format and NGCT (Noema Game Creation Tool).
 
