@@ -3,7 +3,7 @@
 This is the official repository for Project Noema's Open Developer Beta, used for the development of Noema v0.16.0 and v0.17.0, NGP (Noema Game Package) file format and NGCT (Noema Game Creation Tool).
 
 # What is Noema?
-Noema is a web-based game "console", designed to be runnable locally, and to work on mainly web-based devices like Chromebooks.
+Noema is a web-based game "console", designed to be runnable locally, and to work on mainly web-based devices like Chromebooks. Its UI is inspired by the PS3.
 
 ---
 
