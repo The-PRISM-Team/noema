@@ -3,9 +3,7 @@ const scripts = [
         src: 'https://colorjs.io/dist/color.global.js'
     },
     {
-        src: 'https://code.jquery.com/jquery-3.7.1.js',
-        crossorigin: 'use-credentials',
-        integrity: "sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
+        src: 'https://code.jquery.com/jquery-3.7.1.js'
     },
     {
         src: './js/modules/gamecontroller.min.js'
