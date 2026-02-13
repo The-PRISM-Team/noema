@@ -1,184 +1,161 @@
 <!DOCTYPE html>
 <html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Codename Noema - PRISM Open Development</title>
+        <link rel="stylesheet" href="css.css" />
+        <link rel="icon" id='favicon' href="./prism_logo_color.png"/>
+    </head>
 
-<head>
-    <meta charset="UTF-8">
-    <title>Codename Noema - PRISM Open Development</title>
-    <link rel="stylesheet" href="css.css" />
-    <link rel="icon" id='favicon' href="./prism_logo_color.png"/>
-</head>
-
-<body>
-    <script src="./js/preinit.js"></script>
-    <div id="outer-ui" style='display: none;'>
-        <div class="time-bar">
-            <span id="clock">
-                <svg id="hourhand" height="24" width="24">
-                    <line x1="12" y1="13" x2="12" y2="4" style="stroke:#fff;stroke-width:3">
-                </svg>
-                <svg id="minhand" height="24" width="24">
-                    <line x1="12" y1="13" x2="12" y2="0" style="stroke:#fff;stroke-width:3">
-                </svg>
-                <svg id="sechand" height="24" width="24">
-                    <line id="sechand-line" x1="12" y1="14" x2="12" y2="0" style='stroke-width:2' stroke='#f00'>
-                </svg>
-            </span>
-            <a id='time' class="time"></a>
-        </div>
-        <div style='
-            position: fixed;
-            bottom: 10px;
-            left: 10px;
-            display: flex;
-            flex-direction: row;
-            gap: 15px;
-            align-items: center;
-            overflow: visible;
-        '>
-            <div class="battery">
-                <div style='
-                    display: block;
-                    width: 100%;
-                    height: 20px;
-                    background-color: #fff0;
-                    position: absolute;
-                    transition:
-                    background-color 3s ease,
-                    width 1s ease;
-                    z-index: calc(-infinity);
-                '
-                id="battery-bar"></div>
-                <!-- <div style='
-                    display: block;
-                    width: 5px;
-                    height: 15px;
-                    position: relative;
-                    left: 100%;
-                    transform: translate(100%, 50%);
-                    border-radius: 0px 10px 10px 0px;
-                '></div> -->
+    <body>
+        <script src="./js/preinit.js"></script>
+        <div id="outer-ui" style='display: none;'>
+            <div class="time-bar">
+                <span id="clock">
+                    <svg id="hourhand" height="24" width="24">
+                        <line x1="12" y1="13" x2="12" y2="4" style="stroke:#fff;stroke-width:3">
+                    </svg>
+                    <svg id="minhand" height="24" width="24">
+                        <line x1="12" y1="13" x2="12" y2="0" style="stroke:#fff;stroke-width:3">
+                    </svg>
+                    <svg id="sechand" height="24" width="24">
+                        <line id="sechand-line" x1="12" y1="14" x2="12" y2="0" style='stroke-width:2' stroke='#f00'>
+                    </svg>
+                </span>
+                <a id='time' class="time"></a>
             </div>
+            <div style='
+                position: fixed;
+                bottom: 10px;
+                left: 10px;
+                display: flex;
+                flex-direction: row;
+                gap: 15px;
+                align-items: center;
+                overflow: visible;
+            '>
+                <div class="battery">
+                    <div style='
+                        display: block;
+                        width: 100%;
+                        height: 20px;
+                        background-color: #fff0;
+                        position: absolute;
+                        transition:
+                        background-color 3s ease,
+                        width 1s ease;
+                        z-index: calc(-infinity);
+                    '
+                    id="battery-bar"></div>
+                    <!-- <div style='
+                        display: block;
+                        width: 5px;
+                        height: 15px;
+                        position: relative;
+                        left: 100%;
+                        transform: translate(100%, 50%);
+                        border-radius: 0px 10px 10px 0px;
+                    '></div> -->
+                </div>
 
-            <a id='battery-text' style="
-                font-size: 16px;
-                color: #fff; 
-                font-family: 'Manrope', monospace;
-                font-weight: bolder;
-                font-size: 20px
-            ">???%</a>
-        </div>   
-        <span id='debug-ui' style='display: none;'>
-            <a id='version-number' class='version' style="bottom: 30px; border-radius: 15px 15px 0px 15px;"></a>
-            <a class='version'>2026 PRISM Open Development</a>
-            <a id="fps">FPS: ???</a>
-            <a id="errors">Errors: 0</a>
-        </span>
-    </div>
-    
-    <div id="global-overlay"></div>
-    <a id="clicktostart"
-        style="color: #fff; opacity: 10%; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 5vw; font-family: monospace; transition: opacity .5s ease;">
-        loading page, please wait
-    </a>
-
-    <img id='startup-logo' src="./noema_logo_color.png"
-        style="filter: drop-shadow(0px 0px 25px #fff); position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); height: 50vh; transition: opacity 1s ease-in, height 1.5s ease; opacity: 0%; z-index: 100;" />
-    <a id='startup-text'
-        style="text-shadow: 0px 0px 15px #000; color: #fff; font-family: 'Manrope', monospace; font-weight: bolder; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 5vw; transition: opacity .5s ease-out, height 1.5s ease, top 1.5s ease, text-shadow .5s ease-out; opacity: 0%; z-index: 100;">
-        Noema
-    </a>
-    <div class="ui" id='ui'>
-        <div id="ui-options" class='ui-options'></div>
-        <div id="ui-contents"></div>
-
-        <a class='infolabel' id='info'></a>
-        <svg class='more-arrow' style="left: 30px;" width="32" height='32' id="more-left">
-            <defs>
-                <linearGradient id="gradleft" x1="0%" y1="0%" x2="100%" y2="0%">
-                    <stop offset="25%" stop-color="#fffb" />
-                    <stop offset="100%" stop-color="#fff0" />
-                </linearGradient>
-            </defs>
-            <polygon points="0,16 32,0 32,32" fill="url(#gradleft)" />
-        </svg>
-        <svg class='more-arrow' style="right: 30px;" width="32" height='32' id="more-right">
-            <defs>
-                <linearGradient id="gradright" x1="100%" y1="0%" x2="0%" y2="0%">
-                    <stop offset="25%" stop-color="#fffb" />
-                    <stop offset="100%" stop-color="#fff0" />
-                </linearGradient>
-            </defs>
-            <polygon points="0,0 0,32 32,16" fill="url(#gradright)" />
-        </svg>
-    </div>
-    
-    <div class="loadingdiv">
-        <svg width="256" height="256" xmlns="http://www.w3.org/2000/svg" id='loading-wheel' class="loadingwheel">
-            <polygon points="192,21 256,128 192,235 64,235 0,128 64,21" fill='transparent' stroke='white' stroke-width="10"/>
-        </svg>
-    </div>
-
-    <div id="game-screen"></div>
-    
-    <div id='notif-div' class='notif-div'></div>
-
-    <div class='band-dialog' id='prompt-dialog'>
-        <h1 id='prompt-title' style="color: #fff; font-family: 'Manrope';">Enter a username...</h1>
-        <input id="prompt-input" type="text" style='white-space: pre-wrap;'/><br>
-        <a style="color: #fff; font-family: 'Manrope';">
-            <small>Press Enter to confirm and press Escape to cancel.</small>
+                <a id='battery-text' style="
+                    font-size: 16px;
+                    color: #fff; 
+                    font-family: 'Manrope', monospace;
+                    font-weight: bolder;
+                    font-size: 20px
+                ">???%</a>
+            </div>   
+            <span id='debug-ui' style='display: none;'>
+                <a id='version-number' class='version' style="bottom: 30px; border-radius: 15px 15px 0px 15px;"></a>
+                <a class='version'>2026 PRISM Open Development</a>
+                <a id="fps">FPS: ???</a>
+                <a id="errors">Errors: 0</a>
+            </span>
+        </div>
+        
+        <div id="global-overlay"></div>
+        <a id="clicktostart"
+            style="color: #fff; opacity: 10%; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 5vw; font-family: monospace; transition: opacity .5s ease;">
+            loading page, please wait
         </a>
-    </div>
-    <div class='band-dialog' id='confirm-option'>
-        <h1 style="color: #fff; font-family: 'Manrope';">Are you sure?</h1>
-        <span id="confirm-subtitle" style="display: none;">
-            <a id="confirm-subtitle-text" style="color: #fff; font-family: 'Manrope'; white-space: pre-wrap;"></a>
-            <br>
-            <br>
-        </span>
-        <a style="color: #fff; font-family: 'Manrope';">
-            Press Enter to confirm and press Escape to cancel.
+
+        <img id='startup-logo' src="./noema_logo_color.png"
+            style="filter: drop-shadow(0px 0px 25px #fff); position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); height: 50vh; transition: opacity 1s ease-in, height 1.5s ease; opacity: 0%; z-index: 100;" />
+        <a id='startup-text'
+            style="text-shadow: 0px 0px 15px #000; color: #fff; font-family: 'Manrope', monospace; font-weight: bolder; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 5vw; transition: opacity .5s ease-out, height 1.5s ease, top 1.5s ease, text-shadow .5s ease-out; opacity: 0%; z-index: 100;">
+            Noema
         </a>
-    </div>
-    <div class='band-dialog' id='custom-dialog'>
-        <h1 id='custom-title' style="color: #fff; font-family: 'Manrope';"></h1>
-        <span id="custom-subtitle" style="display: none;">
-            <a id="custom-subtitle-text" style="color: #fff; font-family: 'Manrope'; white-space: pre-wrap;"></a>
-            <br>
-            <br>
-        </span>
-        <div id="custom-items"></div>
-        <a id='custom-controls' style="color: #fff; font-family: 'Manrope';">
-            Press Enter to confirm and press Escape to cancel.
-        </a>
-    </div>
+        <div class="ui" id='ui'>
+            <div id="ui-options" class='ui-options'></div>
+            <div id="ui-contents"></div>
 
-    <canvas id="bg" class='spaghetti'></canvas>
+            <a class='infolabel' id='info'></a>
+            <svg class='more-arrow' style="left: 30px;" width="32" height='32' id="more-left">
+                <defs>
+                    <linearGradient id="gradleft" x1="0%" y1="0%" x2="100%" y2="0%">
+                        <stop offset="25%" stop-color="#fffb" />
+                        <stop offset="100%" stop-color="#fff0" />
+                    </linearGradient>
+                </defs>
+                <polygon points="0,16 32,0 32,32" fill="url(#gradleft)" />
+            </svg>
+            <svg class='more-arrow' style="right: 30px;" width="32" height='32' id="more-right">
+                <defs>
+                    <linearGradient id="gradright" x1="100%" y1="0%" x2="0%" y2="0%">
+                        <stop offset="25%" stop-color="#fffb" />
+                        <stop offset="100%" stop-color="#fff0" />
+                    </linearGradient>
+                </defs>
+                <polygon points="0,0 0,32 32,16" fill="url(#gradright)" />
+            </svg>
+        </div>
+        
+        <div class="loadingdiv">
+            <svg width="256" height="256" xmlns="http://www.w3.org/2000/svg" id='loading-wheel' class="loadingwheel">
+                <polygon points="192,21 256,128 192,235 64,235 0,128 64,21" fill='transparent' stroke='white' stroke-width="10"/>
+            </svg>
+        </div>
 
-    <span id="darken" class="darken"></span>
+        <div id="game-screen"></div>
+        
+        <div id='notif-div' class='notif-div'></div>
 
-    <script class="preloaded" src="https://colorjs.io/dist/color.global.js"></script>
-    <script class="preloaded" src="https://code.jquery.com/jquery-3.7.1.js"
-        integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous">
-        </script>
-    <script class="preloaded" src="https://cdn.jsdelivr.net"></script>
-    <script class="preloaded" src="./js/modules/gamecontroller.min.js"></script>
-    <script class="preloaded" src="./js/modules/gapless5.js" language="JavaScript" type="text/javascript"></script>
-    <script class="preloaded" src="./js/modules/controller_input.js"></script>
-    <script class="preloaded" src="./js/modules/protoplus.web.direct.js"></script>
-    <script class="preloaded" src="./js/modules/bgFormat.js"></script>
-    <script class="preloaded" src="./js/modules/URLutil.js"></script>
-    <script class="preloaded" src="./js/modules/file.js"></script>
-    <script class="preloaded" src="./js/base.js"></script>
-    <script class="preloaded" src="./js/error.js"></script>
-    <script class="preloaded" src="./js/power.js"></script>
-    <script class="preloaded" src="./js/game.js"></script>
-    <script class="preloaded" src="./js/controller.js"></script>
-    <script class="preloaded" src="./js/changelog.js"></script>
-    <script class="preloaded" src="./js/bg.js"></script>
-    <script class="preloaded" src="./js/ui.js"></script>
-    <script class="preloaded" src="./js/user.js"></script>
-    <script class="preloaded" src="./js/info.js"></script>
-</body>
+        <div class='band-dialog' id='prompt-dialog'>
+            <h1 id='prompt-title' style="color: #fff; font-family: 'Manrope';">Enter a username...</h1>
+            <input id="prompt-input" type="text" style='white-space: pre-wrap;'/><br>
+            <a style="color: #fff; font-family: 'Manrope';">
+                <small>Press Enter to confirm and press Escape to cancel.</small>
+            </a>
+        </div>
+        <div class='band-dialog' id='confirm-option'>
+            <h1 style="color: #fff; font-family: 'Manrope';">Are you sure?</h1>
+            <span id="confirm-subtitle" style="display: none;">
+                <a id="confirm-subtitle-text" style="color: #fff; font-family: 'Manrope'; white-space: pre-wrap;"></a>
+                <br>
+                <br>
+            </span>
+            <a style="color: #fff; font-family: 'Manrope';">
+                Press Enter to confirm and press Escape to cancel.
+            </a>
+        </div>
+        <div class='band-dialog' id='custom-dialog'>
+            <h1 id='custom-title' style="color: #fff; font-family: 'Manrope';"></h1>
+            <span id="custom-subtitle" style="display: none;">
+                <a id="custom-subtitle-text" style="color: #fff; font-family: 'Manrope'; white-space: pre-wrap;"></a>
+                <br>
+                <br>
+            </span>
+            <div id="custom-items"></div>
+            <a id='custom-controls' style="color: #fff; font-family: 'Manrope';">
+                Press Enter to confirm and press Escape to cancel.
+            </a>
+        </div>
 
+        <canvas id="bg" class='spaghetti'></canvas>
+
+        <span id="darken" class="darken"></span>
+
+        <script src="./preloader.js"></script>
+    </body>
 </html>
