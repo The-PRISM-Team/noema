@@ -78,6 +78,27 @@ window.addEventListener('load', () => {
             document.getElementById('clicktostart').innerHTML = 'click or press enter to go to menu'
 
         let start = () => {
+            // UI sound warmup
+            const sounds = [
+                'back.flac',
+                'confirm.flac',
+                'error.flac',
+                'fatal-error.flac',
+                'notif.flac',
+                'power.flac',
+                'select.flac'
+            ];
+            
+            const warmup = []; // keep references so warmup stays in memory
+
+            sounds.forEach(src => {
+                const audio = new Audio(src);
+                audio.volume = 0;
+                audio.play().catch(() => {});
+                warmup.push(audio);
+            });
+
+
             document.onclick = document.onkeydown = null
 
             drawSpaghetti()
