@@ -92,7 +92,7 @@ window.addEventListener('load', () => {
             const warmup = []; // keep references so warmup stays in memory
 
             sounds.forEach(src => {
-                const audio = new Audio(src);
+                const audio = new Audio(`./sounds/${src}`);
                 audio.volume = 0;
                 audio.play().catch(() => {});
                 warmup.push(audio);
