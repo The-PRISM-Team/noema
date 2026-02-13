@@ -4,8 +4,8 @@ const scripts = [
     },
     {
         src: 'https://code.jquery.com/jquery-3.7.1.js',
-        integrity: "sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=",
-        crossorigin: 'anonymous'
+        crossorigin: 'anonymous',
+        integrity: "sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
     },
     {
         src: './js/modules/gamecontroller.min.js'
@@ -62,11 +62,15 @@ const scripts = [
     }
 ];
 
-scripts.forEach(obj => {
+for (let scriptObj of scripts) {
     const script = document.createElement('script');
-    for (const [property, value] of Object.entries(obj)) {
-        script[property] = value;
+    for (const [property, value] of Object.entries(scriptObj)) {
+        try {
+            script[property] = value;
+        } catch {
+            continue; // skip script if it errors
+        }
     }
 
     document.body.appendChild(script);
-});
+}
