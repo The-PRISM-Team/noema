@@ -376,7 +376,12 @@ function init() {
 
     let date = new AdvDate()
     function updateTime() {
-        let time = date.getDateString(true, false, true, true)
+        let time = date.getDateString({
+            trimWeek: true,
+            showWeek: false,
+            monthFirst: true,
+            timeFirst: true
+        })
         document.getElementById('time').innerText = time
         document.getElementById('hourhand').style.transform = `rotateZ(${360 * (date.hours() % 12) / 12}deg)`
         document.getElementById('minhand').style.transform = `rotateZ(${360 * date.minutes() / 60}deg)`

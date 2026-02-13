@@ -248,35 +248,47 @@ class AdvDate {
             timestamp: ()=>Date.now(),
             weekDay: ()=>new Date().getDay() + 1,
             day: ()=>new Date().getDate(),
-            week: ()=>(new Date(new Date().getFullYear(), new Date().getMonth() + 1, 0).getDate()),
+            dayOfWeek: ()=>new Date().getDay(),
+            daysInMonth: ()=>(new Date(new Date().getFullYear(), new Date().getMonth() + 1, 0).getDate()),
             weekName: ()=>(this.weekNames[new Date().getDay()]),
             month: ()=>new Date().getMonth() + 1,
             year: ()=>new Date().getFullYear(),
-            hours: ()=>new Date().getHours() + 1,
+            hours: ()=>new Date().getHours(),
             minutes: ()=>new Date().getMinutes(),
             seconds: ()=>new Date().getSeconds(),
             milliseconds: ()=>new Date().getMilliseconds()
         }
-        for (let i = 0; i < Object.keys(this.times).length; i++) {
-            const key = Object.keys(this.times)[i]
-            const value = Object.values(this.times)[i]
-            this[key] = value
-        }
+
+        Object.keys(this.times).forEach(k => this[k] = this.times[k]);
     }
 
-    getDateString(trimWeek = false, showWeek = true, monthFirst = true, timeFirst = false, showMs = false, dateSeparator = '/', timeSeparator = ':', msSeparator = '.') {
-        // this code could most likely be compressed into 1 or 2 strings. please do once you figure out how, i beg of you
+    getDateString({ trimWeek = false, showWeek = true, monthFirst = true, timeFirst = false, showMs = false, dateSeparator = '/', timeSeparator = ':', msSeparator = '.' } = {}) {
+        const week =
+        showWeek ?
+            (`${
+                trimWeek ?
+                    this.times.weekName().substring(0, 3)
+                :
+                    this.times.weekName()
+            } `)
+        : '';
+        const time = [
+            this.times.hours().toString().padStart(2, '0'),
+            this.times.minutes().toString().padStart(2, '0'),
+            this.times.seconds().toString().padStart(2, '0')
+        ].join(timeSeparator)
+            + (showMs ? `${msSeparator}${this.times.milliseconds().toString().padStart(3, '0')}` : '');
 
-        if (monthFirst)
-            if (timeFirst)
-                return `${showWeek ? (`${trimWeek ? this.times.weekName().substring(0, 3) : this.times.weekName()} `) : ''}${[this.times.hours().toString().padStart(2, '0'), this.times.minutes().toString().padStart(2, '0'), this.times.seconds().toString().padStart(2, '0')].join(timeSeparator)}${showMs ? `${msSeparator}${this.times.milliseconds().toString().padStart(3, '0')}` : ''} ${[this.times.month().toString().padStart(2, '0'), this.times.day().toString().padStart(2, '0'), this.times.year().toString().padStart(4, '0')].join(dateSeparator)}`
-            else
-                return `${showWeek ? (`${trimWeek ? this.times.weekName().substring(0, 3) : this.times.weekName()} `) : ''}${[this.times.month().toString().padStart(2, '0'), this.times.day().toString().padStart(2, '0'), this.times.year().toString().padStart(4, '0')].join(dateSeparator)} ${[this.times.hours().toString().padStart(2, '0'), this.times.minutes().toString().padStart(2, '0'), this.times.seconds().toString().padStart(2, '0')].join(timeSeparator)}${showMs ? `${msSeparator}${this.times.milliseconds().toString().padStart(3, '0')}` : ''}`
+        const date = [
+            (monthFirst ? this.times.month() : this.times.day()).toString().padStart(2, '0'),
+            (monthFirst ? this.times.day() : this.times.month()).toString().padStart(2, '0'),
+            this.times.year().toString().padStart(4, '0')
+        ].join(dateSeparator);
+
+        if (timeFirst)
+            return week + time + ' ' + date;
         else
-            if (timeFirst)
-                return `${showWeek ? (`${trimWeek ? this.times.weekName().substring(0, 3) : this.times.weekName()} `) : ''}${[this.times.hours().toString().padStart(2, '0'), this.times.minutes().toString().padStart(2, '0'), this.times.seconds().toString().padStart(2, '0')].join(timeSeparator)}${showMs ? `${msSeparator}${this.times.milliseconds().toString().padStart(3, '0')}` : ''} ${[this.times.day().toString().padStart(2, '0'), this.times.month().toString().padStart(2, '0'), this.times.year().toString().padStart(4, '0')].join(dateSeparator)}`
-            else
-                return `${showWeek ? (`${trimWeek ? this.times.weekName().substring(0, 3) : this.times.weekName()} `) : ''}${[this.times.day().toString().padStart(2, '0'), this.times.month().toString().padStart(2, '0'), this.times.year().toString().padStart(4, '0')].join(dateSeparator)} ${[this.times.hours().toString().padStart(2, '0'), this.times.minutes().toString().padStart(2, '0'), this.times.seconds().toString().padStart(2, '0')].join(timeSeparator)}${showMs ? `${msSeparator}${this.times.milliseconds().toString().padStart(3, '0')}` : ''}`
+            return week + date + ' ' + time;
     }
 }
 
