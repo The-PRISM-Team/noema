@@ -445,26 +445,33 @@ function init() {
 let battery, batteryWarned = false;
 async function updateBattery() {
     if ('getBattery' in navigator) {
-        battery = await navigator.getBattery()
-        battery.lowBatteryThresh = 0.25
-        document.getElementById('battery-bar').style.width = `${battery.level * 100}%`
-        document.getElementById('battery-text').textContent = `${battery.level * 100}%`
+        battery = await navigator.getBattery();
+        battery.lowBatteryThresh = 0.25;
+
+        const batteryPercent = Math.trunc(battery.level * 100);
+        document.getElementById('battery-bar').style.width = `${batteryPercent}%`;
+        document.getElementById('battery-text').textContent = `${batteryPercent}%`;
+
         if (battery.level >= 0.75) {
-            document.getElementById('battery-bar').style.backgroundColor = '#0f0'
+            document.getElementById('battery-bar').style.backgroundColor = '#0f0';
         } else if (battery.level > 0.5) {
-            document.getElementById('battery-bar').style.backgroundColor = '#8f0'
+            document.getElementById('battery-bar').style.backgroundColor = '#8f0';
         } else if (battery.level > 0.5 - battery.lowBatteryThresh / 2) {
-            document.getElementById('battery-bar').style.backgroundColor = '#fa0'
+            document.getElementById('battery-bar').style.backgroundColor = '#fa0';
         } else if (battery.level > battery.lowBatteryThresh) {
-            document.getElementById('battery-bar').style.backgroundColor = '#ff0'
+            document.getElementById('battery-bar').style.backgroundColor = '#ff0';
         } else if (battery.level <= battery.lowBatteryThresh) {
-            document.getElementById('battery-bar').style.backgroundColor = '#f00'
+            document.getElementById('battery-bar').style.backgroundColor = '#f00';
         }
-        requestAnimationFrame(updateBattery)
+
+        requestAnimationFrame(updateBattery);
+
+        return battery;
     } else {
         battery = {}
     }
 }
+
 updateBattery()
 navigator.getBattery().then(battery => {
     battery.addEventListener('chargingchange', function () {
