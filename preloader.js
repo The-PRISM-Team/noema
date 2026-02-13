@@ -31,9 +31,6 @@ const scripts = [
         src: './js/modules/file.js'
     },
     {
-        src: './js/base.js'
-    },
-    {
         src: './js/error.js'
     },
     {
@@ -59,6 +56,9 @@ const scripts = [
     },
     {
         src: './js/info.js'
+    },
+    {
+        src: './js/base.js'
     }
 ];
 
