@@ -460,7 +460,7 @@ async function updateBattery() {
         );
 
         // hide battery indicator if device likely has no battery
-        document.getElementById('battery-div').style.display = battery.hasBattery ? '' : 'none';
+        document.getElementById('battery-div').style.display = battery.hasBattery ? 'flex' : 'none';
 
         const batteryPercent = Math.trunc(battery.level * 100);
         document.getElementById('battery-bar').style.width = `${batteryPercent}%`;
