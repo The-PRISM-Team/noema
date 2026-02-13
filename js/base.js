@@ -452,14 +452,15 @@ async function updateBattery() {
     if ('getBattery' in navigator) {
         battery = await navigator.getBattery();
         battery.lowBatteryThresh = 0.25;
-        battery.hasBattery = (
+        battery.hasBattery = !(
             battery.level === 1 &&
             battery.charging === true &&
-            battery.dischargingTime === Infinity
-        ) || !('onlevelchange' in battery);
+            battery.dischargingTime === Infinity ||
+            !('onlevelchange' in battery)
+        );
 
-        // hide battery bar if device likely has no battery
-        document.getElementById('battery-bar').style.display = battery.hasBattery ? '' : 'none';
+        // hide battery indicator if device likely has no battery
+        document.getElementById('battery-div').style.display = battery.hasBattery ? '' : 'none';
 
         const batteryPercent = Math.trunc(battery.level * 100);
         document.getElementById('battery-bar').style.width = `${batteryPercent}%`;
