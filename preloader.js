@@ -34,7 +34,7 @@ const scripts = [
         src: './js/error.js'
     },
     {
-        src: './js/power'
+        src: './js/power.js'
     },
     {
         src: './js/game.js'
