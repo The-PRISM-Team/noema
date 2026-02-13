@@ -238,7 +238,7 @@ body {
     z-index: 100;
     user-select: none;
     pointer-events: none;
-    cursor: default;
+    cursor: none;
 }
 .ui.open {
     background-color: #0000;
@@ -453,7 +453,7 @@ body {
     opacity: 0%;
     transition: opacity .5s ease;
     background-color: #0005;
-    z-index: 120;
+    z-index: 200;
     mask-image: radial-gradient(#000, #0000 55%);
     padding: 20px;
     top: 25px;
