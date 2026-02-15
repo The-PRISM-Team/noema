@@ -16,11 +16,8 @@ html, body {
 
 /* --- bg --- */
 body {
-    width: 100vw;
-    height: 100vh;
     --bg-angle: -5deg;
     padding: 0;
-    margin: 0;
     background: #000;
     background-size: cover;
     background-repeat: no-repeat;
@@ -35,6 +32,27 @@ body {
     left: 0;
     z-index: -1000;
 }
+
+/* --- loading ui --- */
+.loading-bar {
+    --color: #777;
+    display: none;
+
+    position: fixed;
+    left: 50%;
+    bottom: 32px;
+    transform: translateX(-50%);
+    
+    border: solid 8px var(--color);
+    padding: 2px;
+
+    pointer-events: none;    
+    z-index: calc(infinity);
+}
+.loading-progress {
+    background-color: var(--color);
+}
+
 
 /* --- outer ui --- */
 .time {

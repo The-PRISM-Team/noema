@@ -78,10 +78,15 @@
         </div>
         
         <div id="global-overlay"></div>
-        <a id="clicktostart"
-            style="color: #fff; opacity: 10%; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 5vw; font-family: monospace; transition: opacity .5s ease;">
-            loading page, please wait
-        </a>
+        <div class="loading">
+            <a id="clicktostart"
+                style="color: #fff; opacity: 10%; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 5vw; font-family: monospace; transition: opacity .5s ease;">
+                loading page, please wait
+            </a>
+            <div class="loading-bar">
+                <span id="loading-progress"></span>
+            </div>
+        </div>
 
         <img id='startup-logo' src="./noema_logo_color.png"
             style="filter: drop-shadow(0px 0px 25px #fff); position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); height: 50vh; transition: opacity 1s ease-in, height 1.5s ease; opacity: 0%; z-index: 100;" />
