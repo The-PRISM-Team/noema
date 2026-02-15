@@ -54,6 +54,8 @@ body {
 }
 #loading-progress {
     background-color: var(--color);
+    height: 100%;
+    width: 50%;
 }
 
 
