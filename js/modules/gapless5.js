@@ -865,11 +865,11 @@ function Gapless5FileList(parentPlayer, parentLog, inShuffle, inLoadLimit = -1, 
   * @param {Object.<string, any>} [options] - see description
   * @param {Object.<string, any>} [deprecated] - do not use
   */
-function Gapless5(options = {}, deprecated = {}) { // eslint-disable-line no-unused-vars
+function Gapless5(options = {}, deprecated = {}) {  
   // Backwards-compatibility with deprecated API
   if (typeof options === 'string') {
     console.warn('Using deprecated API.  Pass element id into options as "guiId"');
-    options = { // eslint-disable-line no-param-reassign
+    options = {  
       ...deprecated,
       guiId: options,
     };
@@ -900,7 +900,7 @@ function Gapless5(options = {}, deprecated = {}) { // eslint-disable-line no-unu
     error: () => {},
   };
   switch (options.logLevel || LogLevel.Info) {
-  /* eslint-disable no-fallthrough */
+   
   case LogLevel.Debug:
     log.debug = console.debug;
   case LogLevel.Info:
@@ -912,7 +912,7 @@ function Gapless5(options = {}, deprecated = {}) { // eslint-disable-line no-unu
   case LogLevel.None:
   default:
     break;
-  /* eslint-enable no-fallthrough */
+   
   }
   this.playlist = null;
   this.loop = options.loop || false;
@@ -961,7 +961,7 @@ function Gapless5(options = {}, deprecated = {}) { // eslint-disable-line no-unu
   this.keyMappings = {};
 
   // Callbacks
-  /* eslint-disable no-unused-vars, camelcase */
+   
   /**
    * @param {string} from_track - track that we're switching from
    * @param {string} to_track - track that we're switching to
@@ -1040,7 +1040,7 @@ function Gapless5(options = {}, deprecated = {}) { // eslint-disable-line no-unu
    * Entire playlist finished playing
    */
   this.onfinishedall = () => {};
-  /* eslint-enable no-unused-vars, camelcase */
+   
 
   // INTERNAL HELPERS
   const getUIPos = () => {

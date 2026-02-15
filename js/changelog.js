@@ -73,32 +73,32 @@ function showChangelog() {
         - Moved \`⋮ Watermelon Sugar\` theme up on the theme list for separation between flag-based themes and non-flag-based themes
 
         - Added environment checks and warnings
-    `
-    let changelogParts = changelog.split('---')
+    `;
+    let changelogParts = changelog.split('---');
     changelogParts[1].split("\n").forEach(line => {
-        const symbolRegex = /\*\*(.+)\*\*/
-        const symbol = line.match(symbolRegex) ? line.match(symbolRegex)[1] : null
+        const symbolRegex = /\*\*(.+)\*\*/;
+        const symbol = line.match(symbolRegex) ? line.match(symbolRegex)[1] : null;
         if (isDefined(symbol)) {
-            changelogParts[2] = changelogParts[2].replaceAll(`${symbol} `, '')
-            changelogParts[2] = changelogParts[2].replaceAll(symbol, '')
+            changelogParts[2] = changelogParts[2].replaceAll(`${symbol} `, '');
+            changelogParts[2] = changelogParts[2].replaceAll(symbol, '');
         }
-    })
+    });
 
-    let versionRegex = /v(\d+.\d+.\d+)/
-    let changelogVersion = versionRegex.exec(changelogParts[0])[1]
+    let versionRegex = /v(\d+.\d+.\d+)/;
+    let changelogVersion = versionRegex.exec(changelogParts[0])[1];
     changelogVersion = {
         major: changelogVersion.split('.')[0],
         minor: changelogVersion.split('.')[1],
         patch: changelogVersion.split('.')[2]
-    }
+    };
 
-    let lastVersion = localStorage?.lastVersion
-    if (!isDefined(lastVersion)) lastVersion = '0.0.0'
+    let lastVersion = localStorage?.lastVersion;
+    if (!isDefined(lastVersion)) lastVersion = '0.0.0';
     lastVersion = {
         major: lastVersion.split('.')[0],
         minor: lastVersion.split('.')[1],
         patch: lastVersion.split('.')[2]
-    }
+    };
 
     if (
         (changelogVersion.major > lastVersion.major) ||
@@ -106,46 +106,46 @@ function showChangelog() {
         (changelogVersion.patch > lastVersion.patch)
     ) {
         bandDialog(`v${Object.values(changelogVersion).join('.')} Changelog`, '', (dialog) => {
-            dialog.style.pointerEvents = 'auto'
-            let change = document.createElement('h1')
-            change.style.cssText = "color: #fff; font-family: 'Manrope', monospace;"
-            dialog.appendChild(change)
-            const text = changelogParts.last().split('\n')
+            dialog.style.pointerEvents = 'auto';
+            let change = document.createElement('h1');
+            change.style.cssText = "color: #fff; font-family: 'Manrope', monospace;";
+            dialog.appendChild(change);
+            const text = changelogParts.last().split('\n');
             text.forEach(textline => {
-                const line = textline.trim(' ')
-                console.log(line)
-                if (line.length < 1) return
+                const line = textline.trim(' ');
+                console.log(line);
+                if (line.length < 1) return;
                 if (line.startsWith("#")) {
-                    if (dialog.children.last() !== change) dialog.appendChild(document.createElement('br'))
+                    if (dialog.children.last() !== change) dialog.appendChild(document.createElement('br'));
 
-                    let header = document.createElement(`h${Math.min(6, line.startsWithAmount("#"))}`)
-                    header.textContent = line.trimStart('#', ' ')
+                    let header = document.createElement(`h${Math.min(6, line.startsWithAmount("#"))}`);
+                    header.textContent = line.trimStart('#', ' ');
                     header.style.cssText = `
                         color: #fff;
                         font-family: 'Manrope', monospace;
                         font-weight: bolder;
                         transition: text-shadow .5s ease;
-                    `
+                    `;
                     header.onmouseenter = ()=>{
-                        header.style.textShadow = `0px 0px ${10 / Math.min(6, line.startsWithAmount("#")).floor()}px #fff`
-                    }
+                        header.style.textShadow = `0px 0px ${10 / Math.min(6, line.startsWithAmount("#")).floor()}px #fff`;
+                    };
                     header.onmouseout = ()=>{
-                        header.style.textShadow = "0px 0px 0px #fff"
-                    }
+                        header.style.textShadow = "0px 0px 0px #fff";
+                    };
 
-                    dialog.appendChild(header)
+                    dialog.appendChild(header);
                 } else {
-                    let changeSpan = document.createElement('span')
+                    let changeSpan = document.createElement('span');
                     changeSpan.style.cssText = `
                         text-shadow: 0px 0px 0px #fff;
                         transition: text-shadow .25s ease;
-                    `
+                    `;
                     changeSpan.onmouseenter = () => {
-                        changeSpan.style.textShadow = "0px 0px 5px #fff"
-                    }
+                        changeSpan.style.textShadow = "0px 0px 5px #fff";
+                    };
                     changeSpan.onmouseleave = () => {
-                        changeSpan.style.textShadow = "0px 0px 0px #fff"
-                    }
+                        changeSpan.style.textShadow = "0px 0px 0px #fff";
+                    };
                     /*
                     changeSpan.onmouseup = async () => {
                         await navigator.clipboard.writeText(changeSpan.textContent.substring(1).trim(' '))
@@ -190,19 +190,19 @@ function showChangelog() {
                             }, .25e3)
                         }
                     }*/
-                    dialog.appendChild(changeSpan)
+                    dialog.appendChild(changeSpan);
                     let text = line
                     .trimStart('-')
                     .trim(' ')
                     .replaceAll('``', '`')
                     .replaceAll('```', '`|');
-                    if (!isDefined(text)) return
-                    let finalText = `• ${text}${/[\w"'`\)]/.test(text.last()) ?  "." : ''}`
+                    if (!isDefined(text)) return;
+                    let finalText = `• ${text}${/[\w"'`\)]/.test(text.last()) ?  "." : ''}`;
 
                     finalText.split('`').forEach((subtext, i) => {
                         if (i % 2) {
-                            let change = document.createElement('a')
-                            change.textContent = subtext.trimStart('|')
+                            let change = document.createElement('a');
+                            change.textContent = subtext.trimStart('|');
                             change.style.cssText = `
                                 color: #fff;
                                 font-family: monospace;
@@ -212,28 +212,28 @@ function showChangelog() {
                                 padding: 4px;
                                 text-shadow: none;
                                 transition: background-color .5s ease;
-                            `
+                            `;
                             change.onmouseenter = ()=> {
-                                change.style.backgroundColor = "#282030"
-                            }
+                                change.style.backgroundColor = "#282030";
+                            };
                             change.onmouseleave = ()=> {
-                                change.style.backgroundColor = "#141020"
-                            }
-                            changeSpan.appendChild(change)
+                                change.style.backgroundColor = "#141020";
+                            };
+                            changeSpan.appendChild(change);
                         } else {
-                            let change = document.createElement('a')
-                            change.textContent = subtext
-                            change.style.cssText = "color: #fff; font-family: 'Manrope', monospace;"
-                            changeSpan.appendChild(change)
+                            let change = document.createElement('a');
+                            change.textContent = subtext;
+                            change.style.cssText = "color: #fff; font-family: 'Manrope', monospace;";
+                            changeSpan.appendChild(change);
                         }
-                    })
+                    });
 
-                    dialog.appendChild(change)
-                    dialog.appendChild(document.createElement('br'))
+                    dialog.appendChild(change);
+                    dialog.appendChild(document.createElement('br'));
                 }
-            })
-        }, null, false)
+            });
+        }, null, false);
     }
 
-    localStorage.lastVersion = [version.major, version.minor, version.patch].join('.')
+    localStorage.lastVersion = [version.major, version.minor, version.patch].join('.');
 }

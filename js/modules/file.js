@@ -10,5 +10,5 @@ function downloadFileWithContent(filename = `Untitled file - ${Date.now()}`, con
     a.click();
     document.body.removeChild(a);
 
-    return content
+    return content;
 }

@@ -3,13 +3,13 @@ const version = {
     minor: 16,
     patch: 0,
     more: 'open dev beta'.split(' ')
-}
+};
 function formatVersion(versionObj = version, separator = '.', startChar = 'v', moreJoiner = '-') {
-    return `${startChar}${[versionObj.major, versionObj.minor, versionObj.patch].join(separator)}${versionObj.more ? `${moreJoiner}${versionObj.more.join(separator)}` : ""}`
+    return `${startChar}${[versionObj.major, versionObj.minor, versionObj.patch].join(separator)}${versionObj.more ? `${moreJoiner}${versionObj.more.join(separator)}` : ""}`;
 }
-document.getElementById('version-number').textContent = formatVersion()
+document.getElementById('version-number').textContent = formatVersion();
 
-let fpsCounter = document.getElementById('fps')
+let fpsCounter = document.getElementById('fps');
 
 let fps = avgfps = 60,
     deltaTime = 1 / fps;
@@ -23,52 +23,52 @@ function traverseDOM(element, callback = console.log) {
     }
 }
 
-let focused = true
+let focused = true;
 window.onfocus = () => {
-    focused = true
-    if (started && localStorage.pauseMusic === 'true' && localStorage.muteBGMusic !== 'true') bgMusic.resume()
-}
+    focused = true;
+    if (started && localStorage.pauseMusic === 'true' && localStorage.muteBGMusic !== 'true') bgMusic.resume();
+};
 window.onblur = () => {
-    focused = false
-    if (started && localStorage.pauseMusic === 'true') bgMusic.pause()
-}
+    focused = false;
+    if (started && localStorage.pauseMusic === 'true') bgMusic.pause();
+};
 
-let _fpses = []
+let _fpses = [];
 function updateFps() {
     deltaTime = performance.now() - _lastTime;
     deltaTime /= 1e3;
     _lastTime = performance.now();
     fps = 1 / deltaTime;
-    fps = Math.floor(fps)
+    fps = Math.floor(fps);
 
     if (_fpses.length > 0) {
-        avgfps = 0
+        avgfps = 0;
         _fpses.forEach(fps => {
-            avgfps += fps
-        })
-        avgfps /= _fpses.length
-        avgfps = Math.round(avgfps)
+            avgfps += fps;
+        });
+        avgfps /= _fpses.length;
+        avgfps = Math.round(avgfps);
     } else {
-        avgfps = fps
+        avgfps = fps;
     }
-    _fpses.push(fps)
+    _fpses.push(fps);
     if (_fpses.length > 120) {
-        _fpses.shift()
+        _fpses.shift();
     }
 
-    requestAnimationFrame(updateFps)
+    requestAnimationFrame(updateFps);
 }
-updateFps()
+updateFps();
 setInterval(() => {
-    fpsCounter.innerHTML = `FPS: ${fps} | Average FPS: ${avgfps}`
+    fpsCounter.innerHTML = `FPS: ${fps} | Average FPS: ${avgfps}`;
     if (fps >= 45) {
-        fpsCounter.style.color = "#fff"
+        fpsCounter.style.color = "#fff";
     } else if (fps >= 30) {
-        fpsCounter.style.color = "#ffa"
+        fpsCounter.style.color = "#ffa";
     } else if (fps >= 20) {
-        fpsCounter.style.color = "#ff4"
+        fpsCounter.style.color = "#ff4";
     } else {
-        fpsCounter.style.color = "#f44"
+        fpsCounter.style.color = "#f44";
     }
 }, .25e3);
 
@@ -78,71 +78,71 @@ function icon(
 ) {
     if (started) {
         if (localStorage.coloredFavicon === 'true') {
-            favicon.href = './noema_logo_color.png'
+            favicon.href = './noema_logo_color.png';
         } else {
             if (darkmode) {
-                favicon.href = './noema_logo_white.png'
+                favicon.href = './noema_logo_white.png';
             } else {
-                favicon.href = './noema_logo_black.png'
+                favicon.href = './noema_logo_black.png';
             }
         }
     } else {
         if (localStorage.coloredFavicon === 'true') {
-            favicon.href = './prism_logo_color.png'
+            favicon.href = './prism_logo_color.png';
         } else {
             if (darkmode) {
-                favicon.href = './prism_logo_white.png'
+                favicon.href = './prism_logo_white.png';
             } else {
-                favicon.href = './prism_logo_black.png'
+                favicon.href = './prism_logo_black.png';
             }
         }
     }
 }
 if (isDefined(window.matchMedia)) {
-    const match = window.matchMedia('(prefers-color-scheme: dark)')
+    const match = window.matchMedia('(prefers-color-scheme: dark)');
 
     match.addEventListener('change', () => {
-        icon(match.matches)
-    })
+        icon(match.matches);
+    });
 }
 
 function init() {
-    if (started) return
-    if (localStorage.fromreboot === 'true') drawSpaghetti()
-    delete localStorage.fromreboot
-    started = true
-    lastActivity = Date.now()
+    if (started) return;
+    if (localStorage.fromreboot === 'true') drawSpaghetti();
+    delete localStorage.fromreboot;
+    started = true;
+    lastActivity = Date.now();
 
-    document.getElementById('clicktostart').style.display = 'none'
-    spaghettiColor = `#fff8`
-    ui.style.top = "50%"
+    document.getElementById('clicktostart').style.display = 'none';
+    spaghettiColor = `#fff8`;
+    ui.style.top = "50%";
     if (localStorage.openUI === 'true')
         ui.classList.add('open');
 
-    document.getElementById('outer-ui').style.display = 'block'
-    requestAnimationFrame(()=>document.body.querySelector('.time-bar').style.transform = 'translate(-50%, 0%)')
+    document.getElementById('outer-ui').style.display = 'block';
+    requestAnimationFrame(()=>document.body.querySelector('.time-bar').style.transform = 'translate(-50%, 0%)');
 
     if (localStorage.debugUI === 'true')
-        document.getElementById('debug-ui').style.display = 'inline'
-    changeBGColor(localStorage.bgColor, .025)
+        document.getElementById('debug-ui').style.display = 'inline';
+    changeBGColor(localStorage.bgColor, .025);
 
-    icon()
+    icon();
 
     // init default options
-    createOption('Power Options')
-    createOption('Preferences')
-    createOption('Graphics')
-    createOption('Themes')
-    createOption('Wave Amount')
-    createOption('Help')
-    createOption('Debug')
+    createOption('Power Options');
+    createOption('Preferences');
+    createOption('Graphics');
+    createOption('Themes');
+    createOption('Wave Amount');
+    createOption('Help');
+    createOption('Debug');
     for (let i = 0; i < document.getElementById('ui-options').querySelectorAll('a').length; i++) {
         selectedSuboptions[i] = 0;
     }
 
     // init suboptions
-    createSuboption(0, 'Power Off', 'Shuts down the system and closes the tab (if possible).', `confirmDialog(shutdown)`, 'power', 'power')
-    createSuboption(0, 'Reboot', 'Restarts the system with the latest version of the system files.', `confirmDialog(reboot)`, 'power', 'power')
+    createSuboption(0, 'Power Off', 'Shuts down the system and closes the tab (if possible).', `confirmDialog(shutdown)`, 'power', 'power');
+    createSuboption(0, 'Reboot', 'Restarts the system with the latest version of the system files.', `confirmDialog(reboot)`, 'power', 'power');
     selectedSuboptions[0] = 1;
 
     createSuboption(1, 'Set Username', `Username currently set to "${username}".`, `
@@ -152,7 +152,7 @@ function init() {
             updateLabel()
             setSuboption(selectedOption, selectedSuboption, null, \`Username currently set to "\${username}".\`)
         }, 'Enter a username...', 'default username is ${_defaultUsername}')
-    `, 'user')
+    `, 'user');
     createSuboption(1, 'Toggle monochrome favicon',
         localStorage.coloredFavicon === 'true' ?
             'Favicon is currently colored.\nSelect to switch to a monochromatic favicon.'
@@ -165,7 +165,7 @@ function init() {
             setSuboption(selectedOption, selectedSuboption, 'Toggle monochrome favicon', 'Favicon is currently colored.\\nSelect to switch to a monochromatic favicon.');
         } else {
             setSuboption(selectedOption, selectedSuboption, 'Toggle monochrome favicon', 'Favicon is currently monochromatic.\\nSelect to switch to a colored favicon.');
-        }`, 'image')
+        }`, 'image');
     createSuboption(1, 'Toggle open UI',
         localStorage.openUI === 'true' ? 'UI is currently open.\nSelect to close it.' : 'UI is currently closed.\nSelect to open it.', `
         localStorage.openUI = localStorage.openUI === 'true' ? 'false' : 'true';
@@ -175,7 +175,7 @@ function init() {
         } else {
             ui.classList.remove('open');
             setSuboption(selectedOption, selectedSuboption, 'Toggle open UI', 'UI is currently closed.\\nSelect to open it.');
-        }`, 'wrench')
+        }`, 'wrench');
     createSuboption(1, 'Toggle background music',
         localStorage.muteBGMusic === 'true' ? 'Background music is currently muted.\nSelect to unmute it.' : 'Background music is currently unmuted.\nSelect to mute it.', `
         localStorage.muteBGMusic = localStorage.muteBGMusic === 'true' ? 'false' : 'true';
@@ -185,7 +185,7 @@ function init() {
         } else {
             bgMusic.play()
             setSuboption(selectedOption, selectedSuboption, 'Toggle background music', 'Background music is currently unmuted.\\nSelect to mute it.');
-        }`, 'wrench')
+        }`, 'wrench');
     createSuboption(1, 'Toggle pausing background music on unfocus',
         localStorage.pauseMusic === 'true' ? 'Background music currently gets paused on unfocus.\nSelect to not mute it on unfocus.' : 'Background music currently doesn\'t get muted on unfocus.\nSelect to mute it on unfocus.', `
         localStorage.pauseMusic = localStorage.pauseMusic === 'true' ? 'false' : 'true';
@@ -194,13 +194,13 @@ function init() {
         } else {
             if (bgMusic.paused && localStorage.muteBGMusic !== 'true') bgMusic.play()
             setSuboption(selectedOption, selectedSuboption, 'Toggle pausing background music on unfocus', 'Background music currently doesn\\'t get muted on unfocus.\\nSelect to enable that.');
-        }`, 'wrench')
+        }`, 'wrench');
     createSuboption(1, 'Set background music volume', `Background music is currently at ${parseInt(parseFloat(localStorage.musicVolume) * 100)}% volume.`, `
         inputDialog('Set background music volume', null, parseFloat(localStorage.musicVolume) * 100, 0, 100, 1, '{value}%', (volume)=>{
             localStorage.musicVolume = bgMusic.volume = volume / 100;
             setSuboption(selectedOption, selectedSuboption, 'Set background music volume', \`Background music is currently at \${parseInt(parseFloat(localStorage.musicVolume) * 100)}% volume.\`);
         });
-    `, 'wrench')
+    `, 'wrench');
     createSuboption(1, 'Play animation on startup?',
         localStorage.startup === 'true' ? 'Startup animation is currently enabled.\nSelect to disable it.' : 'Startup animation is currently disabled.\nSelect to enable it.', `
         localStorage.startup = localStorage.startup === 'true' ? 'false' : 'true';
@@ -209,7 +209,7 @@ function init() {
         } else {
             setSuboption(selectedOption, selectedSuboption, 'Play animation on startup?', 'Startup animation is currently disabled.\\nSelect to enable it.');
         }`,
-        'wrench')
+        'wrench');
 
     createSuboption(1, 'Save preferences', 'Select to download a file with your preferences to load them later.', `
         confirmDialog(()=>{
@@ -224,7 +224,7 @@ function init() {
                 return JSON.stringify(settings)
             })())
         }, 'Are you sure?', "Just making sure this wasn't pressed by accident.")
-        `, 'wrench')
+        `, 'wrench');
     createSuboption(1, 'Load preferences', 'Select to load a file with your saved preferences.', `
         let importbtn = document.createElement('input')
         importbtn.type = 'file'
@@ -284,7 +284,7 @@ function init() {
         });
         document.body.appendChild(importbtn)
         importbtn.click();
-        `, 'wrench')
+        `, 'wrench');
     createSuboption(1, 'Reset preferences', 'This wipes EVERY preference (Background color, username, spaghetti density, etc).\nDo not use this unless you know what you\'re doing and haven\'t saved your preferences.\nOnce you reset your preferences, this process is IRREVERSIBLE.',
         `confirmDialog(()=>{
             setTimeout(()=>{
@@ -296,7 +296,7 @@ function init() {
         },
         "Are you sure?",
         "Do not accept unless you know what you're doing.\\nOnce you reset your preferences, this process is IRREVERSIBLE, so make sure to save your preferences before resetting.\\n\\nThe system will restart after resetting to apply the default settings.")`,
-        'bin')
+        'bin');
 
     createSuboption(2, 'Toggle effects',
         localStorage.noShaders === 'true' ? 'Effects are currently disabled.\nSelect to turn them on.' : 'Effects are currently enabled.\nSelect to turn them off.', `
@@ -313,7 +313,7 @@ function init() {
             });
         }`,
         'wrench'
-    )
+    );
     createSuboption(2, 'Toggle animations',
         localStorage.noTransitions === 'true' ? 'Animations are currently disabled.\nSelect to turn them on.' : 'Animations are currently enabled.\nSelect to turn them off.', `
         localStorage.noTransitions = localStorage.noTransitions === 'true' ? 'false' : 'true';
@@ -331,25 +331,25 @@ function init() {
             });
         }`,
         'wrench'
-    )
+    );
 
     Object.keys(colors).forEach((color, i) => {
-        createSuboption(3, color.toTitleCase(), `Select to set the theme to "${color.toTitleCase()}".`, `changeBGColor("${color}")`, 'image')
+        createSuboption(3, color.toTitleCase(), `Select to set the theme to "${color.toTitleCase()}".`, `changeBGColor("${color}")`, 'image');
         if (color === localStorage.bgColor)
-            selectedSuboptions[3] = i
-    })
+            selectedSuboptions[3] = i;
+    });
 
-    createSuboption(4, 'None', 'Disables the wave entirely, best for low-end devices.', 'density = 0; localStorage.spaghettiDensity = density', 'wrench')
-    createSuboption(4, 'Lowest', 'Least detail, the fastest option if you want a background wave and more performance.', 'density = 15; localStorage.spaghettiDensity = density', 'wrench')
-    createSuboption(4, 'Low', 'Less detail, a better option if you want a denser background wave and have a lower-end device.', 'density = 35; localStorage.spaghettiDensity = density', 'wrench')
-    createSuboption(4, 'Medium', 'More detail, recommended for mid-range devices with good enough performance.', 'density = 50; localStorage.spaghettiDensity = density', 'wrench')
-    createSuboption(4, 'High', "High detail, recommended for computers with a good CPU (or GPU, if supported).\nNot recommended for lower-end devices, since they could have slowdowns or overheat.", 'density = 75; localStorage.spaghettiDensity = density', 'wrench')
+    createSuboption(4, 'None', 'Disables the wave entirely, best for low-end devices.', 'density = 0; localStorage.spaghettiDensity = density', 'wrench');
+    createSuboption(4, 'Lowest', 'Least detail, the fastest option if you want a background wave and more performance.', 'density = 15; localStorage.spaghettiDensity = density', 'wrench');
+    createSuboption(4, 'Low', 'Less detail, a better option if you want a denser background wave and have a lower-end device.', 'density = 35; localStorage.spaghettiDensity = density', 'wrench');
+    createSuboption(4, 'Medium', 'More detail, recommended for mid-range devices with good enough performance.', 'density = 50; localStorage.spaghettiDensity = density', 'wrench');
+    createSuboption(4, 'High', "High detail, recommended for computers with a good CPU (or GPU, if supported).\nNot recommended for lower-end devices, since they could have slowdowns or overheat.", 'density = 75; localStorage.spaghettiDensity = density', 'wrench');
 
     createSuboption(5, 'Convert Save File', null, `
         let newWindow = window.open('./convertsave/index.html', 'convert', 'height=${window.innerHeight / 2},width=${window.innerWidth / 2},left=${window.innerWidth / 4},top=${window.innerHeight / 4}');
         if (isDefined(window.focus))
             newWindow.focus()
-    `, 'wrench')
+    `, 'wrench');
 
     createSuboption(6, 'Toggle debugging UI', localStorage.debugUI === 'true' ? 'Debug UI is currently on.\nSelect to turn it off.' : 'Debug UI is currently off.\nSelect to turn it on.', `
         localStorage.debugUI = localStorage.debugUI === 'true' ? 'false' : 'true';
@@ -360,8 +360,8 @@ function init() {
             document.getElementById('debug-ui').style.display = 'none';
             setSuboption(selectedOption, selectedSuboption, 'Toggle debugging UI', 'Debug UI is currently off.\\nSelect to turn it on.');
         }`,
-        'star')
-    createSuboption(6, 'Clear Errors', null, 'errors = 0; errorList = []; document.getElementById(\'errors\').innerText = `Errors: ${errors}`', 'star')
+        'star');
+    createSuboption(6, 'Clear Errors', null, 'errors = 0; errorList = []; document.getElementById(\'errors\').innerText = `Errors: ${errors}`', 'star');
     createSuboption(6, 'Load Script', null, `
         promptDialog((url)=>{
             if (!isDefined(url)) return
@@ -372,80 +372,80 @@ function init() {
             script.id = 'script-' + url
             document.body.appendChild(script)
         }, 'Enter a script URL...')
-    `, 'star')
+    `, 'star');
 
-    selectUIOption(1)
+    selectUIOption(1);
 
-    let date = new AdvDate()
+    let date = new AdvDate();
     function updateTime() {
         let time = date.getDateString({
             trimWeek: true,
             showWeek: false,
             monthFirst: true,
             timeFirst: true
-        })
-        document.getElementById('time').innerText = time
-        document.getElementById('hourhand').style.transform = `rotateZ(${360 * (date.hours() % 12) / 12}deg)`
-        document.getElementById('minhand').style.transform = `rotateZ(${360 * date.minutes() / 60}deg)`
-        document.getElementById('sechand').style.transform = `rotateZ(${360 * date.seconds() / 60}deg)`
-        document.getElementById('sechand-line').setAttribute('stroke', accentColor)
-        requestAnimationFrame(updateTime)
+        });
+        document.getElementById('time').innerText = time;
+        document.getElementById('hourhand').style.transform = `rotateZ(${360 * (date.hours() % 12) / 12}deg)`;
+        document.getElementById('minhand').style.transform = `rotateZ(${360 * date.minutes() / 60}deg)`;
+        document.getElementById('sechand').style.transform = `rotateZ(${360 * date.seconds() / 60}deg)`;
+        document.getElementById('sechand-line').setAttribute('stroke', accentColor);
+        requestAnimationFrame(updateTime);
     }
-    updateTime()
+    updateTime();
 
-    bgMusic.loop = true
-    let volume = parseFloat(localStorage.musicVolume).clamp(0, 1)
+    bgMusic.loop = true;
+    let volume = parseFloat(localStorage.musicVolume).clamp(0, 1);
     if (localStorage.muteBGMusic !== 'true') {
-        bgMusic.volume = 0
+        bgMusic.volume = 0;
         let fadeIn = () => {
             let t = 0;
             let int = setInterval(() => {
                 if (t >= volume) {
-                    bgMusic.volume = volume
-                    clearInterval(int)
-                    return
+                    bgMusic.volume = volume;
+                    clearInterval(int);
+                    return;
                 }
-                t += 0.01
-                bgMusic.volume = t.clamp(0, volume)
-            }, 1e3 / 30)
-        }
-        bgMusic.play()
-        fadeIn()
+                t += 0.01;
+                bgMusic.volume = t.clamp(0, volume);
+            }, 1e3 / 30);
+        };
+        bgMusic.play();
+        fadeIn();
     } else {
-        bgMusic.volume = volume
+        bgMusic.volume = volume;
     }
 
     if (localStorage.noShaders === 'true')
         traverseDOM(document.body, (element) => {
-            element.style.backdropFilter = 'none'
+            element.style.backdropFilter = 'none';
         });
 
     if (localStorage.noTransitions === 'true')
         traverseDOM(document.body, (element) => {
-            element.style.transition = 'none'
-            element.style.animation = 'none'
+            element.style.transition = 'none';
+            element.style.animation = 'none';
         });
 
 
     // setInterval(navigator.internet.testConnection, 30e3)
 
-    document.addEventListener('keydown', (evtn) => handleInput(evtn, false))
-    document.addEventListener('keyup', (evtn) => handleInput(evtn, true))
-    updateLoop()
-    if (new Date().getMonth() === 11) startFlakes()
+    document.addEventListener('keydown', (evtn) => handleInput(evtn, false));
+    document.addEventListener('keyup', (evtn) => handleInput(evtn, true));
+    updateLoop();
+    if (new Date().getMonth() === 11) startFlakes();
 
     localStorage?.defaultScripts?.split('|')?.forEach(url => {
-        if (!isDefined(url)) return
-        if (!isURL(url)) return
-        if (document.getElementById('script-' + url)) return
-        let script = document.createElement('script')
-        script.src = url
-        script.id = 'script-' + url
-        document.body.appendChild(script)
-    })
+        if (!isDefined(url)) return;
+        if (!isURL(url)) return;
+        if (document.getElementById('script-' + url)) return;
+        let script = document.createElement('script');
+        script.src = url;
+        script.id = 'script-' + url;
+        document.body.appendChild(script);
+    });
 
-    showChangelog()
-    let evtn = new CustomEvent('noemaStarted')
+    showChangelog();
+    let evtn = new CustomEvent('noemaStarted');
     document.dispatchEvent(evtn);
 }
 
@@ -484,59 +484,59 @@ async function updateBattery() {
 
         return battery;
     } else {
-        battery = {}
+        battery = {};
     }
 }
 
-updateBattery()
+updateBattery();
 navigator.getBattery().then(battery => {
     battery.addEventListener('chargingchange', function () {
         if (!battery.charging && battery.level <= battery.lowBatteryThresh) {
-            notify('Battery low!', `Battery is at ${battery.level * 100}%, please reconnect the charger!`)
+            notify('Battery low!', `Battery is at ${battery.level * 100}%, please reconnect the charger!`);
         }
     });
-})
+});
 
 async function updateLoop(timestamp) {
     if (Date.now() - lastActivity > 60e3 * 1.5) {
-        ui.classList.add('inactive')
+        ui.classList.add('inactive');
     } else {
-        let suboptions = document.getElementById(`ui-content${selectedOption}`).querySelectorAll('.ui-suboption')
+        let suboptions = document.getElementById(`ui-content${selectedOption}`).querySelectorAll('.ui-suboption');
         if (Date.now() - lastActivity > 9e3) {
             suboptions.forEach(suboption => {
-                suboption.classList.add('inactive')
-            })
+                suboption.classList.add('inactive');
+            });
         } else {
             suboptions.forEach(suboption => {
-                suboption.classList.remove('inactive')
-            })
+                suboption.classList.remove('inactive');
+            });
         }
-        ui.classList.remove('inactive')
+        ui.classList.remove('inactive');
     }
 
     if (Date.now() - lastActivity < 10 * 60e3) {
-        density = parseInt(localStorage.spaghettiDensity)
-        document.getElementById('darken').style.opacity = ''
+        density = parseInt(localStorage.spaghettiDensity);
+        document.getElementById('darken').style.opacity = '';
     } else if (Date.now() - lastActivity < 30 * 60e3) {
-        if (parseInt(localStorage.spaghettiDensity) > 50) density = 50
-        document.getElementById('darken').style.opacity = '25%'
+        if (parseInt(localStorage.spaghettiDensity) > 50) density = 50;
+        document.getElementById('darken').style.opacity = '25%';
     } else {
-        if (parseInt(localStorage.spaghettiDensity) > 30) density = 30
-        document.getElementById('darken').style.opacity = '90%'
+        if (parseInt(localStorage.spaghettiDensity) > 30) density = 30;
+        document.getElementById('darken').style.opacity = '90%';
     }
 
     if (started) {
-        focusUIOption(selectedOption)
+        focusUIOption(selectedOption);
     }
 
     if (battery.level <= battery.lowBatteryThresh && !batteryWarned) {
-        batteryWarned = true
+        batteryWarned = true;
         if (!battery.charging) {
-            notify('Battery low!', `Battery level is at ${battery.level * 100}%. Please charge your device.`)
+            notify('Battery low!', `Battery level is at ${battery.level * 100}%. Please charge your device.`);
         }
     } else if (battery.level > battery.lowBatteryThresh && batteryWarned) {
-        batteryWarned = false
+        batteryWarned = false;
     }
 
-    requestAnimationFrame(updateLoop)
+    requestAnimationFrame(updateLoop);
 }

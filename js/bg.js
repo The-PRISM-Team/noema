@@ -7,7 +7,7 @@ function resize() {
 }
 
 window.addEventListener("resize", resize);
-resize()
+resize();
 
 // spaghetti
 let t = Math.PI,
@@ -16,24 +16,24 @@ let t = Math.PI,
 
 if (!isDefined(localStorage.spaghettiDensity)) {
     if (navigator.deviceMemory < 2)
-        localStorage.spaghettiDensity = '0'
+        localStorage.spaghettiDensity = '0';
     else if (navigator.deviceMemory < 4)
-        localStorage.spaghettiDensity = '15'
+        localStorage.spaghettiDensity = '15';
     else if (navigator.deviceMemory <= 4)
-        localStorage.spaghettiDensity = '35'
+        localStorage.spaghettiDensity = '35';
     else if (navigator.deviceMemory <= 16)
-        localStorage.spaghettiDensity = '50'
+        localStorage.spaghettiDensity = '50';
     else if (navigator.deviceMemory >= 32)
-        localStorage.spaghettiDensity = '75'
+        localStorage.spaghettiDensity = '75';
 }
-let density = parseInt(localStorage.spaghettiDensity) // how many sines are drawn
-let spaghettiColor = "rgba(255, 255, 255, 0)"
+let density = parseInt(localStorage.spaghettiDensity); // how many sines are drawn
+let spaghettiColor = "rgba(255, 255, 255, 0)";
 let calcY = function (x, canvasHeight, wave) {
     return canvasHeight / 2 - wave +
         Math.sin(x / 200 + t + wave / (density * t) + ((Math.cos(t) + -Math.cos(t3))) * .75) * 40 +
         Math.cos(wave + t) * 40
         + (Math.cos(t) + -Math.cos(t2)) * 30;
-}
+};
 function drawSpaghetti(time) {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
@@ -59,10 +59,10 @@ function drawSpaghetti(time) {
         ctx.beginPath();
 
         for (let x = 0; x < canvas.width; x += step) {
-            const y = calcY(x, canvas.height, wave)
+            const y = calcY(x, canvas.height, wave);
             ctx.lineTo(x, y);
         }
-        const y = calcY(canvas.width, canvas.height, wave)
+        const y = calcY(canvas.width, canvas.height, wave);
         ctx.lineTo(canvas.width, y);
 
         ctx.stroke();
@@ -151,73 +151,73 @@ let colors = {
         "bottom": "#6476D6",
         "accentColor": "#55BDBC"
     }
-}
+};
 
-if (!isDefined(localStorage.bgColor) || !Object.keys(colors).includes(localStorage.bgColor)) localStorage.bgColor = 'noema'
+if (!isDefined(localStorage.bgColor) || !Object.keys(colors).includes(localStorage.bgColor)) localStorage.bgColor = 'noema';
 let currentColor = {
     top: "#000",
     bottom: "#000"
-}
-let accentColor = currentColor.accentColor ?? currentColor.bottom
-document.body.style.accentColor = currentColor
+};
+let accentColor = currentColor.accentColor ?? currentColor.bottom;
+document.body.style.accentColor = currentColor;
 
-let bgTop = 5
-let bgBrightness = 1
-let bgBottom = 100
+let bgTop = 5;
+let bgBrightness = 1;
+let bgBottom = 100;
 let changingBG = false;
 let queued;
 function changeBGColor(colorName, easing = .075, topColor = colors[colorName].top, bottomColor = colors[colorName].bottom, AccentColor = colors[colorName]?.accentColor ?? bottomColor, brightness = bgBrightness) {
-    let color = colors[colorName]
-    if (!color && topColor && bottomColor) color = { top: topColor, bottom: bottomColor, accentColor: AccentColor }
+    let color = colors[colorName];
+    if (!color && topColor && bottomColor) color = { top: topColor, bottom: bottomColor, accentColor: AccentColor };
     if (changingBG) {
-        queued = [color, easing, topColor, bottomColor, AccentColor]
-        return
+        queued = [color, easing, topColor, bottomColor, AccentColor];
+        return;
     }
     if (Object.keys(colors).includes(colorName))
-        localStorage.bgColor = colorName
+        localStorage.bgColor = colorName;
 
     if (localStorage.noTransitions === 'true') {
-        document.body.style.background = formatBGGradient(bgTop, 100, topColor, bottomColor)
-        document.body.style.accentColor = accentColor = AccentColor
+        document.body.style.background = formatBGGradient(bgTop, 100, topColor, bottomColor);
+        document.body.style.accentColor = accentColor = AccentColor;
     } else {
-        changingBG = true
+        changingBG = true;
         let t = 0;
         function anim() {
             if (t > 1) {
-                currentColor = color
-                changingBG = false
-                document.body.style.background = formatBGGradient(bgTop, 100, topColor, bottomColor)
-                document.body.style.accentColor = accentColor = AccentColor
+                currentColor = color;
+                changingBG = false;
+                document.body.style.background = formatBGGradient(bgTop, 100, topColor, bottomColor);
+                document.body.style.accentColor = accentColor = AccentColor;
                 if (queued) {
-                    changeBGColor(...queued)
-                    queued = undefined
+                    changeBGColor(...queued);
+                    queued = undefined;
                 }
-                return
+                return;
             }
 
-            let topColor1 = new Color(currentColor.top)
-            let topColor2 = new Color(color.top)
-            let topLerp = topColor1.range(topColor2)
+            let topColor1 = new Color(currentColor.top);
+            let topColor2 = new Color(color.top);
+            let topLerp = topColor1.range(topColor2);
 
-            let botColor1 = new Color(currentColor.bottom)
-            let botColor2 = new Color(color.bottom)
-            let botLerp = botColor1.range(botColor2)
+            let botColor1 = new Color(currentColor.bottom);
+            let botColor2 = new Color(color.bottom);
+            let botLerp = botColor1.range(botColor2);
 
-            let accColor1 = new Color(accentColor)
-            let accColor2 = new Color(AccentColor)
-            let accLerp = accColor1.range(accColor2)
+            let accColor1 = new Color(accentColor);
+            let accColor2 = new Color(AccentColor);
+            let accLerp = accColor1.range(accColor2);
 
 
-            t += easing
+            t += easing;
             document.body.style.background = formatBGGradient(bgTop, bgBottom,
                 topLerp(t).toString({ format: 'hex' }),
                 botLerp(t).toString({ format: 'hex' })
-            )
-            document.body.style.accentColor = accentColor = accLerp(t).toString({ format: 'hex' }) ?? botLerp(t).toString({ format: 'hex' })
+            );
+            document.body.style.accentColor = accentColor = accLerp(t).toString({ format: 'hex' }) ?? botLerp(t).toString({ format: 'hex' });
 
-            requestAnimationFrame(anim)
+            requestAnimationFrame(anim);
         }
-        anim()
+        anim();
     }
 }
 
@@ -226,8 +226,8 @@ let prismflakeDiv = null,
 prismflakes = {},
 prismflakesStarted = false;
 function addFlake() {
-    if (!prismflakesStarted) return
-    let id = `flake${Math.random()}`
+    if (!prismflakesStarted) return;
+    let id = `flake${Math.random()}`;
     let pos = prismflakes[id] = {
         'x': 0,
         'startingX': Math.floor(Math.random() * window.innerWidth),
@@ -236,76 +236,76 @@ function addFlake() {
         'xvel': 0,
         'yvel': Math.random() * 4 + 1,
         'rvel': Math.random() * 90 - 45
-    }
-    let flake = document.createElement('img')
-    flake.id = id
-    flake.src = localStorage.coloredFavicon === 'true' ? './prism_logo_color.png' : './prism_logo_white.png'
-    flake.height = '32'
-    flake.style.position = 'fixed'
-    flake.style.left = `${pos.x}px`
-    flake.style.top = `${pos.y}px`
-    flake.style.transform = `rotate(${pos.r}deg)`
-    prismflakeDiv.append(flake)
+    };
+    let flake = document.createElement('img');
+    flake.id = id;
+    flake.src = localStorage.coloredFavicon === 'true' ? './prism_logo_color.png' : './prism_logo_white.png';
+    flake.height = '32';
+    flake.style.position = 'fixed';
+    flake.style.left = `${pos.x}px`;
+    flake.style.top = `${pos.y}px`;
+    flake.style.transform = `rotate(${pos.r}deg)`;
+    prismflakeDiv.append(flake);
 }
 function updateFlakes() {
     for (let i = 0; i < Object.keys(prismflakes).length; i++) {
         if (!focused) continue;
-        let id = Object.keys(prismflakes)[i]
-        let pos = Object.values(prismflakes)[i]
-        let flake = document.getElementById(id)
-        pos.r += pos.rvel
-        pos.y += pos.yvel
-        pos.x += pos.xvel
-        pos.x = pos.startingX + (Math.sin(pos.y / 100) * (10 - pos.yvel) * 10)
-        flake.style.left = `${pos.x}px`
-        flake.style.top = `${pos.y}px`
-        flake.style.transform = `rotate(${pos.r}deg)`
+        let id = Object.keys(prismflakes)[i];
+        let pos = Object.values(prismflakes)[i];
+        let flake = document.getElementById(id);
+        pos.r += pos.rvel;
+        pos.y += pos.yvel;
+        pos.x += pos.xvel;
+        pos.x = pos.startingX + (Math.sin(pos.y / 100) * (10 - pos.yvel) * 10);
+        flake.style.left = `${pos.x}px`;
+        flake.style.top = `${pos.y}px`;
+        flake.style.transform = `rotate(${pos.r}deg)`;
         if (pos.y > window.innerHeight + 64) {
-            flake.remove()
+            flake.remove();
             if (!prismflakesStarted) {
                 if (Object.keys(prismflakes).length === 1) {
-                    prismflakeDiv.remove()
-                    prismflakeDiv = null
-                    return
+                    prismflakeDiv.remove();
+                    prismflakeDiv = null;
+                    return;
                 }
             }
-            delete prismflakes[id]
+            delete prismflakes[id];
         }
     }
-    requestAnimationFrame(updateFlakes)
+    requestAnimationFrame(updateFlakes);
 }
 function startFlakes() {
     if (prismflakesStarted) {
-        throw new Error('PRISMflakes already started!')
+        throw new Error('PRISMflakes already started!');
     }
-    prismflakeDiv = document.createElement('div')
-    prismflakeDiv.style.position = 'fixed'
-    prismflakeDiv.style.zIndex = '-100'
-    prismflakeDiv.style.top = '0px'
-    prismflakeDiv.style.left = '0px'
-    prismflakeDiv.style.width = '100vw'
-    prismflakeDiv.style.height = '100vh'
-    document.body.append(prismflakeDiv)
-    prismflakesStarted = true
+    prismflakeDiv = document.createElement('div');
+    prismflakeDiv.style.position = 'fixed';
+    prismflakeDiv.style.zIndex = '-100';
+    prismflakeDiv.style.top = '0px';
+    prismflakeDiv.style.left = '0px';
+    prismflakeDiv.style.width = '100vw';
+    prismflakeDiv.style.height = '100vh';
+    document.body.append(prismflakeDiv);
+    prismflakesStarted = true;
 
-    updateFlakes()
+    updateFlakes();
     let int = setInterval(() => {
         if (!prismflakesStarted) {
-            clearInterval(int)
-            return
+            clearInterval(int);
+            return;
         }
         if (focused) {
             requestAnimationFrame(() => {
                 for (let i = 0; i < Math.floor(Math.random() * 10 + 5); i++) {
-                    addFlake()
+                    addFlake();
                 }
-            })
+            });
         }
-    }, 1.5e3)
+    }, 1.5e3);
 }
 function stopFlakes() {
     if (!prismflakesStarted) {
-        throw new Error('PRISMflakes already stopped!')
+        throw new Error('PRISMflakes already stopped!');
     }
-    prismflakesStarted = false
+    prismflakesStarted = false;
 }
