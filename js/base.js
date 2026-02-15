@@ -128,23 +128,23 @@ function init() {
     icon();
 
     // init default options
-    createOption('Power Options');
-    createOption('Preferences');
-    createOption('Graphics');
-    createOption('Themes');
-    createOption('Wave Amount');
-    createOption('Help');
-    createOption('Debug');
+    const powerTab = createOption('Power Options');
+    const prefTab = createOption('Preferences');
+    const graphTab = createOption('Graphics');
+    const themeTab = createOption('Themes');
+    const waveTab = createOption('Wave Amount');
+    const helpTab = createOption('Help');
+    const debugTab = createOption('Debug');
     for (let i = 0; i < document.getElementById('ui-options').querySelectorAll('a').length; i++) {
         selectedSuboptions[i] = 0;
     }
 
     // init suboptions
-    createSuboption(0, 'Power Off', 'Shuts down the system and closes the tab (if possible).', `confirmDialog(shutdown)`, 'power', 'power');
-    createSuboption(0, 'Reboot', 'Restarts the system with the latest version of the system files.', `confirmDialog(reboot)`, 'power', 'power');
+    createSuboption(powerTab, 'Power Off', 'Shuts down the system and closes the tab (if possible).', `confirmDialog(shutdown)`, 'power', 'power');
+    createSuboption(powerTab, 'Reboot', 'Restarts the system with the latest version of the system files.', `confirmDialog(reboot)`, 'power', 'power');
     selectedSuboptions[0] = 1;
 
-    createSuboption(1, 'Set Username', `Username currently set to "${username}".`, `
+    createSuboption(prefTab, 'Set Username', `Username currently set to "${username}".`, `
         promptDialog((name)=>{
             if (!isDefined(name)) name = '${_defaultUsername}';
             setUsername(name)
@@ -152,7 +152,7 @@ function init() {
             setSuboption(selectedOption, selectedSuboption, null, \`Username currently set to "\${username}".\`)
         }, 'Enter a username...', 'default username is ${_defaultUsername}')
     `, 'user');
-    createSuboption(1, 'Toggle monochrome favicon',
+    createSuboption(prefTab, 'Toggle monochrome favicon',
         localStorage.coloredFavicon === 'true' ?
             'Favicon is currently colored.\nSelect to switch to a monochromatic favicon.'
             :
@@ -165,7 +165,7 @@ function init() {
         } else {
             setSuboption(selectedOption, selectedSuboption, 'Toggle monochrome favicon', 'Favicon is currently monochromatic.\\nSelect to switch to a colored favicon.');
         }`, 'image');
-    createSuboption(1, 'Toggle open UI',
+    createSuboption(prefTab, 'Toggle open UI',
         localStorage.openUI === 'true' ? 'UI is currently open.\nSelect to close it.' : 'UI is currently closed.\nSelect to open it.', `
         localStorage.openUI = localStorage.openUI === 'true' ? 'false' : 'true';
         if (localStorage.openUI === 'true') {
@@ -175,7 +175,7 @@ function init() {
             ui.classList.remove('open');
             setSuboption(selectedOption, selectedSuboption, 'Toggle open UI', 'UI is currently closed.\\nSelect to open it.');
         }`, 'wrench');
-    createSuboption(1, 'Toggle background music',
+    createSuboption(prefTab, 'Toggle background music',
         localStorage.muteBGMusic === 'true' ? 'Background music is currently muted.\nSelect to unmute it.' : 'Background music is currently unmuted.\nSelect to mute it.', `
         localStorage.muteBGMusic = localStorage.muteBGMusic === 'true' ? 'false' : 'true';
         if (localStorage.muteBGMusic === 'true') {
@@ -185,7 +185,7 @@ function init() {
             bgMusic.play()
             setSuboption(selectedOption, selectedSuboption, 'Toggle background music', 'Background music is currently unmuted.\\nSelect to mute it.');
         }`, 'wrench');
-    createSuboption(1, 'Toggle pausing background music on unfocus',
+    createSuboption(prefTab, 'Toggle pausing background music on unfocus',
         localStorage.pauseMusic === 'true' ? 'Background music currently gets paused on unfocus.\nSelect to not mute it on unfocus.' : 'Background music currently doesn\'t get muted on unfocus.\nSelect to mute it on unfocus.', `
         localStorage.pauseMusic = localStorage.pauseMusic === 'true' ? 'false' : 'true';
         if (localStorage.pauseMusic === 'true') {
@@ -194,19 +194,19 @@ function init() {
             if (bgMusic.paused && localStorage.muteBGMusic !== 'true') bgMusic.play()
             setSuboption(selectedOption, selectedSuboption, 'Toggle pausing background music on unfocus', 'Background music currently doesn\\'t get muted on unfocus.\\nSelect to enable that.');
         }`, 'wrench');
-    createSuboption(1, 'Set background music volume', `Background music is currently at ${parseInt(parseFloat(localStorage.musicVolume) * 100)}% volume.`, `
+    createSuboption(prefTab, 'Set background music volume', `Background music is currently at ${parseInt(parseFloat(localStorage.musicVolume) * 100)}% volume.`, `
         inputDialog('Set background music volume', null, parseFloat(localStorage.musicVolume) * 100, 0, 100, 1, '{value}%', (volume)=>{
             localStorage.musicVolume = bgMusic.volume = volume / 100;
             setSuboption(selectedOption, selectedSuboption, 'Set background music volume', \`Background music is currently at \${parseInt(parseFloat(localStorage.musicVolume) * 100)}% volume.\`);
         });
     `, 'wrench');
-    createSuboption(1, 'Set UI sound volume', `UI sounds are currently at ${parseInt(parseFloat(localStorage.uiSoundVolume) * 100)}% volume.`, `
+    createSuboption(prefTab, 'Set UI sound volume', `UI sounds are currently at ${parseInt(parseFloat(localStorage.uiSoundVolume) * 100)}% volume.`, `
         inputDialog('Set UI sound volume', null, parseFloat(localStorage.uiSoundVolume) * 100, 0, 100, 1, '{value}%', (volume)=>{
             localStorage.uiSoundVolume = volume / 100;
             setSuboption(selectedOption, selectedSuboption, 'Set UI sound volume', \`UI sounds are currently at \${parseInt(parseFloat(localStorage.uiSoundVolume) * 100)}% volume.\`);
         });
     `, 'wrench');
-    createSuboption(1, 'Play animation on startup?',
+    createSuboption(prefTab, 'Play animation on startup?',
         localStorage.startup === 'true' ? 'Startup animation is currently enabled.\nSelect to disable it.' : 'Startup animation is currently disabled.\nSelect to enable it.', `
         localStorage.startup = localStorage.startup === 'true' ? 'false' : 'true';
         if (localStorage.startup === 'true') {
@@ -216,7 +216,7 @@ function init() {
         }`,
         'wrench');
 
-    createSuboption(1, 'Save preferences', 'Select to download a file with your preferences to load them later.', `
+    createSuboption(prefTab, 'Save preferences', 'Select to download a file with your preferences to load them later.', `
         confirmDialog(()=>{
             downloadFileWithContent(
             \`Noema Preferences Backup -- \${new Date().getFullYear()}-\${(new Date().getMonth() + 1).toString().padStart(2, '0')}-\${new Date().getDate().toString().padStart(2, '0')} \${new Date().getHours()}-\${new Date().getMinutes().toString().padStart(2, '0')}-\${new Date().getSeconds().toString().padStart(2, '0')}.nsf\`
@@ -230,7 +230,7 @@ function init() {
             })())
         }, 'Are you sure?', "Just making sure this wasn't pressed by accident.")
         `, 'wrench');
-    createSuboption(1, 'Load preferences', 'Select to load a file with your saved preferences.', `
+    createSuboption(prefTab, 'Load preferences', 'Select to load a file with your saved preferences.', `
         let importbtn = document.createElement('input')
         importbtn.type = 'file'
         importbtn.multiple = 'false'
@@ -290,7 +290,7 @@ function init() {
         document.body.appendChild(importbtn)
         importbtn.click();
         `, 'wrench');
-    createSuboption(1, 'Reset preferences', 'This wipes EVERY preference (Background color, username, spaghetti density, etc).\nDo not use this unless you know what you\'re doing and haven\'t saved your preferences.\nOnce you reset your preferences, this process is IRREVERSIBLE.',
+    createSuboption(prefTab, 'Reset preferences', 'This wipes EVERY preference (Background color, username, spaghetti density, etc).\nDo not use this unless you know what you\'re doing and haven\'t saved your preferences.\nOnce you reset your preferences, this process is IRREVERSIBLE.',
         `confirmDialog(()=>{
             setTimeout(()=>{
                 confirmDialog(()=>{
@@ -303,7 +303,7 @@ function init() {
         "Do not accept unless you know what you're doing.\\nOnce you reset your preferences, this process is IRREVERSIBLE, so make sure to save your preferences before resetting.\\n\\nThe system will restart after resetting to apply the default settings.")`,
         'bin');
 
-    createSuboption(2, 'Toggle effects',
+    createSuboption(graphTab, 'Toggle effects',
         localStorage.noShaders === 'true' ? 'Effects are currently disabled.\nSelect to turn them on.' : 'Effects are currently enabled.\nSelect to turn them off.', `
         localStorage.noShaders = localStorage.noShaders === 'true' ? 'false' : 'true';
         if (localStorage.noShaders === 'true') {
@@ -319,7 +319,7 @@ function init() {
         }`,
         'wrench'
     );
-    createSuboption(2, 'Toggle animations',
+    createSuboption(graphTab, 'Toggle animations',
         localStorage.noTransitions === 'true' ? 'Animations are currently disabled.\nSelect to turn them on.' : 'Animations are currently enabled.\nSelect to turn them off.', `
         localStorage.noTransitions = localStorage.noTransitions === 'true' ? 'false' : 'true';
         if (localStorage.noTransitions === 'true') {
@@ -339,24 +339,24 @@ function init() {
     );
 
     Object.keys(colors).forEach((color, i) => {
-        createSuboption(3, color.toTitleCase(), `Select to set the theme to "${color.toTitleCase()}".`, `changeBGColor("${color}")`, 'image');
+        createSuboption(themeTab, color.toTitleCase(), `Select to set the theme to "${color.toTitleCase()}".`, `changeBGColor("${color}")`, 'image');
         if (color === localStorage.bgColor)
             selectedSuboptions[3] = i;
     });
 
-    createSuboption(4, 'None', 'Disables the wave entirely, best for low-end devices.', 'density = 0; localStorage.spaghettiDensity = density', 'wrench');
-    createSuboption(4, 'Lowest', 'Least detail, the fastest option if you want a background wave and more performance.', 'density = 15; localStorage.spaghettiDensity = density', 'wrench');
-    createSuboption(4, 'Low', 'Less detail, a better option if you want a denser background wave and have a lower-end device.', 'density = 35; localStorage.spaghettiDensity = density', 'wrench');
-    createSuboption(4, 'Medium', 'More detail, recommended for mid-range devices with good enough performance.', 'density = 50; localStorage.spaghettiDensity = density', 'wrench');
-    createSuboption(4, 'High', "High detail, recommended for computers with a good CPU (or GPU, if supported).\nNot recommended for lower-end devices, since they could have slowdowns or overheat.", 'density = 75; localStorage.spaghettiDensity = density', 'wrench');
+    createSuboption(waveTab, 'None', 'Disables the wave entirely, best for low-end devices.', 'density = 0; localStorage.spaghettiDensity = density', 'wrench');
+    createSuboption(waveTab, 'Lowest', 'Least detail, the fastest option if you want a background wave and more performance.', 'density = 15; localStorage.spaghettiDensity = density', 'wrench');
+    createSuboption(waveTab, 'Low', 'Less detail, a better option if you want a denser background wave and have a lower-end device.', 'density = 35; localStorage.spaghettiDensity = density', 'wrench');
+    createSuboption(waveTab, 'Medium', 'More detail, recommended for mid-range devices with good enough performance.', 'density = 50; localStorage.spaghettiDensity = density', 'wrench');
+    createSuboption(waveTab, 'High', "High detail, recommended for computers with a good CPU (or GPU, if supported).\nNot recommended for lower-end devices, since they could have slowdowns or overheat.", 'density = 75; localStorage.spaghettiDensity = density', 'wrench');
 
-    createSuboption(5, 'Convert Save File', null, `
+    createSuboption(helpTab, 'Convert Save File', null, `
         let newWindow = window.open('./convertsave/index.html', 'convert', 'height=${window.innerHeight / 2},width=${window.innerWidth / 2},left=${window.innerWidth / 4},top=${window.innerHeight / 4}');
         if (isDefined(window.focus))
             newWindow.focus()
     `, 'wrench');
 
-    createSuboption(6, 'Toggle debugging UI', localStorage.debugUI === 'true' ? 'Debug UI is currently on.\nSelect to turn it off.' : 'Debug UI is currently off.\nSelect to turn it on.', `
+    createSuboption(debugTab, 'Toggle debugging UI', localStorage.debugUI === 'true' ? 'Debug UI is currently on.\nSelect to turn it off.' : 'Debug UI is currently off.\nSelect to turn it on.', `
         localStorage.debugUI = localStorage.debugUI === 'true' ? 'false' : 'true';
         if (localStorage.debugUI === 'true') {
             document.getElementById('debug-ui').style.display = 'block';
@@ -366,8 +366,8 @@ function init() {
             setSuboption(selectedOption, selectedSuboption, 'Toggle debugging UI', 'Debug UI is currently off.\\nSelect to turn it on.');
         }`,
         'star');
-    createSuboption(6, 'Clear Errors', null, 'errors = 0; errorList = []; document.getElementById(\'errors\').innerText = `Errors: ${errors}`', 'star');
-    createSuboption(6, 'Load Script', null, `
+    createSuboption(debugTab, 'Clear Errors', null, 'errors = 0; errorList = []; document.getElementById(\'errors\').innerText = `Errors: ${errors}`', 'star');
+    createSuboption(debugTab, 'Load Script', null, `
         promptDialog((url)=>{
             if (!isDefined(url)) return
             if (!isURL(url)) throw new TypeError("Script URL provided isn't even a URL.");
