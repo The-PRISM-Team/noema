@@ -355,6 +355,12 @@ function init() {
         if (isDefined(window.focus))
             newWindow.focus()
     `, 'wrench');
+    createSuboption(helpTab, "Open Project Noema's GitHub repo", null, `
+        window.open('https://github.com/sophb-ccjt/noema', '_blank')
+    `);
+    createSuboption(helpTab, "Report an issue on GitHub", null, `
+        window.open('https://github.com/sophb-ccjt/noema/issues/new', '_blank')
+    `);
 
     createSuboption(debugTab, 'Toggle debugging UI', localStorage.debugUI === 'true' ? 'Debug UI is currently on.\nSelect to turn it off.' : 'Debug UI is currently off.\nSelect to turn it on.', `
         localStorage.debugUI = localStorage.debugUI === 'true' ? 'false' : 'true';
