@@ -31,6 +31,10 @@ document.addEventListener('DOMContentLoaded', () => {
 })
 window.addEventListener('load', () => {
     console.log(`Resources loaded in ${performance.now() - dependStart}ms.`)
+    console.log('Loading scripts...')
+    const loadStart = performance.now()
+    loadScripts()
+    document.getElementById('clicktostart').textContent = 'loading scripts, please wait'
     console.log(`Finished loading in ${performance.now() - pageStart}ms!`)
     if (test) { 
         console.log(`Testing system...`)
