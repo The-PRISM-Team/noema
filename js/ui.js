@@ -229,6 +229,7 @@ function bandDialog(title, subtitle = '', setupFunc, confirmFunc, usesEnterKey =
     document.getElementById('custom-title').textContent = title;
     document.getElementById('custom-items').innerHTML = '';
     document.getElementById('custom-items').style.cssText = '';
+
     if (!isDefined(setupFunc)) {
         document.getElementById('custom-items').style.display = 'none';
     } else {
@@ -237,7 +238,10 @@ function bandDialog(title, subtitle = '', setupFunc, confirmFunc, usesEnterKey =
     }
     if (!isDefined(confirmFunc)) confirmFunc = ()=>{};
     document.getElementById('custom-subtitle').style.display = 'none';
+
     if (isDefined(subtitle)) {
+        if (subtitle.replace(/\s/g, '').length === 0) return; // cancel if subtitle is empty
+
         document.getElementById('custom-subtitle').style.display = 'revert';
         document.getElementById('custom-subtitle-text').textContent = subtitle;
     }
