@@ -1,4 +1,4 @@
-function loadScripts() {
+async function loadScripts() {
     const scripts = [
         {
             src: 'https://colorjs.io/dist/color.global.js'
@@ -66,10 +66,14 @@ function loadScripts() {
             continue; // skip script if there is a script with the same src
 
         const script = document.createElement('script');
-        for (const [property, value] of Object.entries(scriptObj)) {
-            script[property] = value;
-        }
+        await new Promise((resolve, reject) => {
+            script.onload = resolve
+            script.onerror = reject
+            for (const [property, value] of Object.entries(scriptObj)) {
+                script[property] = value;
+            }
 
-        document.body.appendChild(script);
+            document.body.appendChild(script);
+        })
     }
 }

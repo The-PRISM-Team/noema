@@ -29,11 +29,11 @@ document.addEventListener('DOMContentLoaded', () => {
     bgMusic.preload = true
     document.getElementById('clicktostart').textContent = 'loading page resources, please wait'
 })
-window.addEventListener('load', () => {
+window.addEventListener('load', async () => {
     console.log(`Resources loaded in ${performance.now() - dependStart}ms.`)
     console.log('Loading scripts...')
     const scriptStart = performance.now()
-    loadScripts()
+    await loadScripts()
     console.log(`Scripts loaded in ${performance.now() - scriptStart}ms.`)
     document.getElementById('clicktostart').textContent = 'loading scripts, please wait'
     console.log(`Finished loading in ${performance.now() - pageStart}ms!`)
@@ -67,7 +67,7 @@ window.addEventListener('load', () => {
     if (localStorage.fromreboot === 'true') {
         if (localStorage.startup === 'true') {
             document.getElementById('clicktostart').innerHTML = 'starting...'
-            if (startup)
+            if (typeof startup !== 'undefined')
                 startup()
             else
                 init()
@@ -109,7 +109,7 @@ window.addEventListener('load', () => {
             drawSpaghetti()
 
             if (localStorage.startup === 'true')
-                if (startup) {
+                if (typeof startup !== 'undefined') {
                     startup()
                 } else {
                     init()
