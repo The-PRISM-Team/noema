@@ -1,66 +1,66 @@
 async function loadScripts() {
     const scripts = [
         {
-            src: 'https://colorjs.io/dist/color.global.js'
+            src: '/js/modules/color.global.js'
         },
         {
-            src: 'https://code.jquery.com/jquery-3.7.1.js'
+            src: '/js/modules/jquery-3.7.1.js'
         },
         {
-            src: './js/modules/gamecontroller.js'
+            src: '/js/modules/gamecontroller.js'
         },
         {
-            src: './js/modules/gapless5.js',
+            src: '/js/modules/gapless5.js',
             language: 'JavaScript',
             type: 'text/javascript'
         },
         {
-            src: './js/modules/controller_input.js'
+            src: '/js/modules/controller_input.js'
         },
         {
-            src: './js/modules/protoplus.js'
+            src: '/js/modules/protoplus.js'
         },
         {
-            src: './js/modules/bgFormat.js'
+            src: '/js/modules/bgFormat.js'
         },
         {
-            src: './js/modules/URLutil.js'
+            src: '/js/modules/URLutil.js'
         },
         {
-            src: './js/modules/file.js'
+            src: '/js/modules/file.js'
         },
         {
-            src: './js/modules/util.js'
+            src: '/js/modules/util.js'
         },
         {
-            src: './js/error.js'
+            src: '/js/error.js'
         },
         {
-            src: './js/power.js'
+            src: '/js/power.js'
         },
         {
-            src: './js/game.js'
+            src: '/js/game.js'
         },
         {
-            src: './js/controller.js'
+            src: '/js/controller.js'
         },
         {
-            src: './js/changelog.js'
+            src: '/js/changelog.js'
         },
         {
-            src: './js/bg.js'
+            src: '/js/bg.js'
         },
         {
-            src: './js/ui.js'
+            src: '/js/ui.js'
         },
         {
-            src: './js/user.js'
+            src: '/js/user.js'
         },
         {
-            src: './js/info.js'
+            src: '/js/info.js'
         },
         {
-            src: './js/base.js'
+            src: '/js/base.js'
         }
     ];
 
@@ -69,6 +69,7 @@ async function loadScripts() {
             continue; // skip script if there is a script with the same src
 
         const script = document.createElement('script');
+        if (!isDefined(scriptObj.async)) script.async = false;
         await new Promise((resolve, reject) => {
             script.onload = resolve;
             script.onerror = reject;
