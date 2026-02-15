@@ -24,7 +24,6 @@ let pageStart = performance.now(),
     dependStart = null;
 
 console.log('Loading page...');
-document.getElementById('loading-bar').style.display = 'block';
 let bgMusic;
 document.addEventListener('DOMContentLoaded', async () => {
     document.getElementById('loading-progress').style.width = '33%';
