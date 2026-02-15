@@ -50,11 +50,15 @@ function showChangelog() {
 
         - Added a battery indicator to the bottom left of the screen
 
+        - Added a \`⋮ Set UI sound volume\` to the \`⋮ Preferences\` tab to change UI sound volume
+
 
         ## API Changes
         - Added \`𝑓 startsWithAmount\` and \`𝑓 endsWithAmount\` to \`𝘰 String.prototype\`
 
         - Added \`𝑓 last\` to \`𝘰 HTMLCollection.prototype\` and \`String.prototype\`
+
+        - Reworked sound engine
 
 
         ## Bugfixes

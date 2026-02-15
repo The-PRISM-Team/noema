@@ -3,7 +3,7 @@ const sounds =
     .split(',')
     .map(snd => snd = `${snd.trim()}.flac`);
 
-function playSound(sound, volume = parseFloat(localStorage.uiSoundVolume), properties = {}) {
+function playSound(sound, volume, properties = {}) {
     let targetSoundIndex;
     if (sounds.filter((snd, i) => {
         const isTargetSound = snd.split('.').slice(0,-1).join('.') === sound;
@@ -14,6 +14,7 @@ function playSound(sound, volume = parseFloat(localStorage.uiSoundVolume), prope
         return isTargetSound;
     }).length === 1) {
         const snd = new Audio(`/sounds/${sounds[targetSoundIndex]}`);
+        if (!isDefined(volume)) volume = parseFloat(localStorage.uiSoundVolume);
         snd.volume = volume.clamp(0, 1);
         for (let [property, value] of Object.entries(properties)) {
             snd[property] = value;

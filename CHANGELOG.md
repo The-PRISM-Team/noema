@@ -1,4 +1,4 @@
-# Changelog for Noema v0.15.0
+# Changelog for Noema v0.16.0
 *(may have missing or inaccurate information)*
 
 *(Note: minor internal changes, cleanups and insignificant details aren't (and won't be) included in changelogs.)*
@@ -20,11 +20,11 @@
 
 **𝑐** — Class
 
-**⁇** — Undefined (\`undefined\`, \`null\`, \`NaN\`)
+**⁇** — Undefined (`undefined`, `null`, `NaN`)
 
-**𝑝** — Property name, for example: \`backdrop-filter\` (CSS) or \`src\` (HTML attribute)
+**𝑝** — Property name, for example: `backdrop-filter` (CSS) or `src` (HTML attribute)
 
-**𝘦** — Event name, for example: \`onerror\` of \`window.onerror\`, or \`keyup\`
+**𝘦** — Event name, for example: `onerror` of `window.onerror`, or `keyup`
 
 **?** — Deterministic (can be or act like multiple types)
 
@@ -33,11 +33,45 @@
 ---
 
 
-## Milestone
-- Controller support added! If you encounter issues, please report them in the official Discord server: https://discord.gg/KgeUGTB3gU
-  - Note: A PS4 or PS5 controller is recommended.
+# Milestone: Games!
+- working on it :/
+
 
 ## UI Changes
-- Changed styling of prompt dialogs
+- Made changelog text a bit more interactive
 
-- You can now go to the farthest left option by pressing Control or L1, and to the farthest right option by pressing Alt or R1.
+- Code blocks now work properly in the changelog dialog
+
+- The startup logo and favicon now use Noema's new (conceptual) logo
+
+- Made UI background more "blurry" (when effects are turned on)
+
+- Added a battery indicator to the bottom left of the screen
+
+- Added a `⋮ Set UI sound volume` to the `⋮ Preferences` tab to change UI sound volume
+
+
+## API Changes
+- Added `𝑓 startsWithAmount` and `𝑓 endsWithAmount` to `𝘰 String.prototype`
+
+- Added `𝑓 last` to `𝘰 HTMLCollection.prototype` and `String.prototype`
+
+- Reworked sound engine
+
+
+## Bugfixes
+- Fixed bug where toggling the favicon from colored to monochrome would always make the favicon default to black        
+
+- Heading sizes now properly work on the changelog dialog
+
+- Added (previously missing) punctuation handler to changelog
+
+
+## Misc.
+- Added Noema logo (conceptual) to source code
+
+- Added new `⋮ Noema` theme (will change if Noema's logo changes)
+
+- Moved `⋮ Watermelon Sugar` theme up on the theme list for separation between flag-based themes and non-flag-based themes
+
+- Added environment checks and warnings
