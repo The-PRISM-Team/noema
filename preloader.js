@@ -7,7 +7,7 @@ function loadScripts() {
             src: 'https://code.jquery.com/jquery-3.7.1.js'
         },
         {
-            src: './js/modules/gamecontroller.min.js'
+            src: './js/modules/gamecontroller.js'
         },
         {
             src: './js/modules/gapless5.js',
