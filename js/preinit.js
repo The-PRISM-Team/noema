@@ -27,7 +27,7 @@ console.log('Loading page...');
 let bgMusic;
 document.addEventListener('DOMContentLoaded', async () => {
     dependStart = performance.now();
-    console.log(`Page loaded in ${performance.now() - pageStart}ms.`);
+    console.log(`Page loaded in ${(performance.now() - pageStart).toFixed(2)}ms.`);
     console.log('Loading resources...');
     bgMusic = new Audio('./menu_music.flac');
     bgMusic.preload = true;
@@ -36,14 +36,14 @@ document.addEventListener('DOMContentLoaded', async () => {
     document.getElementById('clicktostart').textContent = 'loading scripts, please wait';
     const scriptStart = performance.now();
     await loadScripts();
-    console.log(`Scripts loaded in ${performance.now() - scriptStart}ms.`);
+    console.log(`Scripts loaded in ${(performance.now() - scriptStart).toFixed(2)}ms.`);
 
     dependStart = performance.now();
     document.getElementById('clicktostart').textContent = 'loading page resources, please wait';
 });
 window.addEventListener('load', async () => {
-    console.log(`Resources loaded in ${performance.now() - dependStart}ms.`);
-    console.log(`Finished loading in ${performance.now() - pageStart}ms!`);
+    console.log(`Resources loaded in ${(performance.now() - dependStart).toFixed(2)}ms.`);
+    console.log(`Finished loading in ${(performance.now() - pageStart).toFixed(2)}ms!`);
     document.getElementById('clicktostart').textContent = 'finished loading!';
     await delay(1e3);
 
