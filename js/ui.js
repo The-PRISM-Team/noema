@@ -240,10 +240,10 @@ function bandDialog(title, subtitle = '', setupFunc, confirmFunc, usesEnterKey =
     document.getElementById('custom-subtitle').style.display = 'none';
 
     if (isDefined(subtitle)) {
-        if (subtitle.replace(/\s/g, '').length === 0) return; // cancel if subtitle is empty
-
-        document.getElementById('custom-subtitle').style.display = 'revert';
-        document.getElementById('custom-subtitle-text').textContent = subtitle;
+        if (subtitle.replace(/\s/g, '').length > 0) {
+            document.getElementById('custom-subtitle').style.display = 'revert';
+            document.getElementById('custom-subtitle-text').textContent = subtitle;
+        }
     }
     let hasInput = false;
     traverseDOM(document.getElementById('custom-dialog'), (el) => {
