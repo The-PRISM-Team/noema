@@ -2,6 +2,7 @@
     "compilerOptions": {
         "target": "ES6",
         "checkJs": true,
+        "allowJs": true,
         "module": "commonjs",
         "baseUrl": ".",
         "paths": {
