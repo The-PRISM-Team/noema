@@ -24,9 +24,11 @@ let pageStart = performance.now(),
     dependStart = null;
 
 console.log('Loading page...');
+document.getElementById('loading-bar').style.display = 'block';
 let bgMusic;
 document.addEventListener('DOMContentLoaded', async () => {
-    dependStart = performance.now();
+    document.getElementById('loading-progress').style.width = '33%';
+
     console.log(`Page loaded in ${(performance.now() - pageStart).toFixed(2)}ms.`);
     bgMusic = new Audio('./menu_music.flac');
     bgMusic.preload = true;
@@ -35,6 +37,8 @@ document.addEventListener('DOMContentLoaded', async () => {
     document.getElementById('clicktostart').textContent = 'loading scripts, please wait';
     const scriptStart = performance.now();
     await loadScripts();
+    document.getElementById('loading-progress').style.width = '66%';
+
     console.log(`Scripts loaded in ${(performance.now() - scriptStart).toFixed(2)}ms.`);
 
     dependStart = performance.now();
@@ -42,13 +46,16 @@ document.addEventListener('DOMContentLoaded', async () => {
     document.getElementById('clicktostart').textContent = 'loading page resources, please wait';
 });
 window.addEventListener('load', async () => {
+    document.getElementById('loading-progress').style.width = '100%';
+
     console.log(`Resources loaded in ${(performance.now() - dependStart).toFixed(2)}ms.`);
     console.log(`Finished loading in ${(performance.now() - pageStart).toFixed(2)}ms!`);
     document.getElementById('clicktostart').textContent = 'finished loading!';
     await delay(1.25e3);
+    document.getElementById('loading-bar').style.display = 'none';
 
     if (typeof test !== 'undefined') {
-        console.log(`Testing system...`);
+        console.log('Testing system...');
         document.getElementById('clicktostart').innerHTML = 'testing system...';
         test();
     }
