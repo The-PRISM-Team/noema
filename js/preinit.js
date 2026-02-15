@@ -28,7 +28,6 @@ let bgMusic;
 document.addEventListener('DOMContentLoaded', async () => {
     dependStart = performance.now();
     console.log(`Page loaded in ${(performance.now() - pageStart).toFixed(2)}ms.`);
-    console.log('Loading resources...');
     bgMusic = new Audio('./menu_music.flac');
     bgMusic.preload = true;
 
@@ -39,6 +38,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     console.log(`Scripts loaded in ${(performance.now() - scriptStart).toFixed(2)}ms.`);
 
     dependStart = performance.now();
+    console.log('Loading resources...');
     document.getElementById('clicktostart').textContent = 'loading page resources, please wait';
 });
 window.addEventListener('load', async () => {
