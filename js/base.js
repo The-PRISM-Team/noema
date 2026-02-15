@@ -108,6 +108,8 @@ if (window.matchMedia) {
 
 function init() {
     if (started) return
+    if (localStorage.fromreboot === 'true') drawSpaghetti()
+    delete localStorage.fromreboot
     started = true
     lastActivity = Date.now()
 

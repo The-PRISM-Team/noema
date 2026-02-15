@@ -66,7 +66,6 @@ window.addEventListener('load', () => {
     }
 
     if (localStorage.fromreboot === 'true') {
-        drawSpaghetti()
         if (localStorage.startup === 'true') {
             document.getElementById('clicktostart').innerHTML = 'starting...'
             if (startup)
@@ -131,5 +130,4 @@ window.addEventListener('load', () => {
             }
         }
     }
-    delete localStorage.fromreboot
 })
