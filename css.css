@@ -36,14 +36,15 @@ body {
 /* --- loading ui --- */
 #loading-bar {
     --color: #777;
+    display: block;
 
     position: fixed;
     left: 50%;
-    bottom: 48px;
+    bottom: 128px;
     transform: translateX(-100%);
     
     width: 75%;
-    height: 128px;
+    height: 64px;
 
     border: solid 8px var(--color);
     padding: 4px;
@@ -51,7 +52,8 @@ body {
     pointer-events: none;
     z-index: calc(infinity);
     scale: 0.5;
-    opacity: 50%;
+    opacity: 0%;
+    transition: opacity .5s ease-out;
 }
 #loading-progress {
     display: block;

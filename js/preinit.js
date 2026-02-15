@@ -30,7 +30,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     console.log('Loading scripts...');
     document.getElementById('clicktostart').textContent = 'loading scripts, please wait';
-    document.getElementById('loading-bar').style.display = 'block';
+    document.getElementById('loading-bar').style.opacity = '50%';
     const scriptStart = performance.now();
     await loadScripts();
 
@@ -49,7 +49,7 @@ window.addEventListener('load', async () => {
     console.log(`Finished loading in ${(performance.now() - pageStart).toFixed(2)}ms!`);
     document.getElementById('clicktostart').textContent = 'finished loading!';
     await delay(750);
-    document.getElementById('loading-bar').style.display = 'none';
+    document.getElementById('loading-bar').style.opacity = '0%';
 
     if (typeof test !== 'undefined') {
         console.log('Testing system...');
