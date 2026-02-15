@@ -57,7 +57,7 @@ body {
     background-color: var(--color);
     height: 100%;
     width: 0%;
-    transition: width 1s ease-out;
+    transition: width .5s ease-out;
 }
 
 

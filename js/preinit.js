@@ -50,7 +50,7 @@ window.addEventListener('load', async () => {
     console.log(`Resources loaded in ${(performance.now() - dependStart).toFixed(2)}ms.`);
     console.log(`Finished loading in ${(performance.now() - pageStart).toFixed(2)}ms!`);
     document.getElementById('clicktostart').textContent = 'finished loading!';
-    await delay(1.25e3);
+    await delay(750);
     document.getElementById('loading-bar').style.display = 'none';
 
     if (typeof test !== 'undefined') {
