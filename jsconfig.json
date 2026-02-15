@@ -1,6 +1,11 @@
 {
     "compilerOptions": {
         "target": "ES6",
+        "lib": [
+            "esnext",
+            "es6",
+            "es2020"
+        ],
         "checkJs": true,
         "allowJs": true,
         "module": "commonjs",
