@@ -65,7 +65,6 @@ window.addEventListener('load', () => {
     }
 
     if (localStorage.fromreboot === 'true') {
-        console.log(init)
         if (localStorage.startup === 'true') {
             document.getElementById('clicktostart').innerHTML = 'starting...'
             if (startup)
