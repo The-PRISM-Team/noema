@@ -1,3 +1,3 @@
 function isDefined(value) {
-    return value != null
+    return value != null;
 }

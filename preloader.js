@@ -70,13 +70,13 @@ async function loadScripts() {
 
         const script = document.createElement('script');
         await new Promise((resolve, reject) => {
-            script.onload = resolve
-            script.onerror = reject
+            script.onload = resolve;
+            script.onerror = reject;
             for (const [property, value] of Object.entries(scriptObj)) {
                 script[property] = value;
             }
 
             document.body.appendChild(script);
-        })
+        });
     }
 }

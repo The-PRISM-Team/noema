@@ -10,15 +10,15 @@ class controllerHandler extends EventTarget {
         this.dispatchEvent(event);
     }
 
-    gamepads = []
+    gamepads = [];
 }
 
-const gamepadHandler = new controllerHandler()
-const gamepads = gamepadHandler.gamepads
+const gamepadHandler = new controllerHandler();
+const gamepads = gamepadHandler.gamepads;
 
 window.addEventListener('gamepadconnected', (event)=>{
-    gamepads.push(event.gamepad)
-})
+    gamepads.push(event.gamepad);
+});
 window.addEventListener('gamepaddisconnected', (event)=>{
-    gamepads.splice(gamepads.indexOf(event.gamepad), 1)
-})
+    gamepads.splice(gamepads.indexOf(event.gamepad), 1);
+});
