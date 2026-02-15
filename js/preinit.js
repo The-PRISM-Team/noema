@@ -32,10 +32,13 @@ document.addEventListener('DOMContentLoaded', () => {
 window.addEventListener('load', () => {
     console.log(`Resources loaded in ${performance.now() - dependStart}ms.`)
     console.log('Loading scripts...')
-    const loadStart = performance.now()
+    const scriptStart = performance.now()
     loadScripts()
+    console.log(`Scripts loaded in ${performance.now() - scriptStart}ms.`)
     document.getElementById('clicktostart').textContent = 'loading scripts, please wait'
     console.log(`Finished loading in ${performance.now() - pageStart}ms!`)
+    setTimeout(()=>{}, 50)
+    document.getElementById('clicktostart').textContent = 'finished loading'
     if (typeof test !== 'undefined') { 
         console.log(`Testing system...`)
         document.getElementById('clicktostart').innerHTML = 'testing system...'
