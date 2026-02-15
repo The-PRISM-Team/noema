@@ -200,6 +200,12 @@ function init() {
             setSuboption(selectedOption, selectedSuboption, 'Set background music volume', \`Background music is currently at \${parseInt(parseFloat(localStorage.musicVolume) * 100)}% volume.\`);
         });
     `, 'wrench');
+    createSuboption(1, 'Set UI sound volume', `UI sound volume is currently at ${parseInt(parseFloat(localStorage.uiSoundVolume) * 100)}% volume.`, `
+        inputDialog('Set background music volume', null, parseFloat(localStorage.musicVolume) * 100, 0, 100, 1, '{value}%', (volume)=>{
+            localStorage.musicVolume = bgMusic.volume = volume / 100;
+            setSuboption(selectedOption, selectedSuboption, 'Set background music volume', \`Background music is currently at \${parseInt(parseFloat(localStorage.musicVolume) * 100)}% volume.\`);
+        });
+    `, 'wrench');
     createSuboption(1, 'Play animation on startup?',
         localStorage.startup === 'true' ? 'Startup animation is currently enabled.\nSelect to disable it.' : 'Startup animation is currently disabled.\nSelect to enable it.', `
         localStorage.startup = localStorage.startup === 'true' ? 'false' : 'true';

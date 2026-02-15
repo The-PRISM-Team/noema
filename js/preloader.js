@@ -60,6 +60,9 @@ async function loadScripts() {
             src: '/js/info.js'
         },
         {
+            src: '/js/sounds.js'
+        },
+        {
             src: '/js/base.js'
         }
     ];

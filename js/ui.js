@@ -114,9 +114,9 @@ function executeUISuboption() {
     if (isDefined(suboption.dataset.execute)) {
         new Function(suboption.dataset.execute)();
         if (isDefined(suboption.dataset.sound))
-            new Audio(`./sounds/${suboption.dataset.sound}.flac`).play();
+            playSound(suboption.dataset.sound);
         else
-            new Audio('./sounds/confirm.flac').play();
+            playSound('confirm');
     }
 }
 
@@ -297,13 +297,13 @@ function bandDialog(title, subtitle = '', setupFunc, confirmFunc, usesEnterKey =
         if ((key === 'enter' || (key === ' ' && !hasInput))&& usesEnterKey) {
             if (usesEnterKey) {
                 confirmFunc();
-                new Audio('./sounds/confirm.flac').play();
+                playSound('confirm');
             }
             blur();
             document.getElementById('custom-dialog').style.opacity = '0';
             document.removeEventListener('keyup', handler);
         } else if (key === 'escape') {
-            new Audio('./sounds/back.flac').play();
+            playSound('back');
             blur();
             document.getElementById('custom-dialog').style.opacity = '0';
             document.removeEventListener('keyup', handler);
@@ -416,11 +416,10 @@ function notify(title, text, icon) {
             notifDiv.appendChild(notifIcon);
         }
 
-        let snd = new Audio('./sounds/notif.flac');
-        snd.volume = 0.5;
-        snd.preservesPitch = false;
-        snd.playbackRate = 1 + Object.keys(__notifElements).length / 25;
-        snd.play();
+        let snd = playSound('notif', null, {
+            preservesPitch: false,
+            playbackRate: 1 + Object.keys(__notifElements).length / 25
+        });
 
         __notifElements[notifDiv.id] = notifDiv;
         requestAnimationFrame(()=>{
@@ -480,7 +479,7 @@ function handleInput(event, keyup) {
         else
             selectedOption--;
         selectUIOption(selectedOption);
-        new Audio('./sounds/select.flac').play();
+        playSound('select');
     }
     function right() {
         if (document.getElementById(`ui-options`).querySelectorAll('.ui-option').length < 2) return;
@@ -492,7 +491,7 @@ function handleInput(event, keyup) {
         else
             selectedOption++;
         selectUIOption(selectedOption);
-        new Audio('./sounds/select.flac').play();
+        playSound('select');
     }
     function up() {
         if (document.getElementById(`ui-content${selectedOption}`).querySelectorAll('.ui-suboption').length < 2) return;
@@ -502,13 +501,13 @@ function handleInput(event, keyup) {
             else
                 selectUISuboption(document.getElementById(`ui-content${selectedOption}`).querySelectorAll('.ui-suboption').length - 1);
     
-            new Audio('./sounds/select.flac').play();
+            playSound('select');
             return;
         }
 
         selectedSuboption--;
         selectUISuboption(selectedSuboption);
-        new Audio('./sounds/select.flac').play();
+        playSound('select');
     }
     function down() {
         if (document.getElementById(`ui-content${selectedOption}`).querySelectorAll('.ui-suboption').length < 2) return;
@@ -518,25 +517,25 @@ function handleInput(event, keyup) {
             else
                 selectUISuboption(0);
 
-            new Audio('./sounds/select.flac').play();
+            playSound('select');
             return;
         }
 
         selectedSuboption++;
         selectUISuboption(selectedSuboption);
-        new Audio('./sounds/select.flac').play();
+        playSound('select');
     }
     function back() {
         if (!keyup) return;
-        let playSound = false;
+        let playBackSound = false;
         document.activeElement.blur();
         document.body.querySelectorAll('.band-dialog').forEach(dialog => {
             if (window.getComputedStyle(dialog).opacity !== '0') {
                 dialog.style.opacity = "0%";
-                playSound = true;
+                playBackSound = true;
             }
         });
-        if (playSound) new Audio('./sounds/back.flac').play();
+        if (playBackSound) playSound('back');
         return;
     }
 
@@ -615,13 +614,13 @@ function handleInput(event, keyup) {
         if (key === 'control') {
             if (!keyup && selectedOption !== 0) {
                 selectUIOption(0);
-                new Audio('./sounds/select.flac').play();
+                playSound('select');
             }
         }
         if (key === 'alt') {
             if (!keyup && selectedOption !== document.getElementById('ui-options').children.length - 1) {
                 selectUIOption(document.getElementById('ui-options').children.length - 1);
-                new Audio('./sounds/select.flac').play();
+                playSound('select');
             }
         }
     }
