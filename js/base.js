@@ -98,7 +98,7 @@ function icon(
         }
     }
 }
-if (window.matchMedia) {
+if (isDefined(window.matchMedia)) {
     const match = window.matchMedia('(prefers-color-scheme: dark)')
 
     match.addEventListener('change', () => {
@@ -147,7 +147,7 @@ function init() {
 
     createSuboption(1, 'Set Username', `Username currently set to "${username}".`, `
         promptDialog((name)=>{
-            if (!name) name = '${_defaultUsername}';
+            if (!isDefined(name)) name = '${_defaultUsername}';
             setUsername(name)
             updateLabel()
             setSuboption(selectedOption, selectedSuboption, null, \`Username currently set to "\${username}".\`)
@@ -233,7 +233,7 @@ function init() {
         importbtn.addEventListener('change', (event) => {
             const file = event.target.files[0];
 
-            if (file) {
+            if (isDefined(file)) {
                 const reader = new FileReader();
 
                 reader.onload = function(e) {
@@ -347,7 +347,7 @@ function init() {
 
     createSuboption(5, 'Convert Save File', null, `
         let newWindow = window.open('./convertsave/index.html', 'convert', 'height=${window.innerHeight / 2},width=${window.innerWidth / 2},left=${window.innerWidth / 4},top=${window.innerHeight / 4}');
-        if (window.focus)
+        if (isDefined(window.focus))
             newWindow.focus()
     `, 'wrench')
 
@@ -364,7 +364,7 @@ function init() {
     createSuboption(6, 'Clear Errors', null, 'errors = 0; errorList = []; document.getElementById(\'errors\').innerText = `Errors: ${errors}`', 'star')
     createSuboption(6, 'Load Script', null, `
         promptDialog((url)=>{
-            if (!url) return
+            if (!isDefined(url)) return
             if (!isURL(url)) throw new TypeError("Script URL provided isn't even a URL.");
             if (document.getElementById('script-' + url)) throw new Error('Script already loaded!')
             let script = document.createElement('script')
@@ -435,7 +435,7 @@ function init() {
     if (new Date().getMonth() === 11) startFlakes()
 
     localStorage?.defaultScripts?.split('|')?.forEach(url => {
-        if (!url) return
+        if (!isDefined(url)) return
         if (!isURL(url)) return
         if (document.getElementById('script-' + url)) return
         let script = document.createElement('script')

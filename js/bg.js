@@ -14,7 +14,7 @@ let t = Math.PI,
     t2 = t, // spaghetti up/down shift
     t3 = t; // spaghetti left/right shift
 
-if (!localStorage.spaghettiDensity) {
+if (!isDefined(localStorage.spaghettiDensity)) {
     if (navigator.deviceMemory < 2)
         localStorage.spaghettiDensity = '0'
     else if (navigator.deviceMemory < 4)
@@ -153,7 +153,7 @@ let colors = {
     }
 }
 
-if (!localStorage.bgColor || !Object.keys(colors).includes(localStorage.bgColor)) localStorage.bgColor = 'noema'
+if (!isDefined(localStorage.bgColor) || !Object.keys(colors).includes(localStorage.bgColor)) localStorage.bgColor = 'noema'
 let currentColor = {
     top: "#000",
     bottom: "#000"
