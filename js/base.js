@@ -529,12 +529,12 @@ async function updateLoop(timestamp) {
         focusUIOption(selectedOption);
     }
 
-    if (battery.level <= battery.lowBatteryThresh && !batteryWarned) {
+    if (battery?.level <= battery?.lowBatteryThresh && !batteryWarned) {
         batteryWarned = true;
         if (!battery.charging) {
             notify('Battery low!', `Battery level is at ${battery.level * 100}%. Please charge your device.`);
         }
-    } else if (battery.level > battery.lowBatteryThresh && batteryWarned) {
+    } else if (battery?.level > battery?.lowBatteryThresh && batteryWarned) {
         batteryWarned = false;
     }
 
