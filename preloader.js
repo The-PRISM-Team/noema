@@ -1,5 +1,4 @@
 function loadScripts() {
-
     const scripts = [
         {
             src: 'https://colorjs.io/dist/color.global.js'
@@ -59,9 +58,6 @@ function loadScripts() {
         },
         {
             src: './js/base.js'
-        },
-        {
-            src: './js/preinit.js'
         }
     ];
 
