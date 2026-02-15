@@ -36,7 +36,7 @@ window.addEventListener('load', () => {
     loadScripts()
     document.getElementById('clicktostart').textContent = 'loading scripts, please wait'
     console.log(`Finished loading in ${performance.now() - pageStart}ms!`)
-    if (test) { 
+    if (typeof test !== 'undefined') { 
         console.log(`Testing system...`)
         document.getElementById('clicktostart').innerHTML = 'testing system...'
         test()
