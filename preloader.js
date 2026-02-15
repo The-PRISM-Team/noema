@@ -30,6 +30,9 @@ async function loadScripts() {
             src: './js/modules/file.js'
         },
         {
+            src: './js/modules/util.js'
+        },
+        {
             src: './js/error.js'
         },
         {
