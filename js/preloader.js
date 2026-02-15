@@ -64,7 +64,10 @@ async function loadScripts() {
         }
     ];
 
-    for (let scriptObj of scripts) {
+    for (let i = 0; i < scripts.length; i++) {
+        let scriptObj = scripts[i];
+        document.getElementById('loading-progress').style.width = `${(i / (scripts.length + 1)) * 100}%`;
+
         if (document.querySelector(`script[src="${scriptObj.src}"]`))
             continue; // skip script if there is a script with the same src
 

@@ -36,7 +36,6 @@ body {
 /* --- loading ui --- */
 #loading-bar {
     --color: #777;
-    display: block;
 
     position: fixed;
     left: 50%;

@@ -26,15 +26,13 @@ let pageStart = performance.now(),
 console.log('Loading page...');
 let bgMusic;
 document.addEventListener('DOMContentLoaded', async () => {
-    document.getElementById('loading-progress').style.width = '33%';
-
     console.log(`Page loaded in ${(performance.now() - pageStart).toFixed(2)}ms.`);
 
     console.log('Loading scripts...');
     document.getElementById('clicktostart').textContent = 'loading scripts, please wait';
+    document.getElementById('loading-bar').style.display = 'block';
     const scriptStart = performance.now();
     await loadScripts();
-    document.getElementById('loading-progress').style.width = '66%';
 
     console.log(`Scripts loaded in ${(performance.now() - scriptStart).toFixed(2)}ms.`);
 
