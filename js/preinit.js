@@ -25,7 +25,7 @@ let pageStart = performance.now(),
 
 console.log('Loading page...');
 let bgMusic;
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
     dependStart = performance.now();
     console.log(`Page loaded in ${performance.now() - pageStart}ms.`);
     console.log('Loading resources...');
