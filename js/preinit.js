@@ -1,5 +1,9 @@
 // SIX SEVEN! SIX SEVEN! SIX SEVEN! SIX SEVEN! SIX SEVEN! SIX SEVEN! SIX SEVEN! SIX SEVEN!
 // 6767676767676767676767676767676767676767676767
+function isDefined(value) {
+    return value != null
+}
+
 const isNode = typeof process !== 'undefined' && process.versions?.node;
 if (isNode) {
     console.log("Node.js is not supported. Please use a browser.")
@@ -8,11 +12,11 @@ if (isNode) {
 
 // localstorage definitions go here because this is the best place i could find
 // don't even try asking why
-if (localStorage.getItem('startup') === null) localStorage.startup = 'true'
-if (localStorage.getItem('pauseMusic') === null) localStorage.pauseMusic = 'true'
-if (localStorage.getItem('musicVolume') === null) localStorage.musicVolume = '0.18'
-if (localStorage.getItem('noShaders') === null && navigator.deviceMemory < 4) localStorage.noShaders = 'true'
-if (localStorage.getItem('noTransitions') === null && navigator.deviceMemory < 2) localStorage.noTransitions = 'true'
+if (!isDefined(localStorage.getItem('startup'))) localStorage.startup = 'true'
+if (!isDefined(localStorage.getItem('pauseMusic'))) localStorage.pauseMusic = 'true'
+if (!isDefined(localStorage.getItem('musicVolume'))) localStorage.musicVolume = '0.18'
+if (!isDefined(localStorage.getItem('noShaders')) && navigator.deviceMemory < 4) localStorage.noShaders = 'true'
+if (!isDefined(localStorage.getItem('noTransitions')) && navigator.deviceMemory < 2) localStorage.noTransitions = 'true'
 
 
 
@@ -38,7 +42,7 @@ window.addEventListener('load', async () => {
     document.getElementById('clicktostart').textContent = 'loading scripts, please wait'
     console.log(`Finished loading in ${performance.now() - pageStart}ms!`)
     document.getElementById('clicktostart').textContent = 'finished loading'
-    if (typeof test !== 'undefined') { 
+    if (typeof test !== 'undefined') {
         console.log(`Testing system...`)
         document.getElementById('clicktostart').innerHTML = 'testing system...'
         test()

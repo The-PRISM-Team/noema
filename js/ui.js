@@ -97,7 +97,7 @@ function selectUISuboption(id) {
             } else {
                 suboption.classList.remove('selected')
                 suboption.querySelector('.ui-suboption-text').style.display = 'none'
-                if (icon)
+                if (isDefined(icon))
                     icon.classList.remove('selected')
             }
             traverseDOM(suboption, (el) => {
@@ -111,9 +111,9 @@ function selectUISuboption(id) {
 }
 function executeUISuboption() {
     let suboption = document.getElementById(`ui-content${selectedOption}`).querySelector(`#ui-suboption${selectedSuboption}`)
-    if (suboption.dataset.execute) {
+    if (isDefined(suboption.dataset.execute)) {
         new Function(suboption.dataset.execute)()
-        if (suboption.dataset.sound)
+        if (isDefined(suboption.dataset.sound))
             new Audio(`./sounds/${suboption.dataset.sound}.flac`).play()
         else
             new Audio('./sounds/confirm.flac').play()
@@ -146,8 +146,8 @@ function createSuboption(optionId, title, desc = '', exec = null, icon, sound = 
     let suboption = document.createElement('div')
     suboption.id = 'ui-suboption' + suboptions.children.length
     suboption.className = 'ui-suboption'
-    if (exec) suboption.dataset.execute = exec
-    if (sound) suboption.dataset.sound = sound
+    if (isDefined(exec)) suboption.dataset.execute = exec
+    if (isDefined(sound)) suboption.dataset.sound = sound
     suboption.style.top = `${20 + (-31 * (selectedSuboptions[optionId] - 3))}px`
 
     let suboptionTitle = document.createElement('a')
@@ -160,7 +160,7 @@ function createSuboption(optionId, title, desc = '', exec = null, icon, sound = 
     suboptionDesc.innerText = desc
     suboptionDesc.style.display = 'none'
     suboption.append(suboptionDesc)
-    if (icon) {
+    if (isDefined(icon)) {
         let urltester = new RegExp("([a-zA-Z0-9]+:)//([a-zA-Z0-9_]+:[a-zA-Z0-9_]+@)?([a-zA-Z0-9.-]+\\.[A-Za-z]{2,4})(:[0-9]+)?([^ ])+");
         let suboptionIcon = document.createElement('img')
         if (urltester.test(icon)) {
@@ -202,11 +202,11 @@ function setOption(optionId, text) {
 }
 function setSuboption(optionId, suboptionId, title, desc, icon, exec, sound) {
     let suboption = document.getElementById(`ui-content${optionId}`).querySelector(`#ui-suboption${suboptionId}`)
-    if (title) suboption.querySelector('.ui-suboption-title').innerText = title
-    if (desc) suboption.querySelector('.ui-suboption-text').innerText = desc
-    if (icon) suboption.querySelector('.ui-suboption-icon').src = `./icons/${icon}.png`
-    if (exec) suboption.dataset.execute = exec
-    if (sound) suboption.dataset.sound = sound
+    if (isDefined(title)) suboption.querySelector('.ui-suboption-title').innerText = title
+    if (isDefined(desc)) suboption.querySelector('.ui-suboption-text').innerText = desc
+    if (isDefined(icon)) suboption.querySelector('.ui-suboption-icon').src = `./icons/${icon}.png`
+    if (isDefined(exec)) suboption.dataset.execute = exec
+    if (isDefined(sound)) suboption.dataset.sound = sound
 }
 
 function getOption(optionId) {
@@ -229,15 +229,15 @@ function bandDialog(title, subtitle = '', setupFunc, confirmFunc, usesEnterKey =
     document.getElementById('custom-title').textContent = title
     document.getElementById('custom-items').innerHTML = ''
     document.getElementById('custom-items').style.cssText = ''
-    if (!setupFunc) {
+    if (!isDefined(setupFunc)) {
         document.getElementById('custom-items').style.display = 'none'
     } else {
         document.getElementById('custom-items').style.display = 'revert'
         setupFunc(document.getElementById('custom-items'))
     }
-    if (!confirmFunc) confirmFunc = ()=>{}
+    if (!isDefined(confirmFunc)) confirmFunc = ()=>{}
     document.getElementById('custom-subtitle').style.display = 'none'
-    if (subtitle) {
+    if (isDefined(subtitle)) {
         document.getElementById('custom-subtitle').style.display = 'revert'
         document.getElementById('custom-subtitle-text').textContent = subtitle
     }
@@ -397,7 +397,7 @@ function notify(title, text, icon) {
         notifTitle.className = 'notif-title'
         notifContent.appendChild(notifTitle)
 
-        if (text) {
+        if (isDefined(text)) {
             notifContent.appendChild(document.createElement('br'))
             let notifText = document.createElement('a')
             notifText.textContent = text
@@ -405,7 +405,7 @@ function notify(title, text, icon) {
             notifContent.appendChild(notifText)
         }
 
-        if (icon) {
+        if (isDefined(icon)) {
             let notifIcon = document.createElement('img')
             notifIcon.src = `./icons/${icon}.png`
             notifIcon.className = "notif-icon"

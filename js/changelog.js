@@ -78,7 +78,7 @@ function showChangelog() {
     changelogParts[1].split("\n").forEach(line => {
         const symbolRegex = /\*\*(.+)\*\*/
         const symbol = line.match(symbolRegex) ? line.match(symbolRegex)[1] : null
-        if (symbol) {
+        if (isDefined(symbol)) {
             changelogParts[2] = changelogParts[2].replaceAll(`${symbol} `, '')
             changelogParts[2] = changelogParts[2].replaceAll(symbol, '')
         }
@@ -93,7 +93,7 @@ function showChangelog() {
     }
 
     let lastVersion = localStorage?.lastVersion
-    if (!lastVersion) lastVersion = '0.0.0'
+    if (!isDefined(lastVersion)) lastVersion = '0.0.0'
     lastVersion = {
         major: lastVersion.split('.')[0],
         minor: lastVersion.split('.')[1],
@@ -196,7 +196,7 @@ function showChangelog() {
                     .trim(' ')
                     .replaceAll('``', '`')
                     .replaceAll('```', '`|');
-                    if (!text) return
+                    if (!isDefined(text)) return
                     let finalText = `• ${text}${/[\w"'`\)]/.test(text.last()) ?  "." : ''}`
 
                     finalText.split('`').forEach((subtext, i) => {
