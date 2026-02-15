@@ -40,7 +40,7 @@ body {
 
     position: fixed;
     left: 50%;
-    bottom: 32px;
+    bottom: 48px;
     transform: translateX(-50%);
     
     width: 75%;
@@ -53,6 +53,7 @@ body {
     z-index: calc(infinity);
 }
 #loading-progress {
+    display: block;
     background-color: var(--color);
     height: 100%;
     width: 0%;
