@@ -45,7 +45,7 @@ window.addEventListener('load', async () => {
     console.log(`Resources loaded in ${(performance.now() - dependStart).toFixed(2)}ms.`);
     console.log(`Finished loading in ${(performance.now() - pageStart).toFixed(2)}ms!`);
     document.getElementById('clicktostart').textContent = 'finished loading!';
-    await delay(250);
+    await delay(1.25e3);
 
     if (typeof test !== 'undefined') {
         console.log(`Testing system...`);
