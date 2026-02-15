@@ -1,10 +1,10 @@
 let loadedModules = {}
 function loadLibrary(url, ...attrib) {
-    if (!isDefined(url)) throw new Error('url parameter is empty. pls enter a url dummy')
-    if (!isURL(url)) throw new Error('url is formatted incorrectly. pls enter a valid url buddy :3')
+    if (!isDefined(url)) throw new Error('The URL parameter is empty. Please provide a URL.')
+    if (!isURL(url)) throw new Error('This URL is invalid.')
     let script = document.createElement('script')
     let name = getFilenameFromURL(url)
-    if (loadedModules[name]) throw new Error('module is already loaded!')
+    if (loadedModules[name]) throw new Error('Module already loaded!')
     script.src = url
     script.id = `lib-${name}`
     if (isDefined(attrib)) {
@@ -20,10 +20,10 @@ function loadLibrary(url, ...attrib) {
 
 function unloadLibrary(url) {
     if (!isDefined(url))
-        throw new Error('the url parameter is empty, i thought i told you about this')
+        throw new Error('The URL parameter is empty. Please provide a URL.')
     let name = getFilenameFromURL(url)
     if (!loadedModules[name])
-        throw new Error("hmm, this url doesn't seem like it has been loaded.")
+        throw new Error("This module hasn't been loaded.")
     document.body.removeChild(loadedModules[name])
     delete loadedModules[name]
 }

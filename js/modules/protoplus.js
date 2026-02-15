@@ -291,6 +291,3 @@ class AdvDate {
             return week + date + ' ' + time;
     }
 }
-
-const $_protoplusVersion = '1.0.0-direct'
-console.log(`proto+ v${$_protoplusVersion} loaded!`)
