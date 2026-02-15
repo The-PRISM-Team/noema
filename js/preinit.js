@@ -74,6 +74,7 @@ window.addEventListener('load', async () => {
     }
 
     if (localStorage.fromreboot === 'true') {
+        drawSpaghetti();
         if (localStorage.startup === 'true') {
             document.getElementById('clicktostart').innerHTML = 'starting...';
             if (typeof startup !== 'undefined')
@@ -114,7 +115,7 @@ window.addEventListener('load', async () => {
 
 
             document.onclick = document.onkeydown = null;
-
+    
             drawSpaghetti();
 
             if (localStorage.startup === 'true')
