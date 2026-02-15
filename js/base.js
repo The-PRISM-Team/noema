@@ -140,7 +140,7 @@ function init() {
 
     // init suboptions
     createSuboption(0, 'Power Off', 'Shuts down the system and closes the tab (if possible).', `confirmDialog(shutdown)`, 'power', 'power')
-    createSuboption(0, 'Reboot', 'Restarts the system with the latest (locally stored) version of the system files.', `confirmDialog(reboot)`, 'power', 'power')
+    createSuboption(0, 'Reboot', 'Restarts the system with the latest version of the system files.', `confirmDialog(reboot)`, 'power', 'power')
     selectedSuboptions[0] = 1;
 
     createSuboption(1, 'Set Username', `Username currently set to "${username}".`, `
