@@ -40,16 +40,18 @@ body {
     position: fixed;
     left: 50%;
     bottom: 48px;
-    transform: translateX(-50%);
+    transform: translateX(-100%);
     
     width: 75%;
-    height: 64px;
+    height: 128px;
 
     border: solid 8px var(--color);
     padding: 4px;
 
-    pointer-events: none;    
+    pointer-events: none;
     z-index: calc(infinity);
+    scale: 0.5;
+    opacity: 50%;
 }
 #loading-progress {
     display: block;
