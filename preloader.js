@@ -62,13 +62,12 @@ function loadScripts() {
     ];
 
     for (let scriptObj of scripts) {
+        if (document.querySelector(`script[src="${scriptObj.src}"]`))
+            continue; // skip script if there is a script with the same src
+
         const script = document.createElement('script');
         for (const [property, value] of Object.entries(scriptObj)) {
-            try {
-                script[property] = value;
-            } catch {
-                continue; // skip script if it errors
-            }
+            script[property] = value;
         }
 
         document.body.appendChild(script);

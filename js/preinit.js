@@ -37,8 +37,8 @@ window.addEventListener('load', () => {
     console.log(`Scripts loaded in ${performance.now() - scriptStart}ms.`)
     document.getElementById('clicktostart').textContent = 'loading scripts, please wait'
     console.log(`Finished loading in ${performance.now() - pageStart}ms!`)
-    setTimeout(()=>{}, 50)
     document.getElementById('clicktostart').textContent = 'finished loading'
+    setTimeout(()=>{}, 50)
     if (typeof test !== 'undefined') { 
         console.log(`Testing system...`)
         document.getElementById('clicktostart').innerHTML = 'testing system...'
