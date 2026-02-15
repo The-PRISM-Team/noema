@@ -26,7 +26,7 @@ function traverseDOM(element, callback = console.log) {
 let focused = true;
 window.onfocus = () => {
     focused = true;
-    if (started && localStorage.pauseMusic === 'true' && localStorage.muteBGMusic !== 'true') bgMusic.resume();
+    if (started && localStorage.pauseMusic === 'true') bgMusic.resume();
 };
 window.onblur = () => {
     focused = false;
@@ -175,23 +175,13 @@ function init() {
             ui.classList.remove('open');
             setSuboption(selectedOption, selectedSuboption, 'Toggle open UI', 'UI is currently closed.\\nSelect to open it.');
         }`, 'wrench');
-    createSuboption(prefTab, 'Toggle background music',
-        localStorage.muteBGMusic === 'true' ? 'Background music is currently muted.\nSelect to unmute it.' : 'Background music is currently unmuted.\nSelect to mute it.', `
-        localStorage.muteBGMusic = localStorage.muteBGMusic === 'true' ? 'false' : 'true';
-        if (localStorage.muteBGMusic === 'true') {
-            bgMusic.pause()
-            setSuboption(selectedOption, selectedSuboption, 'Toggle background music', 'Background music is currently muted\\nSelect to unmute it.');
-        } else {
-            bgMusic.play()
-            setSuboption(selectedOption, selectedSuboption, 'Toggle background music', 'Background music is currently unmuted.\\nSelect to mute it.');
-        }`, 'wrench');
     createSuboption(prefTab, 'Toggle pausing background music on unfocus',
         localStorage.pauseMusic === 'true' ? 'Background music currently gets paused on unfocus.\nSelect to not mute it on unfocus.' : 'Background music currently doesn\'t get muted on unfocus.\nSelect to mute it on unfocus.', `
         localStorage.pauseMusic = localStorage.pauseMusic === 'true' ? 'false' : 'true';
         if (localStorage.pauseMusic === 'true') {
             setSuboption(selectedOption, selectedSuboption, 'Toggle pausing background music on unfocus', 'Background music currently gets paused on unfocus.\\nSelect to not mute it on unfocus.');
         } else {
-            if (bgMusic.paused && localStorage.muteBGMusic !== 'true') bgMusic.play()
+            bgMusic.play()
             setSuboption(selectedOption, selectedSuboption, 'Toggle pausing background music on unfocus', 'Background music currently doesn\\'t get muted on unfocus.\\nSelect to enable that.');
         }`, 'wrench');
     createSuboption(prefTab, 'Set background music volume', `Background music is currently at ${parseInt(parseFloat(localStorage.musicVolume) * 100)}% volume.`, `
@@ -206,13 +196,13 @@ function init() {
             setSuboption(selectedOption, selectedSuboption, 'Set UI sound volume', \`UI sounds are currently at \${parseInt(parseFloat(localStorage.uiSoundVolume) * 100)}% volume.\`);
         });
     `, 'wrench');
-    createSuboption(prefTab, 'Play animation on startup?',
+    createSuboption(prefTab, 'Toggle startup animation',
         localStorage.startup === 'true' ? 'Startup animation is currently enabled.\nSelect to disable it.' : 'Startup animation is currently disabled.\nSelect to enable it.', `
         localStorage.startup = localStorage.startup === 'true' ? 'false' : 'true';
         if (localStorage.startup === 'true') {
-            setSuboption(selectedOption, selectedSuboption, 'Play animation on startup?', 'Startup animation is currently enabled.\\nSelect to disable it.');
+            setSuboption(selectedOption, selectedSuboption, 'Toggle startup animation', 'Startup animation is currently enabled.\\nSelect to disable it.');
         } else {
-            setSuboption(selectedOption, selectedSuboption, 'Play animation on startup?', 'Startup animation is currently disabled.\\nSelect to enable it.');
+            setSuboption(selectedOption, selectedSuboption, 'Toggle startup animation', 'Startup animation is currently disabled.\\nSelect to enable it.');
         }`,
         'wrench');
 
@@ -406,25 +396,21 @@ function init() {
 
     bgMusic.loop = true;
     let volume = parseFloat(localStorage.musicVolume).clamp(0, 1);
-    if (localStorage.muteBGMusic !== 'true') {
-        bgMusic.volume = 0;
-        let fadeIn = () => {
-            let t = 0;
-            let int = setInterval(() => {
-                if (t >= volume) {
-                    bgMusic.volume = volume;
-                    clearInterval(int);
-                    return;
-                }
-                t += 0.01;
-                bgMusic.volume = t.clamp(0, volume);
-            }, 1e3 / 30);
-        };
-        bgMusic.play();
-        fadeIn();
-    } else {
-        bgMusic.volume = volume;
-    }
+    bgMusic.volume = 0;
+    let fadeIn = () => {
+        let t = 0;
+        let int = setInterval(() => {
+            if (t >= volume) {
+                bgMusic.volume = volume;
+                clearInterval(int);
+                return;
+            }
+            t += 0.01;
+            bgMusic.volume = t.clamp(0, volume);
+        }, 1e3 / 30);
+    };
+    bgMusic.play();
+    fadeIn();
 
     if (localStorage.noShaders === 'true')
         traverseDOM(document.body, (element) => {
