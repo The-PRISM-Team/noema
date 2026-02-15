@@ -36,12 +36,13 @@ document.addEventListener('DOMContentLoaded', () => {
 window.addEventListener('load', async () => {
     console.log(`Resources loaded in ${performance.now() - dependStart}ms.`);
     console.log('Loading scripts...');
+    document.getElementById('clicktostart').textContent = 'loading scripts, please wait';
     const scriptStart = performance.now();
     await loadScripts();
     console.log(`Scripts loaded in ${performance.now() - scriptStart}ms.`);
-    document.getElementById('clicktostart').textContent = 'loading scripts, please wait';
     console.log(`Finished loading in ${performance.now() - pageStart}ms!`);
-    document.getElementById('clicktostart').textContent = 'finished loading';
+    document.getElementById('clicktostart').textContent = 'finished loading!';
+    await delay(1e3);
     if (typeof test !== 'undefined') {
         console.log(`Testing system...`);
         document.getElementById('clicktostart').innerHTML = 'testing system...';
