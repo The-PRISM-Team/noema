@@ -13,7 +13,7 @@ function playSound(sound, volume = parseFloat(localStorage.uiSoundVolume), prope
 
         return isTargetSound;
     }).length === 1) {
-        const snd = new Audio(sounds[targetSoundIndex]);
+        const snd = new Audio(`/sounds/${sounds[targetSoundIndex]}`);
         snd.volume = volume.clamp(0, 1);
         for (let [property, value] of Object.entries(properties)) {
             snd[property] = value;
