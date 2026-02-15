@@ -52,13 +52,15 @@ function showChangelog() {
 
         - Added a \`⋮ Set UI sound volume\` to the \`⋮ Preferences\` tab to change UI sound volume
 
+        - Added \`⋮ Open Project Noema's GitHub repo\` and \`⋮ Report an issue on GitHub\` selections to the help tab
+
 
         ## API Changes
         - Added \`𝑓 startsWithAmount\` and \`𝑓 endsWithAmount\` to \`𝘰 String.prototype\`
 
         - Added \`𝑓 last\` to \`𝘰 HTMLCollection.prototype\` and \`String.prototype\`
 
-        - Reworked sound engine
+        - Added \`𝑓 playSound\` API
 
 
         ## Bugfixes
@@ -77,6 +79,8 @@ function showChangelog() {
         - Moved \`⋮ Watermelon Sugar\` theme up on the theme list for separation between flag-based themes and non-flag-based themes
 
         - Added environment checks and warnings
+
+        - Reworked sound engine
     `;
     let changelogParts = changelog.split('---');
     changelogParts[1].split("\n").forEach(line => {
