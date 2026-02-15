@@ -47,6 +47,7 @@ function startup() {
     setTimeout(() => {
         changeBGColor(null, 1, "#000", "#000");
         let snd = new Audio('./coldboot.flac');
+        snd.volume = .5
         snd.addEventListener('canplaythrough', function () {
             snd.play();
 
