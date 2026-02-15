@@ -47,7 +47,7 @@ body {
     height: 64px;
 
     border: solid 8px var(--color);
-    padding: 2px;
+    padding: 4px;
 
     pointer-events: none;    
     z-index: calc(infinity);
@@ -55,7 +55,8 @@ body {
 #loading-progress {
     background-color: var(--color);
     height: 100%;
-    width: 50%;
+    width: 0%;
+    transition: width 1s ease-out;
 }
 
 
