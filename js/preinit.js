@@ -29,8 +29,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     document.getElementById('loading-progress').style.width = '33%';
 
     console.log(`Page loaded in ${(performance.now() - pageStart).toFixed(2)}ms.`);
-    bgMusic = new Audio('./menu_music.flac');
-    bgMusic.preload = true;
 
     console.log('Loading scripts...');
     document.getElementById('clicktostart').textContent = 'loading scripts, please wait';
@@ -43,6 +41,8 @@ document.addEventListener('DOMContentLoaded', async () => {
     dependStart = performance.now();
     console.log('Loading resources...');
     document.getElementById('clicktostart').textContent = 'loading page resources, please wait';
+    bgMusic = new Audio('./menu_music.flac');
+    bgMusic.preload = true;
 });
 window.addEventListener('load', async () => {
     document.getElementById('loading-progress').style.width = '100%';
