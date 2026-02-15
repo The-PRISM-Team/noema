@@ -5,11 +5,13 @@ const sounds =
 
 function playSound(sound, volume = parseFloat(localStorage.uiSoundVolume), properties = {}) {
     let targetSoundIndex;
-    if (sounds.find((snd, i) => {
-        const isTargetSound = snd.split('.').slice(0,-1).join('.') === sound;
+    if (sounds.filter((snd, i) => {
+        const isTargetSound = snd.split('.').slice(0,-1).join('.') === 'power';
         if (isTargetSound) {
-            targetSoundIndex = i
+            targetSoundIndex = i;
         }
+
+        return isTargetSound;
     }).length === 1) {
         const snd = new Audio(sounds[targetSoundIndex]);
         snd.volume = volume.clamp(0, 1);
