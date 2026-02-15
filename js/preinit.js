@@ -14,7 +14,7 @@ if (isNode) {
 // don't even try asking why
 if (!isDefined(localStorage.startup)) localStorage.startup = 'true';
 if (!isDefined(localStorage.pauseMusic)) localStorage.pauseMusic = 'true';
-if (!isDefined(localStorage.musicVolume)) localStorage.musicVolume = '0.18';
+if (!isDefined(localStorage.musicVolume)) localStorage.musicVolume = '0.10';
 if (!isDefined(localStorage.uiSoundVolume)) localStorage.uiSoundVolume = '0.5';
 if (!isDefined(localStorage.noShaders) && navigator.deviceMemory < 4) localStorage.noShaders = 'true';
 if (!isDefined(localStorage.noTransitions) && navigator.deviceMemory < 2) localStorage.noTransitions = 'true';
