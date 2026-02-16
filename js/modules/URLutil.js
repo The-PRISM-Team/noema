@@ -1,6 +1,6 @@
 function isURL(url) {
     try {
-        new URL(url, window.location.href);
+        new URL(url, location.href);
         return true;
     } catch {
         return false;
@@ -16,7 +16,7 @@ function getFilenameFromURL(url) {
     if (isValid) {
         return url;
     } else {
-        // don't rely on this, probably, idk, debug later i guess, it's only fair]
+        // not sure about this, debug later i guess 
         throw new SyntaxError("URL doesn't appear to have a valid filename!");
     }
 }

@@ -365,7 +365,7 @@ function init() {
     createSuboption(debugTab, 'Clear Errors', null, 'errors = 0; errorList = []; document.getElementById(\'errors\').innerText = `Errors: ${errors}`', 'star');
     createSuboption(debugTab, 'Load Script', null, `
         promptDialog((url)=>{
-            if (!isDefined(url)) return
+            if (!url) return
             if (!isURL(url)) throw new TypeError("Script URL provided isn't even a URL.");
             if (document.getElementById('script-' + url)) throw new Error('Script already loaded!')
             let script = document.createElement('script')

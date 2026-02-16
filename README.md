@@ -33,4 +33,4 @@ There's no specific deadline, the only requirement is finishing this in 2026.
 The developer team for 0.16.0 will be handpicked,
 the developer team for 0.17.0 will not be handpicked.
 
-To join the developer team, email `sophb.ccjt@proton.me` with your GitHub username, a link to your GitHub profile, or a link to your biography site.
+To join the developer team, email `sophb.code@proton.me` with your GitHub username, a link to your GitHub profile, or a link to your biography site.

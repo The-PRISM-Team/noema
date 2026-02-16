@@ -5,7 +5,7 @@ window.username = username;
 function setUsername(name) {
     if (typeof name !== "string")
         name = name.toString();
-    if (!isDefined(name)) name = _defaultUsername;
+    if (!name) name = _defaultUsername;
     localStorage.username = username = name;
     window.username = name;
 }

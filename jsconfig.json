@@ -6,7 +6,7 @@
             "es6",
             "es2020"
         ],
-        "checkJs": true,
+        "checkJs": false,
         "allowJs": true,
         "module": "commonjs",
         "baseUrl": ".",
