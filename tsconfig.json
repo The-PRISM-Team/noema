@@ -1,0 +1,12 @@
+{
+    "compilerOptions": {
+        "allowJs": true,
+        "checkJs": false
+    },
+    "include": [
+        "**/*.ts"
+    ],
+    "exclude": [
+        "**/*.js"
+    ]
+}

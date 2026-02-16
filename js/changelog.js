@@ -94,7 +94,7 @@ function showChangelog() {
 
     let versionRegex = /v(\d+.\d+.\d+)/;
     let changelogVersion = versionRegex.exec(changelogParts[0])[1];
-    changelogVersion = {
+    let changelogVersionObj = {
         major: changelogVersion.split('.')[0],
         minor: changelogVersion.split('.')[1],
         patch: changelogVersion.split('.')[2]
@@ -109,9 +109,9 @@ function showChangelog() {
     };
 
     if (
-        (changelogVersion.major > lastVersion.major) ||
-        (changelogVersion.minor > lastVersion.minor) ||
-        (changelogVersion.patch > lastVersion.patch)
+        (changelogVersionObj.major > lastVersion.major) ||
+        (changelogVersionObj.minor > lastVersion.minor) ||
+        (changelogVersionObj.patch > lastVersion.patch)
     ) {
         bandDialog(`v${Object.values(changelogVersion).join('.')} Changelog`, '', (dialog) => {
             dialog.style.pointerEvents = 'auto';
