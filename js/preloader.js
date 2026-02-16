@@ -33,6 +33,9 @@ async function loadScripts() {
             src: '/js/modules/util.js'
         },
         {
+            src: '/js/modules/version.js'
+        },
+        {
             src: '/js/error.js'
         },
         {

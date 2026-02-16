@@ -62,13 +62,19 @@ function showChangelog() {
 
         - Added \`𝑓 playSound\` API
 
+        - Added foundational \`𝑓 parseSemver\` and \`𝑓 compareSemver\` helpers for safe semantic version parsing and comparisons
+
 
         ## Bugfixes
-        - Fixed bug where toggling the favicon from colored to monochrome would always make the favicon default to black        
+        - Fixed bug where toggling the favicon from colored to monochrome would always make the favicon default to black
 
         - Heading sizes now properly work on the changelog dialog
 
         - Added (previously missing) punctuation handler to changelog
+
+        - Fixed changelog display gating to use proper semantic version comparison
+
+        - Fixed Battery API warning listener crash on browsers without \`navigator.getBattery\`
 
 
         ## Misc.
@@ -81,9 +87,12 @@ function showChangelog() {
         - Added environment checks and warnings
 
         - Reworked sound engine
+
+        - Removed changelog debug logging and tightened changelog text rendering guards
     `;
+
     let changelogParts = changelog.split('---');
-    changelogParts[1].split("\n").forEach(line => {
+    changelogParts[1].split('\n').forEach(line => {
         const symbolRegex = /\*\*(.+)\*\*/;
         const symbol = line.match(symbolRegex) ? line.match(symbolRegex)[1] : null;
         if (isDefined(symbol)) {
@@ -92,28 +101,27 @@ function showChangelog() {
         }
     });
 
-    let versionRegex = /v(\d+.\d+.\d+)/;
-    let changelogVersion = versionRegex.exec(changelogParts[0])[1];
-    changelogVersion = {
-        major: changelogVersion.split('.')[0],
-        minor: changelogVersion.split('.')[1],
-        patch: changelogVersion.split('.')[2]
+    const fallbackParseSemver = (versionString) => {
+        const match = String(versionString).match(/(\d+)\.(\d+)\.(\d+)/);
+        if (!match) return { major: 0, minor: 0, patch: 0 };
+        return { major: Number(match[1]), minor: Number(match[2]), patch: Number(match[3]) };
+    };
+    const fallbackCompareSemver = (a, b) => {
+        const left = fallbackParseSemver(a);
+        const right = fallbackParseSemver(b);
+        if (left.major !== right.major) return left.major > right.major ? 1 : -1;
+        if (left.minor !== right.minor) return left.minor > right.minor ? 1 : -1;
+        if (left.patch !== right.patch) return left.patch > right.patch ? 1 : -1;
+        return 0;
     };
 
-    let lastVersion = localStorage?.lastVersion;
-    if (!isDefined(lastVersion)) lastVersion = '0.0.0';
-    lastVersion = {
-        major: lastVersion.split('.')[0],
-        minor: lastVersion.split('.')[1],
-        patch: lastVersion.split('.')[2]
-    };
+    const changelogVersionString = (changelogParts[0].match(/v(\d+\.\d+\.\d+)/) || [null, '0.0.0'])[1];
+    const lastVersionString = isDefined(localStorage?.lastVersion) ? localStorage.lastVersion : '0.0.0';
+    const changelogVersion = typeof parseSemver === 'function' ? parseSemver(changelogVersionString) : fallbackParseSemver(changelogVersionString);
+    const compare = typeof compareSemver === 'function' ? compareSemver : fallbackCompareSemver;
 
-    if (
-        (changelogVersion.major > lastVersion.major) ||
-        (changelogVersion.minor > lastVersion.minor) ||
-        (changelogVersion.patch > lastVersion.patch)
-    ) {
-        bandDialog(`v${Object.values(changelogVersion).join('.')} Changelog`, '', (dialog) => {
+    if (compare(changelogVersionString, lastVersionString) > 0) {
+        bandDialog(`v${changelogVersion.major}.${changelogVersion.minor}.${changelogVersion.patch} Changelog`, '', (dialog) => {
             dialog.style.pointerEvents = 'auto';
             let change = document.createElement('h1');
             change.style.cssText = "color: #fff; font-family: 'Manrope', monospace;";
@@ -121,12 +129,11 @@ function showChangelog() {
             const text = changelogParts.last().split('\n');
             text.forEach(textline => {
                 const line = textline.trim(' ');
-                console.log(line);
                 if (line.length < 1) return;
-                if (line.startsWith("#")) {
+                if (line.startsWith('#')) {
                     if (dialog.children.last() !== change) dialog.appendChild(document.createElement('br'));
 
-                    let header = document.createElement(`h${Math.min(6, line.startsWithAmount("#"))}`);
+                    let header = document.createElement(`h${Math.min(6, line.startsWithAmount('#'))}`);
                     header.textContent = line.trimStart('#', ' ');
                     header.style.cssText = `
                         color: #fff;
@@ -134,11 +141,11 @@ function showChangelog() {
                         font-weight: bolder;
                         transition: text-shadow .5s ease;
                     `;
-                    header.onmouseenter = ()=>{
-                        header.style.textShadow = `0px 0px ${10 / Math.min(6, line.startsWithAmount("#")).floor()}px #fff`;
+                    header.onmouseenter = () => {
+                        header.style.textShadow = `0px 0px ${10 / Math.min(6, line.startsWithAmount('#')).floor()}px #fff`;
                     };
-                    header.onmouseout = ()=>{
-                        header.style.textShadow = "0px 0px 0px #fff";
+                    header.onmouseout = () => {
+                        header.style.textShadow = '0px 0px 0px #fff';
                     };
 
                     dialog.appendChild(header);
@@ -149,63 +156,19 @@ function showChangelog() {
                         transition: text-shadow .25s ease;
                     `;
                     changeSpan.onmouseenter = () => {
-                        changeSpan.style.textShadow = "0px 0px 5px #fff";
+                        changeSpan.style.textShadow = '0px 0px 5px #fff';
                     };
                     changeSpan.onmouseleave = () => {
-                        changeSpan.style.textShadow = "0px 0px 0px #fff";
+                        changeSpan.style.textShadow = '0px 0px 0px #fff';
                     };
-                    /*
-                    changeSpan.onmouseup = async () => {
-                        await navigator.clipboard.writeText(changeSpan.textContent.substring(1).trim(' '))
-                        let popup = document.createElement('div')
-                        popup.style.cssText = `
-                            background-color: #111;
-                            outline: solid 2px #333;
-                            text-shadow: none;
-                            border-radius: 15px;
-                            padding: 5px;
-                            position: fixed;
-                            left: 50%;
-                            top: 50%;
-                            transform: translate(-50%, -50%) translateY(125%);
-                            opacity: 0%;
-                            transition: opacity .5s ease;
-                            width: fit-content;
-                            height: fit-content;
-                        `
-                        dialog.appendChild(popup)
-                        let text = document.createElement('a')
-                        text.textContent = 'Copied! (click to hide)'
-                        text.style.cssText = `
-                            color: #fff;
-                            font-family: 'Manrope', monospace;
-                        `
-                        popup.appendChild(text)
-                        requestAnimationFrame(()=>popup.style.opacity = "100%")
-                        let removeTimeout = setTimeout(()=>{
-                            popup.style.transition = "opacity 1.5s ease"
-                            popup.style.opacity = "0%"
-                            setTimeout(()=>{
-                                popup.remove()
-                            }, 1.5e3)
-                        }, 500 + 5e3)
-                        popup.onmousedown = () => {
-                            clearTimeout(removeTimeout)
-                            popup.style.transition = "opacity .25s ease"
-                            popup.style.opacity = "0%"
-                            setTimeout(()=>{
-                                popup.remove()
-                            }, .25e3)
-                        }
-                    }*/
                     dialog.appendChild(changeSpan);
                     let text = line
-                    .trimStart('-')
-                    .trim(' ')
-                    .replaceAll('``', '`')
-                    .replaceAll('```', '`|');
-                    if (!isDefined(text)) return;
-                    let finalText = `• ${text}${/[\w"'`\)]/.test(text.last()) ?  "." : ''}`;
+                        .trimStart('-')
+                        .trim(' ')
+                        .replaceAll('``', '`')
+                        .replaceAll('```', '`|');
+                    if (!isDefined(text) || text.length < 1) return;
+                    let finalText = `• ${text}${/[\w"'`\)]/.test(text.last()) ? '.' : ''}`;
 
                     finalText.split('`').forEach((subtext, i) => {
                         if (i % 2) {
@@ -221,11 +184,11 @@ function showChangelog() {
                                 text-shadow: none;
                                 transition: background-color .5s ease;
                             `;
-                            change.onmouseenter = ()=> {
-                                change.style.backgroundColor = "#282030";
+                            change.onmouseenter = () => {
+                                change.style.backgroundColor = '#282030';
                             };
-                            change.onmouseleave = ()=> {
-                                change.style.backgroundColor = "#141020";
+                            change.onmouseleave = () => {
+                                change.style.backgroundColor = '#141020';
                             };
                             changeSpan.appendChild(change);
                         } else {

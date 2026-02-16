@@ -486,13 +486,16 @@ async function updateBattery() {
 }
 
 updateBattery();
-navigator.getBattery().then(battery => {
-    battery.addEventListener('chargingchange', function () {
-        if (!battery.charging && battery.level <= battery.lowBatteryThresh) {
-            notify('Battery low!', `Battery is at ${battery.level * 100}%, please reconnect the charger!`);
-        }
+if ('getBattery' in navigator) {
+    navigator.getBattery().then(battery => {
+        battery.lowBatteryThresh = 0.25;
+        battery.addEventListener('chargingchange', function () {
+            if (!battery.charging && battery.level <= battery.lowBatteryThresh) {
+                notify('Battery low!', `Battery is at ${battery.level * 100}%, please reconnect the charger!`);
+            }
+        });
     });
-});
+}
 
 async function updateLoop(timestamp) {
     if (Date.now() - lastActivity > 60e3 * 1.5) {

@@ -60,13 +60,19 @@
 
 - Added `𝑓 playSound` API
 
+- Added foundational `𝑓 parseSemver` and `𝑓 compareSemver` helpers for safe semantic version parsing and comparisons
+
 
 ## Bugfixes
-- Fixed bug where toggling the favicon from colored to monochrome would always make the favicon default to black        
+- Fixed bug where toggling the favicon from colored to monochrome would always make the favicon default to black
 
 - Heading sizes now properly work on the changelog dialog
 
 - Added (previously missing) punctuation handler to changelog
+
+- Fixed changelog display gating to use proper semantic version comparison
+
+- Fixed Battery API warning listener crash on browsers without `navigator.getBattery`
 
 
 ## Misc.
@@ -79,3 +85,5 @@
 - Added environment checks and warnings
 
 - Reworked sound engine
+
+- Removed changelog debug logging and tightened changelog text rendering guards
