@@ -1,1 +1,2 @@
-dailycheck.sh
+/HealthCheck
+/HealthCheck/**/*
