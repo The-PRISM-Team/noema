@@ -51,6 +51,7 @@ window.addEventListener('load', async () => {
     document.getElementById('clicktostart').textContent = 'finished loading!';
     await delay(750);
     document.getElementById('loading-bar').style.opacity = '0%';
+    document.getElementById('loading-progress').style.width = '0%';
 
     if (typeof test !== 'undefined') {
         console.log('Testing system...');
@@ -98,9 +99,13 @@ window.addEventListener('load', async () => {
             document.getElementById('clicktostart').innerHTML = 'click or press enter to go to menu';
 
         let start = async () => {
+            document.getElementById('loading-bar').style.opacity = '50%';
             document.getElementById('clicktostart').innerHTML = 'initializing sounds...';
 
-            await soundWarmup();
+            await soundWarmup((done, total)=>{
+                document.getElementById('loading-progress').style.width = `${Math.round(done / total)}%`;
+            });
+            document.getElementById('loading-bar').style.opacity = '0%';
 
             document.onclick = document.onkeydown = null;
     
