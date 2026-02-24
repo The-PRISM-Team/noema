@@ -186,7 +186,7 @@ function init() {
         }`, 'wrench');
     createSuboption(prefTab, 'Set background music volume', `Background music is currently at ${parseInt(parseFloat(localStorage.musicVolume) * 100)}% volume.`, `
         inputDialog('Set background music volume', null, parseFloat(localStorage.musicVolume) * 100, 0, 100, 1, '{value}%', (volume)=>{
-            localStorage.musicVolume = bgMusic.volume = volume / 100;
+            localStorage.musicVolume = bgMusic.volume = volume / 100 * masterVolume;
             setSuboption(selectedOption, selectedSuboption, 'Set background music volume', \`Background music is currently at \${parseInt(parseFloat(localStorage.musicVolume) * 100)}% volume.\`);
         });
     `, 'wrench');
@@ -401,12 +401,12 @@ function init() {
         let t = 0;
         let int = setInterval(() => {
             if (t >= volume) {
-                bgMusic.volume = volume;
+                bgMusic.volume = volume * masterVolume;
                 clearInterval(int);
                 return;
             }
             t += 0.01;
-            bgMusic.volume = t.clamp(0, volume);
+            bgMusic.volume = t.clamp(0, volume * masterVolume);
         }, 1e3 / 30);
     };
     bgMusic.play();
