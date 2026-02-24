@@ -32,3 +32,14 @@ function playSound(sound, volume, properties = {}) {
         throw new ReferenceError(`The sound "${sound}" doesn't exist/isn't registered.`);
     }
 }
+
+// keep sounds in memory to keep "warm"
+const warmup = [];
+function soundWarmup() {
+    sounds.forEach(src => {
+        const audio = new Audio(`./sounds/${src}`);
+        audio.volume = 0;
+        audio.play().catch(() => {});
+        warmup.push(audio);
+    });
+}
