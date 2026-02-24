@@ -37,7 +37,7 @@ function playSound(sound, volume, properties = {}) {
 const warmup = [];
 function soundWarmup() {
     sounds.forEach(src => {
-        const audio = new Audio(`./sounds/${src}`);
+        const audio = new Audio(`/assets/sounds/menu/${src}`);
         audio.volume = 0;
         audio.play().catch(() => {});
         warmup.push(audio);

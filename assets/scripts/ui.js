@@ -161,7 +161,7 @@ function createSuboption(optionId, title, desc = '', exec = null, icon, sound = 
     suboptionDesc.style.display = 'none';
     suboption.append(suboptionDesc);
     if (isDefined(icon)) {
-        let urltester = new RegExp("([a-zA-Z0-9]+:)//([a-zA-Z0-9_]+:[a-zA-Z0-9_]+@)?([a-zA-Z0-9.-]+\\.[A-Za-z]{2,4})(:[0-9]+)?([^ ])+");
+        let urltester = new RegExp("([a-zA-Z0-9]+:)?//([a-zA-Z0-9_]+:[a-zA-Z0-9_]+@)?([a-zA-Z0-9.-]+\\.[A-Za-z]{2,4})(:[0-9]+)?([^ ])+");
         let suboptionIcon = document.createElement('img');
         if (urltester.test(icon)) {
             suboptionIcon.src = icon;
