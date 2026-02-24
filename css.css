@@ -52,7 +52,7 @@ body {
     pointer-events: none;
     z-index: calc(infinity);
     scale: 0.5;
-    opacity: 0%;
+    opacity: 50%;
     transition: opacity .5s ease-out;
 }
 #loading-progress {

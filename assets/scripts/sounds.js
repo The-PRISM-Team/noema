@@ -48,7 +48,7 @@ async function soundWarmup(cb = ()=>{}) {
         warmup.push(audio);
 
         done++;
-        cb(done, sounds.length, result);
+        cb(done, sounds.length, audio, result);
     }
     return warmup;
 }

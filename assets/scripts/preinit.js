@@ -59,7 +59,7 @@ window.addEventListener('load', async () => {
     console.log('Loading sounds...')
     document.getElementById('clicktostart').innerHTML = 'loading sounds...';
 
-    soundStart = performance.now()
+    soundStart = performance.now();
     await soundWarmup((done, total) => {
         document.getElementById('loading-progress').style.width = `${50 + (Math.round(done / total) / 2)}%`;
     });
