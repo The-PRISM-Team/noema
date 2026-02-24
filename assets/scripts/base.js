@@ -11,7 +11,8 @@ document.getElementById('version-number').textContent = formatVersion();
 
 let fpsCounter = document.getElementById('fps');
 
-let fps = avgfps = 60,
+let fps = 60,
+    avgfps = fps,
     deltaTime = 1 / fps;
 let _lastTime = performance.now();
 
