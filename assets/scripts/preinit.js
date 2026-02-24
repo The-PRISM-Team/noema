@@ -40,7 +40,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     dependStart = performance.now();
     console.log('Loading resources...');
     document.getElementById('clicktostart').textContent = 'loading page resources, please wait';
-    bgMusic = new Audio('/sounds/menu_music.flac');
+    bgMusic = new Audio('/assets/sounds/menu_music.flac');
     bgMusic.preload = true;
 });
 window.addEventListener('load', async () => {
