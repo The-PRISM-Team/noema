@@ -44,7 +44,7 @@ body {
     transform: translateX(-100%);
     
     width: 75%;
-    height: 48px;
+    height: 32px;
 
     border: solid 8px var(--color);
     padding: 4px;
