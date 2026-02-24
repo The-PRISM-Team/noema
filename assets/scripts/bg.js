@@ -154,7 +154,7 @@ const bgColors = {
     "trans flag": {
         "top": "#5BCEFA",
         "bottom": "#F5A9B8",
-        "accentColor": "#5BCEFA"
+        "accentColor": "#AFBAD6"
     }
 };
 
