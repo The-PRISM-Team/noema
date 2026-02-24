@@ -40,7 +40,7 @@ body {
 
     position: fixed;
     left: 50%;
-    bottom: 96px;
+    bottom: 64px;
     transform: translateX(-100%);
     
     width: 75%;
