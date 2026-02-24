@@ -128,7 +128,11 @@ function init() {
 
     if (localStorage.debugUI === 'true')
         document.getElementById('debug-ui').style.display = 'inline';
-    changeBGColor(localStorage.bgColor, .025);
+
+    changeBGColor({
+        colorName: localStorage.bgColor,
+        easing: .025
+    });
 
     icon();
 
@@ -334,7 +338,7 @@ function init() {
     );
 
     Object.keys(colors).forEach((color, i) => {
-        createSuboption(themeTab, color.toTitleCase(), `Select to set the theme to "${color.toTitleCase()}".`, `changeBGColor("${color}")`, 'image');
+        createSuboption(themeTab, color.toTitleCase(), `Select to set the theme to "${color.toTitleCase()}".`, `changeBGColor({colorName: "${color}"})`, 'image');
         if (color === localStorage.bgColor)
             selectedSuboptions[3] = i;
     });
