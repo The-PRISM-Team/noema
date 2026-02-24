@@ -22,21 +22,27 @@ if (!isDefined(localStorage.noTransitions) && navigator.deviceMemory < 2) localS
 
 
 let pageStart = performance.now(),
-    dependStart = null;
+    dependStart = null,
+    soundStart = null;
 
+// load page
 console.log('Loading page...');
 let bgMusic;
 document.addEventListener('DOMContentLoaded', async () => {
+    document.getElementById('loading-progress').style.width = '1%';
     console.log(`Page loaded in ${(performance.now() - pageStart).toFixed(2)}ms.`);
 
+    // load scripts
     console.log('Loading scripts...');
     document.getElementById('clicktostart').textContent = 'loading scripts, please wait';
-    document.getElementById('loading-bar').style.opacity = '50%';
     const scriptStart = performance.now();
-    await loadScripts();
+    await loadScripts((done, total)=>{
+        document.getElementById('loading-progress').style.width = `${Math.max(1, 1 + Math.round((done / total * 100) / 2) - 2)}%`;
+    });
 
     console.log(`Scripts loaded in ${(performance.now() - scriptStart).toFixed(2)}ms.`);
 
+    // load resources
     dependStart = performance.now();
     console.log('Loading resources...');
     document.getElementById('clicktostart').textContent = 'loading page resources, please wait';
@@ -47,8 +53,21 @@ window.addEventListener('load', async () => {
     document.getElementById('loading-progress').style.width = '100%';
 
     console.log(`Resources loaded in ${(performance.now() - dependStart).toFixed(2)}ms.`);
-    console.log(`Finished loading in ${(performance.now() - pageStart).toFixed(2)}ms!`);
+    document.getElementById('loading-progress').style.width = '50%';
+
+    // load sounds
+    console.log('Loading sounds...')
+    document.getElementById('clicktostart').innerHTML = 'loading sounds...';
+
+    soundStart = performance.now()
+    await soundWarmup((done, total) => {
+        document.getElementById('loading-progress').style.width = `${50 + (Math.round(done / total) / 2)}%`;
+    });
+    console.log(`Initialized sounds in ${(performance.now() - soundStart).toFixed(2)}ms.`);
+
+    // done
     document.getElementById('clicktostart').textContent = 'finished loading!';
+    console.log(`Finished loading in ${(performance.now() - pageStart).toFixed(2)}ms!`);
     await delay(750);
     document.getElementById('loading-bar').style.opacity = '0%';
     document.getElementById('loading-progress').style.width = '0%';
@@ -57,6 +76,7 @@ window.addEventListener('load', async () => {
         console.log('Testing system...');
         document.getElementById('clicktostart').innerHTML = 'testing system...';
         test();
+        console.log('Test succeeded!');
     }
 
     const isMobile = navigator.userAgentData?.mobile === true || /Android|iPhone|iPad|iPod/i.test(navigator.userAgent); 
@@ -99,14 +119,6 @@ window.addEventListener('load', async () => {
             document.getElementById('clicktostart').innerHTML = 'click or press enter to go to menu';
 
         let start = async () => {
-            document.getElementById('loading-bar').style.opacity = '50%';
-            document.getElementById('clicktostart').innerHTML = 'initializing sounds...';
-
-            await soundWarmup((done, total)=>{
-                document.getElementById('loading-progress').style.width = `${Math.round(done / total)}%`;
-            });
-            document.getElementById('loading-bar').style.opacity = '0%';
-
             document.onclick = document.onkeydown = null;
     
             drawSpaghetti();

@@ -1,4 +1,4 @@
-async function loadScripts() {
+async function loadScripts(cb) {
     const scripts = [
         {
             src: '/assets/scripts/modules/color.global.js'
@@ -87,6 +87,7 @@ async function loadScripts() {
             }
 
             document.body.appendChild(script);
+            cb(i, scripts.length, script);
         });
     }
 }
