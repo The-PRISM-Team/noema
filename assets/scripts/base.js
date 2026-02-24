@@ -42,15 +42,16 @@ function updateFps() {
     fps = Math.floor(fps);
 
     if (_fpses.length > 0) {
-        avgfps = 0;
+    //    avgfps = 0;
         _fpses.forEach(fps => {
-    //        avgfps += fps;
+            avgfps += fps;
         });
     //    avgfps /= _fpses.length;
     //    avgfps = Math.round(avgfps);
     } else {
     //    avgfps = fps;
     }
+    // if (avgfps === 0) avgfps = fps;
     _fpses.push(fps);
     if (_fpses.length > 120) {
         _fpses.shift();
@@ -60,7 +61,7 @@ function updateFps() {
 }
 updateFps();
 setInterval(() => {
-    fpsCounter.innerHTML = `FPS: ${fps} | Average FPS: ${avgfps}`;
+    fpsCounter.innerHTML = `FPS: ${fps} | Avg. FPS: ${avgfps}`;
     if (fps >= 45) {
         fpsCounter.style.color = "#fff";
     } else if (fps >= 30) {
