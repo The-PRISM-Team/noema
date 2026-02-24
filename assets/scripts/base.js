@@ -337,7 +337,7 @@ function init() {
         'wrench'
     );
 
-    Object.keys(colors).forEach((color, i) => {
+    Object.keys(bgColors).forEach((color, i) => {
         createSuboption(themeTab, color.toTitleCase(), `Select to set the theme to "${color.toTitleCase()}".`, `changeBGColor({colorName: "${color}"})`, 'image');
         if (color === localStorage.bgColor)
             selectedSuboptions[3] = i;
