@@ -150,6 +150,11 @@ const bgColors = {
         "top": "#4FD7B2",
         "bottom": "#6476D6",
         "accentColor": "#55BDBC"
+    },
+    "trans flag": {
+        "top": "#5BCEFA",
+        "bottom": "#F5A9B8",
+        "accentColor": "#5BCEFA"
     }
 };
 
