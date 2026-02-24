@@ -86,7 +86,7 @@ function icon(
             favicon.href = '/assets/logos/noema/color.png';
         } else {
             if (darkmode) {
-                favicon.href = '/assets/logos/noema/color.png';
+                favicon.href = '/assets/logos/noema/white.png';
             } else {
                 favicon.href = '/assets/logos/noema/black.png';
             }
