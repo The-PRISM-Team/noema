@@ -25,14 +25,14 @@ function traverseDOM(element, callback = console.log) {
 }
 
 let focused = true;
-window.onfocus = () => {
+window.addEventListener('focus', () =>{
     focused = true;
     if (started && localStorage.pauseMusic === 'true') bgMusic.resume();
-};
-window.onblur = () => {
+});
+window.addEventListener('blur', () =>{
     focused = false;
     if (started && localStorage.pauseMusic === 'true') bgMusic.pause();
-};
+});
 
 let _fpses = [];
 function updateFps() {
@@ -42,17 +42,20 @@ function updateFps() {
     fps = 1 / deltaTime;
     fps = Math.floor(fps);
 
-    if (_fpses.length > 0) {
-        avgfps = 0;
-        _fpses.forEach(fps => {
-            avgfps += fps;
-        });
-        avgfps /= _fpses.length;
-        avgfps = Math.round(avgfps);
-    } else {
-        avgfps = fps;
+    if (focused) { // fps can be VERY inaccurate when the tab is unfocused
+        if (_fpses.length > 0) {
+            avgfps = 0;
+            _fpses.forEach(fps => {
+                avgfps += fps;
+            });
+            avgfps /= _fpses.length;
+            avgfps = Math.round(avgfps);
+        } else {
+            avgfps = fps;
+        }
+
+        if (avgfps === 0 && focused) avgfps = fps;
     }
-    if (avgfps === 0) avgfps = fps;
     _fpses.push(fps);
     if (_fpses.length > 120) {
         _fpses.shift();
