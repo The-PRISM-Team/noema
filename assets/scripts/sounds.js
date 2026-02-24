@@ -11,6 +11,7 @@ const sounds =
         '../menu_music.flac'
     ];
 
+let masterVolume = 1;
 function playSound(sound, volume, properties = {}) {
     let targetSoundIndex;
     if (sounds.filter((snd, i) => {
@@ -22,7 +23,9 @@ function playSound(sound, volume, properties = {}) {
         return isTargetSound;
     }).length === 1) {
         const snd = new Audio(`/assets/sounds/menu/${sounds[targetSoundIndex]}`);
-        if (!isDefined(volume)) volume = parseFloat(localStorage.uiSoundVolume);
+        if (!isDefined(volume))
+            volume = parseFloat(localStorage.uiSoundVolume) * masterVolume.clamp(0, 1);
+
         snd.volume = volume.clamp(0, 1);
         for (let [property, value] of Object.entries(properties)) {
             snd[property] = value;
