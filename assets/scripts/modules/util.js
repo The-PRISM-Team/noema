@@ -37,7 +37,18 @@ class AdvDate {
         Object.keys(this.times).forEach(k => this[k] = this.times[k]);
     }
 
-    getDateString({ trimWeek = false, showWeek = true, monthFirst = true, timeFirst = false, showMs = false, dateSeparator = '/', timeSeparator = ':', msSeparator = '.' } = {}) {
+    getDateString({
+        trimWeek = false,
+        showWeek = true,
+        monthFirst = true,
+        timeFirst = false,
+        showMs = false,
+        dateSeparator = '/',
+        timeSeparator = ':',
+        msSeparator = '.',
+        dateOnly = false,
+        timeOnly = false
+    } = {}) {
         const week =
         showWeek ?
             (`${
@@ -59,6 +70,11 @@ class AdvDate {
             (monthFirst ? this.times.day() : this.times.month()).toString().padStart(2, '0'),
             this.times.year().toString().padStart(4, '0')
         ].join(dateSeparator);
+
+        if (timeOnly && dateOnly) throw new Error('You cannot only get the time while also only getting the date.');
+
+        if (timeOnly) return time;
+        if (dateOnly) return date;
 
         if (timeFirst)
             return week + time + ' ' + date;
