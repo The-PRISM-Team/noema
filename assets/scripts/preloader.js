@@ -1,72 +1,72 @@
 async function loadScripts() {
     const scripts = [
         {
-            src: '/js/modules/color.global.js'
+            src: '/assets/scripts/modules/color.global.js'
         },
         {
-            src: '/js/modules/jquery-3.7.1.js'
+            src: '/assets/scripts/modules/jquery-3.7.1.js'
         },
         {
-            src: '/js/modules/gamecontroller.js'
+            src: '/assets/scripts/modules/gamecontroller.js'
         },
         {
-            src: '/js/modules/gapless5.js',
+            src: '/assets/scripts/modules/gapless5.js',
             language: 'JavaScript',
             type: 'text/javascript'
         },
         {
-            src: '/js/modules/controller_input.js'
+            src: '/assets/scripts/modules/controller_input.js'
         },
         {
-            src: '/js/modules/protoplus.js'
+            src: '/assets/scripts/modules/protoplus.js'
         },
         {
-            src: '/js/modules/bgFormat.js'
+            src: '/assets/scripts/modules/bgFormat.js'
         },
         {
-            src: '/js/modules/URLutil.js'
+            src: '/assets/scripts/modules/URLutil.js'
         },
         {
-            src: '/js/modules/file.js'
+            src: '/assets/scripts/modules/file.js'
         },
         {
-            src: '/js/modules/util.js'
+            src: '/assets/scripts/modules/util.js'
         },
         {
-            src: '/js/modules/version.js'
+            src: '/assets/scripts/modules/version.js'
         },
         {
-            src: '/js/error.js'
+            src: '/assets/scripts/error.js'
         },
         {
-            src: '/js/power.js'
+            src: '/assets/scripts/power.js'
         },
         {
-            src: '/js/game.js'
+            src: '/assets/scripts/game.js'
         },
         {
-            src: '/js/controller.js'
+            src: '/assets/scripts/controller.js'
         },
         {
-            src: '/js/changelog.js'
+            src: '/assets/scripts/changelog.js'
         },
         {
-            src: '/js/bg.js'
+            src: '/assets/scripts/bg.js'
         },
         {
-            src: '/js/ui.js'
+            src: '/assets/scripts/ui.js'
         },
         {
-            src: '/js/user.js'
+            src: '/assets/scripts/user.js'
         },
         {
-            src: '/js/info.js'
+            src: '/assets/scripts/info.js'
         },
         {
-            src: '/js/sounds.js'
+            src: '/assets/scripts/sounds.js'
         },
         {
-            src: '/js/base.js'
+            src: '/assets/scripts/base.js'
         }
     ];
 

@@ -239,7 +239,7 @@ function addFlake() {
     };
     let flake = document.createElement('img');
     flake.id = id;
-    flake.src = localStorage.coloredFavicon === 'true' ? './prism_logo_color.png' : './prism_logo_white.png';
+    flake.src = localStorage.coloredFavicon === 'true' ? '/assets/logos/prism/color.png' : '/assets/logos/prism/white.png';
     flake.height = '32';
     flake.style.position = 'fixed';
     flake.style.left = `${pos.x}px`;

@@ -60,17 +60,17 @@ function startup() {
                     document.getElementById('startup-logo').style.transform = "translate(-50%, -50%)";
                     document.getElementById('startup-logo').style.transition = 'opacity 1s ease, height 1s ease, transform 1s ease';
                     document.getElementById('startup-logo').style.height = "25vh";
-                    favicon.href = './noema_logo_black.png';
+                    favicon.href = '/assets/logos/noema/black.png';
                     setTimeout(() => {
                         changeBGColor(null, .05, "#000", "#f0f");
                         document.getElementById('startup-text').style.textShadow = "0px 0px 15px #000";
                         document.getElementById('startup-text').style.opacity = "100%";
-                        favicon.href = './noema_logo_white.png';
+                        favicon.href = '/assets/logos/noema/white.png';
                         setTimeout(() => {
                             document.getElementById('startup-text').style.top = "65vh";
                             document.getElementById('startup-text').style.textShadow = "0px 0px 50px #fff";
                             changeBGColor(null, .05, "#00f", "#f0f");
-                            favicon.href = './noema_logo_color.png';
+                            favicon.href = '/assets/logos/noema/color.png';
                             setTimeout(() => {
                                 document.getElementById('startup-logo').style.opacity = "0%";
                                 document.getElementById('startup-text').style.opacity = "0%";

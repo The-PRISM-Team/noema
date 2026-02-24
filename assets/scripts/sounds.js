@@ -1,7 +1,15 @@
 const sounds =
-    'back,confirm,error,fatal-error,notif,power,select' // CSV, may add something like this to util.js
-    .split(',')
-    .map(snd => snd = `${snd.trim()}.flac`);
+    [
+        'back.flac',
+        'confirm.flac',
+        'error.flac',
+        'fatal-error.flac',
+        'notif.flac',
+        'power.flac',
+        'select.flac',
+        '../coldboot.flac', // this path is valid btw
+        '../menu_music.flac'
+    ];
 
 function playSound(sound, volume, properties = {}) {
     let targetSoundIndex;
@@ -13,7 +21,7 @@ function playSound(sound, volume, properties = {}) {
 
         return isTargetSound;
     }).length === 1) {
-        const snd = new Audio(`/sounds/${sounds[targetSoundIndex]}`);
+        const snd = new Audio(`/assets/sounds/menu/${sounds[targetSoundIndex]}`);
         if (!isDefined(volume)) volume = parseFloat(localStorage.uiSoundVolume);
         snd.volume = volume.clamp(0, 1);
         for (let [property, value] of Object.entries(properties)) {

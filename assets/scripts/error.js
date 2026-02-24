@@ -23,8 +23,8 @@ window.addEventListener("error", (event) => {
         }
     });
     if (!started) {
-        let errorSound = new Audio('./sounds/fatal-error.flac');
-        let errorSound2 = new Audio('./sounds/fatal-error.flac');
+        let errorSound = new Audio('/assets/sounds/menu/fatal-error.flac');
+        let errorSound2 = new Audio('/assets/sounds/menu/fatal-error.flac');
         errorSound.preload = true;
         errorSound2.preload = true;
         let bgint1 =
@@ -91,7 +91,7 @@ window.addEventListener("error", (event) => {
             },1e3);
         },2e3);
     } else {
-        new Audio('./sounds/error.flac').play();
+        new Audio('/assets/sounds/menu/error.flac').play();
     }
     if (started) errors++;
     document.getElementById('errors').style.transition = '';

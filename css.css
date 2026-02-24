@@ -1,6 +1,6 @@
 @font-face {
   font-family: 'Manrope';
-  src: url('./fonts/manrope.ttf');
+  src: url('/assets/fonts/manrope.ttf');
 }
 
 * {
@@ -44,7 +44,7 @@ body {
     transform: translateX(-100%);
     
     width: 75%;
-    height: 64px;
+    height: 48px;
 
     border: solid 8px var(--color);
     padding: 4px;
