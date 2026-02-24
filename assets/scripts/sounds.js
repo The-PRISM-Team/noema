@@ -38,11 +38,11 @@ function playSound(sound, volume, properties = {}) {
 
 // keep sounds in memory to keep "warm"
 const warmup = [];
-function soundWarmup() {
-    sounds.forEach(src => {
-        const audio = new Audio(`/assets/sounds/menu/${src}`);
+async function soundWarmup() {
+    for (const sound of sounds) {
+        const audio = new Audio(`/assets/sounds/menu/${sound}`);
         audio.volume = 0;
-        audio.play().catch(() => {});
+        await audio.play().catch(()=>{});
         warmup.push(audio);
-    });
+    }
 }

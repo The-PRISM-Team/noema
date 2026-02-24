@@ -97,9 +97,8 @@ window.addEventListener('load', async () => {
         else
             document.getElementById('clicktostart').innerHTML = 'click or press enter to go to menu';
 
-        let start = () => {
-            soundWarmup()
-
+        let start = async () => {
+            await soundWarmup()
 
             document.onclick = document.onkeydown = null;
     
