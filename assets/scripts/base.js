@@ -11,7 +11,7 @@ document.getElementById('version-number').textContent = formatVersion();
 
 let fpsCounter = document.getElementById('fps');
 
-let fps = 60,
+let fps = 60, // assume 60 fps before check since that's a safe FPS
     avgfps = fps,
     deltaTime = 1 / fps;
 let _lastTime = performance.now();
@@ -43,16 +43,16 @@ function updateFps() {
     fps = Math.floor(fps);
 
     if (_fpses.length > 0) {
-    //    avgfps = 0;
+        avgfps = 0;
         _fpses.forEach(fps => {
-    //        avgfps += fps;
+            avgfps += fps;
         });
-    //    avgfps /= _fpses.length;
-    //    avgfps = Math.round(avgfps);
+        avgfps /= _fpses.length;
+        avgfps = Math.round(avgfps);
     } else {
-    //    avgfps = fps;
+        avgfps = fps;
     }
-    // if (avgfps === 0) avgfps = fps;
+    if (avgfps === 0) avgfps = fps;
     _fpses.push(fps);
     if (_fpses.length > 120) {
         _fpses.shift();
