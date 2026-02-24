@@ -40,11 +40,11 @@ body {
 
     position: fixed;
     left: 50%;
-    bottom: 128px;
+    bottom: 96px;
     transform: translateX(-100%);
     
     width: 75%;
-    height: 32px;
+    height: 64px;
 
     border: solid 8px var(--color);
     padding: 4px;
