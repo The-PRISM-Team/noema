@@ -80,7 +80,9 @@ function showChangelog() {
         ## Misc.
         - Added Noema logo (conceptual) to source code
 
-        - Added new \`⋮ Noema\` theme (will change if Noema's logo changes)
+        - Added \`⋮ Noema\` theme (will change if Noema's logo changes)
+
+        - Added \`⋮ Trans Flag\` theme
 
         - Moved \`⋮ Watermelon Sugar\` theme up on the theme list for separation between flag-based themes and non-flag-based themes
 

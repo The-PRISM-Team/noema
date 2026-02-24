@@ -20,11 +20,11 @@
 
 **𝑐** — Class
 
-**⁇** — Undefined (`undefined`, `null`, `NaN`)
+**⁇** — Undefined (\`undefined\`, \`null\`, \`NaN\`)
 
-**𝑝** — Property name, for example: `backdrop-filter` (CSS) or `src` (HTML attribute)
+**𝑝** — Property name, for example: \`backdrop-filter\` (CSS) or \`src\` (HTML attribute)
 
-**𝘦** — Event name, for example: `onerror` of `window.onerror`, or `keyup`
+**𝘦** — Event name, for example: \`onerror\` of \`window.onerror\`, or \`keyup\`
 
 **?** — Deterministic (can be or act like multiple types)
 
@@ -48,19 +48,19 @@
 
 - Added a battery indicator to the bottom left of the screen
 
-- Added a `⋮ Set UI sound volume` to the `⋮ Preferences` tab to change UI sound volume
+- Added a \`⋮ Set UI sound volume\` to the \`⋮ Preferences\` tab to change UI sound volume
 
-- Added `⋮ Open Project Noema's GitHub repo` and `⋮ Report an issue on GitHub` selections to the help tab
+- Added \`⋮ Open Project Noema's GitHub repo\` and \`⋮ Report an issue on GitHub\` selections to the help tab
 
 
 ## API Changes
-- Added `𝑓 startsWithAmount` and `𝑓 endsWithAmount` to `𝘰 String.prototype`
+- Added \`𝑓 startsWithAmount\` and \`𝑓 endsWithAmount\` to \`𝘰 String.prototype\`
 
-- Added `𝑓 last` to `𝘰 HTMLCollection.prototype` and `String.prototype`
+- Added \`𝑓 last\` to \`𝘰 HTMLCollection.prototype\` and \`String.prototype\`
 
-- Added `𝑓 playSound` API
+- Added \`𝑓 playSound\` API
 
-- Added foundational `𝑓 parseSemver` and `𝑓 compareSemver` helpers for safe semantic version parsing and comparisons
+- Added foundational \`𝑓 parseSemver\` and \`𝑓 compareSemver\` helpers for safe semantic version parsing and comparisons
 
 
 ## Bugfixes
@@ -72,15 +72,17 @@
 
 - Fixed changelog display gating to use proper semantic version comparison
 
-- Fixed Battery API warning listener crash on browsers without `navigator.getBattery`
+- Fixed Battery API warning listener crash on browsers without \`navigator.getBattery\`
 
 
 ## Misc.
 - Added Noema logo (conceptual) to source code
 
-- Added new `⋮ Noema` theme (will change if Noema's logo changes)
+- Added \`⋮ Noema\` theme (will change if Noema's logo changes)
 
-- Moved `⋮ Watermelon Sugar` theme up on the theme list for separation between flag-based themes and non-flag-based themes
+- Added \`⋮ Trans Flag\` theme
+
+- Moved \`⋮ Watermelon Sugar\` theme up on the theme list for separation between flag-based themes and non-flag-based themes
 
 - Added environment checks and warnings
 
