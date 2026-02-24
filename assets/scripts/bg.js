@@ -68,9 +68,9 @@ function drawSpaghetti(time) {
         ctx.stroke();
     }
 
-    t += .01;
-    t2 += .015;
-    t3 += .025;
+    t += .01 * 60/avgfps;
+    t2 += .015 * 60/avgfps;
+    t3 += .025 * 60/avgfps;
 
     requestAnimationFrame(drawSpaghetti);
 }
