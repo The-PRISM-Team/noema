@@ -44,12 +44,12 @@ function updateFps() {
     if (_fpses.length > 0) {
         avgfps = 0;
         _fpses.forEach(fps => {
-            avgfps += fps;
+    //        avgfps += fps;
         });
-        avgfps /= _fpses.length;
-        avgfps = Math.round(avgfps);
+    //    avgfps /= _fpses.length;
+    //    avgfps = Math.round(avgfps);
     } else {
-        avgfps = fps;
+    //    avgfps = fps;
     }
     _fpses.push(fps);
     if (_fpses.length > 120) {
