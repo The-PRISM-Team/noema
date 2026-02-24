@@ -76,7 +76,7 @@ function drawSpaghetti(time) {
 }
 
 // background gradient
-let colors = {
+const bgColors = {
     "charcoal": {
         "top": "#222",
         "bottom": "#888",
@@ -153,7 +153,7 @@ let colors = {
     }
 };
 
-if (!isDefined(localStorage.bgColor) || !Object.keys(colors).includes(localStorage.bgColor)) localStorage.bgColor = 'noema';
+if (!isDefined(localStorage.bgColor) || !Object.keys(bgColors).includes(localStorage.bgColor)) localStorage.bgColor = 'noema';
 let currentColor = {
     top: "#000",
     bottom: "#000"
@@ -166,14 +166,23 @@ let bgBrightness = 1;
 let bgBottom = 100;
 let changingBG = false;
 let queued;
-function changeBGColor(colorName, easing = .075, topColor = colors[colorName].top, bottomColor = colors[colorName].bottom, AccentColor = colors[colorName]?.accentColor ?? bottomColor, brightness = bgBrightness) {
-    let color = colors[colorName];
+function changeBGColor({
+    colorName,
+    easing = .075,
+    topColor = bgColors[colorName].top,
+    bottomColor = bgColors[colorName].bottom,
+    AccentColor = bgColors[colorName]?.accentColor ?? bottomColor,
+    waveColor = bgColors[colorName]?.waveColor ?? "#fff",
+    brightness = bgBrightness
+} = {}) {
+    let color = bgColors[colorName];
     if (!color && topColor && bottomColor) color = { top: topColor, bottom: bottomColor, accentColor: AccentColor };
     if (changingBG) {
         queued = [color, easing, topColor, bottomColor, AccentColor];
         return;
     }
-    if (Object.keys(colors).includes(colorName))
+
+    if (Object.keys(bgColors).includes(colorName))
         localStorage.bgColor = colorName;
 
     if (localStorage.noTransitions === 'true') {
