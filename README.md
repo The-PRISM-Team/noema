@@ -5,6 +5,9 @@ This is the official repository for Project Noema's Open Developer Beta, used fo
 # What is Noema?
 Noema is a web-based game "console", designed to be runnable locally, and to work on mainly web-based devices like Chromebooks. Its UI is inspired by the PS3.
 
+## Note for readers
+You might like to read some of the documents at [`/misc/markdowns`](https://github.com/sophb-ccjt/noema/tree/main/misc/markdowns).
+
 ---
 
 # Plan for 0.16.0
