@@ -225,18 +225,18 @@ async function init() {
             , (()=>{
                 let settings = JSON.parse(JSON.stringify(localStorage))
                 settings.exportDate = Date.now()
-                settings.format = 'NSF2.0'
-                delete settings.lastVersion
+                settings.format = 'NSF2.1'
+                delete settings.lastChangelogHash
                 delete settings.defaultScripts
                 return JSON.stringify(settings)
             })())
         }, 'Are you sure?', "Just making sure this wasn't pressed by accident.")
         `, 'wrench');
     createSuboption(prefTab, 'Load preferences', 'Select to load a file with your saved preferences.', `
-        let importbtn = document.createElement('input')
-        importbtn.type = 'file'
-        importbtn.multiple = 'false'
-        importbtn.style.display = 'none'
+        let importbtn = document.createElement('input');
+        importbtn.type = 'file';
+        importbtn.multiple = 'false';
+        importbtn.style.display = 'none';
         importbtn.addEventListener('change', (event) => {
             const file = event.target.files[0];
 
@@ -245,42 +245,52 @@ async function init() {
 
                 reader.onload = function(e) {
                     let content = e.target.result;
-                    content = JSON.parse(content)
-                    const formats = ['NSF1.0', 'NSF2.0']
+                    content = JSON.parse(content);
+                    const formats = ['NSF1.0', 'NSF2.0', 'NSF2.1'];
+
                     if (formats.includes(content?.format)) {
                         if (content.format === 'NSF1.0') {
                             notify(
                                 'That save file might be unsafe.',
                                 "We didn't load it because the format of that save file has a known security issue.",
-                            'warning')
+                            'warning');
                             setTimeout(()=>{
                                 notify(
                                     'Still want to recover your data?',
                                     'We have a site that can safely convert the file and remove potentially unsafe data.\\nFind it in the "Help" tab.'
-                                )
-                            }, 2.5e3)
-                            return
+                                );
+                            }, 2.5e3);
+                            return;
                         }
                         if (content.format === 'NSF2.0') {
-                            localStorage.clear() // clear storage to avoid any conflicts
+                            localStorage.clear(); // clear storage to avoid any conflicts
 
                             for (let i = 0; i < Object.keys(content).length; i++) {
-                                const key = Object.keys(content)[i]
-                                const value = Object.values(content)[i]
+                                const key = Object.keys(content)[i];
+                                const value = Object.values(content)[i];
                                 if (key === 'format' || key === 'exportDate' || key === 'lastVersion') continue;
-                                localStorage.setItem(key, value)
+                                localStorage.setItem(key, value);
                             }
-                            localStorage.lastVersion = [version.major, version.minor, version.patch].join('.')
-
-                            const date = new Date(content.exportDate)
-                            notify('Preferences file loaded successfully!', \`Loaded preferences from \${date.toLocaleString()}\`)
-                            setTimeout(()=>{
-                                notify('The system will reboot in 3 seconds to properly apply every setting.', '(to set absent settings to their defaults and to apply settings that need a reboot to fully apply)')
-                                setTimeout(()=>{
-                                   reboot() 
-                                }, 3e3)
-                            }, 2e3)
                         }
+                        if (content.format === 'NSF2.1') {
+                            localStorage.clear(); // clear storage to avoid any conflicts
+
+                            for (let i = 0; i < Object.keys(content).length; i++) {
+                                const key = Object.keys(content)[i];
+                                const value = Object.values(content)[i];
+                                if (key === 'format' || key === 'exportDate' || key === 'lastChangelogHash') continue;
+                                localStorage.setItem(key, value);
+                            }
+
+                            localStorage.lastChangelogHash = '0';
+                        }
+                        notify('Preferences file loaded successfully!');
+                        setTimeout(()=>{
+                            notify('The system will reboot in 3 seconds to properly apply every setting.', '(to set absent settings to their defaults and to apply settings that need a reboot to fully apply)');
+                            setTimeout(()=>{
+                                reboot();
+                            }, 3e3)
+                        }, 2e3)
                     } else {
                         throw new TypeError("Unsupported, invalid or absent format! Please use a valid preferences file.")
                     }
@@ -289,7 +299,7 @@ async function init() {
                 reader.readAsText(file);
             }
         });
-        document.body.appendChild(importbtn)
+        document.body.appendChild(importbtn);
         importbtn.click();
         `, 'wrench');
     createSuboption(prefTab, 'Reset preferences', 'This wipes EVERY preference (Background color, username, spaghetti density, etc).\nDo not use this unless you know what you\'re doing and haven\'t saved your preferences.\nOnce you reset your preferences, this process is IRREVERSIBLE.',

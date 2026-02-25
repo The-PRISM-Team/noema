@@ -17,12 +17,12 @@ window.onkeyup = (event) => {
     console.log(key);
     if (key === 'escape' && document.activeElement === document.body) {
         window.close();
-    } 
+    }
 };
 
 let saveFile = {};
 let saveFileName = '';
-const safeFormats = ['NSF2.0'];
+const safeFormats = ['NSF2.0', 'NSF2.1'];
 document.getElementById('file').addEventListener('change', (event) => {
     document.getElementById('convert').style.display = 'none';
     document.getElementById('status').style.display = 'revert';
@@ -41,6 +41,7 @@ document.getElementById('file').addEventListener('change', (event) => {
                 document.getElementById('status').textContent = "Invalid file format.";
                 return;
             }
+
             const formats = ['NSF1.0'];
             if (formats.includes(content?.format)) {
                 document.getElementById('status').textContent = "File loaded successfully!";
@@ -72,6 +73,7 @@ safeFormats.forEach(format => {
     option.textContent = format;
     document.getElementById('convert-to').appendChild(option);
 });
+
 document.getElementById('convert-btn').onclick = () => {
     document.getElementById('status').style.display = 'revert';
     document.getElementById('status').textContent = "Starting conversion...";
@@ -89,14 +91,64 @@ document.getElementById('convert-btn').onclick = () => {
                     }
                     saveFile[key] = value;
                 }
-                document.getElementById('status').textContent = 'Finishing...';
+                document.getElementById('status').textContent = 'Finishing up...';
                 saveFile.format = "NSF2.0";
                 downloadFileWithContent(
                     `${saveFileName.replaceAll('.nsf', '')} (Converted).nsf`,
-                    JSON.stringify(saveFile));
+                    JSON.stringify(saveFile)
+                );
+
                 document.getElementById('status').textContent = 'Done!';
                 document.getElementById('convert-btn').textContent = 'Close window';
-                document.getElementById('convert-btn').onclick = ()=>window.close();
+                document.getElementById('convert-btn').onclick = () => window.close();
+                setTimeout(() => {
+                    document.getElementById('status').style.display = 'none';
+                }, 6e3);
+            }
+        }
+
+        if (document.getElementById('convert-to').value === 'NSF2.1') {
+            let saveFileCopy = structuredClone(saveFile);
+            if (saveFile.format === 'NSF1.0') {
+                saveFile = {};
+                for (let i = 0; i < Object.keys(saveFileCopy).length; i++) {
+                    let key = Object.keys(saveFileCopy)[i];
+                    let value = Object.values(saveFileCopy)[i];
+                    document.getElementById('status').textContent = `Converting "${key}"...`;
+                    if (key === 'defaultScripts') {
+                        continue;
+                    }
+                    saveFile[key] = value;
+                }
+                document.getElementById('status').textContent = 'Finishing up...';
+                saveFile.format = "NSF2.0";
+                downloadFileWithContent(
+                    `${saveFileName.replaceAll('.nsf', '')} (Converted).nsf`,
+                    JSON.stringify(saveFile)
+                );
+
+                document.getElementById('status').textContent = 'Done!';
+                document.getElementById('convert-btn').textContent = 'Close window';
+                document.getElementById('convert-btn').onclick = () => window.close();
+                setTimeout(() => {
+                    document.getElementById('status').style.display = 'none';
+                }, 6e3);
+            } else if (saveFile.format === 'NSF2.0') {
+                document.getElementById('status').textContent = 'Converting...';
+
+                delete saveFileCopy.lastVersion;
+                saveFileCopy.lastChangelogHash = '0';
+
+                document.getElementById('status').textContent = 'Finishing up...';
+                saveFile.format = "NSF2.1";
+                downloadFileWithContent(
+                    `${saveFileName.replace(/\.nsf$/g, '')} (Converted).nsf`,
+                    JSON.stringify(saveFile)
+                );
+
+                document.getElementById('status').textContent = 'Done!';
+                document.getElementById('convert-btn').textContent = 'Close window';
+                document.getElementById('convert-btn').onclick = () => window.close();
                 setTimeout(() => {
                     document.getElementById('status').style.display = 'none';
                 }, 6e3);
