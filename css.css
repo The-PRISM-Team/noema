@@ -73,8 +73,41 @@ body {
     font-size: 5vw;
     font-family: monospace;
     transition: opacity .5s ease;
+    white-space: pre-wrap;
 }
 
+/* --- startup --- */
+#startup-text {
+    text-shadow: 0px 0px 15px #000;
+    color: #fff;
+    font-family: 'Manrope', monospace;
+    font-weight: bolder;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 5vw;
+    transition:
+        opacity .5s ease-out,
+        height 1.5s ease,
+        top 1.5s ease,
+        text-shadow .5s ease-out;
+    opacity: 0%;
+    z-index: 100;
+}
+#startup-logo {
+    filter: drop-shadow(0px 0px 25px #fff);
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    height: 50vh;
+    transition:
+        opacity 1s ease-in,
+        height 1.5s ease;
+    opacity: 0%;
+    z-index: 100;
+}
 /* --- outer ui --- */
 .time {
     color: #fff;
@@ -146,17 +179,17 @@ body {
     font-size: .95em
 }
 
-.version {
+.bubble-text {
     color: #fff;
     position: fixed;
-    right: 5px;
+    top: 5px;
     bottom: 5px;
     font-family: monospace;
     font-weight: bold;
     font-size: 16px;
     background-color: #000a;
     padding: 3px;
-    border-radius: 15px 0px 0px 15px;
+    border-radius: 15px;
     user-select: none;
     pointer-events: none;
 }
@@ -165,8 +198,6 @@ body {
     position: fixed;
     left: 5px;
     top: 5px;
-    font-family: monospace;
-    font-weight: bold;
     font-size: 20px;
     background-color: #000a;
     transition: color 1s ease-out;

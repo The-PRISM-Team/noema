@@ -49,8 +49,8 @@
                 ">???%</a>
             </div>   
             <span id='debug-ui' style='display: none;'>
-                <a id='version-number' class='version' style="bottom: 30px; border-radius: 15px 15px 0px 15px;"></a>
-                <a class='version'>2026 PRISM Open Development</a>
+                <a id='version-number' class='bubble-text' style="bottom: 30px; border-radius: 15px 0px 0px 15px;"></a>
+                <a class='bubble-text' style="border-radius: 15px 0px 0px 15px;">PRISM Open Development @ 2026</a>
                 <a id="fps">FPS: ???</a>
                 <a id="errors">Errors: 0</a>
             </span>
@@ -66,12 +66,9 @@
             </div>
         </div>
 
-        <img id='startup-logo' src="/assets/logos/noema/color.png"
-            style="filter: drop-shadow(0px 0px 25px #fff); position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); height: 50vh; transition: opacity 1s ease-in, height 1.5s ease; opacity: 0%; z-index: 100;" />
-        <a id='startup-text'
-            style="text-shadow: 0px 0px 15px #000; color: #fff; font-family: 'Manrope', monospace; font-weight: bolder; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 5vw; transition: opacity .5s ease-out, height 1.5s ease, top 1.5s ease, text-shadow .5s ease-out; opacity: 0%; z-index: 100;">
-            Noema
-        </a>
+        <img id='startup-logo' src="/assets/logos/noema/color.png"/>
+        <a id='startup-text'>Noema</a>
+
         <div class="ui" id='ui'>
             <div id="ui-options" class='ui-options'></div>
             <div id="ui-contents"></div>
