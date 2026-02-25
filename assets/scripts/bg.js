@@ -172,7 +172,7 @@ let bgBottom = 100;
 let changingBG = false;
 let queued;
 function changeBGColor({
-    colorName,
+    colorName = undefined,
     easing = .075,
     topColor = bgColors[colorName].top,
     bottomColor = bgColors[colorName].bottom,
@@ -189,8 +189,6 @@ function changeBGColor({
 
     if (Object.keys(bgColors).includes(colorName))
         localStorage.bgColor = colorName;
-    else
-        localStorage.bgColor = 'noema';
 
     if (localStorage.noTransitions === 'true') {
         document.body.style.background = formatBGGradient(bgTop, 100, topColor, bottomColor);

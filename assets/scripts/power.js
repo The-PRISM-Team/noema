@@ -45,31 +45,41 @@ function startup() {
         requestAnimationFrame(fadeSpaghettiIn);
     }
     setTimeout(() => {
-        changeBGColor(null, 1, "#000", "#000");
+        changeBGColor({
+            colorName: null,
+            easing: 1,
+            topColor: "#000",
+            bottomColor: "#000"
+        });
         let snd = new Audio('/assets/sounds/coldboot.flac');
         snd.volume = .65
         snd.addEventListener('canplaythrough', function () {
             snd.play();
 
-            changeBGColor(null, .1, "#aaa", "#888");
+            changeBGColor({
+                colorName: null,
+                easing: .1,
+                topColor: "#aaa",
+                bottomColor: "#aaa"
+            });
             setTimeout(() => {
                 document.getElementById('startup-logo').style.opacity = '100%';
                 setTimeout(() => {
-                    changeBGColor(null, .05, "#00f", "#000");
+                    changeBGColor({ colorName: null, easing: .1, topColor: "#00f", bottomColor: "#000"});
                     fadeSpaghettiIn();
                     document.getElementById('startup-logo').style.transform = "translate(-50%, -50%)";
                     document.getElementById('startup-logo').style.transition = 'opacity 1s ease, height 1s ease, transform 1s ease';
                     document.getElementById('startup-logo').style.height = "25vh";
                     favicon.href = '/assets/logos/noema/black.png';
                     setTimeout(() => {
-                        changeBGColor(null, .05, "#000", "#f0f");
+                        changeBGColor({ colorName: null, easing: .1, topColor: "#000", bottomColor: "#f0f"});
                         document.getElementById('startup-text').style.textShadow = "0px 0px 15px #000";
                         document.getElementById('startup-text').style.opacity = "100%";
                         favicon.href = '/assets/logos/noema/white.png';
                         setTimeout(() => {
                             document.getElementById('startup-text').style.top = "65vh";
                             document.getElementById('startup-text').style.textShadow = "0px 0px 50px #fff";
-                            changeBGColor(null, .05, "#00f", "#f0f");
+                            changeBGColor({ colorName: null, easing: .1, topColor: "#00f", bottomColor: "#f0f"});
                             favicon.href = '/assets/logos/noema/color.png';
                             setTimeout(() => {
                                 document.getElementById('startup-logo').style.opacity = "0%";
