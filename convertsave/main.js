@@ -114,8 +114,8 @@ document.getElementById('convert-btn').onclick = () => {
         }
 
         if (document.getElementById('convert-to').value === 'NSF2.1') {
-            let saveFileCopy = structuredClone(saveFile);
             if (saveFile.format === 'NSF1.0') {
+                let saveFileCopy = structuredClone(saveFile);
                 saveFile = {};
                 for (let i = 0; i < Object.keys(saveFileCopy).length; i++) {
                     let key = Object.keys(saveFileCopy)[i];
@@ -142,9 +142,9 @@ document.getElementById('convert-btn').onclick = () => {
             } else if (saveFile.format === 'NSF2.0') {
                 document.getElementById('status').textContent = 'Converting...';
 
-                delete saveFileCopy.lastVersion;
-                delete saveFileCopy.lastChangelogHash;
-                saveFileCopy.lastChangelogHash = '0';
+                delete saveFile.lastVersion;
+                delete saveFile.lastChangelogHash;
+                saveFile.lastChangelogHash = '0';
 
                 document.getElementById('status').textContent = 'Finishing up...';
                 saveFile.format = "NSF2.1";
