@@ -436,11 +436,12 @@ function notify(title, text, icon) {
     if (Object.keys(notifElements).length >= 6 || !started || !document.hasFocus()) {
         if (queuedNotifs.length < 24) {
             queuedNotifs.push({id: notifDiv.id, when: Date.now()});
-            setInterval(() => {
+            const checkInterval = setInterval(() => {
                 if (Object.keys(notifElements).length < 6 && started && document.hasFocus()) {
                     if (queuedNotifs[0]?.id === notifDiv.id) {
                         queuedNotifs.shift();
-                        if (Date.now() - queuedNotifs[0].when <= 60e3) notifHandler();
+                        if (Date.now() - queuedNotifs[0]?.when <= 60e3) notifHandler();
+                        clearInterval(checkInterval);
                     }
                 }
             }, 100);
