@@ -1,29 +1,51 @@
-function test(mode) {
+function test(mode = 0) {
     if (mode === 0) {
+        let errored = false;
         try {
             $;
         } catch {
             errors++;
             errorList.push("Essential Resource (jQuery) missing.");
+            errored = true;
         }
         try {
             Color;
         } catch {
             errors++;
             errorList.push("Essential Resource (Color.js) missing.");
+            errored = true;
         }
         try {
             init;
         } catch {
             errors++;
             errorList.push("Essential Resource (Initiator) missing.");
+            errored = true;
         }
         try {
             changeBGColor;
         } catch {
             errors++;
             errorList.push("Essential Resource (Background handler) missing.");
+            errored = true;
         }
+        try {
+            handleInput;
+        } catch {
+            errors++;
+            errorList.push("Essential Resource (Input handler) missing.");
+            errored = true;
+        }
+        try {
+            handleInput;
+        } catch {
+            errors++;
+            errorList.push("Essential Resource (Input handler) missing.");
+            errored = true;
+        }
+
+        if (errored) throw new Error('Test failed');
+        return 'Success!';
     }
 }
 

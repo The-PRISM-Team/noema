@@ -145,3 +145,6 @@ function setCursor(cursor = 'auto') {
 function resetCursor() {
     document.body.style.cursor = 'auto';
 }
+function isTrue(value) { // for localStorage
+    return value === true || value === 'true';
+}
