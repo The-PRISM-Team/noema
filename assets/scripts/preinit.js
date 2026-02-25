@@ -84,9 +84,9 @@ window.addEventListener('load', async () => {
         document.getElementById('clicktostart').innerHTML = 'testing battery...';
 
         if ((await navigator.getBattery())?.charging) {
-            chargingTest(5);
+            await chargingTest(5);
         } else {
-            dischargingTest(5);
+            await dischargingTest(5);
         }
     }
 
