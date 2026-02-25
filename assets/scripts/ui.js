@@ -613,12 +613,14 @@ function handleInput(event, keyup) {
                 executeUISuboption();
         }
         if (key === 'control' && !event.meta) {
+            console.log(event.meta)
             if (!keyup && selectedOption !== 0) {
                 selectUIOption(0);
                 playSound('select');
             }
         }
         if (key === 'alt' && !event.meta) {
+            console.log(event.meta)
             if (!keyup && selectedOption !== document.getElementById('ui-options').children.length - 1) {
                 selectUIOption(document.getElementById('ui-options').children.length - 1);
                 playSound('select');

@@ -97,7 +97,6 @@ function showChangelog() {
         - Reworked sound engine
 
         - Reworked changelog logic
-
     `;
 
     let changelogParts = changelog.split('---');
