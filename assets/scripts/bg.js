@@ -181,7 +181,7 @@ function changeBGColor({
     brightness = bgBrightness
 } = {}) {
     let color = bgColors[colorName];
-    if (!color && topColor && bottomColor) color = { top: topColor, bottom: bottomColor, accentColor: AccentColor };
+    if (color == null && topColor && bottomColor) color = { top: topColor, bottom: bottomColor, accentColor: AccentColor };
     if (changingBG) {
         queued = [color, easing, topColor, bottomColor, AccentColor];
         return;
@@ -189,6 +189,8 @@ function changeBGColor({
 
     if (Object.keys(bgColors).includes(colorName))
         localStorage.bgColor = colorName;
+    else
+        localStorage.bgColor = 'noema';
 
     if (localStorage.noTransitions === 'true') {
         document.body.style.background = formatBGGradient(bgTop, 100, topColor, bottomColor);
