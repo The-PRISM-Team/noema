@@ -74,7 +74,7 @@ safeFormats.forEach(format => {
 
 document.getElementById('convert-btn').onclick = () => {
     const targetFormat = document.getElementById('convert-to').value;
-    if (content?.format === targetFormat) {
+    if (saveFile.format === targetFormat) {
         document.getElementById('status').textContent = "Cannot convert to own format!";
         return;
     }
