@@ -119,7 +119,8 @@ function showChangelog() {
         patch: semver[3]
     };
 
-    if (CRC32.str(changelog) !== localStorage.lastChangelogHash) {
+    if (CRC32.str(changelog).toString() !== localStorage.lastChangelogHash) {
+        localStorage.lastChangelogHash = CRC32.str(changelog);
         bandDialog(`v${semver} Changelog`, '', (dialog) => {
             dialog.style.pointerEvents = 'auto';
             let change = document.createElement('h1');
@@ -204,6 +205,4 @@ function showChangelog() {
             });
         }, null, false);
     }
-
-    localStorage.lastChangelogHash = CRC32.str(changelog);
 }
