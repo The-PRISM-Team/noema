@@ -123,7 +123,7 @@ async function showChangelog() {
         patch: semver[3]
     };*/
 
-    const changelogHash = await md5WASM(changelog);
+    const changelogHash = md5(changelog);
     if (changelogHash !== localStorage.lastChangelogHash) {
         localStorage.lastChangelogHash = changelogHash;
         bandDialog(`v${semver} Changelog`, '', (dialog) => {
