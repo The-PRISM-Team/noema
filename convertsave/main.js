@@ -144,7 +144,6 @@ document.getElementById('convert-btn').onclick = () => {
 
                 delete saveFile.lastVersion;
                 delete saveFile.lastChangelogHash;
-                saveFile.lastChangelogHash = '0';
 
                 document.getElementById('status').textContent = 'Finishing up...';
                 saveFile.format = "NSF2.1";
