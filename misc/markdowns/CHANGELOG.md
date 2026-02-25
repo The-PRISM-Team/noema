@@ -76,8 +76,6 @@
 
 - Added (previously missing) punctuation handler to changelog
 
-- Fixed changelog display gating to use proper semantic version comparison
-
 - Fixed Battery API warning listener crash on browsers without `𝑓 navigator.getBattery`
 
 
@@ -96,4 +94,4 @@
 
 - Reworked sound engine
 
-- Removed changelog debug logging and tightened changelog text rendering guards
+- Reworked changelog logic

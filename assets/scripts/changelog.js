@@ -22,6 +22,8 @@ function showChangelog() {
 
         **𝑐** — Class
 
+        **𝑃** — Promise
+
         **⁇** — Undefined (\`undefined\`, \`null\`, \`NaN\`)
 
         **𝑝** — Property name, for example: \`backdrop-filter\` (CSS) or \`src\` (HTML attribute)
@@ -62,7 +64,7 @@ function showChangelog() {
         ## API Changes
         - Added \`𝑓 startsWithAmount\` and \`𝑓 endsWithAmount\` to \`𝘰 String.prototype\`
 
-        - Added \`𝑓 last\` to \`𝘰 HTMLCollection.prototype\` and \`String.prototype\`
+        - Added \`𝑓 last\` to \`𝘰 HTMLCollection.prototype\` and \`𝘰 String.prototype\`
 
         - Added \`𝑓 playSound\` API
 
@@ -76,9 +78,7 @@ function showChangelog() {
 
         - Added (previously missing) punctuation handler to changelog
 
-        - Fixed changelog display gating to use proper semantic version comparison
-
-        - Fixed Battery API warning listener crash on browsers without \`navigator.getBattery\`
+        - Fixed Battery API warning listener crash on browsers without \`𝑓 navigator.getBattery\`
 
 
         ## Misc.
@@ -96,7 +96,8 @@ function showChangelog() {
 
         - Reworked sound engine
 
-        - Removed changelog debug logging and tightened changelog text rendering guards
+        - Reworked changelog logic
+
     `;
 
     let changelogParts = changelog.split('---');
