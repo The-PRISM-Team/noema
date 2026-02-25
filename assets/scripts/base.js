@@ -473,7 +473,7 @@ async function updateBattery() {
 
         const batteryPercent = Math.trunc(battery.level * 100);
         document.getElementById('battery-bar').style.width = `${batteryPercent}%`;
-        document.getElementById('battery-text').textContent = `${batteryPercent}%`;
+        document.getElementById('battery-text').textContent = `${batteryPercent}%${battery.charging ? ' 🗲' : ''}`;
 
         if (battery.level >= 0.75) {
             document.getElementById('battery-bar').style.backgroundColor = '#0f0';
