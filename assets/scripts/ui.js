@@ -433,12 +433,12 @@ function notify(title, text, icon) {
             setTimeout(()=>{notifDiv.remove();}, .25e3);
         },10e3);
     }
-    if ((Object.keys(notifElements).length >= 6) || !started || !document.hasFocus()) {
+    if (Object.keys(notifElements).length >= 6 || !started || !document.hasFocus()) {
         if (queuedNotifs.length < 24) {
             queuedNotifs.push({id: notifDiv.id, when: Date.now()});
             setInterval(() => {
-                if ((Object.keys(notifElements).length < 6) && started && document.hasFocus()) {
-                    if (queuedNotifs[0] === notifDiv.id) {
+                if (Object.keys(notifElements).length < 6 && started && document.hasFocus()) {
+                    if (queuedNotifs[0].id === notifDiv.id) {
                         queuedNotifs.shift();
                         if (Date.now() - queuedNotifs[0].when <= 60e3) notifHandler();
                     }
