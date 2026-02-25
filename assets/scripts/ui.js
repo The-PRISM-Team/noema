@@ -438,9 +438,9 @@ function notify(title, text, icon) {
             queuedNotifs.push({id: notifDiv.id, when: Date.now()});
             setInterval(() => {
                 if ((Object.keys(notifElements).length < 6) && started && document.hasFocus()) {
-                    if (queuedNotifs[0] === notifDiv.id && queuedNotifs[0].when <= 60e3) {
+                    if (queuedNotifs[0] === notifDiv.id) {
                         queuedNotifs.shift();
-                        notifHandler();
+                        if (Date.now() - queuedNotifs[0].when <= 60e3) notifHandler();
                     }
                 }
             }, 100);
