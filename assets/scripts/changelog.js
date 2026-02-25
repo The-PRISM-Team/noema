@@ -107,7 +107,7 @@ function showChangelog() {
         }
     });
 
-    const semverMatch = [.../^# Changelog for Noema ((\d+)\.(\d+)\.(\d+)(?:-(.+\.?)+))?/gm.exec(changelog)].slice(1);
+    const semverMatch = [.../# Changelog for Noema v?((\d+)\.(\d+)\.(\d+)(?:-(.+\.?)+)?)/gm.exec(changelog)].slice(1);
     const semver = semverMatch[0];
     const changelogVersion = {
         major: semver[1],
