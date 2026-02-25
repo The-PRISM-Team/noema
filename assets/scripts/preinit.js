@@ -57,7 +57,7 @@ window.addEventListener('load', async () => {
 
     // load sounds
     console.log('Loading sounds...')
-    document.getElementById('clicktostart').innerHTML = 'loading sounds...';
+    document.getElementById('clicktostart').innerHTML = 'loading sounds, please wait';
 
     soundStart = performance.now();
     await soundWarmup((done, total) => {
