@@ -47,8 +47,6 @@ document.getElementById('file').addEventListener('change', (event) => {
                 document.getElementById('status').textContent = "File loaded successfully!";
                 document.getElementById('convert').style.display = 'revert';
                 saveFile = content;
-            } else if (safeFormats.includes(content?.format)) {
-                document.getElementById('status').textContent = "That save file is already safe!";
             } else {
                 document.getElementById('status').textContent = "Unsupported, invalid or absent save file format! Please use a valid preferences file.";
             }
@@ -75,6 +73,12 @@ safeFormats.forEach(format => {
 });
 
 document.getElementById('convert-btn').onclick = () => {
+    const targetFormat = document.getElementById('convert-to').value;
+    if (content?.format === targetFormat) {
+        document.getElementById('status').textContent = "Cannot convert to own format!";
+        return;
+    }
+
     document.getElementById('status').style.display = 'revert';
     document.getElementById('status').textContent = "Starting conversion...";
     setTimeout(() => {
