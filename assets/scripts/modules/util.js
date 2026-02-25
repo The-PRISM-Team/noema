@@ -87,7 +87,7 @@ async function chargingTest(seconds = 60) {
     console.log(`Testing battery charging rate (${seconds} seconds)...`)
     const batterySnapshot1 = await navigator.getBattery();
     if (!batterySnapshot1.charging) {
-        const msg = "Cannot test charging rate if battery isn't being charged!".
+        const msg = "Cannot test charging rate if battery isn't being charged!"
         console.error(msg);
         throw new Error(msg);
     }
@@ -104,7 +104,7 @@ async function dischargingTest(seconds = 60) {
     console.log(`Testing battery discharging rate (${seconds} seconds)...`)
     const batterySnapshot1 = await navigator.getBattery();
     if (batterySnapshot1.charging) {
-        const msg = "Cannot test discharging rate if battery is being charged!".
+        const msg = "Cannot test discharging rate if battery is being charged!"
         console.error(msg);
         throw new Error(msg);
     }

@@ -89,7 +89,7 @@ window.addEventListener('load', async () => {
         console.log('System test succeeded!');
     }
     // test battery
-    if (localStorage.skipChargingTests !== 'true' && (await navigator.getBattery())?.charging) {
+    if (localStorage.skipChargingTests !== 'true' && !(await navigator.getBattery())?.charging) {
         console.log('Testing battery...');
         document.getElementById('clicktostart').innerHTML = 'testing battery...';
 
