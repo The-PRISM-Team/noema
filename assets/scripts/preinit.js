@@ -14,6 +14,7 @@ if (isNode) {
 // don't even try asking why
 if (!isDefined(localStorage.startup)) localStorage.startup = 'true';
 if (!isDefined(localStorage.pauseMusic)) localStorage.pauseMusic = 'true';
+if (!isDefined(localStorage.skipChargingTests)) localStorage.skipChargingTests = 'true';
 if (!isDefined(localStorage.musicVolume)) localStorage.musicVolume = '0.10';
 if (!isDefined(localStorage.uiSoundVolume)) localStorage.uiSoundVolume = '0.5';
 if (!isDefined(localStorage.noShaders) && navigator.deviceMemory < 4) localStorage.noShaders = 'true';
@@ -77,6 +78,13 @@ window.addEventListener('load', async () => {
         document.getElementById('clicktostart').innerHTML = 'testing system...';
         test();
         console.log('Test succeeded!');
+    }
+    console.log('Testing battery...');
+    document.getElementById('clicktostart').innerHTML = 'testing battery...';
+    if ((await navigator.getBattery())?.charging && localStorage.skipChargingTests !== 'true') {
+        chargingTest(5);
+    } else {
+        dischargingTest(5);
     }
 
     const isMobile = navigator.userAgentData?.mobile === true || /Android|iPhone|iPad|iPod/i.test(navigator.userAgent); 
