@@ -99,6 +99,8 @@ async function showChangelog() {
         - Reworked sound engine
 
         - Changelog now appears based on a hash (MD5) rather than the version number
+
+        - test
     `;
 
     let changelogParts = changelog.split('---');
