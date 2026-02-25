@@ -189,6 +189,7 @@ function changeBGColor({
         waveColor,
         brightness
     };
+    console.log(paramsPassed);
 
     let color = bgColors[colorName];
 
