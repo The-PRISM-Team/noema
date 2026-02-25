@@ -54,6 +54,8 @@ function showChangelog() {
 
         - Added \`⋮ Open Project Noema's GitHub repo\` and \`⋮ Report an issue on GitHub\` selections to the help tab
 
+        - Holding the Meta key now "neuters" certain actions, such as pressing Ctrl or Alt in the main menu.
+
 
         ## API Changes
         - Added \`𝑓 startsWithAmount\` and \`𝑓 endsWithAmount\` to \`𝘰 String.prototype\`
