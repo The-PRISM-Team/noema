@@ -27,6 +27,7 @@ let pageStart = performance.now(),
     soundStart = null;
 
 // load page
+setCursor('wait');
 console.log('Loading page...');
 let bgMusic;
 document.addEventListener('DOMContentLoaded', async () => {
@@ -67,6 +68,7 @@ window.addEventListener('load', async () => {
     console.log(`Initialized sounds in ${(performance.now() - soundStart).toFixed(2)}ms.`);
 
     // done
+    setCursor('default');
     document.getElementById('clicktostart').textContent = 'finished loading!';
     console.log(`Finished loading in ${(performance.now() - pageStart).toFixed(2)}ms!`);
     await delay(750);
@@ -74,6 +76,7 @@ window.addEventListener('load', async () => {
     document.getElementById('loading-progress').style.width = '0%';
 
     // test system
+    setCursor('wait');
     if (typeof test !== 'undefined') {
         console.log('Testing system...');
         document.getElementById('clicktostart').innerHTML = 'testing system...';
@@ -112,6 +115,7 @@ window.addEventListener('load', async () => {
     });
 
     // platform checks
+    setCursor('default');
     const isMobile = navigator.userAgentData?.mobile === true || /Android|iPhone|iPad|iPod/i.test(navigator.userAgent); 
     const supportChecks = [
         {
@@ -147,6 +151,7 @@ window.addEventListener('load', async () => {
             init();
         }
     } else {
+        setCursor('pointer');
         if (localStorage.startup === 'true')
             document.getElementById('clicktostart').innerHTML = 'click or press enter to start';
         else
@@ -157,12 +162,14 @@ window.addEventListener('load', async () => {
     
             drawSpaghetti();
 
-            if (localStorage.startup === 'true')
+            if (localStorage.startup === 'true') {
+                setCursor('none');
                 if (typeof startup !== 'undefined') {
                     startup();
                 } else {
                     init();
                 }
+            }
 
             else {
                 document.getElementById('clicktostart').style.opacity = '0%';

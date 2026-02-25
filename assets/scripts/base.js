@@ -137,6 +137,8 @@ async function init() {
 
     icon();
 
+    setCursor('auto');
+
     // init default options
     const powerTab = createOption('Power Options');
     const prefTab = createOption('Preferences');
