@@ -15,9 +15,10 @@ async function loadScripts(cb) {
             type: 'text/javascript'
         },
         {
-            src: '/assets/scripts/modules/crc32.js',
-            lang: 'javascript'
+            src: '/assets/scripts/modules/md5-wasm.js',
+            type: 'text/javascript'
         },
+        // <script type="text/javascript" src="path/md5-wasm.js"></script>
         {
             src: '/assets/scripts/modules/controller_input.js'
         },

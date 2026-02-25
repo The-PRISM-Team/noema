@@ -1,4 +1,4 @@
-function showChangelog() {
+async function showChangelog() {
     let changelog = `
         # Changelog for Noema v0.16.0
         *(may have missing or inaccurate information)*
@@ -98,7 +98,7 @@ function showChangelog() {
 
         - Reworked sound engine
 
-        - Reworked changelog logic
+        - Changelog now appears based on a hash (MD5) rather than the version number
     `;
 
     let changelogParts = changelog.split('---');
@@ -111,16 +111,19 @@ function showChangelog() {
         }
     });
 
-    const semverMatch = [.../# Changelog for Noema v?((\d+)\.(\d+)\.(\d+)(?:-(.+\.?)+)?)/gm.exec(changelog)].slice(1);
+    const semverRegex = /# Changelog for Noema v?((\d+)\.(\d+)\.(\d+)(?:-(.+\.?)+)?)/gm;
+    const semverMatch = [...(semverRegex.exec(changelog) ?? [null, '0.0.0-not.found', '0', '0', '0', 'not.found'])].slice(1);
     const semver = semverMatch[0];
+    /*
     const changelogVersion = {
         major: semver[1],
         minor: semver[2],
         patch: semver[3]
-    };
+    };*/
 
-    if (CRC32.str(changelog).toString() !== localStorage.lastChangelogHash) {
-        localStorage.lastChangelogHash = CRC32.str(changelog);
+    const changelogHash = await md5WASM(changelog);
+    if (changelogHash !== localStorage.lastChangelogHash) {
+        localStorage.lastChangelogHash = changelogHash;
         bandDialog(`v${semver} Changelog`, '', (dialog) => {
             dialog.style.pointerEvents = 'auto';
             let change = document.createElement('h1');

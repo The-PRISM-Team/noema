@@ -96,4 +96,4 @@
 
 - Reworked sound engine
 
-- Reworked changelog logic
+- Changelog now appears based on a hash (MD5) rather than the version number
