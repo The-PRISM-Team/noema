@@ -107,27 +107,16 @@ function showChangelog() {
         }
     });
 
-    const fallbackParseSemver = (versionString) => {
-        const match = String(versionString).match(/(\d+)\.(\d+)\.(\d+)/);
-        if (!match) return { major: 0, minor: 0, patch: 0 };
-        return { major: Number(match[1]), minor: Number(match[2]), patch: Number(match[3]) };
-    };
-    const fallbackCompareSemver = (a, b) => {
-        const left = fallbackParseSemver(a);
-        const right = fallbackParseSemver(b);
-        if (left.major !== right.major) return left.major > right.major ? 1 : -1;
-        if (left.minor !== right.minor) return left.minor > right.minor ? 1 : -1;
-        if (left.patch !== right.patch) return left.patch > right.patch ? 1 : -1;
-        return 0;
+    const semverMatch = [.../^# Changelog for Noema ((\d+)\.(\d+)\.(\d+)(?:-(.+\.?)+))?/gm.exec(changelog)].slice(1);
+    const semver = semverMatch[0];
+    const changelogVersion = {
+        major: semver[1],
+        minor: semver[2],
+        patch: semver[3]
     };
 
-    const changelogVersionString = (changelogParts[0].match(/v(\d+\.\d+\.\d+)/) || [null, '0.0.0'])[1];
-    const lastVersionString = isDefined(localStorage?.lastVersion) ? localStorage.lastVersion : '0.0.0';
-    const changelogVersion = typeof parseSemver === 'function' ? parseSemver(changelogVersionString) : fallbackParseSemver(changelogVersionString);
-    const compare = typeof compareSemver === 'function' ? compareSemver : fallbackCompareSemver;
-
-    if (compare(changelogVersionString, lastVersionString) > 0) {
-        bandDialog(`v${changelogVersion.major}.${changelogVersion.minor}.${changelogVersion.patch} Changelog`, '', (dialog) => {
+    if (CRC32.str(changelog) !== localStorage.lastChangelogHash) {
+        bandDialog(`v${semver} Changelog`, '', (dialog) => {
             dialog.style.pointerEvents = 'auto';
             let change = document.createElement('h1');
             change.style.cssText = "color: #fff; font-family: 'Manrope', monospace;";
@@ -212,5 +201,5 @@ function showChangelog() {
         }, null, false);
     }
 
-    localStorage.lastVersion = [version.major, version.minor, version.patch].join('.');
+    localStorage.lastChangelogHash = CRC32.str(changelog);
 }

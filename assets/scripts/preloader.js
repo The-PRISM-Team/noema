@@ -15,6 +15,10 @@ async function loadScripts(cb) {
             type: 'text/javascript'
         },
         {
+            src: '/assets/scripts/modules/crc32.js',
+            lang: 'javascript'
+        },
+        {
             src: '/assets/scripts/modules/controller_input.js'
         },
         {
