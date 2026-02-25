@@ -142,3 +142,6 @@ async function fetchCustom(url, method = 'text') {
 function setCursor(cursor = 'auto') {
     document.body.style.cursor = cursor;
 }
+function resetCursor() {
+    document.body.style.cursor = 'auto';
+}
