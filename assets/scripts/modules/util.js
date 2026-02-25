@@ -84,10 +84,6 @@ class AdvDate {
 }
 
 async function chargingTest(seconds = 60) {
-    function wait(ms) {
-        return new Promise(resolve => setTimeout(resolve, ms));
-    }
-
     console.log(`Testing battery charging rate (${seconds} seconds)...`)
     const batterySnapshot1 = await navigator.getBattery();
     if (!batterySnapshot1.charging) {
@@ -95,7 +91,7 @@ async function chargingTest(seconds = 60) {
         console.error(msg);
         throw new Error(msg);
     }
-    await wait(seconds * 1e3);
+    await delay(seconds * 1e3);
     const batterySnapshot2 = await navigator.getBattery();
 
     const chargedPercent = (batterySnapshot2.level - batterySnapshot1.level) * 100;
@@ -105,10 +101,6 @@ async function chargingTest(seconds = 60) {
     return chargedPercent;
 }
 async function dischargingTest(seconds = 60) {
-    function wait(ms) {
-        return new Promise(resolve => setTimeout(resolve, ms));
-    }
-
     console.log(`Testing battery discharging rate (${seconds} seconds)...`)
     const batterySnapshot1 = await navigator.getBattery();
     if (batterySnapshot1.charging) {
@@ -116,7 +108,7 @@ async function dischargingTest(seconds = 60) {
         console.error(msg);
         throw new Error(msg);
     }
-    await wait(seconds * 1e3);
+    await delay(seconds * 1e3);
     const batterySnapshot2 = await navigator.getBattery();
 
     const dischargedPercent = (batterySnapshot2.level - batterySnapshot1.level) * -100;

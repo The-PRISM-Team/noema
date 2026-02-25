@@ -76,18 +76,28 @@ window.addEventListener('load', async () => {
     if (typeof test !== 'undefined') {
         console.log('Testing system...');
         document.getElementById('clicktostart').innerHTML = 'testing system...';
-        test();
-        console.log('Test succeeded!');
+        try {
+            test();
+        } catch {
+            console.log('%cSystem test failed!!', 'background-color: #b00; border-radius: 5px 5px 5px 0px; padding: 2px; font-size: 15px;');
+            document.getElementById('clicktostart').innerHTML = 'system test failed!! the page will refresh very soon.';
+            delay(500);
+            location.reload();
+            return;
+        }
+        console.log('System test succeeded!');
     }
-    if (localStorage.skipChargingTests !== 'true') {
+    if (localStorage.skipChargingTests !== 'true' && (await navigator.getBattery())?.charging) {
         console.log('Testing battery...');
         document.getElementById('clicktostart').innerHTML = 'testing battery...';
 
-        if ((await navigator.getBattery())?.charging) {
-            await chargingTest(5);
-        } else {
-            await dischargingTest(5);
-        }
+        const dischargingRate = await dischargingTest(5);
+        if (dischargingRate > 0) {
+            console.log('%cBattery test failed!!', 'background-color: #b00; border-radius: 5px 5px 5px 0px; padding: 2px; font-size: 15px;');
+            document.getElementById('clicktostart').innerHTML = 'battery test failed!!\ncheck up on your battery health before using Noema.';
+            return;
+        };
+        console.log('Battery test succeeded!');
     }
 
     const isMobile = navigator.userAgentData?.mobile === true || /Android|iPhone|iPad|iPod/i.test(navigator.userAgent); 

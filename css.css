@@ -63,6 +63,17 @@ body {
     transition: width .5s ease-out;
 }
 
+#clicktostart {
+    color: #fff;
+    opacity: 10%;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 5vw;
+    font-family: monospace;
+    transition: opacity .5s ease;
+}
 
 /* --- outer ui --- */
 .time {
