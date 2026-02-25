@@ -42,7 +42,7 @@ document.getElementById('file').addEventListener('change', (event) => {
                 return;
             }
 
-            const convertableFormats = ['NSF1.0', 'NSF2.1'];
+            const convertableFormats = ['NSF1.0', 'NSF2.0'];
             if (convertableFormats.includes(content?.format)) {
                 document.getElementById('status').textContent = "File loaded successfully!";
                 document.getElementById('convert').style.display = 'revert';
