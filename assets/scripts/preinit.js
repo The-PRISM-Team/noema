@@ -73,6 +73,7 @@ window.addEventListener('load', async () => {
     document.getElementById('loading-bar').style.opacity = '0%';
     document.getElementById('loading-progress').style.width = '0%';
 
+    // test system
     if (typeof test !== 'undefined') {
         console.log('Testing system...');
         document.getElementById('clicktostart').innerHTML = 'testing system...';
@@ -87,6 +88,7 @@ window.addEventListener('load', async () => {
         }
         console.log('System test succeeded!');
     }
+    // test battery
     if (localStorage.skipChargingTests !== 'true' && (await navigator.getBattery())?.charging) {
         console.log('Testing battery...');
         document.getElementById('clicktostart').innerHTML = 'testing battery...';
@@ -100,6 +102,16 @@ window.addEventListener('load', async () => {
         console.log('Battery test succeeded!');
     }
 
+    // get commit ID
+    Object.defineProperty(globalThis, "commitId", {
+        value: (
+            await fetchJson('https://api.github.com/repos/sophb-ccjt/noema/commits?per_page=1&sha=main')
+        )[0].sha,
+        writable: false,
+        configurable: false,
+    });
+
+    // platform checks
     const isMobile = navigator.userAgentData?.mobile === true || /Android|iPhone|iPad|iPod/i.test(navigator.userAgent); 
     const supportChecks = [
         {
@@ -119,7 +131,8 @@ window.addEventListener('load', async () => {
             return;
         }
     }
-
+    
+    // boot logic
     if (localStorage.fromreboot === 'true') {
         drawSpaghetti();
         if (localStorage.startup === 'true') {

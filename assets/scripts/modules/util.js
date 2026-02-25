@@ -118,3 +118,23 @@ async function dischargingTest(seconds = 60) {
 
     return dischargedPercent;
 }
+
+async function fetchJson(url) {
+    return (await fetch(url)).json();
+}
+async function fetchText(url) {
+    return (await fetch(url)).text();
+}
+async function fetchCustom(url, method = 'text') {
+    const res = await fetch(url);
+
+    if (!res.ok) {
+        throw new Error(`HTTP ${res.status}`);
+    }
+
+    if (typeof res[method] !== 'function') {
+        throw new Error(`Invalid method "${method}"`)
+    }
+
+    return res[method]();
+}
