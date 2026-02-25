@@ -79,12 +79,15 @@ window.addEventListener('load', async () => {
         test();
         console.log('Test succeeded!');
     }
-    console.log('Testing battery...');
-    document.getElementById('clicktostart').innerHTML = 'testing battery...';
-    if ((await navigator.getBattery())?.charging && localStorage.skipChargingTests !== 'true') {
-        chargingTest(5);
-    } else {
-        dischargingTest(5);
+    if (localStorage.skipChargingTests !== 'true') {
+        console.log('Testing battery...');
+        document.getElementById('clicktostart').innerHTML = 'testing battery...';
+
+        if ((await navigator.getBattery())?.charging) {
+            chargingTest(5);
+        } else {
+            dischargingTest(5);
+        }
     }
 
     const isMobile = navigator.userAgentData?.mobile === true || /Android|iPhone|iPad|iPod/i.test(navigator.userAgent); 
