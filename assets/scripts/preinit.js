@@ -27,7 +27,7 @@ let pageStart = performance.now(),
     soundStart = null;
 
 // load page
-setCursor('wait');
+document.body.style.cursor = 'wait';
 console.log('Loading page...');
 let bgMusic;
 document.addEventListener('DOMContentLoaded', async () => {
