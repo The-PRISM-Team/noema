@@ -227,6 +227,7 @@ async function init() {
                 settings.exportDate = Date.now()
                 settings.format = 'NSF2.1'
                 delete settings.lastChangelogHash
+                delete settings.lastVersion
                 delete settings.defaultScripts
                 return JSON.stringify(settings)
             })())
