@@ -381,8 +381,8 @@ function checkboxDialog(title, subtitle, label, toggleFunc = ()=>{}) {
         checkbox.focus();
     }, null, true);
 }
-let __notifElements = {};
-let __queuedNotifs = [];
+let notifElements = {};
+let queuedNotifs = [];
 function notify(title, text, icon) {
     let notifDiv = document.createElement('span');
     notifDiv.className = 'notif';
@@ -418,10 +418,10 @@ function notify(title, text, icon) {
 
         let snd = playSound('notif', null, {
             preservesPitch: false,
-            playbackRate: 1 + Object.keys(__notifElements).length / 25
+            playbackRate: 1 + Object.keys(notifElements).length / 25
         });
 
-        __notifElements[notifDiv.id] = notifDiv;
+        notifElements[notifDiv.id] = notifDiv;
         requestAnimationFrame(()=>{
             notifDiv.style.transform = 'translateX(1px)';
             notifDiv.style.opacity = '100%';
@@ -429,17 +429,17 @@ function notify(title, text, icon) {
         setTimeout(()=>{
             notifDiv.style.transform = 'translateX(100%)';
             notifDiv.style.opacity = '0';
-            delete __notifElements[notifDiv.id];
+            delete notifElements[notifDiv.id];
             setTimeout(()=>{notifDiv.remove();}, .25e3);
         },10e3);
     }
-    if ((Object.keys(__notifElements).length >= 6) || !started || !document.hasFocus()) {
-        if (__queuedNotifs.length < 24) {
-            __queuedNotifs.push(notifDiv.id);
+    if ((Object.keys(notifElements).length >= 6) || !started || !document.hasFocus()) {
+        if (queuedNotifs.length < 24) {
+            queuedNotifs.push({id: notifDiv.id, when: Date.now()});
             setInterval(() => {
-                if ((Object.keys(__notifElements).length < 6) && started && document.hasFocus()) {
-                    if (__queuedNotifs[0] === notifDiv.id) {
-                        __queuedNotifs.shift();
+                if ((Object.keys(notifElements).length < 6) && started && document.hasFocus()) {
+                    if (queuedNotifs[0] === notifDiv.id && queuedNotifs[0].when <= 60e3) {
+                        queuedNotifs.shift();
                         notifHandler();
                     }
                 }
