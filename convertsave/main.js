@@ -143,6 +143,7 @@ document.getElementById('convert-btn').onclick = () => {
                 document.getElementById('status').textContent = 'Converting...';
 
                 delete saveFileCopy.lastVersion;
+                delete saveFileCopy.lastChangelogHash;
                 saveFileCopy.lastChangelogHash = '0';
 
                 document.getElementById('status').textContent = 'Finishing up...';
