@@ -84,6 +84,8 @@
 
 - Added `⋮ Trans Flag` theme
 
+- Added `⋮ Frogleaf` theme
+
 - Moved `⋮ Watermelon Sugar` theme up on the theme list for separation between flag-based themes and non-flag-based themes
 
 - Added environment checks and warnings

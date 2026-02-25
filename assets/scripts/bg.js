@@ -102,6 +102,11 @@ const bgColors = {
         "bottom": "#48d",
         "accentColor": "#00f"
     },
+    "frogleaf": {
+        "top": "#14881d",
+        "bottom": '#42ff2a',
+        "accentColor": "#52ff4c"
+    },
     "neonflux": {
         "top": "#f0f",
         "bottom": "#fb0",
@@ -157,7 +162,6 @@ const bgColors = {
         "accentColor": "#AFBAD6"
     }
 };
-
 if (!isDefined(localStorage.bgColor) || !Object.keys(bgColors).includes(localStorage.bgColor)) localStorage.bgColor = 'noema';
 let currentColor = {
     top: "#000",
