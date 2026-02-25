@@ -475,17 +475,23 @@ async function updateBattery() {
         document.getElementById('battery-bar').style.width = `${batteryPercent}%`;
         document.getElementById('battery-text').textContent = `${batteryPercent}%${battery.charging ? ' 🗲' : ''}`;
 
-        if (battery.level >= 0.75) {
+        if (battery.level >= 0.75)
             document.getElementById('battery-bar').style.backgroundColor = '#0f0';
-        } else if (battery.level > 0.5) {
+
+        else if (battery.level > 0.5)
             document.getElementById('battery-bar').style.backgroundColor = '#8f0';
-        } else if (battery.level > 0.5 - battery.lowBatteryThresh / 2) {
+
+        else if (battery.level > 0.5 - battery.lowBatteryThresh / 2)
             document.getElementById('battery-bar').style.backgroundColor = '#fa0';
-        } else if (battery.level > battery.lowBatteryThresh) {
+
+        else if (battery.level > battery.lowBatteryThresh)
             document.getElementById('battery-bar').style.backgroundColor = '#ff0';
-        } else if (battery.level <= battery.lowBatteryThresh) {
+
+        else if (battery.level <= battery.lowBatteryThresh)
             document.getElementById('battery-bar').style.backgroundColor = '#f00';
-        }
+
+        if (battery.charging)
+            document.getElementById('battery-bar').style.backgroundColor = '#2f2';
 
         requestAnimationFrame(updateBattery);
 
