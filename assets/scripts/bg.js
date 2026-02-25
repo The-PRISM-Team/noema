@@ -189,6 +189,8 @@ function changeBGColor({
 
     if (Object.keys(bgColors).includes(colorName))
         localStorage.bgColor = colorName;
+    else
+        localStorage.bgColor = 'noema';
 
     if (localStorage.noTransitions === 'true') {
         document.body.style.background = formatBGGradient(bgTop, 100, topColor, bottomColor);
