@@ -172,7 +172,7 @@ let bgBottom = 100;
 let changingBG = false;
 let queued;
 function changeBGColor({
-    colorName,
+    colorName = null,
     easing = .075,
     topColor = bgColors[colorName].top,
     bottomColor = bgColors[colorName].bottom,
