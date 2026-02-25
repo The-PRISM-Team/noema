@@ -438,7 +438,7 @@ function notify(title, text, icon) {
             queuedNotifs.push({id: notifDiv.id, when: Date.now()});
             setInterval(() => {
                 if (Object.keys(notifElements).length < 6 && started && document.hasFocus()) {
-                    if (queuedNotifs[0].id === notifDiv.id) {
+                    if (queuedNotifs[0]?.id === notifDiv.id) {
                         queuedNotifs.shift();
                         if (Date.now() - queuedNotifs[0].when <= 60e3) notifHandler();
                     }
