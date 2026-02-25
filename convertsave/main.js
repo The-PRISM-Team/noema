@@ -108,6 +108,8 @@ document.getElementById('convert-btn').onclick = () => {
                 setTimeout(() => {
                     document.getElementById('status').style.display = 'none';
                 }, 6e3);
+            } else {
+                document.getElementById('status').textContent = 'Unsupported!';
             }
         }
 
