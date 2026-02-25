@@ -111,8 +111,9 @@ if (isDefined(window.matchMedia)) {
     });
 }
 
-function init() {
+async function init() {
     if (started) return;
+    if (warmup.length === 0) soundWarmup();
     delete localStorage.fromreboot;
     started = true;
     lastActivity = Date.now();
