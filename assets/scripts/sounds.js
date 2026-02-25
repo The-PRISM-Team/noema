@@ -39,7 +39,7 @@ function playSound(sound, volume, properties = {}) {
 // keep sounds in memory to keep them "warm"
 const warmupSounds = [];
 async function soundWarmup(cb = ()=>{}) {
-    warmup.length = 0; // clear warmup array
+    warmupSounds.length = 0; // clear warmup array
     let done = 0;
     for (const sound of sounds) {
         const audio = new Audio(`/assets/sounds/menu/${sound}`);

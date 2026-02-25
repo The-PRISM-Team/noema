@@ -113,7 +113,7 @@ if (isDefined(window.matchMedia)) {
 
 async function init() {
     if (started) return;
-    if (warmup.length === 0) soundWarmup();
+    if (warmupSounds.length === 0) soundWarmup();
     delete localStorage.fromreboot;
     started = true;
     lastActivity = Date.now();
