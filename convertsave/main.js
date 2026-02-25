@@ -42,8 +42,8 @@ document.getElementById('file').addEventListener('change', (event) => {
                 return;
             }
 
-            const formats = ['NSF1.0'];
-            if (formats.includes(content?.format)) {
+            const convertableFormats = ['NSF1.0', 'NSF2.1'];
+            if (convertableFormats.includes(content?.format)) {
                 document.getElementById('status').textContent = "File loaded successfully!";
                 document.getElementById('convert').style.display = 'revert';
                 saveFile = content;
