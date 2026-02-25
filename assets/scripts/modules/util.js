@@ -82,3 +82,47 @@ class AdvDate {
             return week + date + ' ' + time;
     }
 }
+
+async function chargingTest(seconds = 60) {
+    function wait(ms) {
+        return new Promise(resolve => setTimeout(resolve, ms));
+    }
+
+    console.log(`Testing battery charging rate (${seconds} seconds)...`)
+    const batterySnapshot1 = await navigator.getBattery();
+    if (!batterySnapshot1.charging) {
+        const msg = "Cannot test charging rate if battery isn't being charged!".
+        console.error(msg);
+        throw new Error(msg);
+    }
+    await wait(seconds * 1e3);
+    const batterySnapshot2 = await navigator.getBattery();
+
+    const chargedPercent = (batterySnapshot2.level - batterySnapshot1.level) * 100;
+    console.log(`Battery ${chargedPercent >= 0 ? 'charged': 'discharged'} by ${chargedPercent}% in ${seconds} seconds.`);
+
+    console.log('Test complete');
+    return chargedPercent;
+}
+async function dischargingTest(seconds = 60) {
+    function wait(ms) {
+        return new Promise(resolve => setTimeout(resolve, ms));
+    }
+
+    console.log(`Testing battery discharging rate (${seconds} seconds)...`)
+    const batterySnapshot1 = await navigator.getBattery();
+    if (batterySnapshot1.charging) {
+        const msg = "Cannot test discharging rate if battery is being charged!".
+        console.error(msg);
+        throw new Error(msg);
+    }
+    await wait(seconds * 1e3);
+    const batterySnapshot2 = await navigator.getBattery();
+
+    const dischargedPercent = (batterySnapshot2.level - batterySnapshot1.level) * -100;
+    console.log(`Battery discharged by ${dischargedPercent}% in ${seconds} seconds.`);
+
+    console.log('Test complete')
+
+    return dischargedPercent;
+}
