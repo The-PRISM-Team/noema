@@ -438,12 +438,13 @@ function notify(title, text, icon) {
             queuedNotifs.push({id: notifDiv.id, when: Date.now()});
             const checkInterval = setInterval(() => {
                 if (Object.keys(notifElements).length < 6 && started && document.hasFocus()) {
-                    console.log(queuedNotifs)
+                    console.log('before:', queuedNotifs)
                     if (queuedNotifs[0]?.id === notifDiv.id) {
-                        queuedNotifs.shift();
                         if (Date.now() - queuedNotifs[0]?.when <= 60e3) notifHandler();
+                        queuedNotifs.shift();
                         clearInterval(checkInterval);
                     }
+                    console.log('after:', queuedNotifs)
                 }
             }, 100);
         } else {
