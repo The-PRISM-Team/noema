@@ -158,12 +158,12 @@ window.addEventListener('load', async () => {
             document.getElementById('clicktostart').innerHTML = 'click or press enter to go to menu';
 
         let start = async () => {
+            setCursor('none');
             document.onclick = document.onkeydown = null;
     
             drawSpaghetti();
 
             if (localStorage.startup === 'true') {
-                setCursor('none');
                 if (typeof startup !== 'undefined') {
                     startup();
                 } else {
