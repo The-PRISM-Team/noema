@@ -180,10 +180,21 @@ function changeBGColor({
     waveColor = bgColors[colorName]?.waveColor ?? "#fff",
     brightness = bgBrightness
 } = {}) {
+    const paramsPassed = {
+        colorName,
+        easing,
+        topColor,
+        bottomColor,
+        AccentColor,
+        waveColor,
+        brightness
+    };
+
     let color = bgColors[colorName];
+
     if (color == null && topColor && bottomColor) color = { top: topColor, bottom: bottomColor, accentColor: AccentColor };
     if (changingBG) {
-        queued = [color, easing, topColor, bottomColor, AccentColor];
+        queued = paramsPassed;
         return;
     }
 
@@ -205,7 +216,7 @@ function changeBGColor({
                 document.body.style.background = formatBGGradient(bgTop, 100, topColor, bottomColor);
                 document.body.style.accentColor = accentColor = AccentColor;
                 if (queued) {
-                    changeBGColor(...queued);
+                    changeBGColor(queued);
                     queued = undefined;
                 }
                 return;
