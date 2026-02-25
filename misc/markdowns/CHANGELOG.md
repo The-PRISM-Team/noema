@@ -90,6 +90,8 @@
 
 - Moved `⋮ Watermelon Sugar` theme up on the theme list for separation between flag-based themes and non-flag-based themes
 
+- Updated save file format
+
 - Added environment checks and warnings
 
 - Reworked sound engine
