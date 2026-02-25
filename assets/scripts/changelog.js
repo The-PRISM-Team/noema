@@ -60,6 +60,8 @@ function showChangelog() {
 
         - Changelog is now hash-based, meaning that if the changelog updates without a version number change, the changelog now appears
 
+        - Remapped Ctrl and Alt to Q and E, respectively.
+
 
         ## API Changes
         - Added \`𝑓 startsWithAmount\` and \`𝑓 endsWithAmount\` to \`𝘰 String.prototype\`
@@ -67,8 +69,6 @@ function showChangelog() {
         - Added \`𝑓 last\` to \`𝘰 HTMLCollection.prototype\` and \`𝘰 String.prototype\`
 
         - Added \`𝑓 playSound\` API
-
-        - Added foundational \`𝑓 parseSemver\` and \`𝑓 compareSemver\` helpers for safe semantic version parsing and comparisons
 
 
         ## Bugfixes
