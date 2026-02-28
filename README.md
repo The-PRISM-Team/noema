@@ -1,3 +1,14 @@
+## Contributing
+
+This project is actively looking for contributors.
+
+If you'd like to help:
+- Check open issues labeled `good first issue` or `help wanted`
+- Open a discussion for ideas
+- Submit a pull request
+
+See CONTRIBUTING.md for guidelines.
+
 (rework README)
 # Noema ODB Repo
 This is the official repository for Project Noema's Open Developer Beta, used for the development of Noema v0.16.0 and v0.17.0, NGP (Noema Game Package) file format and NGCT (Noema Game Creation Tool).
