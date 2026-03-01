@@ -549,10 +549,11 @@ function handleInput(event) {
     let key = event.key.toLowerCase();
     // console.log('key press:', key)
 
-    // input handler, make it JSON later
+    // input handler, make it JSON later?
+    // ⤷ idk sis you might need to spend a lot of time
     /*if (key === 'escape') {
         if (!event.repeat)
-            back()
+            back();
     }*/
     let outOfMenu = false;
     document.body.querySelectorAll('.band-dialog').forEach(dialog => {
