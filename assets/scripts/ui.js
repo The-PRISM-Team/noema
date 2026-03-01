@@ -458,7 +458,9 @@ function notify(title, text, icon) {
 let keyPressed = null;
 let pressedTime = null;
 let lastActivity = Date.now();
-function handleInput(event, keyup) {
+function handleInput(event) {
+    const keyup = event.type === 'keyup';
+
     if (!started) return;
     if (event.repeat) {
         if (Date.now() - lastActivity < 75) {
@@ -471,7 +473,7 @@ function handleInput(event, keyup) {
     }
     lastActivity = Date.now();
     function left() {
-        if (document.getElementById(`ui-options`).querySelectorAll('.ui-option').length < 2) return;
+        if (document.getElementById('ui-options').querySelectorAll('.ui-option').length < 2) return;
         if (keyup) return;
         if (selectedOption <= 0) {
             if (event.repeat) return;
@@ -483,7 +485,7 @@ function handleInput(event, keyup) {
         playSound('select');
     }
     function right() {
-        if (document.getElementById(`ui-options`).querySelectorAll('.ui-option').length < 2) return;
+        if (document.getElementById('ui-options').querySelectorAll('.ui-option').length < 2) return;
         if (keyup) return;
         if (selectedOption >= document.getElementById('ui-options').querySelectorAll('a').length - 1) {
             if (event.repeat) return;
@@ -576,6 +578,32 @@ function handleInput(event, keyup) {
                 event.preventDefault();
                 if (parseFloat(document.activeElement.value) < parseFloat(document.activeElement.max)) {
                     document.activeElement.value = parseFloat(document.activeElement.value) + parseFloat(document.activeElement.step || '1') * (event.shiftKey ? 10 : 1);
+
+                    const evtn = new Event('input', { bubbles: true });
+                    document.activeElement.dispatchEvent(evtn);
+                    const evtn2 = new Event('change', { bubbles: true });
+                    document.activeElement.dispatchEvent(evtn2);
+                }
+            }
+        }
+        if ((key === 'w' || key === 'arrowup') && !keyup) {
+            if (document.activeElement.tagName === 'INPUT' && document.activeElement?.type === 'number') {
+                event.preventDefault();
+                if (parseFloat(document.activeElement.value) < parseFloat(document.activeElement.max)) {
+                    document.activeElement.value = parseFloat(document.activeElement.value) + parseFloat(document.activeElement.step || '1') * (event.shiftKey ? 10 : 1);
+
+                    const evtn = new Event('input', { bubbles: true });
+                    document.activeElement.dispatchEvent(evtn);
+                    const evtn2 = new Event('change', { bubbles: true });
+                    document.activeElement.dispatchEvent(evtn2);
+                }
+            }
+        }
+        if ((key === 'a' || key === 'arrowleft') && !keyup) {
+            if (document.activeElement.tagName === 'INPUT' && document.activeElement?.type === 'number') {
+                event.preventDefault();
+                if (parseFloat(document.activeElement.value) > parseFloat(document.activeElement.min)) {
+                    document.activeElement.value = parseFloat(document.activeElement.value) - parseFloat(document.activeElement.step || '1') * (event.shiftKey ? 10 : 1);
 
                     const evtn = new Event('input', { bubbles: true });
                     document.activeElement.dispatchEvent(evtn);

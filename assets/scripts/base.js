@@ -449,8 +449,8 @@ async function init() {
 
     // setInterval(navigator.internet.testConnection, 30e3)
 
-    document.addEventListener('keydown', (evtn) => handleInput(evtn, false));
-    document.addEventListener('keyup', (evtn) => handleInput(evtn, true));
+    document.addEventListener('keydown', handleInput);
+    document.addEventListener('keyup', handleInput);
     updateLoop();
     if (new Date().getMonth() === 11) startFlakes();
 

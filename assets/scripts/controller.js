@@ -14,8 +14,8 @@ gameControl.on('connect', (gamepad) => {
         'right0': 'ArrowRight',
         'up0': 'ArrowUp',
         'down0': 'ArrowDown',
-        'button4': 'Control',
-        'button5': 'Alt',
+        'button4': 'q',
+        'button5': 'e',
     };
     let pressed = {};
     JSON.iterate(mapping, (button, key)=>{
