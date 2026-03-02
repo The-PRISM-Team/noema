@@ -188,27 +188,6 @@ async function init() {
             ui.classList.remove('open');
             setSuboption(selectedOption, selectedSuboption, 'Toggle open UI', 'UI is currently closed.\\nSelect to open it.');
         }`, 'wrench');
-    createSuboption(audioTab, 'Toggle pausing background music on unfocus',
-        localStorage.pauseMusic === 'true' ? 'Background music currently gets paused on unfocus.\nSelect to not mute it on unfocus.' : 'Background music currently doesn\'t get muted on unfocus.\nSelect to mute it on unfocus.', `
-        localStorage.pauseMusic = localStorage.pauseMusic === 'true' ? 'false' : 'true';
-        if (localStorage.pauseMusic === 'true') {
-            setSuboption(selectedOption, selectedSuboption, 'Toggle pausing background music on unfocus', 'Background music currently gets paused on unfocus.\\nSelect to not mute it on unfocus.');
-        } else {
-            bgMusic.play()
-            setSuboption(selectedOption, selectedSuboption, 'Toggle pausing background music on unfocus', 'Background music currently doesn\\'t get muted on unfocus.\\nSelect to enable that.');
-        }`, 'wrench');
-    createSuboption(audioTab, 'Set background music volume', `Background music is currently at ${parseInt(parseFloat(localStorage.musicVolume) * 100)}% volume.`, `
-        inputDialog('Set background music volume', null, parseFloat(localStorage.musicVolume) * 100, 0, 100, 1, '{value}%', (volume)=>{
-            localStorage.musicVolume = bgMusic.volume = volume / 100 * masterVolume;
-            setSuboption(selectedOption, selectedSuboption, 'Set background music volume', \`Background music is currently at \${parseInt(parseFloat(localStorage.musicVolume) * 100)}% volume.\`);
-        });
-    `, 'wrench');
-    createSuboption(audioTab, 'Set UI sound volume', `UI sounds are currently at ${parseInt(parseFloat(localStorage.uiSoundVolume) * 100)}% volume.`, `
-        inputDialog('Set UI sound volume', null, parseFloat(localStorage.uiSoundVolume) * 100, 0, 100, 1, '{value}%', (volume)=>{
-            localStorage.uiSoundVolume = volume / 100;
-            setSuboption(selectedOption, selectedSuboption, 'Set UI sound volume', \`UI sounds are currently at \${parseInt(parseFloat(localStorage.uiSoundVolume) * 100)}% volume.\`);
-        });
-    `, 'wrench');
     createSuboption(prefTab, 'Toggle startup animation',
         localStorage.startup === 'true' ? 'Startup animation is currently enabled.\nSelect to disable it.' : 'Startup animation is currently disabled.\nSelect to enable it.', `
         localStorage.startup = localStorage.startup === 'true' ? 'false' : 'true';
@@ -316,6 +295,27 @@ async function init() {
         "Are you sure?",
         "Do not accept unless you know what you're doing.\\nOnce you reset your preferences, this process is IRREVERSIBLE, so make sure to save your preferences before resetting.\\n\\nThe system will restart after resetting to apply the default settings.")`,
         'bin');
+    createSuboption(audioTab, 'Toggle pausing background music on unfocus',
+        localStorage.pauseMusic === 'true' ? 'Background music currently gets paused on unfocus.\nSelect to not mute it on unfocus.' : 'Background music currently doesn\'t get muted on unfocus.\nSelect to mute it on unfocus.', `
+        localStorage.pauseMusic = localStorage.pauseMusic === 'true' ? 'false' : 'true';
+        if (localStorage.pauseMusic === 'true') {
+            setSuboption(selectedOption, selectedSuboption, 'Toggle pausing background music on unfocus', 'Background music currently gets paused on unfocus.\\nSelect to not mute it on unfocus.');
+        } else {
+            bgMusic.play()
+            setSuboption(selectedOption, selectedSuboption, 'Toggle pausing background music on unfocus', 'Background music currently doesn\\'t get muted on unfocus.\\nSelect to enable that.');
+        }`, 'wrench');
+    createSuboption(audioTab, 'Set background music volume', `Background music is currently at ${parseInt(parseFloat(localStorage.musicVolume) * 100)}% volume.`, `
+        inputDialog('Set background music volume', null, parseFloat(localStorage.musicVolume) * 100, 0, 100, 1, '{value}%', (volume)=>{
+            localStorage.musicVolume = bgMusic.volume = volume / 100 * masterVolume;
+            setSuboption(selectedOption, selectedSuboption, 'Set background music volume', \`Background music is currently at \${parseInt(parseFloat(localStorage.musicVolume) * 100)}% volume.\`);
+        });
+    `, 'wrench');
+    createSuboption(audioTab, 'Set UI sound volume', `UI sounds are currently at ${parseInt(parseFloat(localStorage.uiSoundVolume) * 100)}% volume.`, `
+        inputDialog('Set UI sound volume', null, parseFloat(localStorage.uiSoundVolume) * 100, 0, 100, 1, '{value}%', (volume)=>{
+            localStorage.uiSoundVolume = volume / 100;
+            setSuboption(selectedOption, selectedSuboption, 'Set UI sound volume', \`UI sounds are currently at \${parseInt(parseFloat(localStorage.uiSoundVolume) * 100)}% volume.\`);
+        });
+    `, 'wrench');
 
     createSuboption(graphTab, 'Toggle effects',
         localStorage.noShaders === 'true' ? 'Effects are currently disabled.\nSelect to turn them on.' : 'Effects are currently enabled.\nSelect to turn them off.', `
@@ -355,7 +355,7 @@ async function init() {
     Object.keys(bgColors).forEach((color, i) => {
         createSuboption(themeTab, color.toTitleCase(), `Select to set the theme to "${color.toTitleCase()}".`, `changeBGColor({colorName: "${color}"})`, 'image');
         if (color === localStorage.bgColor)
-            selectedSuboptions[3] = i;
+            selectedSuboptions[themeTab] = i;
     });
 
     createSuboption(waveTab, 'None', 'Disables the wave entirely, best for low-end devices.', 'density = 0; localStorage.spaghettiDensity = density', 'wrench');
