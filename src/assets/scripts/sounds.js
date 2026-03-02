@@ -22,7 +22,7 @@ function playSound(sound, volume, properties = {}) {
 
         return isTargetSound;
     }).length === 1) {
-        const snd = new Audio(`/src/assets/sounds/menu/${sounds[targetSoundIndex]}`);
+        const snd = new Audio(`/assets/sounds/menu/${sounds[targetSoundIndex]}`);
         if (!isDefined(volume))
             volume = parseFloat(localStorage.uiSoundVolume) * masterVolume.clamp(0, 1);
 
