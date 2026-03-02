@@ -1,75 +1,75 @@
 async function loadScripts(cb) {
     const scripts = [
         {
-            src: '/src/assets/scripts/modules/color.global.js'
+            src: '/assets/scripts/modules/color.global.js'
         },
         {
-            src: '/src/assets/scripts/modules/jquery-3.7.1.js'
+            src: '/assets/scripts/modules/jquery-3.7.1.js'
         },
         {
-            src: '/src/assets/scripts/modules/gamecontroller.js'
+            src: '/assets/scripts/modules/gamecontroller.js'
         },
         {
-            src: '/src/assets/scripts/modules/gapless5.js',
+            src: '/assets/scripts/modules/gapless5.js',
             language: 'JavaScript',
             type: 'text/javascript'
         },
         {
-            src: '/src/assets/scripts/modules/md5.min.js'
+            src: '/assets/scripts/modules/md5.min.js'
         },
         {
-            src: '/src/assets/scripts/modules/controller_input.js'
+            src: '/assets/scripts/modules/controller_input.js'
         },
         {
-            src: '/src/assets/scripts/modules/protoplus.js'
+            src: '/assets/scripts/modules/protoplus.js'
         },
         {
-            src: '/src/assets/scripts/modules/bgFormat.js'
+            src: '/assets/scripts/modules/bgFormat.js'
         },
         {
-            src: '/src/assets/scripts/modules/URLutil.js'
+            src: '/assets/scripts/modules/URLutil.js'
         },
         {
-            src: '/src/assets/scripts/modules/file.js'
+            src: '/assets/scripts/modules/file.js'
         },
         {
-            src: '/src/assets/scripts/modules/util.js'
+            src: '/assets/scripts/modules/util.js'
         },
         {
-            src: '/src/assets/scripts/modules/version.js'
+            src: '/assets/scripts/modules/version.js'
         },
         {
-            src: '/src/assets/scripts/error.js'
+            src: '/assets/scripts/error.js'
         },
         {
-            src: '/src/assets/scripts/power.js'
+            src: '/assets/scripts/power.js'
         },
         {
-            src: '/src/assets/scripts/game.js'
+            src: '/assets/scripts/game.js'
         },
         {
-            src: '/src/assets/scripts/controller.js'
+            src: '/assets/scripts/controller.js'
         },
         {
-            src: '/src/assets/scripts/changelog.js'
+            src: '/assets/scripts/changelog.js'
         },
         {
-            src: '/src/assets/scripts/bg.js'
+            src: '/assets/scripts/bg.js'
         },
         {
-            src: '/src/assets/scripts/ui.js'
+            src: '/assets/scripts/ui.js'
         },
         {
-            src: '/src/assets/scripts/user.js'
+            src: '/assets/scripts/user.js'
         },
         {
-            src: '/src/assets/scripts/info.js'
+            src: '/assets/scripts/info.js'
         },
         {
-            src: '/src/assets/scripts/sounds.js'
+            src: '/assets/scripts/sounds.js'
         },
         {
-            src: '/src/assets/scripts/base.js'
+            src: '/assets/scripts/base.js'
         }
     ];
 

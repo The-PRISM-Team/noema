@@ -166,7 +166,7 @@ function createSuboption(optionId, title, desc = '', exec = null, icon, sound = 
         if (urltester.test(icon)) {
             suboptionIcon.src = icon;
         } else {
-            suboptionIcon.src = `/src/assets/icons/${icon}.png`;
+            suboptionIcon.src = `/assets/icons/${icon}.png`;
         }
         suboptionIcon.className = 'ui-suboption-icon';
         suboption.prepend(suboptionIcon);
@@ -204,7 +204,7 @@ function setSuboption(optionId, suboptionId, title, desc, icon, exec, sound) {
     let suboption = document.getElementById(`ui-content${optionId}`).querySelector(`#ui-suboption${suboptionId}`);
     if (isDefined(title)) suboption.querySelector('.ui-suboption-title').innerText = title;
     if (isDefined(desc)) suboption.querySelector('.ui-suboption-text').innerText = desc;
-    if (isDefined(icon)) suboption.querySelector('.ui-suboption-icon').src = `/src/assets/icons/${icon}.png`;
+    if (isDefined(icon)) suboption.querySelector('.ui-suboption-icon').src = `/assets/icons/${icon}.png`;
     if (isDefined(exec)) suboption.dataset.execute = exec;
     if (isDefined(sound)) suboption.dataset.sound = sound;
 }
@@ -411,7 +411,7 @@ function notify(title, text, icon) {
 
         if (isDefined(icon)) {
             let notifIcon = document.createElement('img');
-            notifIcon.src = `/src/assets/icons/${icon}.png`;
+            notifIcon.src = `/assets/icons/${icon}.png`;
             notifIcon.className = "notif-icon";
             notifDiv.appendChild(notifIcon);
         }
