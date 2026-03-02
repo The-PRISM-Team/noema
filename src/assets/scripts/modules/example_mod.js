@@ -26,6 +26,7 @@ function startMod() {
                 if (theme in modthemes) {
                     localStorage.ccjtmodTheme = theme;
                     changeBGColor({
+                        colorName: null,
                         topColor: modthemes[theme].top,
                         bottomColor: modthemes[theme].bottom,
                         AccentColor: modthemes[theme].accent
@@ -68,6 +69,7 @@ function startMod() {
                 promptDialog((url)=>{
                     bgMusic.src = url
                     changeBGColor({
+                        colorName: null,
                         topColor: "#000",
                         bottomColor: "#000",
                         AccentColor: "#fff"
@@ -82,6 +84,7 @@ function startMod() {
             createSuboption(modprefId, 'reset bg music (mod)', 'sets the bg music to the mod\'s default menu music', `
                 bgMusic.src = 'https://file.garden/aHFDYCLeNBLSceNi/scizzie%20-%20aquatic%20ambience.mp3'
                 changeBGColor({
+                    colorName: null,
                     topColor: "#000",
                     bottomColor: "#000",
                     AccentColor: "#fff"
@@ -95,6 +98,7 @@ function startMod() {
             createSuboption(modprefId, 'reset bg music (vanilla)', 'sets the bg music to the vanilla menu music', `
                 bgMusic.src = './menu_music.flac'
                 changeBGColor({
+                    colorName: null,
                     topColor: "#000",
                     bottomColor: "#000",
                     AccentColor: "#fff"
