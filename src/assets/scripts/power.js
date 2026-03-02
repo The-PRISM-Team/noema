@@ -73,7 +73,7 @@ function startup() {
             topColor: "#000",
             bottomColor: "#000"
         });
-        let snd = new Audio('/assets/sounds/coldboot.flac');
+        let snd = new Audio('/src/assets/sounds/coldboot.flac');
         snd.volume = .65
         snd.addEventListener('canplaythrough', function () {
             snd.play();
@@ -92,17 +92,17 @@ function startup() {
                     document.getElementById('startup-logo').style.transform = "translate(-50%, -50%)";
                     document.getElementById('startup-logo').style.transition = 'opacity 1s ease, height 1s ease, transform 1s ease';
                     document.getElementById('startup-logo').style.height = "25vh";
-                    favicon.href = '/assets/logos/noema/black.png';
+                    favicon.href = '/src/assets/logos/noema/black.png';
                     setTimeout(() => {
                         changeBGColor({ colorName: null, easing: .1, topColor: "#000", bottomColor: "#f0f"});
                         document.getElementById('startup-text').style.textShadow = "0px 0px 15px #000";
                         document.getElementById('startup-text').style.opacity = "100%";
-                        favicon.href = '/assets/logos/noema/white.png';
+                        favicon.href = '/src/assets/logos/noema/white.png';
                         setTimeout(() => {
                             document.getElementById('startup-text').style.top = "65vh";
                             document.getElementById('startup-text').style.textShadow = "0px 0px 50px #fff";
                             changeBGColor({ colorName: null, easing: .1, topColor: "#00f", bottomColor: "#f0f"});
-                            favicon.href = '/assets/logos/noema/color.png';
+                            favicon.href = '/src/assets/logos/noema/color.png';
                             setTimeout(() => {
                                 document.getElementById('startup-logo').style.opacity = "0%";
                                 document.getElementById('startup-text').style.opacity = "0%";

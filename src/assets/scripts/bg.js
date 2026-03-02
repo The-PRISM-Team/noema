@@ -268,7 +268,7 @@ function addFlake() {
     };
     let flake = document.createElement('img');
     flake.id = id;
-    flake.src = localStorage.coloredFavicon === 'true' ? '/assets/logos/prism/color.png' : '/assets/logos/prism/white.png';
+    flake.src = localStorage.coloredFavicon === 'true' ? '/src/assets/logos/prism/color.png' : '/src/assets/logos/prism/white.png';
     flake.height = '32';
     flake.style.position = 'fixed';
     flake.style.left = `${pos.x}px`;

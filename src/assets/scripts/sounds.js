@@ -22,7 +22,7 @@ function playSound(sound, volume, properties = {}) {
 
         return isTargetSound;
     }).length === 1) {
-        const snd = new Audio(`/assets/sounds/menu/${sounds[targetSoundIndex]}`);
+        const snd = new Audio(`/src/src/assets/sounds/menu/${sounds[targetSoundIndex]}`);
         if (!isDefined(volume))
             volume = parseFloat(localStorage.uiSoundVolume) * masterVolume.clamp(0, 1);
 
@@ -42,7 +42,7 @@ async function soundWarmup(cb = ()=>{}) {
     warmupSounds.length = 0; // clear warmup array
     let done = 0;
     for (const sound of sounds) {
-        const audio = new Audio(`/assets/sounds/menu/${sound}`);
+        const audio = new Audio(`/src/assets/sounds/menu/${sound}`);
         audio.volume = 0;
         let failed = false;
         const result = await audio.play().catch(()=>{

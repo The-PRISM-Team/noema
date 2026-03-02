@@ -1,6 +1,6 @@
 @font-face {
   font-family: 'Manrope';
-  src: url('/assets/fonts/manrope.ttf');
+  src: url('/src/assets/fonts/manrope.ttf');
 }
 
 * {
