@@ -25,7 +25,11 @@ function startMod() {
             window.setTheme = function (theme) {
                 if (theme in modthemes) {
                     localStorage.ccjtmodTheme = theme;
-                    changeBGColor(null, undefined, modthemes[theme].top, modthemes[theme].bottom, modthemes[theme].accent);
+                    changeBGColor({
+                        topColor: modthemes[theme].top,
+                        bottomColor: modthemes[theme].bottom,
+                        AccentColor: modthemes[theme].accent
+                    });
                 }
             };
 
@@ -63,7 +67,11 @@ function startMod() {
             createSuboption(modprefId, 'set bg music', 'sets the bg music source to any url', `
                 promptDialog((url)=>{
                     bgMusic.src = url
-                    changeBGColor(null, undefined, "#000", "#000")
+                    changeBGColor({
+                        topColor: "#000",
+                        bottomColor: "#000",
+                        AccentColor: "#fff"
+                    });
                     localStorage.ccjtmodMenuMusic = bgMusic.src
                     setTimeout(()=>{
                         setTheme(localStorage.ccjtmodTheme)
@@ -73,7 +81,11 @@ function startMod() {
             `, 'wrench');
             createSuboption(modprefId, 'reset bg music (mod)', 'sets the bg music to the mod\'s default menu music', `
                 bgMusic.src = 'https://file.garden/aHFDYCLeNBLSceNi/scizzie%20-%20aquatic%20ambience.mp3'
-                changeBGColor(null, undefined, "#000", "#000")
+                changeBGColor({
+                    topColor: "#000",
+                    bottomColor: "#000",
+                    AccentColor: "#fff"
+                });
                 localStorage.ccjtmodMenuMusic = bgMusic.src
                 setTimeout(()=>{
                     setTheme(localStorage.ccjtmodTheme)
@@ -82,7 +94,11 @@ function startMod() {
             `, 'wrench', 'power');
             createSuboption(modprefId, 'reset bg music (vanilla)', 'sets the bg music to the vanilla menu music', `
                 bgMusic.src = './menu_music.flac'
-                changeBGColor(null, undefined, "#000", "#000")
+                changeBGColor({
+                    topColor: "#000",
+                    bottomColor: "#000",
+                    AccentColor: "#fff"
+                });
                 localStorage.ccjtmodMenuMusic = bgMusic.src
                 setTimeout(()=>{
                     setTheme(localStorage.ccjtmodTheme)
