@@ -115,6 +115,8 @@ async function init() {
     if (started) return;
     if (warmupSounds.length === 0) soundWarmup();
     delete localStorage.fromreboot;
+    delete localStorage.fromRefresh;
+    delete localStorage.fastBoot;
     started = true;
     lastActivity = Date.now();
 
@@ -155,6 +157,7 @@ async function init() {
     // init suboptions
     createSuboption(powerTab, 'Power Off', 'Shuts down the system and closes the tab (if possible).', `confirmDialog(shutdown)`, 'power', 'power');
     createSuboption(powerTab, 'Reboot', 'Restarts the system with the latest version of the system files.', `confirmDialog(reboot)`, 'power', 'power');
+    createSuboption(powerTab, 'Fast Reboot', 'Restarts and skips startup animation once on the next boot.', `confirmDialog(fastReboot)`, 'power', 'power');
     selectedSuboptions[0] = 1;
 
     createSuboption(prefTab, 'Set Username', `Username currently set to "${username}".`, `
@@ -440,8 +443,52 @@ async function init() {
             bgMusic.volume = t.clamp(0, volume * masterVolume);
         }, 1e3 / 30);
     };
-    bgMusic.play();
-    fadeIn();
+    let restoringPlaybackPrompt = false;
+    const showBgPlaybackFallback = () => {
+        if (restoringPlaybackPrompt) return;
+        restoringPlaybackPrompt = true;
+
+        setCursor('pointer');
+        const clickToStart = document.getElementById('clicktostart');
+        clickToStart.style.display = 'revert';
+        clickToStart.style.opacity = '100%';
+        clickToStart.innerHTML = localStorage.startup === 'true' ? 'click or press enter to start' : 'click or press enter to go to menu';
+
+        const retryBgMusic = async () => {
+            document.onclick = document.onkeydown = null;
+            try {
+                await bgMusic.play();
+                fadeIn();
+                clickToStart.style.opacity = '0%';
+                setTimeout(() => {
+                    clickToStart.style.display = 'none';
+                }, 1e3);
+                setCursor('auto');
+                restoringPlaybackPrompt = false;
+            } catch (error) {
+                console.warn('Background music failed to play again.', error);
+                setCursor('pointer');
+                document.onclick = retryBgMusic;
+                document.onkeydown = (event) => {
+                    if (event.key.toLowerCase() === 'enter') retryBgMusic();
+                };
+            }
+        };
+
+        document.onclick = retryBgMusic;
+        document.onkeydown = (event) => {
+            if (event.key.toLowerCase() === 'enter') retryBgMusic();
+        };
+    };
+
+    bgMusic.play()
+        .then(() => {
+            fadeIn();
+        })
+        .catch((error) => {
+            console.warn('Background music failed to play.', error);
+            showBgPlaybackFallback();
+        });
 
     if (localStorage.noShaders === 'true')
         traverseDOM(document.body, (element) => {

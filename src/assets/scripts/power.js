@@ -52,7 +52,10 @@ function test(mode = 0) {
 let started = false;
 let starting = false;
 function startup() {
+    const fastBoot = localStorage.fromreboot === 'true' || localStorage.fromRefresh === 'true';
     delete localStorage.fromreboot;
+    delete localStorage.fromRefresh;
+    delete localStorage.fastBoot;
 
     let startTime = Date.now();
     if (started || starting) return;
@@ -74,10 +77,32 @@ function startup() {
             bottomColor: "#000"
         });
         let snd = new Audio('/assets/sounds/coldboot.flac');
-        snd.volume = .65
-        snd.addEventListener('canplaythrough', function () {
-            snd.play();
+        snd.volume = .65;
 
+        const showStartupAudioFallback = () => {
+            starting = false;
+            setCursor('pointer');
+            const clickToStart = document.getElementById('clicktostart');
+            clickToStart.style.display = 'revert';
+            clickToStart.style.opacity = '100%';
+            clickToStart.innerHTML = localStorage.startup === 'true' ? 'click or press enter to start' : 'click or press enter to go to menu';
+
+            const retryStartup = () => {
+                document.onclick = document.onkeydown = null;
+                startup();
+            };
+            document.onclick = retryStartup;
+            document.onkeydown = (event) => {
+                if (event.key.toLowerCase() === 'enter') retryStartup();
+            };
+        };
+
+        const failStartupAudio = (error) => {
+            console.warn('Coldboot sound failed to play.', error);
+            showStartupAudioFallback();
+        };
+
+        const runStartupSequence = () => {
             changeBGColor({
                 colorName: null,
                 easing: .1,
@@ -114,12 +139,16 @@ function startup() {
                     }, 1.75e3);
                 }, .5e3);
             }, .25e3);
-        }, false);
-    }, localStorage.fromreboot ? .5e3 : 2e3);
+        };
+
+        snd.addEventListener('error', () => failStartupAudio(new Error('Coldboot sound failed to load.')), { once: true });
+        snd.play().then(runStartupSequence).catch(failStartupAudio);
+    }, fastBoot ? .5e3 : 2e3);
 }
 
 function reboot() {
     localStorage.fromreboot = 'true';
+    localStorage.fromRefresh = 'true';
     for (let element of document.body.children) {
         element.style.display = 'none';
     }
@@ -129,6 +158,10 @@ function reboot() {
     setTimeout(()=>{
         window.location.reload();
     }, 1e3 / 25);
+}
+function fastReboot() {
+    localStorage.fastBoot = 'true';
+    reboot();
 }
 
 function shutdown() {

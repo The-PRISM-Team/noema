@@ -138,9 +138,12 @@ window.addEventListener('load', async () => {
     }
     
     // boot logic
-    if (localStorage.fromreboot === 'true') {
+    const fromRefreshBoot = localStorage.fromRefresh === 'true';
+    const fromRebootBoot = localStorage.fromreboot === 'true';
+    const fastBoot = localStorage.fastBoot === 'true';
+    if (fromRebootBoot || fromRefreshBoot) {
         drawSpaghetti();
-        if (localStorage.startup === 'true') {
+        if (localStorage.startup === 'true' && !fastBoot) {
             document.getElementById('clicktostart').innerHTML = 'starting...';
             if (typeof startup !== 'undefined')
                 startup();
