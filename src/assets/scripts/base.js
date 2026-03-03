@@ -229,6 +229,18 @@ async function init() {
             setSuboption(selectedOption, selectedSuboption, 'Toggle startup animation', 'Startup animation is currently disabled.\\nSelect to enable it.');
         }`,
         'wrench');
+    createSuboption(prefTab, 'Fast boot by default',
+        localStorage.fastBootDefault === 'true'
+            ? 'Fast boot is currently enabled by default.\nStartup animation only plays when Reboot is used.\nSelect to disable this.'
+            : 'Fast boot is currently disabled by default.\nSelect to enable this and only show startup animation on Reboot.',
+        `
+        localStorage.fastBootDefault = localStorage.fastBootDefault === 'true' ? 'false' : 'true';
+        if (localStorage.fastBootDefault === 'true') {
+            setSuboption(selectedOption, selectedSuboption, 'Fast boot by default', 'Fast boot is currently enabled by default.\\nStartup animation only plays when Reboot is used.\\nSelect to disable this.');
+        } else {
+            setSuboption(selectedOption, selectedSuboption, 'Fast boot by default', 'Fast boot is currently disabled by default.\\nSelect to enable this and only show startup animation on Reboot.');
+        }`,
+        'wrench');
 
     createSuboption(prefTab, 'Save preferences', 'Select to download a file with your preferences to load them later.', `
         confirmDialog(()=>{
