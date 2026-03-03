@@ -304,9 +304,16 @@ async function init() {
             bgMusic.play()
             setSuboption(selectedOption, selectedSuboption, 'Toggle pausing background music on unfocus', 'Background music currently doesn\\'t get muted on unfocus.\\nSelect to enable that.');
         }`, 'wrench');
+    createSuboption(audioTab, 'Set master volume', `Master volume is currently at ${decimalStrToPercentage(localStorage.masterVolume)}% volume.`, `
+        inputDialog('Set master volume', null, decimalStrToPercentage(localStorage.masterVolume), 0, 100, 1, '{value}%', (volume)=>{
+            setMasterVolume(percentageToDecimal(volume));
+            setSuboption(selectedOption, selectedSuboption, 'Set master volume', \`Master volume is currently at \${decimalStrToPercentage(localStorage.masterVolume)}% volume.\`);
+        });
+    `, 'wrench');
     createSuboption(audioTab, 'Set background music volume', `Background music is currently at ${decimalStrToPercentage(localStorage.musicVolume)}% volume.`, `
         inputDialog('Set background music volume', null, decimalStrToPercentage(localStorage.musicVolume), 0, 100, 1, '{value}%', (volume)=>{
-            localStorage.musicVolume = bgMusic.volume = percentageToDecimal(volume) * masterVolume;
+            localStorage.musicVolume = percentageToDecimal(volume);
+            bgMusic.volume = parseFloat(localStorage.musicVolume).clamp(0, 1) * masterVolume;
             setSuboption(selectedOption, selectedSuboption, 'Set background music volume', \`Background music is currently at \${decimalStrToPercentage(localStorage.musicVolume)}% volume.\`);
         });
     `, 'wrench');

@@ -12,6 +12,22 @@ const sounds =
     ];
 
 let masterVolume = 1;
+function setMasterVolume(volume = 1) {
+    const parsedVolume = parseFloat(volume);
+    if (isNaN(parsedVolume)) {
+        throw new TypeError('Master volume must be a valid number.');
+    }
+
+    masterVolume = parsedVolume.clamp(0, 1);
+    localStorage.masterVolume = masterVolume.toString();
+
+    if (isDefined(bgMusic)) {
+        bgMusic.volume = parseFloat(localStorage.musicVolume).clamp(0, 1) * masterVolume;
+    }
+
+    return masterVolume;
+}
+setMasterVolume(localStorage.masterVolume);
 function playSound(sound, volume, properties = {}) {
     let targetSoundIndex;
     if (sounds.filter((snd, i) => {

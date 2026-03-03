@@ -15,6 +15,7 @@ if (isNode) {
 if (!isDefined(localStorage.startup)) localStorage.startup = 'true';
 if (!isDefined(localStorage.pauseMusic)) localStorage.pauseMusic = 'true';
 if (!isDefined(localStorage.skipChargingTests)) localStorage.skipChargingTests = 'true';
+if (!isDefined(localStorage.masterVolume)) localStorage.masterVolume = '1';
 if (!isDefined(localStorage.musicVolume)) localStorage.musicVolume = '0.10';
 if (!isDefined(localStorage.uiSoundVolume)) localStorage.uiSoundVolume = '0.5';
 if (!isDefined(localStorage.noShaders) && navigator.deviceMemory < 4) localStorage.noShaders = 'true';
