@@ -148,3 +148,23 @@ function resetCursor() {
 function isTrue(value) { // for localStorage
     return value === true || value === 'true';
 }
+
+function decimalToPercentage(num) {
+    return num * 100;
+}
+function percentageToDecimal(num) {
+    return num / 100;
+}
+function decimalStrToPercentage(str) {
+    return parseInt(parseFloat(str) * 100);
+}
+function decimalStrToPercentage(str) {
+    return parseInt(parseFloat(str) * 100);
+}
+function virtuallyFixFloat(num, fractionDigits) {
+    // "virtually" because the number's *true* represtentation in memory
+    // still doesn't change, but the *typed* representation has
+    // N fractional digits.
+
+    return parseFloat(num.toFixed(fractionDigits));
+}
