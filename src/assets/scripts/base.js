@@ -117,10 +117,39 @@ async function init() {
     delete localStorage.fromreboot;
     delete localStorage.fromRefresh;
     delete localStorage.fastBoot;
+    const clickToStart = document.getElementById('clicktostart');
+    bgMusic.loop = true;
+    bgMusic.volume = 0;
+    try {
+        await bgMusic.play();
+    } catch (error) {
+        console.warn('Background music failed to play.', error);
+        await new Promise((resolve) => {
+            setCursor('pointer');
+            clickToStart.style.display = 'revert';
+            clickToStart.style.opacity = '100%';
+            clickToStart.innerHTML = localStorage.startup === 'true' ? 'click or press enter to start' : 'click or press enter to go to menu';
+
+            const continueBoot = async () => {
+                document.onclick = document.onkeydown = null;
+                try {
+                    await bgMusic.play();
+                } catch (playError) {
+                    console.warn('Background music still failed after user interaction.', playError);
+                }
+                resolve();
+            };
+
+            document.onclick = continueBoot;
+            document.onkeydown = (event) => {
+                if (event.key.toLowerCase() === 'enter') continueBoot();
+            };
+        });
+    }
     started = true;
     lastActivity = Date.now();
 
-    document.getElementById('clicktostart').style.display = 'none';
+    clickToStart.style.display = 'none';
     spaghettiColor = `#fff8`;
     ui.style.top = "50%";
     if (localStorage.openUI === 'true')
@@ -428,9 +457,7 @@ async function init() {
     }
     updateTime();
 
-    bgMusic.loop = true;
     let volume = parseFloat(localStorage.musicVolume).clamp(0, 1);
-    bgMusic.volume = 0;
     let fadeIn = () => {
         let t = 0;
         let int = setInterval(() => {
@@ -443,52 +470,7 @@ async function init() {
             bgMusic.volume = t.clamp(0, volume * masterVolume);
         }, 1e3 / 30);
     };
-    let restoringPlaybackPrompt = false;
-    const showBgPlaybackFallback = () => {
-        if (restoringPlaybackPrompt) return;
-        restoringPlaybackPrompt = true;
-
-        setCursor('pointer');
-        const clickToStart = document.getElementById('clicktostart');
-        clickToStart.style.display = 'revert';
-        clickToStart.style.opacity = '100%';
-        clickToStart.innerHTML = localStorage.startup === 'true' ? 'click or press enter to start' : 'click or press enter to go to menu';
-
-        const retryBgMusic = async () => {
-            document.onclick = document.onkeydown = null;
-            try {
-                await bgMusic.play();
-                fadeIn();
-                clickToStart.style.opacity = '0%';
-                setTimeout(() => {
-                    clickToStart.style.display = 'none';
-                }, 1e3);
-                setCursor('auto');
-                restoringPlaybackPrompt = false;
-            } catch (error) {
-                console.warn('Background music failed to play again.', error);
-                setCursor('pointer');
-                document.onclick = retryBgMusic;
-                document.onkeydown = (event) => {
-                    if (event.key.toLowerCase() === 'enter') retryBgMusic();
-                };
-            }
-        };
-
-        document.onclick = retryBgMusic;
-        document.onkeydown = (event) => {
-            if (event.key.toLowerCase() === 'enter') retryBgMusic();
-        };
-    };
-
-    bgMusic.play()
-        .then(() => {
-            fadeIn();
-        })
-        .catch((error) => {
-            console.warn('Background music failed to play.', error);
-            showBgPlaybackFallback();
-        });
+    fadeIn();
 
     if (localStorage.noShaders === 'true')
         traverseDOM(document.body, (element) => {

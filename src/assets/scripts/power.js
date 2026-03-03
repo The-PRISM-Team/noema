@@ -87,13 +87,14 @@ function startup() {
             clickToStart.style.opacity = '100%';
             clickToStart.innerHTML = localStorage.startup === 'true' ? 'click or press enter to start' : 'click or press enter to go to menu';
 
-            const retryStartup = () => {
+            const continueBoot = () => {
                 document.onclick = document.onkeydown = null;
-                startup();
+                setCursor('none');
+                init();
             };
-            document.onclick = retryStartup;
+            document.onclick = continueBoot;
             document.onkeydown = (event) => {
-                if (event.key.toLowerCase() === 'enter') retryStartup();
+                if (event.key.toLowerCase() === 'enter') continueBoot();
             };
         };
 
