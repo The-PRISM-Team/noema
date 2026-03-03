@@ -425,7 +425,7 @@ async function init() {
         const newWindow = window.open(
             './subpages/convertsave/index.html',
             'convert',
-            \`width=${width},height=${height},left=${left},top=${top}\`
+            \`width=\${width},height=\${height},left=\${left},top=\${top}\`
         );
 
         if (isDefined(newWindow.focus)) newWindow.focus();
