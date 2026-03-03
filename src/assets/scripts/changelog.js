@@ -53,7 +53,8 @@ async function showChangelog() {
                 const line = textline.trim(' ');
                 if (line.length < 1) return;
                 if (line.startsWith('#')) {
-                    if (dialog.children.last() !== change) dialog.appendChild(document.createElement('br'));
+                    if (!/H[1-6]/.test(dialog.children.last().tagName))
+                        dialog.appendChild(document.createElement('br'));
 
                     let header = document.createElement(`h${Math.min(6, line.startsWithAmount('#'))}`);
                     header.textContent = line.trimStart('#', ' ');
