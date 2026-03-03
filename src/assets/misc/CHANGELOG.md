@@ -38,27 +38,13 @@
 # Milestone: Games!
 - working on it :/
 
-## Pre-v0.16.0 updates
-### UI Changes
+## UI Changes
 - Added `⋮ Fast Reboot` to the `⋮ Power` tab to skip startup animation once on the next boot
 
 - Added `⋮ Fast boot by default` to the `⋮ Preferences` tab so startup animation only plays on normal reboot
 
 - Added `⋮ Set master volume` to the `⋮ Audio` tab
 
-### Bugfixes
-- Added click/enter fallbacks when startup or background audio autoplay is blocked by the browser
-
-- Fixed background music volume handling so `⋮ Set background music volume` no longer double-scales with master volume
-
-- Fixed loading progress behavior during preloading/startup
-
-- Fixed startup flow edge-cases around refresh/reboot state handling
-
-### Misc.
-- Added startup state flags used by fast-boot and reboot flows: `fromRefresh`, `fastBoot`, and `fastBootDefault`
-
-## UI Changes
 - Made changelog text a bit more interactive
 
 - Code blocks now work properly in the changelog dialog
@@ -89,6 +75,14 @@
 
 
 ## Bugfixes
+- Added click/enter fallbacks when startup or background audio autoplay is blocked by the browser
+
+- Fixed background music volume handling so `⋮ Set background music volume` no longer double-scales with master volume
+
+- Fixed loading progress behavior during preloading/startup
+
+- Fixed startup flow edge-cases around refresh/reboot state handling
+
 - Fixed bug where toggling the favicon from colored to monochrome would always make the favicon default to black
 
 - Heading sizes now properly work on the changelog dialog
@@ -99,6 +93,8 @@
 
 
 ## Misc.
+- Added startup state flags used by fast-boot and reboot flows: `fromRefresh`, `fastBoot`, and `fastBootDefault`
+
 - Added Noema logo (conceptual) to source code
 
 - Added `⋮ Noema` theme (will change if Noema's logo changes)
