@@ -30,9 +30,9 @@ async function showChangelog() {
         });
     }
 
-    const semverRegex = /# Changelog for Noema v?((\d+)\.(\d+)\.(\d+)(?:-(.+\.?)+)?)/gm;
-    const semverMatch = [...(semverRegex.exec(changelog) ?? [null, '0.0.0-not.found', '0', '0', '0', 'not.found'])].slice(1);
-    const semver = semverMatch[0];
+    const titleLine = changelog.split('\n').find(line => line.trimStart().startsWith('# ')) ?? '';
+    const semverMatch = titleLine.match(/v?(\d+\.\d+\.\d+(?:-(?:[A-Za-z0-9]+(?:\.[A-Za-z0-9]+)*)?)?)/);
+    const semver = semverMatch?.[1] ?? '0.0.0-not.found';
     /*
     const changelogVersion = {
         major: semver[1],

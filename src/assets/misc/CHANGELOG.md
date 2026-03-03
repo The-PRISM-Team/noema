@@ -1,4 +1,4 @@
-# Changelog for Noema v0.16.0
+# Changelog for Noema (toward v0.16.0)
 *(may have missing or inaccurate information)*
 
 *(Note: minor internal changes, cleanups and insignificant details aren't (and won't be) included in changelogs.)*
@@ -38,6 +38,25 @@
 # Milestone: Games!
 - working on it :/
 
+## Pre-v0.16.0 updates
+### UI Changes
+- Added `⋮ Fast Reboot` to the `⋮ Power` tab to skip startup animation once on the next boot
+
+- Added `⋮ Fast boot by default` to the `⋮ Preferences` tab so startup animation only plays on normal reboot
+
+- Added `⋮ Set master volume` to the `⋮ Audio` tab
+
+### Bugfixes
+- Added click/enter fallbacks when startup or background audio autoplay is blocked by the browser
+
+- Fixed background music volume handling so `⋮ Set background music volume` no longer double-scales with master volume
+
+- Fixed loading progress behavior during preloading/startup
+
+- Fixed startup flow edge-cases around refresh/reboot state handling
+
+### Misc.
+- Added startup state flags used by fast-boot and reboot flows: `fromRefresh`, `fastBoot`, and `fastBootDefault`
 
 ## UI Changes
 - Made changelog text a bit more interactive
