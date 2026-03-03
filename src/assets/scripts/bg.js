@@ -15,17 +15,18 @@ let t = Math.PI,
     t3 = t; // spaghetti left/right shift
 
 if (!isDefined(localStorage.spaghettiDensity)) {
-    if (navigator.deviceMemory < 2)
-        localStorage.spaghettiDensity = '0';
-    else if (navigator.deviceMemory < 4)
-        localStorage.spaghettiDensity = '15';
-    else if (navigator.deviceMemory <= 4)
-        localStorage.spaghettiDensity = '35';
-    else if (navigator.deviceMemory <= 16)
-        localStorage.spaghettiDensity = '50';
-    else if (navigator.deviceMemory >= 32)
-        localStorage.spaghettiDensity = '75';
+    const mem = navigator.deviceMemory;
+
+    let targetDensity = 50;
+    if (mem < 2) targetDensity = 0;
+    else if (mem < 4) targetDensity = 15;
+    else if (mem < 16) targetDensity = 35;
+    else if (mem < 24) targetDensity = 50;
+    else targetDensity = 75;
+
+    localStorage.spaghettiDensity = targetDensity;
 }
+
 let density = parseInt(localStorage.spaghettiDensity); // how many sines are drawn
 let spaghettiColor = "rgba(255, 255, 255, 0)";
 let calcY = function (x, canvasHeight, wave) {
@@ -35,6 +36,11 @@ let calcY = function (x, canvasHeight, wave) {
         + (Math.cos(t) + -Math.cos(t2)) * 30;
 };
 function drawSpaghetti(time) {
+    if (!focused) {
+        requestAnimationFrame(drawSpaghetti);
+        return;
+    }
+
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
 
