@@ -54,8 +54,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     bgMusic.preload = true;
 });
 window.addEventListener('load', async () => {
-    document.getElementById('loading-progress').style.width = '100%';
-
     console.log(`Resources loaded in ${(performance.now() - dependStart).toFixed(2)}ms.`);
     document.getElementById('loading-progress').style.width = '50%';
 
