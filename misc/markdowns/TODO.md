@@ -1,5 +1,7 @@
 **Note:** The higher a task is, the more priority it has.
 
+- Update README and create CONTRIBUTING.md
+
 - Game loading and shits
 
 - Find out cause for lag and optimize
