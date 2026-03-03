@@ -304,16 +304,16 @@ async function init() {
             bgMusic.play()
             setSuboption(selectedOption, selectedSuboption, 'Toggle pausing background music on unfocus', 'Background music currently doesn\\'t get muted on unfocus.\\nSelect to enable that.');
         }`, 'wrench');
-    createSuboption(audioTab, 'Set background music volume', `Background music is currently at ${parseInt(parseFloat(localStorage.musicVolume) * 100)}% volume.`, `
-        inputDialog('Set background music volume', null, parseFloat(localStorage.musicVolume) * 100, 0, 100, 1, '{value}%', (volume)=>{
-            localStorage.musicVolume = bgMusic.volume = volume / 100 * masterVolume;
-            setSuboption(selectedOption, selectedSuboption, 'Set background music volume', \`Background music is currently at \${parseInt(parseFloat(localStorage.musicVolume) * 100)}% volume.\`);
+    createSuboption(audioTab, 'Set background music volume', `Background music is currently at ${decimalStrToPercentage(localStorage.musicVolume)}% volume.`, `
+        inputDialog('Set background music volume', null, decimalStrToPercentage(localStorage.musicVolume), 0, 100, 1, '{value}%', (volume)=>{
+            localStorage.musicVolume = bgMusic.volume = percentageToDecimal(volume) * masterVolume;
+            setSuboption(selectedOption, selectedSuboption, 'Set background music volume', \`Background music is currently at \${decimalStrToPercentage(localStorage.musicVolume)}% volume.\`);
         });
     `, 'wrench');
-    createSuboption(audioTab, 'Set UI sound volume', `UI sounds are currently at ${parseInt(parseFloat(localStorage.uiSoundVolume) * 100)}% volume.`, `
-        inputDialog('Set UI sound volume', null, parseFloat(localStorage.uiSoundVolume) * 100, 0, 100, 1, '{value}%', (volume)=>{
-            localStorage.uiSoundVolume = volume / 100;
-            setSuboption(selectedOption, selectedSuboption, 'Set UI sound volume', \`UI sounds are currently at \${parseInt(parseFloat(localStorage.uiSoundVolume) * 100)}% volume.\`);
+    createSuboption(audioTab, 'Set UI sound volume', `UI sounds are currently at ${decimalStrToPercentage(localStorage.uiSoundVolume)}% volume.`, `
+        inputDialog('Set UI sound volume', null, decimalStrToPercentage(localStorage.uiSoundVolume), 0, 100, 1, '{value}%', (volume)=>{
+            localStorage.uiSoundVolume = percentageToDecimal(volume);
+            setSuboption(selectedOption, selectedSuboption, 'Set UI sound volume', \`UI sounds are currently at \${decimalStrToPercentage(localStorage.uiSoundVolume)}% volume.\`);
         });
     `, 'wrench');
 
@@ -485,7 +485,7 @@ async function updateBattery() {
         // hide battery indicator if device likely has no battery
         document.getElementById('battery-div').style.display = battery.hasBattery ? 'flex' : 'none';
 
-        const batteryPercent = Math.trunc(battery.level * 100);
+        const batteryPercent = decimalToTruncPercentage(battery.level);
         document.getElementById('battery-bar').style.width = `${batteryPercent}%`;
         document.getElementById('battery-text').textContent = `${batteryPercent}%${battery.charging ? ' 🗲' : ''}`;
 
@@ -521,7 +521,7 @@ if ('getBattery' in navigator) {
         battery.lowBatteryThresh = 0.25;
         battery.addEventListener('chargingchange', function () {
             if (!battery.charging && battery.level <= battery.lowBatteryThresh) {
-                notify('Battery low!', `Battery is at ${battery.level * 100}%, please reconnect the charger!`);
+                notify('Battery low!', `Battery is at ${decimalToPercentage(battery.level)}%, please reconnect the charger!`);
             }
         });
     });
@@ -562,7 +562,7 @@ async function updateLoop(timestamp) {
     if (battery?.level <= battery?.lowBatteryThresh && !batteryWarned) {
         batteryWarned = true;
         if (!battery.charging) {
-            notify('Battery low!', `Battery level is at ${battery.level * 100}%. Please charge your device.`);
+            notify('Battery low!', `Battery level is at ${decimalToPercentage(battery.level)}%. Please charge your device.`);
         }
     } else if (battery?.level > battery?.lowBatteryThresh && batteryWarned) {
         batteryWarned = false;

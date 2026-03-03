@@ -94,7 +94,7 @@ async function chargingTest(seconds = 60) {
     await delay(seconds * 1e3);
     const batterySnapshot2 = await navigator.getBattery();
 
-    const chargedPercent = (batterySnapshot2.level - batterySnapshot1.level) * 100;
+    const chargedPercent = decimalToPercentage(batterySnapshot2.level - batterySnapshot1.level);
     console.log(`Battery ${chargedPercent >= 0 ? 'charged': 'discharged'} by ${chargedPercent}% in ${seconds} seconds.`);
 
     console.log('Test complete');
@@ -111,7 +111,7 @@ async function dischargingTest(seconds = 60) {
     await delay(seconds * 1e3);
     const batterySnapshot2 = await navigator.getBattery();
 
-    const dischargedPercent = (batterySnapshot2.level - batterySnapshot1.level) * -100;
+    const dischargedPercent = decimalToPercentage(batterySnapshot1.level - batterySnapshot2.level);
     console.log(`Battery discharged by ${dischargedPercent}% in ${seconds} seconds.`);
 
     console.log('Test complete')
@@ -155,11 +155,17 @@ function decimalToPercentage(num) {
 function percentageToDecimal(num) {
     return num / 100;
 }
-function decimalStrToPercentage(str) {
-    return parseInt(parseFloat(str) * 100);
+function ratioToPercentage(part, total) {
+    return decimalToPercentage(part / total);
 }
 function decimalStrToPercentage(str) {
-    return parseInt(parseFloat(str) * 100);
+    return parseInt(decimalToPercentage(parseFloat(str)));
+}
+function percentageStrToDecimal(str) {
+    return percentageToDecimal(parseFloat(str));
+}
+function decimalToTruncPercentage(num) {
+    return Math.trunc(decimalToPercentage(num));
 }
 function virtuallyFixFloat(num, fractionDigits) {
     // "virtually" because the number's *true* represtentation in memory

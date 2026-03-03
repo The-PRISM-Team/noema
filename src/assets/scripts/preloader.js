@@ -1,6 +1,9 @@
 async function loadScripts(cb) {
     const scripts = [
         {
+            src: '/assets/scripts/modules/util.js'
+        },
+        {
             src: '/assets/scripts/modules/color.global.js'
         },
         {
@@ -31,9 +34,6 @@ async function loadScripts(cb) {
         },
         {
             src: '/assets/scripts/modules/file.js'
-        },
-        {
-            src: '/assets/scripts/modules/util.js'
         },
         {
             src: '/assets/scripts/modules/version.js'
@@ -75,7 +75,6 @@ async function loadScripts(cb) {
 
     for (let i = 0; i < scripts.length; i++) {
         let scriptObj = scripts[i];
-        document.getElementById('loading-progress').style.width = `${(i / (scripts.length + 1)) * 100}%`;
 
         if (document.querySelector(`script[src="${scriptObj.src}"]`))
             continue; // skip script if there is a script with the same src
@@ -83,14 +82,17 @@ async function loadScripts(cb) {
         const script = document.createElement('script');
         if (!isDefined(scriptObj.async)) script.async = false;
         await new Promise((resolve, reject) => {
-            script.onload = resolve;
+            script.onload = () => {
+                cb(i, scripts.length, script);
+                resolve();
+            };
             script.onerror = reject;
             for (const [property, value] of Object.entries(scriptObj)) {
                 script[property] = value;
             }
 
             document.body.appendChild(script);
-            cb(i, scripts.length, script);
         });
+        document.getElementById('loading-progress').style.width = `${decimalToPercentage((i + 1) / (scripts.length + 1))}%`;
     }
 }
