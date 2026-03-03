@@ -331,7 +331,7 @@ function startFlakes() {
         }
         if (focused) {
             requestAnimationFrame(() => {
-                for (let i = 0; i < Math.floor(Math.random() * 10 + 5); i++) {
+                for (let i = 0; i < randomIntFromRange(1, 5); i++) {
                     addFlake();
                 }
             });
