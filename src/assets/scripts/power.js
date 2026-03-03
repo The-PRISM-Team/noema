@@ -84,7 +84,7 @@ function startup() {
             setCursor('pointer');
             const clickToStart = document.getElementById('clicktostart');
             clickToStart.style.display = 'revert';
-            clickToStart.style.opacity = '100%';
+            clickToStart.style.opacity = '10%';
             clickToStart.innerHTML = localStorage.startup === 'true' ? 'click or press enter to start' : 'click or press enter to go to menu';
 
             const continueBoot = () => {
