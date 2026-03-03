@@ -416,9 +416,19 @@ async function init() {
     createSuboption(waveTab, 'High', "High detail, recommended for computers with a good CPU (or GPU, if supported).\nNot recommended for lower-end devices, since they could have slowdowns or overheat.", 'density = 75; localStorage.spaghettiDensity = density', 'wrench');
 
     createSuboption(helpTab, 'Convert Save File', null, `
-        let newWindow = window.open('./convertsave/index.html', 'convert', 'height=${window.innerHeight / 2},width=${window.innerWidth / 2},left=${window.innerWidth / 4},top=${window.innerHeight / 4}');
-        if (isDefined(window.focus))
-            newWindow.focus()
+        const width = window.innerWidth / 2;
+        const height = window.innerHeight / 2;
+
+        const left = window.screenX + (window.outerWidth - width) / 2;
+        const top = window.screenY + (window.outerHeight - height) / 2;
+
+        const newWindow = window.open(
+            './subpages/convertsave/index.html',
+            'convert',
+            \`width=${width},height=${height},left=${left},top=${top}\`
+        );
+
+        if (isDefined(newWindow.focus)) newWindow.focus();
     `, 'wrench');
     createSuboption(helpTab, "Open Project Noema's GitHub repo", null, `
         window.open('https://github.com/sophb-ccjt/noema', '_blank')
