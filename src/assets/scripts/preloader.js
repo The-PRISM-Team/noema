@@ -93,6 +93,5 @@ async function loadScripts(cb) {
 
             document.body.appendChild(script);
         });
-        document.getElementById('loading-progress').style.width = `${decimalToPercentage((i + 1) / (scripts.length + 1))}%`;
     }
 }
