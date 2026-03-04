@@ -102,41 +102,6 @@
                         "white.png"
                     ]
                 }
-            },
-            "scripts": {
-                "files": [
-                    "base.js",
-                    "bg.js",
-                    "changelog.js",
-                    "controller.js",
-                    "error.js",
-                    "game.js",
-                    "info.js",
-                    "loadGame.js",
-                    "power.js",
-                    "preinit.js",
-                    "preloader.js",
-                    "sounds.js",
-                    "ui.js",
-                    "user.js"
-                ],
-                "modules": {
-                    "files": [
-                        "URLutil.js",
-                        "bgFormat.js",
-                        "color.global.js",
-                        "controller_input.js",
-                        "example_mod.js",
-                        "file.js",
-                        "gamecontroller.js",
-                        "gapless5.js",
-                        "jquery-3.7.1.js",
-                        "md5.min.js",
-                        "protoplus.js",
-                        "util.js",
-                        "version.js"
-                    ]
-                }
             }
         },
         "subpages": {
@@ -145,6 +110,41 @@
                     "css.css",
                     "index.html",
                     "main.js"
+                ]
+            }
+        },
+        "scripts": {
+            "files": [
+                "base.js",
+                "bg.js",
+                "changelog.js",
+                "controller.js",
+                "error.js",
+                "game.js",
+                "info.js",
+                "loadGame.js",
+                "power.js",
+                "preinit.js",
+                "preloader.js",
+                "sounds.js",
+                "ui.js",
+                "user.js"
+            ],
+            "modules": {
+                "files": [
+                    "URLutil.js",
+                    "bgFormat.js",
+                    "color.global.js",
+                    "controller_input.js",
+                    "example_mod.js",
+                    "file.js",
+                    "gamecontroller.js",
+                    "gapless5.js",
+                    "jquery-3.7.1.js",
+                    "md5.min.js",
+                    "protoplus.js",
+                    "util.js",
+                    "version.js"
                 ]
             }
         }
