@@ -1,55 +1,88 @@
-(rework README later)
-# Noema ODB Repo
-This is the official repository for Project Noema's Open Developer Beta, used for the development of Noema v0.16.0 and v0.17.0, NGP (Noema Game Package) file format and NGCT (Noema Game Creation Tool).
+# Project Noema
 
-# What is Noema?
-Noema is a web-based game "console", designed to be runnable locally, and to work on mainly web-based devices like Chromebooks. Its UI is inspired by the PS3.
+This repository contains the source code for **Project Noema** – a web‑based game “console” that runs entirely in the browser, with a user interface inspired by the PlayStation 3. The project is intended to function locally as well as when hosted on Vercel, and it supports loading and running games packaged in the custom NGP (Noema Game Package) format.
 
-## Note for readers
-You might like to read some of the documents at [`/misc/markdowns`](https://github.com/sophb-ccjt/noema/tree/main/misc/markdowns).
-
-## Note for contributors:
-All features should work when the page is opened locally and from the Vercel link.
+The code here powers the Open Developer Beta (ODB) builds such as versions `v0.16.0` and `v0.17.0`. Future releases will continue to follow the versioning rules laid out in `/misc/markdowns/VERSIONING.md`.
 
 ---
 
-# File System Organization:
+## Repository layout
 
-`/src`: The files for Noema
-`/src/assets`: Assets for Noema
-`/src/assets/scripts`: Noema's JavaScript source code
-`/src/assets/scripts/modules`: Helper modules for Noema
+```
+/                
+  README.md      
+  LICENSE
+  electron-start.js
+  jsconfig.json   
+  /src            
+    index.html
+    css.css
+    /assets
+      /fonts
+      /icons
+      /logos
+      /misc/CHANGELOG.md
+      /scripts
+        base.js
+        bg.js
+        …
+        /modules    
+  /subpages       
+    /convertsave
+      index.html
+      main.js
+  /misc/markdowns 
+```
 
-`/convertsave`: NSF (Noema Save File) converter (accessible through Noema)
-`/misc`: Miscellaneous files, not for regular user-facing files.
+### Key areas
+
+* **`src/assets/scripts`** – primary JavaScript codebase. Modules are loaded dynamically via `start.js` and `preinit.js`.
+* **`subpages`** – additional mini‑apps that integrate with the main console; currently only a save‑file converter.
+* **`misc/markdowns`** – contains project documentation such as TODO lists, commands, and versioning specs.
+
+---
+
+## Getting started
+
+The project does not use a build system; opening `src/index.html` in a browser is sufficient to run the console. To develop:
+
+1. Clone the repository and open the workspace in VS Code.
+2. Edit files under `src/assets/scripts` and reload the page in the browser.
+3. Use the browser devtools console for debugging.
+
+> **Note:** all game‑related functionality should work both when served via a web server and when opened as a local file (`file://`).
+
+---
+
+## Development notes
+
+* JavaScript is written in plain ES5/ES6; there is no transpilation step.
+* Modules in `/src/assets/scripts/modules` are included by `preinit.js` or at runtime by the core scripts.
+* The codebase has no automated tests, package manager, or linter; please maintain consistent formatting when contributing.
+
+For background information, see the documents under `misc/markdowns`.
+
+---
+
+## Collaboration
+
+See `COLLABORATION.md` for guidelines on how to work with the code, preferred branching/commit practices, and how to get involved.
+
+---
+
+## Additional resources
+
+* [Design notes and TODOs](misc/markdowns/TODO.md)
+* [Versioning system](misc/markdowns/VERSIONING.md)
+* [Agent instructions](misc/markdowns/AGENTS.md)
+* [Useful shell commands](misc/markdowns/CMDS.md)
+
+---
+
+## License
+
+This project is licensed under the terms of the [LICENSE](LICENSE) file.
 
 
 ---
 
-# Plan for 0.16.0
-- Add basic support for NGPs (decompression, loading, etc.)
-- Add local game storing (folder, localStorage and web links, etc)
-- Add APIs to all game-related functions
-- Add UI for game selection and others
-
-# Plan for 0.17.0
-- Polish game APIs and UI
-- Finish support for NGPs
-
-# NGP Architecture
-- Packaged using ZIP
-- Game assets go to `/assets` folder (images, sounds, animations, etc.)
-- Game code goes to `/scripts` folder
-- `start.js` file in the root of the ZIP folder
-- The `start.js` file adds all scripts and modules of the game by injecting them into the document. 
-
----
-
-# Deadline
-There's no specific deadline, the only requirement is finishing this in 2026.
-
-# Notice
-The developer team for 0.16.0 will be handpicked,
-the developer team for 0.17.0 will not be handpicked. (might change)
-
-To join the developer team, email `sophb.code@proton.me` with either your GitHub username, a link to your GitHub profile, or a link to your biography site.
