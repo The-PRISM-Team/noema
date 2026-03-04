@@ -154,6 +154,7 @@
             "noema-themes-0.0.1.vsix",
             "noema-themes-0.1.0.vsix",
             "noema-themes-0.2.0.vsix",
+            "noema-themes-0.3.0.vsix",
             "package.json"
         ],
         "themes": {
