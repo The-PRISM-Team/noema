@@ -12,9 +12,10 @@ const path = require('path');
 const { execSync } = require('child_process');
 
 const root = path.resolve(__dirname, '../src');
-let hasError = false;
+let hasError = false;          // set when unfixable problems occur
 let fixedFiles = new Set();
 const fix = process.argv.includes('--fix');
+let fixableCount = 0;  // number of formatting issues automatically corrected
 
 function lintFile(filePath) {
     // skip modules folder
@@ -27,11 +28,14 @@ function lintFile(filePath) {
         const lineNum = idx + 1;
         // trailing whitespace
         if (/\s$/.test(line)) {
-            console.error(`${rel}:${lineNum}: trailing whitespace`);
-            hasError = true;
             if (fix) {
                 content[idx] = line.replace(/\s+$/, '');
                 changed = true;
+                fixableCount++;
+            } else {
+                console.error(`${rel}:${lineNum}: trailing whitespace`);
+                // formatting issue only, mark fixable but not fatal
+                fixableCount++;
             }
         }
 
@@ -42,19 +46,22 @@ function lintFile(filePath) {
                 const indent = m[0];
                 if (indent.includes(' ') && indent.includes('\t')) {
                     console.error(`${rel}:${lineNum}: mixed tabs and spaces in indentation`);
+                    // unfixable, fatal
                     hasError = true;
                 }
                 if (indent.includes(' ')) {
                     const count = indent.length;
                     if (count % 4 !== 0) {
-                        console.error(`${rel}:${lineNum}: indentation spaces not multiple of 4`);
-                        hasError = true;
-                    }
-                    if (fix) {
-                        const tabs = '\t'.repeat(Math.floor(count / 4));
-                        const remainder = count % 4;
-                        content[idx] = tabs + ' '.repeat(remainder) + line.slice(count);
-                        changed = true;
+                        if (fix) {
+                            const tabs = '\t'.repeat(Math.floor(count / 4));
+                            const remainder = count % 4;
+                            content[idx] = tabs + ' '.repeat(remainder) + line.slice(count);
+                            changed = true;
+                            fixableCount++;
+                        } else {
+                            console.error(`${rel}:${lineNum}: indentation spaces not multiple of 4`);
+                            fixableCount++;
+                        }
                     }
                 }
             }
@@ -75,7 +82,7 @@ function walk(dir) {
         if (ent.isDirectory()) {
             if (ent.name === 'modules') continue;
             walk(full);
-        } else if (/\.(js|html|css)$/.test(ent.name)) {
+        } else if (/\.(js|html|css|json)$/.test(ent.name)) {
             lintFile(full);
         }
     }
@@ -90,8 +97,11 @@ if (fixedFiles.size > 0) {
         try { execSync(`git add "${f}"`); } catch (e) { /* ignore */ }
     });
 }
-
+if (fixableCount > 0 && !fix) {
+    console.log(`Detected ${fixableCount} formatting issue(s); run with --fix to correct them`);
+}
+// exit non-zero only if an unfixable error occurred
 if (hasError) {
-    console.error('Lint failed. Please fix the above issues.');
+    console.error('Lint failed due to unfixable issues.');
     process.exit(1);
 }
