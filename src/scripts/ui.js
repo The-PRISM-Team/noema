@@ -436,6 +436,16 @@ function initUI() {
 		document.body.appendChild(importbtn);
 		importbtn.click();
 	}, 'wrench');
+	// Background Brightness preference
+	if (!isDefined(localStorage.bgBrightness)) localStorage.bgBrightness = '1';
+	createSuboption(prefTab, 'Background Brightness', `Background brightness currently set to ${decimalStrToPercentage(localStorage.bgBrightness)}%.`, () => {
+		inputDialog('Set Background Brightness', 'Adjust how bright the background appears. This affects the gradient and canvas drawing brightness.', decimalStrToPercentage(localStorage.bgBrightness), 10, 200, 1, '{value}%', (value) => {
+			localStorage.bgBrightness = percentageToDecimal(value);
+			changeBGColor({ colorName: localStorage.bgColor, brightness: parseFloat(localStorage.bgBrightness) });
+			setSuboption(selectedOption, selectedSuboption, 'Background Brightness', `Background brightness currently set to ${decimalStrToPercentage(localStorage.bgBrightness)}%.`);
+		});
+	}, 'wrench');
+
 	createSuboption(prefTab, 'Reset preferences', 'This wipes EVERY preference (Background color, username, spaghetti density, etc).\nDo not use this unless you know what you\'re doing and haven\'t saved your preferences.\nOnce you reset your preferences, this process is IRREVERSIBLE.',
 		() => {
 			confirmDialog(() => {
@@ -451,18 +461,6 @@ function initUI() {
 		},
 		'bin'
 	);
-
-	// Background Brightness preference
-	if (!isDefined(localStorage.bgBrightness)) localStorage.bgBrightness = '1';
-	createSuboption(prefTab, 'Background Brightness', `Background brightness currently set to ${decimalStrToPercentage(localStorage.bgBrightness)}%.`, () => {
-		inputDialog('Set Background Brightness', 'Adjust how bright the background appears. This affects the gradient and canvas drawing brightness.', decimalStrToPercentage(localStorage.bgBrightness), 10, 200, 1, '{value}%', (value) => {
-			localStorage.bgBrightness = percentageToDecimal(value);
-			try {
-				document.body.style.filter = `brightness(${localStorage.bgBrightness})`;
-			} catch (e) {}
-			setSuboption(selectedOption, selectedSuboption, 'Background Brightness', `Background brightness currently set to ${decimalStrToPercentage(localStorage.bgBrightness)}%.`);
-		});
-	}, 'wrench');
 
 	createSuboption(audioTab, 'Toggle pausing background music on unfocus',
 		localStorage.pauseMusic === 'true' ? 'Background music currently gets paused on unfocus.\nSelect to not mute it on unfocus.' : 'Background music currently doesn\'t get muted on unfocus.\nSelect to mute it on unfocus.',
