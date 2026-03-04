@@ -23,7 +23,8 @@ window.addEventListener("error", (event) => {
         }
     });
     if (!started) {
-        playSound('fatal-error');
+        const errorSound = new Audio('/assets/sounds/menu/fatal-error.flac');
+        const errorSound2 = new Audio('/assets/sounds/menu/fatal-error.flac');
         errorSound.preload = true;
         errorSound2.preload = true;
         let bgint1 =
