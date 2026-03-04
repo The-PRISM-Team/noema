@@ -439,7 +439,7 @@ function initUI() {
 	// Background Brightness preference
 	if (!isDefined(localStorage.bgBrightness)) localStorage.bgBrightness = '1';
 	createSuboption(prefTab, 'Background Brightness', `Background brightness currently set to ${decimalStrToPercentage(localStorage.bgBrightness)}%.`, () => {
-		inputDialog('Set Background Brightness', 'Adjust how bright the background appears. This affects the gradient and canvas drawing brightness.', decimalStrToPercentage(localStorage.bgBrightness), 10, 200, 1, '{value}%', (value) => {
+		inputDialog('Set Background Brightness', 'Adjust how bright the background appears. This affects the gradient and canvas drawing brightness.', decimalStrToPercentage(localStorage.bgBrightness), 10, 100, 1, '{value}%', (value) => {
 			localStorage.bgBrightness = percentageToDecimal(value);
 			changeBGColor({ colorName: localStorage.bgColor, brightness: parseFloat(localStorage.bgBrightness) });
 			setSuboption(selectedOption, selectedSuboption, 'Background Brightness', `Background brightness currently set to ${decimalStrToPercentage(localStorage.bgBrightness)}%.`);
