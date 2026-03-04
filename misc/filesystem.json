@@ -1,5 +1,6 @@
 {
     "files": [
+        "ACRONYMS.md",
         "AGENTS.md",
         "COLLABORATION.md",
         "LICENSE",
@@ -152,12 +153,28 @@
         "files": [
             "noema-themes-0.0.1.vsix",
             "noema-themes-0.1.0.vsix",
+            "noema-themes-0.2.0.vsix",
             "package.json"
         ],
         "themes": {
             "files": [
+                "PRISM-color-theme.json",
+                "amethyst-color-theme.json",
+                "ash-color-theme.json",
+                "bisexual-flag-color-theme.json",
+                "charcoal-color-theme.json",
                 "cherry-color-theme.json",
+                "cobalt-color-theme.json",
+                "ember-color-theme.json",
                 "frogleaf-color-theme.json",
+                "gay-flag-color-theme.json",
+                "lesbian-flag-color-theme.json",
+                "meadow-color-theme.json",
+                "neonflux-color-theme.json",
+                "noema-color-theme.json",
+                "shore-color-theme.json",
+                "sprite-color-theme.json",
+                "trans-flag-color-theme.json",
                 "watermelon-sugar-color-theme.json"
             ]
         }
