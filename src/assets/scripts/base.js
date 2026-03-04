@@ -244,8 +244,8 @@ async function init() {
     runtimeModules.boot.start();
 }
 
-const battery, batteryWarned = false;
-const batteryInitialized = false;
+let battery, batteryWarned = false;
+let batteryInitialized = false;
 const batteryDiv = document.getElementById('battery-div');
 const batteryBar = document.getElementById('battery-bar');
 const batteryText = document.getElementById('battery-text');
