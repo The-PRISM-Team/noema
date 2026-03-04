@@ -253,7 +253,7 @@ function changeBGColor({
 		const bottomFinal = applyBrightness(bottomColor, brightness);
 		document.body.style.background = formatBGGradient(bgTop, 100, topFinal, bottomFinal);
 		document.body.style.accentColor = accentColor = AccentColor;
-		spaghettiColor = `rgba(255,255,255,${Math.min(0.8, 0.12 * brightness)})`;
+		spaghettiColor = `rgba(255, 255, 255, ${0x88 / 255 * brightness})`;
 	} else {
 		changingBG = true;
 		let t = 0;
@@ -265,7 +265,7 @@ function changeBGColor({
 				const bottomFinal = applyBrightness(bottomColor, brightness);
 				document.body.style.background = formatBGGradient(bgTop, 100, topFinal, bottomFinal);
 				document.body.style.accentColor = accentColor = AccentColor;
-				spaghettiColor = `rgba(255,255,255,${Math.min(0.8, 0.12 * brightness)})`;
+				spaghettiColor = `rgba(255, 255, 255, ${0x88 / 255 * brightness})`;
 				if (queued) {
 					changeBGColor(queued);
 					queued = undefined;
@@ -292,7 +292,7 @@ function changeBGColor({
 			document.body.style.background = formatBGGradient(bgTop, bgBottom, topHex, botHex);
 			document.body.style.accentColor = accentColor = accLerp(t).toString({ format: 'hex' }) ?? botLerp(t).toString({ format: 'hex' });
 
-			spaghettiColor = `rgba(255,255,255,${Math.min(0.8, 0.12 * (1 + t * (brightness - 1)))})`;
+			spaghettiColor = `rgba(255, 255, 255, ${0x88 / 255 * (1 + t * (brightness - 1))})`;
 
 			requestAnimationFrame(anim);
 		}
