@@ -71,6 +71,22 @@ See `COLLABORATION.md` for guidelines on how to work with the code, preferred br
 
 ---
 
+## Feature Roadmap
+
+This project maintains a lightweight roadmap of planned and in-progress features. These are short, actionable goals rather than strict milestones.
+
+- Improve game loading and sandboxing (better NGP loading, secure execution)
+- Profiling and performance optimizations to address frame drops and CPU usage
+- Profile management (save/load user profiles, preferences)
+- Drag & drop support for importing save files into the UI
+- Better distinction between local and hosted (Vercel) modes, with environment-aware behavior
+- Dynamic local updates: optionally point the app at a local directory or a GitHub directory for iterative development
+- Publish PRISM‑specific assets and move PRISM code to a dedicated organization repository
+
+Roadmap items are tracked in `misc/markdowns/TODO.md`. If you want to work on any of these, open an issue or create a PR describing the intended approach.
+
+---
+
 ## Additional resources
 
 * [Design notes and TODOs](misc/markdowns/TODO.md)

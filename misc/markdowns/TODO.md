@@ -2,16 +2,18 @@
 
 - Update README and create CONTRIBUTING.md
 
-- Game loading and shits
+- Update README and create CONTRIBUTING.md (done)
 
-- Find out cause for lag and optimize
+- Game loading: basic loader implemented (`src/scripts/loadGame.js`), needs sandbox improvements
 
-- Profiles
+- Find out cause for lag and optimize (profiling placeholder)
 
-- Possibly drag'n'drop save files to menu?
+- Profiles (planned)
 
-- Differentiate between running locally and via the Vercel app
+- Drag'n'drop save files to menu (planned; `loadGameFromBlob` supports blob loading)
 
-- Dynamic updating on a local copy using manually inputted Noema directory and files hosted on GitHub
+- Differentiate between running locally and via the Vercel app (planned)
 
-- Move PRISM stuff to PRISM GitHub organization account
+- Dynamic updating on a local copy using manually inputted Noema directory and files hosted on GitHub (planned)
+
+- Move PRISM stuff to PRISM GitHub organization account (planned)
