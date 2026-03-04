@@ -10,6 +10,7 @@ if (isNode) {
     process.exit(1);
 }
 
+const isLocal = location.protocol === 'file:';
 // localstorage definitions go here because this is the best place i could find
 // don't even try asking why
 if (!isDefined(localStorage.startup)) localStorage.startup = 'true';
