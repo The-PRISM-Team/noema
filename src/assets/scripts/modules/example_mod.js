@@ -65,86 +65,87 @@ function startMod() {
             let modthemesId = createOption('mod themes');
             let modsillyId = createOption('flashbang');
 
-            createSuboption(modprefId, 'set bg music', 'sets the bg music source to any url', `
-                promptDialog((url)=>{
-                    bgMusic.src = url
+            createSuboption(modprefId, 'set bg music', 'sets the bg music source to any url', () => {
+                promptDialog((url) => {
+                    bgMusic.src = url;
                     changeBGColor({
                         colorName: null,
-                        topColor: "#000",
-                        bottomColor: "#000",
-                        AccentColor: "#fff"
+                        topColor: '#000',
+                        bottomColor: '#000',
+                        AccentColor: '#fff'
                     });
-                    localStorage.ccjtmodMenuMusic = bgMusic.src
-                    setTimeout(()=>{
-                        setTheme(localStorage.ccjtmodTheme)
-                        if (localStorage.muteBGMusic !== 'true') bgMusic.play()
-                    },.5e3)
-                }, 'enter a (valid) url...', 'I LOVE MING I LOVE MING I LOVE MING I LOVE MING I LOVE MING I LOVE MING')
-            `, 'wrench');
-            createSuboption(modprefId, 'reset bg music (mod)', 'sets the bg music to the mod\'s default menu music', `
-                bgMusic.src = 'https://file.garden/aHFDYCLeNBLSceNi/scizzie%20-%20aquatic%20ambience.mp3'
+                    localStorage.ccjtmodMenuMusic = bgMusic.src;
+                    setTimeout(() => {
+                        setTheme(localStorage.ccjtmodTheme);
+                        if (localStorage.muteBGMusic !== 'true') bgMusic.play();
+                    }, .5e3);
+                }, 'enter a (valid) url...', 'I LOVE MING I LOVE MING I LOVE MING I LOVE MING I LOVE MING I LOVE MING');
+            }, 'wrench');
+            createSuboption(modprefId, 'reset bg music (mod)', 'sets the bg music to the mod\'s default menu music', () => {
+                bgMusic.src = 'https://file.garden/aHFDYCLeNBLSceNi/scizzie%20-%20aquatic%20ambience.mp3';
                 changeBGColor({
                     colorName: null,
-                    topColor: "#000",
-                    bottomColor: "#000",
-                    AccentColor: "#fff"
+                    topColor: '#000',
+                    bottomColor: '#000',
+                    AccentColor: '#fff'
                 });
-                localStorage.ccjtmodMenuMusic = bgMusic.src
-                setTimeout(()=>{
-                    setTheme(localStorage.ccjtmodTheme)
-                    if (localStorage.muteBGMusic !== 'true') bgMusic.play()
-                },.5e3)
-            `, 'wrench', 'power');
-            createSuboption(modprefId, 'reset bg music (vanilla)', 'sets the bg music to the vanilla menu music', `
-                bgMusic.src = './menu_music.flac'
+                localStorage.ccjtmodMenuMusic = bgMusic.src;
+                setTimeout(() => {
+                    setTheme(localStorage.ccjtmodTheme);
+                    if (localStorage.muteBGMusic !== 'true') bgMusic.play();
+                }, .5e3);
+            }, 'wrench', 'power');
+            createSuboption(modprefId, 'reset bg music (vanilla)', 'sets the bg music to the vanilla menu music', () => {
+                bgMusic.src = './menu_music.flac';
                 changeBGColor({
                     colorName: null,
-                    topColor: "#000",
-                    bottomColor: "#000",
-                    AccentColor: "#fff"
+                    topColor: '#000',
+                    bottomColor: '#000',
+                    AccentColor: '#fff'
                 });
-                localStorage.ccjtmodMenuMusic = bgMusic.src
-                setTimeout(()=>{
-                    setTheme(localStorage.ccjtmodTheme)
-                    if (localStorage.muteBGMusic !== 'true') bgMusic.play()
-                },.5e3)
-            `, 'wrench', 'power');
+                localStorage.ccjtmodMenuMusic = bgMusic.src;
+                setTimeout(() => {
+                    setTheme(localStorage.ccjtmodTheme);
+                    if (localStorage.muteBGMusic !== 'true') bgMusic.play();
+                }, .5e3);
+            }, 'wrench', 'power');
 
-            createSuboption(modsillyId, 'flashbang', 'why did i make this', `
-                let flashbang = new Audio('https://file.garden/aHFDYCLeNBLSceNi/flashbang.mp3')
-                let flash = document.createElement('div')
-                flash.style.backgroundColor = '#fff'
-                flash.style.transition = 'opacity 10s linear'
-                flash.style.position = 'fixed'
-                flash.style.top = '0px'
-                flash.style.left = '0px'
-                flash.style.width = '100vw'
-                flash.style.height = '100vh'
-                flash.style.zIndex = 'calc(infinity)'
-                notify("WATCH OUT!!!")
-                setTimeout(()=>{
-                    flashbang.play()
-                    selectUIOption(${modsillyId - 1})
-                    requestAnimationFrame(()=>{
-                        removeOption(${modsillyId})
-                    })
-                    document.body.appendChild(flash)
-                    setTimeout(()=>{
-                        notify("told you...")
-                    }, 3e3)
-                    setTimeout(()=>{
-                        flash.style.opacity = '0%'
-                        setTimeout(()=>{
-                            flash.remove()
-                        }, 10e3)
-                    }, .5e3)
-                }, .5e3)
-            `);
+            createSuboption(modsillyId, 'flashbang', 'why did i make this', () => {
+                let flashbang = new Audio('https://file.garden/aHFDYCLeNBLSceNi/flashbang.mp3');
+                let flash = document.createElement('div');
+                flash.style.backgroundColor = '#fff';
+                flash.style.transition = 'opacity 10s linear';
+                flash.style.position = 'fixed';
+                flash.style.top = '0px';
+                flash.style.left = '0px';
+                flash.style.width = '100vw';
+                flash.style.height = '100vh';
+                flash.style.zIndex = 'calc(infinity)';
+                notify('WATCH OUT!!!');
+                setTimeout(() => {
+                    flashbang.play();
+                    selectUIOption(modsillyId - 1);
+                    requestAnimationFrame(() => {
+                        removeOption(modsillyId);
+                    });
+                    document.body.appendChild(flash);
+                    setTimeout(() => {
+                        notify('told you...');
+                    }, 3e3);
+                    setTimeout(() => {
+                        flash.style.opacity = '0%';
+                        setTimeout(() => {
+                            flash.remove();
+                        }, 10e3);
+                    }, .5e3);
+                }, .5e3);
+            });
 
             for (let i = 0; i < Object.keys(modthemes).length; i++) {
-                createSuboption(modthemesId, Object.keys(modthemes)[i], modthemes[Object.keys(modthemes)[i]].desc, `
-                    setTheme("${Object.keys(modthemes)[i]}")
-                `, 'image');
+                const themeName = Object.keys(modthemes)[i];
+                createSuboption(modthemesId, themeName, modthemes[themeName].desc, () => {
+                    setTheme(themeName);
+                }, 'image');
             }
             createSuboption(modthemesId, '---more coming soon---', null, null, null);
 
@@ -155,4 +156,8 @@ function startMod() {
         }, .5e3);
     }
 }
-createSuboption(1, 'enable example mod', null, `startMod(); selectUIOption(0); removeSuboption(1, document.getElementById('ui-content1').querySelectorAll('.ui-suboption').length - 1)`, 'star', 'power');
+createSuboption(1, 'enable example mod', null, () => {
+    startMod();
+    selectUIOption(0);
+    removeSuboption(1, document.getElementById('ui-content1').querySelectorAll('.ui-suboption').length - 1);
+}, 'star', 'power');

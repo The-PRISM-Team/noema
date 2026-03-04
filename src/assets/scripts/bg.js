@@ -70,25 +70,18 @@ function drawSpaghetti(time) {
 
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-
-    let step = (() => {
-        if (density === 0) return Infinity;
-
+    let step;
+    if (density === 0) {
+        step = Infinity;
+    } else {
         const BASE_WIDTH = 1920;
         const BASE_DENSITY = 50;
         const BASE_STEP = 10;
-
-        const scale =
-            (canvas.width / BASE_WIDTH) *
-            (density / BASE_DENSITY);
-
-        return Math.min(
-            12,
-            Math.max(1, Math.round(BASE_STEP * scale))
-        );
-    })();
+        const scale = (canvas.width / BASE_WIDTH) * (density / BASE_DENSITY);
+        step = Math.min(12, Math.max(1, Math.round(BASE_STEP * scale)));
+    }
+    ctx.strokeStyle = spaghettiColor;
     for (let wave = 0; wave < density; wave++) {
-        ctx.strokeStyle = spaghettiColor;
         ctx.beginPath();
 
         for (let x = 0; x < canvas.width; x += step) {
@@ -310,11 +303,14 @@ function addFlake() {
     prismflakeDiv.append(flake);
 }
 function updateFlakes() {
-    for (let i = 0; i < Object.keys(prismflakes).length; i++) {
+    for (const id in prismflakes) {
         if (!focused) continue;
-        let id = Object.keys(prismflakes)[i];
-        let pos = Object.values(prismflakes)[i];
+        let pos = prismflakes[id];
         let flake = document.getElementById(id);
+        if (!flake) {
+            delete prismflakes[id];
+            continue;
+        }
         pos.r += pos.rvel;
         pos.y += pos.yvel;
         pos.x += pos.xvel;
@@ -325,7 +321,7 @@ function updateFlakes() {
         if (pos.y > window.innerHeight + 64) {
             flake.remove();
             if (!prismflakesStarted) {
-                if (Object.keys(prismflakes).length === 1) {
+                if (Object.keys(prismflakes).length <= 1) {
                     prismflakeDiv.remove();
                     prismflakeDiv = null;
                     return;

@@ -10,6 +10,10 @@ const sounds =
         '../coldboot.flac', // this path is valid btw
         '../menu_music.flac'
     ];
+const soundIndexByName = {};
+for (let i = 0; i < sounds.length; i++) {
+    soundIndexByName[sounds[i].split('.').slice(0, -1).join('.')] = i;
+}
 
 let masterVolume = 1;
 function setMasterVolume(volume = 1) {
@@ -29,15 +33,8 @@ function setMasterVolume(volume = 1) {
 }
 setMasterVolume(localStorage.masterVolume);
 function playSound(sound, volume, properties = {}) {
-    let targetSoundIndex;
-    if (sounds.filter((snd, i) => {
-        const isTargetSound = snd.split('.').slice(0,-1).join('.') === sound;
-        if (isTargetSound) {
-            targetSoundIndex = i;
-        }
-
-        return isTargetSound;
-    }).length === 1) {
+    const targetSoundIndex = soundIndexByName[sound];
+    if (typeof targetSoundIndex === 'number') {
         const snd = new Audio(`/assets/sounds/menu/${sounds[targetSoundIndex]}`);
         if (!isDefined(volume))
             volume = parseFloat(localStorage.uiSoundVolume) * masterVolume.clamp(0, 1);
