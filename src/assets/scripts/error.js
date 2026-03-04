@@ -56,21 +56,27 @@ window.addEventListener("error", (event) => {
                 warning.style.cssText = `
                     z-index: calc(infinity);
                     opacity: 0%;
+
                     display: flex;
                     jusify-content: center;
                     align-content: center;
                     width: 100vw;
                     height: 100vh;
+
                     background-color: #0008;
-                    backdrop-filger: blur(50px) brightness(75%) opacity(90%);
+                    backdrop-filter: blur(50px) brightness(75%) opacity(90%);
+
                     font-family: 'Manrope', monospace;
-                    font-size: 4vw;
+                    font-size: min(48px, 4vw);
                     font-weight: light;
                     color: #fff;
+                    white-space: pre-wrap;
+
                     position: fixed;
                     top: 0;
                     left: 0;
-                    transtion: opacity .5s ease;
+
+                    transition: opacity .5s ease;
                 `;
                 document.body.appendChild(warning);
                 warning.style.opacity = "100%";
