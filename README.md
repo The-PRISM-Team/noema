@@ -87,6 +87,31 @@ Roadmap items are tracked in `misc/markdowns/TODO.md`. If you want to work on an
 
 ---
 
+## Archived Roadmap (from repository history)
+
+This section preserves an earlier roadmap found in the repository history. It documents short-term goals the project tracked for v0.16.0 and v0.17.0.
+
+### Plan for 0.16.0
+- Add basic support for NGPs (decompression, loading, etc.)
+- Add local game storing (folder, localStorage and web links, etc)
+- Add APIs to all game-related functions
+- Add UI for game selection and others
+
+### Plan for 0.17.0
+- Polish game APIs and UI
+- Finish support for NGPs
+
+### NGP Architecture (notes)
+- Packaged using ZIP
+- Game assets go to `/assets` folder (images, sounds, animations, etc.)
+- Game code goes to `/scripts` folder
+- `start.js` file in the root of the ZIP folder
+- The `start.js` file adds all scripts and modules of the game by injecting them into the document.
+
+This archived roadmap is provided as a reference; see the live roadmap above and `misc/markdowns/TODO.md` for current priorities.
+
+---
+
 ## Additional resources
 
 * [Design notes and TODOs](misc/markdowns/TODO.md)
