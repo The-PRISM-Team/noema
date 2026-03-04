@@ -46,6 +46,7 @@ function playSound(sound, volume, properties = {}) {
             snd[property] = value;
         }
         snd.play();
+        return snd;
     } else {
         throw new ReferenceError(`The sound "${sound}" doesn't exist/isn't registered.`);
     }
