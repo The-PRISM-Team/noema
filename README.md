@@ -73,7 +73,7 @@ See `COLLABORATION.md` for guidelines on how to work with the code, preferred br
 
 ## Feature Roadmap
 
-This project maintains a lightweight roadmap of planned and in-progress features. These are short, actionable goals rather than strict milestones.
+Planned / proposed features (not yet implemented). The bullets below describe ideas and priorities rather than existing functionality — this repository does not currently include game loading, packaged games (NGP), or game assets for published titles.
 
 - Improve game loading and sandboxing (better NGP loading, secure execution)
 - Profiling and performance optimizations to address frame drops and CPU usage
@@ -82,6 +82,7 @@ This project maintains a lightweight roadmap of planned and in-progress features
 - Better distinction between local and hosted (Vercel) modes, with environment-aware behavior
 - Dynamic local updates: optionally point the app at a local directory or a GitHub directory for iterative development
 - Publish PRISM‑specific assets and move PRISM code to a dedicated organization repository
+
 
 Roadmap items are tracked in `misc/markdowns/TODO.md`. If you want to work on any of these, open an issue or create a PR describing the intended approach.
 
@@ -101,12 +102,12 @@ This section preserves an earlier roadmap found in the repository history. It do
 - Polish game APIs and UI
 - Finish support for NGPs
 
-### NGP Architecture (notes)
-- Packaged using ZIP
-- Game assets go to `/assets` folder (images, sounds, animations, etc.)
-- Game code goes to `/scripts` folder
-- `start.js` file in the root of the ZIP folder
-- The `start.js` file adds all scripts and modules of the game by injecting them into the document.
+### Proposed NGP architecture (notes — not implemented)
+- Packaged using ZIP (proposal)
+- A suggested package layout might place game assets under `/assets` (images, sounds, animations, etc.) and game code under `/scripts`.
+- A `start.js` file at the package root could be responsible for loading the package's scripts and modules into the host document.
+
+These are architectural notes and design ideas captured from earlier discussions; they were not necessarily implemented in this repository at the time of writing.
 
 This archived roadmap is provided as a reference; see the live roadmap above and `misc/markdowns/TODO.md` for current priorities.
 

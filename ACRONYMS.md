@@ -8,6 +8,6 @@ codebase and collaboration notes.
   simple key/value map.
 * **VSCode** – Visual Studio Code, the editor used by this project.
 * **CSS** – Cascading Style Sheets, used for styling web pages.
-* **PRISM** – (see `/misc/markdowns/TODO.md` for project-specific meaning)
+* **PRISM** – ""Company"" name
 
 Additional entries may be added as needed.
