@@ -12,10 +12,22 @@ const path = require('path');
 const { execSync } = require('child_process');
 
 const root = path.resolve(__dirname, '../src');
+// codex debugging stub and failsafe
+let codexCalls = 0;
+const MAX_CODEX_CALLS = 3;
+function attemptCodexFix(filePath, lineNum, message) {
+    if (codexCalls >= MAX_CODEX_CALLS) {
+        console.log(`Codex limit reached (${MAX_CODEX_CALLS}), skipping fix for ${filePath}:${lineNum}`);
+        return;
+    }
+    codexCalls++;
+    console.log(`(codex) would attempt to fix ${filePath}:${lineNum} - ${message}`);
+}
+
 let hasError = false;          // set when unfixable problems occur
 let fixedFiles = new Set();
-const fix = process.argv.includes('--fix');
-let fixableCount = 0;  // number of formatting issues automatically corrected
+const fix = true; // always auto-fix formatting issues
+let fixableCount = 0;  // number of formatting corrections made
 
 function lintFile(filePath) {
     // skip modules folder
@@ -48,6 +60,7 @@ function lintFile(filePath) {
                     console.error(`${rel}:${lineNum}: mixed tabs and spaces in indentation`);
                     // unfixable, fatal
                     hasError = true;
+                    attemptCodexFix(filePath, lineNum, 'mixed tabs/spaces');
                 }
                 if (indent.includes(' ')) {
                     const count = indent.length;
@@ -97,11 +110,14 @@ if (fixedFiles.size > 0) {
         try { execSync(`git add "${f}"`); } catch (e) { /* ignore */ }
     });
 }
-if (fixableCount > 0 && !fix) {
-    console.log(`Detected ${fixableCount} formatting issue(s); run with --fix to correct them`);
+if (fixableCount > 0) {
+    console.log(`Auto-fixed ${fixableCount} formatting issue(s)`);
 }
 // exit non-zero only if an unfixable error occurred
 if (hasError) {
     console.error('Lint failed due to unfixable issues.');
+    if (codexCalls > 0) {
+        console.log(`Codex was invoked ${codexCalls} time(s) this run.`);
+    }
     process.exit(1);
 }
