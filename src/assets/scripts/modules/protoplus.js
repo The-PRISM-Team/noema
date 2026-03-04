@@ -18,6 +18,10 @@ Audio.prototype.resume = function () {
         return false;
     }
 };
+Audio.prototype.stop = function () {
+    this.pause();
+    this.currentTime = 0;
+};
 
 Array.prototype.last =
 HTMLCollection.prototype.last =
