@@ -25,8 +25,9 @@ if (!isDefined(localStorage.noTransitions) && navigator.deviceMemory < 2) localS
 
 
 
-const pageStart = performance.now(),
-    dependStart = null,
+const pageStart = performance.now()
+let dependStart = null,
+    scriptStart = null,
     soundStart = null;
 
 // load page
@@ -40,7 +41,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     // load scripts
     console.log('Loading scripts...');
     document.getElementById('clicktostart').textContent = 'loading scripts, please wait';
-    const scriptStart = performance.now();
+    scriptStart = performance.now();
     await loadScripts((done, total)=>{
         document.getElementById('loading-progress').style.width = `${Math.max(1, 1 + Math.round(ratioToPercentage(done, total) / 2) - 2)}%`;
     });
