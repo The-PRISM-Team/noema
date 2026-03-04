@@ -147,5 +147,16 @@
                 ]
             }
         }
+    },
+    "vscode-extension": {
+        "files": [
+            "package.json"
+        ],
+        "themes": {
+            "files": [
+                "cherry-color-theme.json",
+                "frogleaf-color-theme.json"
+            ]
+        }
     }
 }
