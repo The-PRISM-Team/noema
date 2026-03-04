@@ -1,4 +1,4 @@
-let ui = document.getElementById('ui');
+const ui = document.getElementById('ui');
 
 let transitioning = false;
 async function transition() {
@@ -14,27 +14,27 @@ async function transition() {
 }
 
 function focusUIOption(id) {
-    let optionDiv = document.getElementById('ui-options');
+    const optionDiv = document.getElementById('ui-options');
 
     requestAnimationFrame(() => {
         // alignment
-        let target = document.getElementById(`ui-option${id}`);
-        let targetRect = target.getBoundingClientRect();
+        const target = document.getElementById(`ui-option${id}`);
+        const targetRect = target.getBoundingClientRect();
 
-        let uiRect = document.getElementById('ui').getBoundingClientRect();
+        const uiRect = document.getElementById('ui').getBoundingClientRect();
 
-        let targetCenter = targetRect.left + targetRect.width / 2;
-        let desiredCenter = uiRect.left + uiRect.width / 2;
+        const targetCenter = targetRect.left + targetRect.width / 2;
+        const desiredCenter = uiRect.left + uiRect.width / 2;
 
-        let delta = desiredCenter - targetCenter;
+        const delta = desiredCenter - targetCenter;
 
         optionDiv.style.left = `${optionDiv.offsetLeft + delta}px`;
 
         // more-arrow shit
-        let optionDivRect = optionDiv.getBoundingClientRect();
+        const optionDivRect = optionDiv.getBoundingClientRect();
 
-        let leftArrow = document.getElementById('more-left');
-        let rightArrow = document.getElementById('more-right');
+        const leftArrow = document.getElementById('more-left');
+        const rightArrow = document.getElementById('more-right');
 
         if (optionDivRect.left < uiRect.left)
             leftArrow.style.opacity = "100%";
@@ -50,7 +50,7 @@ function focusUIOption(id) {
 
 let selectedOption = 0;
 let selectedSuboption = 0;
-let selectedSuboptions = {};
+const selectedSuboptions = {};
 const uiSuboptionActions = {};
 function normalizeActionId(value = '') {
     return value
@@ -81,9 +81,9 @@ function registerUISuboptionAction(action, actionIdBase = 'action') {
     return actionId;
 }
 function selectUIOption(id) {
-    let optionDiv = document.getElementById('ui-options');
-    let options = optionDiv.querySelectorAll('a');
-    let contents = document.getElementById('ui-contents').querySelectorAll('div');
+    const optionDiv = document.getElementById('ui-options');
+    const options = optionDiv.querySelectorAll('a');
+    const contents = document.getElementById('ui-contents').querySelectorAll('div');
 
     document.getElementById('more-left').style.opacity = "0%";
     document.getElementById('more-right').style.opacity = "0%";
@@ -115,11 +115,11 @@ function selectUIOption(id) {
 function selectUISuboption(id) {
     requestAnimationFrame(() => {
         selectedSuboption = id;
-        let suboptions = document.getElementById(`ui-content${selectedOption}`).querySelectorAll('.ui-suboption');
+        let suboptions = document.body.querySelectorAll(`#ui-content${selectedOption} .ui-suboption`);
         selectedSuboptions[selectedOption] = id;
         suboptions.forEach((suboption, i) => {
             suboption.style.top = `${20 + (-31 * (id - 3))}px`;
-            let icon = suboption.querySelector('.ui-suboption-icon');
+            const icon = suboption.querySelector('.ui-suboption-icon');
             if (i === id) {
                 suboption.classList.add('selected');
                 suboption.querySelector('.ui-suboption-text').style.display = '';
@@ -139,7 +139,7 @@ function selectUISuboption(id) {
     });
 }
 function executeUISuboption() {
-    let suboption = document.getElementById(`ui-content${selectedOption}`).querySelector(`#ui-suboption${selectedSuboption}`);
+    const suboption = document.body.querySelector(`#ui-content${selectedOption} #ui-content${selectedOption}`);
     const actionId = suboption.dataset.action;
     if (isDefined(actionId) && isDefined(uiSuboptionActions[actionId])) {
         uiSuboptionActions[actionId]();
@@ -153,14 +153,14 @@ function executeUISuboption() {
 
 // mommy pls fix
 function createOption(name) {
-    let uiOptions = document.getElementById('ui-options');
-    let uiSuboptions = document.getElementById('ui-contents');
-    let tab = document.createElement('a');
+    const uiOptions = document.getElementById('ui-options');
+    const uiSuboptions = document.getElementById('ui-contents');
+    const tab = document.createElement('a');
     tab.id = 'ui-option' + uiOptions.children.length;
     tab.className = 'ui-option';
     tab.innerText = name;
     uiOptions.appendChild(tab);
-    let suboptions = document.createElement('div');
+    const suboptions = document.createElement('div');
     suboptions.id = 'ui-content' + uiSuboptions.children.length;
     suboptions.className = 'ui-content';
     uiSuboptions.appendChild(suboptions);
@@ -172,8 +172,8 @@ function createOption(name) {
 }
 function createSuboption(optionId, title, desc = '', exec = null, icon, sound = "confirm") {
     if ((!optionId && optionId !== 0) || !title) throw new Error('Please specify a valid option ID and title.');
-    let suboptions = document.getElementById(`ui-content${optionId}`);
-    let suboption = document.createElement('div');
+    const suboptions = document.getElementById(`ui-content${optionId}`);
+    const suboption = document.createElement('div');
     suboption.id = 'ui-suboption' + suboptions.children.length;
     suboption.className = 'ui-suboption';
     if (isDefined(exec)) {
@@ -183,20 +183,19 @@ function createSuboption(optionId, title, desc = '', exec = null, icon, sound = 
     if (isDefined(sound)) suboption.dataset.sound = sound;
     suboption.style.top = `${20 + (-31 * (selectedSuboptions[optionId] - 3))}px`;
 
-    let suboptionTitle = document.createElement('a');
+    const suboptionTitle = document.createElement('a');
     suboptionTitle.className = 'ui-suboption-title';
     suboptionTitle.innerText = title;
     suboption.append(suboptionTitle);
     suboption.appendChild(document.createElement('br'));
-    let suboptionDesc = document.createElement('a');
+    const suboptionDesc = document.createElement('a');
     suboptionDesc.className = 'ui-suboption-text';
     suboptionDesc.innerText = desc;
     suboptionDesc.style.display = 'none';
     suboption.append(suboptionDesc);
     if (isDefined(icon)) {
-        let urltester = new RegExp("([a-zA-Z0-9]+:)?//([a-zA-Z0-9_]+:[a-zA-Z0-9_]+@)?([a-zA-Z0-9.-]+\\.[A-Za-z]{2,4})(:[0-9]+)?([^ ])+");
-        let suboptionIcon = document.createElement('img');
-        if (urltester.test(icon)) {
+        const suboptionIcon = document.createElement('img');
+        if (urlRegex.test(icon)) {
             suboptionIcon.src = icon;
         } else {
             suboptionIcon.src = `/assets/icons/${icon}.png`;
@@ -207,7 +206,7 @@ function createSuboption(optionId, title, desc = '', exec = null, icon, sound = 
     if (localStorage.noTransitions === 'true') {
         suboption.style.transition = 'none';
     }
-    
+
     suboptions.appendChild(suboption);
     return suboptions.children.length - 1;
 }
@@ -215,17 +214,17 @@ function createSuboption(optionId, title, desc = '', exec = null, icon, sound = 
 function removeOption(optionId) {
     document.getElementById(`ui-option${optionId}`).remove();
     document.getElementById(`ui-content${optionId}`).remove();
-    document.getElementById('ui-options').querySelectorAll('.ui-option').forEach((el, id)=>{
+    document.getElementById('ui-options').querySelectorAll('.ui-option').forEach((el, id) => {
         el.id = `ui-option${id}`;
     });
-    document.getElementById('ui-contents').querySelectorAll('.ui-content').forEach((el, id)=>{
+    document.getElementById('ui-contents').querySelectorAll('.ui-content').forEach((el, id) => {
         el.id = `ui-content${id}`;
     });
 }
 function removeSuboption(optionId, suboptionId) {
     document.getElementById(`ui-content${optionId}`).querySelector(`#ui-suboption${suboptionId}`).remove();
-    
-    document.getElementById(`ui-content${optionId}`).querySelectorAll('.ui-suboption').forEach((el, id)=>{
+
+    document.getElementById(`ui-content${optionId}`).querySelectorAll('.ui-suboption').forEach((el, id) => {
         el.id = `ui-suboption${id}`;
     });
 }
@@ -234,7 +233,7 @@ function setOption(optionId, text) {
     document.getElementById(`ui-option${optionId}`).innerText = text;
 }
 function setSuboption(optionId, suboptionId, title, desc, icon, exec, sound) {
-    let suboption = document.getElementById(`ui-content${optionId}`).querySelector(`#ui-suboption${suboptionId}`);
+    const suboption = document.querySelector(`#ui-content${optionId} #ui-suboption${suboptionId}`);
     if (isDefined(title)) suboption.querySelector('.ui-suboption-title').innerText = title;
     if (isDefined(desc)) suboption.querySelector('.ui-suboption-text').innerText = desc;
     if (isDefined(icon)) suboption.querySelector('.ui-suboption-icon').src = `/assets/icons/${icon}.png`;
@@ -355,7 +354,7 @@ function initUI() {
             downloadFileWithContent(
                 `Noema Preferences Backup -- ${new Date().getFullYear()}-${(new Date().getMonth() + 1).toString().padStart(2, '0')}-${new Date().getDate().toString().padStart(2, '0')} ${new Date().getHours()}-${new Date().getMinutes().toString().padStart(2, '0')}-${new Date().getSeconds().toString().padStart(2, '0')}.nsf`,
                 (() => {
-                    let settings = JSON.parse(JSON.stringify(localStorage));
+                    const settings = JSON.parse(JSON.stringify(localStorage));
                     settings.exportDate = Date.now();
                     settings.format = 'NSF2.1';
                     delete settings.lastChangelogHash;
@@ -367,7 +366,7 @@ function initUI() {
         }, 'Are you sure?', "Just making sure this wasn't pressed by accident.");
     }, 'wrench');
     createSuboption(prefTab, 'Load preferences', 'Select to load a file with your saved preferences.', () => {
-        let importbtn = document.createElement('input');
+        const importbtn = document.createElement('input');
         importbtn.type = 'file';
         importbtn.multiple = 'false';
         importbtn.style.display = 'none';
@@ -447,8 +446,8 @@ function initUI() {
                     }, 'Are you absolutely sure?', '');
                 }, .5e3);
             },
-            'Are you sure?',
-            'Do not accept unless you know what you\'re doing.\\nOnce you reset your preferences, this process is IRREVERSIBLE, so make sure to save your preferences before resetting.\\n\\nThe system will restart after resetting to apply the default settings.');
+                'Are you sure?',
+                'Do not accept unless you know what you\'re doing.\\nOnce you reset your preferences, this process is IRREVERSIBLE, so make sure to save your preferences before resetting.\\n\\nThe system will restart after resetting to apply the default settings.');
         },
         'bin'
     );
@@ -585,7 +584,7 @@ function initUI() {
             if (!url) return;
             if (!isURL(url)) throw new TypeError("Script URL provided isn't even a URL.");
             if (document.getElementById('script-' + url)) throw new Error('Script already loaded!');
-            let script = document.createElement('script');
+            const script = document.createElement('script');
             script.src = url;
             script.id = 'script-' + url;
             document.body.appendChild(script);
@@ -601,7 +600,7 @@ function getOption(optionId) {
     };
 }
 function getSuboption(optionId, suboptionId) {
-    let suboption = document.getElementById(`ui-content${optionId}`).querySelector(`#ui-suboption${suboptionId}`);
+    const suboption = document.getElementById(`ui-content${optionId}`).querySelector(`#ui-suboption${suboptionId}`);
     return {
         title: suboption.querySelector('.ui-suboption-title').textContent,
         description: suboption.querySelector('.ui-suboption-text')?.textContent,
@@ -621,7 +620,7 @@ function bandDialog(title, subtitle = '', setupFunc, confirmFunc, usesEnterKey =
         document.getElementById('custom-items').style.display = 'revert';
         setupFunc(document.getElementById('custom-items'));
     }
-    if (!isDefined(confirmFunc)) confirmFunc = ()=>{};
+    if (!isDefined(confirmFunc)) confirmFunc = () => { };
     document.getElementById('custom-subtitle').style.display = 'none';
 
     if (isDefined(subtitle)) {
@@ -667,19 +666,19 @@ function bandDialog(title, subtitle = '', setupFunc, confirmFunc, usesEnterKey =
         }
     }
 
-    let handler = (event) => {
+    const handler = (event) => {
         const key = event.key.toLowerCase();
         function blur() {
-            traverseDOM(document.getElementById('custom-dialog'), (el)=>{
+            traverseDOM(document.getElementById('custom-dialog'), (el) => {
                 if (document.activeElement === el) {
                     el.onblur = null;
-                    requestAnimationFrame(()=>{
+                    requestAnimationFrame(() => {
                         el.blur();
                     });
                 }
             });
         }
-        if ((key === 'enter' || (key === ' ' && !hasInput))&& usesEnterKey) {
+        if ((key === 'enter' || (key === ' ' && !hasInput)) && usesEnterKey) {
             if (usesEnterKey) {
                 confirmFunc();
                 playSound('confirm');
@@ -697,22 +696,24 @@ function bandDialog(title, subtitle = '', setupFunc, confirmFunc, usesEnterKey =
     document.getElementById('custom-dialog').style.opacity = '100%';
     document.addEventListener('keyup', handler);
 }
-function inputDialog(title = 'Select a value...', subtitle, startingValue, min, max, step = 1, formatStr, updFunc = ()=>{}) {
+function inputDialog(title = 'Select a value...', subtitle, startingValue, min, max, step = 1, formatStr, updFunc = () => { }) {
     if (!formatStr && typeof formatStr !== 'string') console.warn('formatStr (7th argument): Every instance of the substring "{value}" will be replaced with the slider\'s current value.\nSet this parameter to an empty string to avoid this warning.');
     bandDialog(title, subtitle, (dialog) => {
-        let slider = document.createElement('input');
+        const slider = document.createElement('input');
         slider.type = 'range';
         slider.min = min.toString();
         slider.max = max.toString();
         slider.step = step.toString();
         slider.value = startingValue.toString();
         dialog.appendChild(slider);
-        let slidertext = document.createElement('a');
+
+        const slidertext = document.createElement('a');
         slidertext.textContent = ` ${formatStr.replaceAll("{value}", slider.value.toString())}`;
         slidertext.style.color = '#fff';
         slidertext.style.fontFamily = "'Manrope', monospace";
         dialog.appendChild(slidertext);
-        let handler = () => {
+
+        const handler = () => {
             updFunc(slider.value);
             slidertext.textContent = ` ${formatStr.replaceAll("{value}", slider.value.toString())}`;
         };
@@ -725,33 +726,33 @@ function inputDialog(title = 'Select a value...', subtitle, startingValue, min, 
         slider.style.outline = '0';
     }, null, false);
 }
-function confirmDialog(func = () => {}, title = 'Are you sure?', subtitle = '') {
+function confirmDialog(func = () => { }, title = 'Are you sure?', subtitle = '') {
     bandDialog(title, subtitle, null, func, true);
 }
 function promptDialog(func = (() => { }), title = 'Enter some text...', placeholder = '') {
-    bandDialog(title, '', (dialog)=>{
-        let input = document.createElement('input');
+    bandDialog(title, '', (dialog) => {
+        const input = document.createElement('input');
         input.type = 'text';
         input.placeholder = placeholder;
         input.id = 'custom-input';
-        input.onblur = ()=>input.focus();
+        input.onblur = () => input.focus();
 
         dialog.appendChild(input);
         input.focus();
         input.style.outline = `solid 1px ${accentColor}`;
         input.style.boxShadow = `0px 0px 7px ${accentColor}`;
         input.style.borderRadius = `10px`;
-    }, ()=>{
+    }, () => {
         func(document.getElementById('custom-input').value);
     }, true);
 }
-function checkboxDialog(title, subtitle, label, toggleFunc = ()=>{}) {
+function checkboxDialog(title, subtitle, label, toggleFunc = () => { }) {
     bandDialog(title, subtitle, (dialog) => {
-        let text = document.createElement('a');
+        const text = document.createElement('a');
         text.textContent = `${label} `;
         text.style.cssText = "color: #fff; font-family: 'Manrope', monospace";
 
-        let checkbox = document.createElement('input');
+        const checkbox = document.createElement('input');
         checkbox.type = 'checkbox';
         checkbox.onblur = () => checkbox.focus();
         checkbox.addEventListener('input', () => {
@@ -766,66 +767,66 @@ function checkboxDialog(title, subtitle, label, toggleFunc = ()=>{}) {
         checkbox.focus();
     }, null, true);
 }
-let notifElements = {};
-let queuedNotifs = [];
+const notifElements = {};
+const queuedNotifs = [];
 let notifCount = 0;
 function notify(title, text, icon) {
-    let notifDiv = document.createElement('span');
+    const notifDiv = document.createElement('span');
     notifDiv.className = 'notif';
     notifDiv.id = `notif-${Math.random()}`;
     function notifHandler() {
         if (localStorage.noShaders === 'true') notifDiv.style.backdropFilter = 'none';
         if (localStorage.noTransitions === 'true') notifDiv.style.transition = 'none';
         document.getElementById('notif-div').appendChild(notifDiv);
-        
-        let notifContent = document.createElement('span');
+
+        const notifContent = document.createElement('span');
         notifContent.style.padding = '5px';
         notifDiv.appendChild(notifContent);
 
-        let notifTitle = document.createElement('a');
+        const notifTitle = document.createElement('a');
         notifTitle.textContent = title;
         notifTitle.className = 'notif-title';
         notifContent.appendChild(notifTitle);
 
         if (isDefined(text)) {
             notifContent.appendChild(document.createElement('br'));
-            let notifText = document.createElement('a');
+            const notifText = document.createElement('a');
             notifText.textContent = text;
             notifText.className = "notif-text";
             notifContent.appendChild(notifText);
         }
 
         if (isDefined(icon)) {
-            let notifIcon = document.createElement('img');
+            const notifIcon = document.createElement('img');
             notifIcon.src = `/assets/icons/${icon}.png`;
             notifIcon.className = "notif-icon";
             notifDiv.appendChild(notifIcon);
         }
 
-        let snd = playSound('notif', null, {
+        const snd = playSound('notif', null, {
             preservesPitch: false,
             playbackRate: 1 + notifCount / 25
         });
 
         notifElements[notifDiv.id] = notifDiv;
         notifCount++;
-        requestAnimationFrame(()=>{
+        requestAnimationFrame(() => {
             notifDiv.style.transform = 'translateX(1px)';
             notifDiv.style.opacity = '100%';
         });
-        setTimeout(()=>{
+        setTimeout(() => {
             notifDiv.style.transform = 'translateX(100%)';
             notifDiv.style.opacity = '0';
             if (notifElements[notifDiv.id]) {
                 delete notifElements[notifDiv.id];
                 notifCount--;
             }
-            setTimeout(()=>{notifDiv.remove();}, .25e3);
-        },10e3);
+            setTimeout(() => { notifDiv.remove(); }, .25e3);
+        }, 10e3);
     }
     if (notifCount >= 6 || !started || !document.hasFocus()) {
         if (queuedNotifs.length < 24) {
-            queuedNotifs.push({id: notifDiv.id, when: Date.now()});
+            queuedNotifs.push({ id: notifDiv.id, when: Date.now() });
             const checkInterval = setInterval(() => {
                 if (notifCount < 6 && started && document.hasFocus()) {
                     if (queuedNotifs[0]?.id === notifDiv.id) {
@@ -842,7 +843,7 @@ function notify(title, text, icon) {
     } else {
         notifHandler();
     }
-    
+
 }
 
 let keyPressed = null;
@@ -898,7 +899,7 @@ function handleInput(event) {
             if (event.repeat) return;
             else
                 selectUISuboption(suboptionCount - 1);
-    
+
             playSound('select');
             return;
         }
@@ -925,15 +926,15 @@ function handleInput(event) {
     }
     function back() {
         if (!keyup) return;
-        let playBackSound = false;
-        document.activeElement.blur();
+        
         document.body.querySelectorAll('.band-dialog').forEach(dialog => {
             if (window.getComputedStyle(dialog).opacity !== '0') {
                 dialog.style.opacity = "0%";
-                playBackSound = true;
+                playSound('back');
+                return true;
             }
         });
-        if (playBackSound) playSound('back');
+        document.activeElement.blur();
         return;
     }
 
@@ -941,7 +942,7 @@ function handleInput(event) {
     if (event.isTrusted) {
         lastInput = 'keyboard';
     }
-    let key = event.key.toLowerCase();
+    const key = event.key.toLowerCase();
     // console.log('key press:', key)
 
     // input handler, make it JSON later?
@@ -950,11 +951,10 @@ function handleInput(event) {
         if (!event.repeat)
             back();
     }*/
-    let outOfMenu = false;
-    document.body.querySelectorAll('.band-dialog').forEach(dialog => {
-        if (window.getComputedStyle(dialog).opacity !== '0')
-            outOfMenu = true;
-    });
+    const outOfMenu = [...document.body
+        .querySelectorAll('.band-dialog')]
+        .some(dialog => window.getComputedStyle(dialog).opacity !== '0');
+
     if (outOfMenu) {
         if ((key === 'a' || key === 'arrowleft') && !keyup) {
             if (document.activeElement.tagName === 'INPUT' && document.activeElement?.type === 'range') {

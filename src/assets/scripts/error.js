@@ -1,5 +1,5 @@
 let errors = 0;
-let errorList = [];
+const errorList = [];
 window.addEventListener("error", (event) => {
     if (event.target && event.target.tagName === "SCRIPT") {
         errorList.push(`Failed to load script: ${event.target.src}`);
@@ -23,8 +23,8 @@ window.addEventListener("error", (event) => {
         }
     });
     if (!started) {
-        let errorSound = new Audio('/assets/sounds/menu/fatal-error.flac');
-        let errorSound2 = new Audio('/assets/sounds/menu/fatal-error.flac');
+        const errorSound = new Audio('/assets/sounds/menu/fatal-error.flac');
+        const errorSound2 = new Audio('/assets/sounds/menu/fatal-error.flac');
         errorSound.preload = true;
         errorSound2.preload = true;
         let bgint1 =
@@ -51,25 +51,27 @@ window.addEventListener("error", (event) => {
             clearInterval(bgint3);
             setTimeout(() => {
                 document.body.style.background = "#800";
-                let warning = document.createElement('a');
+                const warning = document.createElement('a');
                 warning.textContent = "STARTUP FAILED";
-                warning.style.zIndex = "calc(infinity)";
-                warning.style.opacity = "0%";
-                warning.style.display = "flex";
-                warning.style.justifyContent = "center";
-                warning.style.alignContent = "center";
-                warning.style.width = "100vw";
-                warning.style.height = "100vh";
-                warning.style.backgroundColor = "#0008";
-                warning.style.backdropFilter = "blur(50px) darken(75%) opacity(90%)";
-                warning.style.fontFamily = "'Manrope', monospace";
-                warning.style.fontSize = '4vw';
-                warning.style.fontWeight = 'light';
-                warning.style.color = '#fff';
-                warning.style.position = "fixed";
-                warning.style.top = "0";
-                warning.style.left = "0";
-                warning.style.transition = "opacity .5s ease-out";
+                warning.style.cssText = `
+                    z-index: calc(infinity);
+                    opacity: 0%;
+                    display: flex;
+                    jusify-content: center;
+                    align-content: center;
+                    width: 100vw;
+                    height: 100vh;
+                    background-color: #0008;
+                    backdrop-filger: blur(50px) brightness(75%) opacity(90%);
+                    font-family: 'Manrope', monospace;
+                    font-size: 4vw;
+                    font-weight: light;
+                    color: #fff;
+                    position: fixed;
+                    top: 0;
+                    left: 0;
+                    transtion: opacity .5s ease;
+                `;
                 document.body.appendChild(warning);
                 warning.style.opacity = "100%";
                 setTimeout(()=>{

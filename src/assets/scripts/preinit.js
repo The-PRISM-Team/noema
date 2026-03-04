@@ -25,7 +25,7 @@ if (!isDefined(localStorage.noTransitions) && navigator.deviceMemory < 2) localS
 
 
 
-let pageStart = performance.now(),
+const pageStart = performance.now(),
     dependStart = null,
     soundStart = null;
 
@@ -163,7 +163,7 @@ window.addEventListener('load', async () => {
         else
             document.getElementById('clicktostart').innerHTML = 'click or press enter to go to menu';
 
-        let start = async () => {
+        const start = async () => {
             setCursor('none');
             document.onclick = document.onkeydown = null;
     

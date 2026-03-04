@@ -17,7 +17,7 @@ gameControl.on('connect', (gamepad) => {
         'button4': 'q',
         'button5': 'e',
     };
-    let pressed = {};
+    const pressed = {};
     JSON.iterate(mapping, (button, key)=>{
         pressed[button] = false;
         console.log(button);

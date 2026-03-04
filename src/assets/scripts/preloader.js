@@ -74,7 +74,7 @@ async function loadScripts(cb) {
     ];
 
     for (let i = 0; i < scripts.length; i++) {
-        let scriptObj = scripts[i];
+        const scriptObj = scripts[i];
 
         if (document.querySelector(`script[src="${scriptObj.src}"]`))
             continue; // skip script if there is a script with the same src

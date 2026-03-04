@@ -57,7 +57,7 @@ function startup() {
     delete localStorage.fromRefresh;
     delete localStorage.fastBoot;
 
-    let startTime = Date.now();
+    const startTime = Date.now();
     if (started || starting) return;
     starting = true;
     test();
@@ -76,7 +76,7 @@ function startup() {
             topColor: "#000",
             bottomColor: "#000"
         });
-        let snd = new Audio('/assets/sounds/coldboot.flac');
+        const snd = new Audio('/assets/sounds/coldboot.flac');
         snd.volume = .65;
 
         const showStartupAudioFallback = () => {
@@ -150,7 +150,7 @@ function startup() {
 function reboot() {
     localStorage.fromreboot = 'true';
     localStorage.fromRefresh = 'true';
-    for (let element of document.body.children) {
+    for (const element of document.body.children) {
         element.style.display = 'none';
     }
     document.body.style.background = '#000';
@@ -166,7 +166,7 @@ function fastReboot() {
 }
 
 function shutdown() {
-    for (let element of document.body.children) {
+    for (const element of document.body.children) {
         element.style.display = 'none';
     }
     document.body.style.background = '#000';

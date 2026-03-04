@@ -1,9 +1,9 @@
-let loadedModules = {};
+const loadedModules = {};
 function loadLibrary(url, ...attrib) {
     if (!isDefined(url)) throw new Error('The URL parameter is empty. Please provide a URL.');
     if (!isURL(url)) throw new Error('This URL is invalid.');
-    let script = document.createElement('script');
-    let name = getFilenameFromURL(url);
+    const script = document.createElement('script');
+    const name = getFilenameFromURL(url);
     if (loadedModules[name]) throw new Error('Module already loaded!');
     script.src = url;
     script.id = `lib-${name}`;
@@ -21,7 +21,7 @@ function loadLibrary(url, ...attrib) {
 function unloadLibrary(url) {
     if (!isDefined(url))
         throw new Error('The URL parameter is empty. Please provide a URL.');
-    let name = getFilenameFromURL(url);
+    const name = getFilenameFromURL(url);
     if (!loadedModules[name])
         throw new Error("This module hasn't been loaded.");
     document.body.removeChild(loadedModules[name]);

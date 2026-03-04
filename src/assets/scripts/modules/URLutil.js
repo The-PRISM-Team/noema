@@ -1,3 +1,6 @@
+const urlRegex = new RegExp("([a-zA-Z0-9]+:)?//([a-zA-Z0-9_]+:[a-zA-Z0-9_]+@)?([a-zA-Z0-9.-]+\\.[A-Za-z]{2,4})(:[0-9]+)?([^ ])+");
+const filenameRegex = /^[\\w\\s\\p{L}-]+\\.[A-Za-z0-9]{2,5}$/iu;
+
 function isURL(url) {
     try {
         new URL(url, location.href);
@@ -11,8 +14,7 @@ function getFilenameFromURL(url) {
     url = decodeURIComponent(url);
     url = url.split('/');
     url = url.last();
-    let filenameRegex = /^[\\w\\s\\p{L}-]+\\.[A-Za-z0-9]{2,5}$/iu;
-    let isValid = filenameRegex.test(url);
+    const isValid = filenameRegex.test(url);
     if (isValid) {
         return url;
     } else {

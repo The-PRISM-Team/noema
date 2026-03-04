@@ -97,7 +97,7 @@ String.prototype.forEach = function (callback, separator = '') {
 };
 
 String.prototype.toTitleCase = function (separator = ' ') {
-    let str = String(this),
+    const str = this.valueOf(),
         finalStr = [];
 
     str.split(separator).forEach((arg) => {
@@ -163,8 +163,8 @@ Math.angle = {
 Number.floatPrecision = null;
 Number.testFloatPrecision = () => {
     for (let i = 0; i < 5e2; i++) {
-        let baseNumber = 1;
-        let testNumber = parseFloat(`0.${'9'.repeat(i)}`);
+        const baseNumber = 1;
+        const testNumber = parseFloat(`0.${'9'.repeat(i)}`);
         if (testNumber === baseNumber) {
             Number.floatPrecision = i;
             return i;
@@ -201,7 +201,7 @@ Object.typeOf.types = Object.freeze( // made it a string so it's easy to add mor
 Array.genericType = (array) => {
     if (array.length === 0) return undefined;
 
-    let baseType = Object.typeOf(array[0]);
+    const baseType = Object.typeOf(array[0]);
     for (let i = 1; i < array.length; i++) {
         if (Object.typeOf(array[i]) !== baseType)
             return undefined;
@@ -214,7 +214,7 @@ Array.prototype.genericType = function () {
 };
 const ___nativeSort = Array.prototype.sort;
 Array.prototype.sort = function (compareFn) {
-    let arrType = this.genericType();
+    const arrType = this.genericType();
 
     if (compareFn !== undefined) {
         if (typeof compareFn === 'function') {

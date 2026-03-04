@@ -16,9 +16,9 @@ async function loadChangelogMarkdown() {
 }
 
 async function showChangelog() {
-    let changelog = await loadChangelogMarkdown();
+    const changelog = await loadChangelogMarkdown();
 
-    let changelogParts = changelog.split('---');
+    const changelogParts = changelog.split('---');
     if (changelogParts.length >= 3) {
         changelogParts[1].split('\n').forEach(line => {
             const symbolRegex = /\*\*(.+)\*\*/;
@@ -45,7 +45,7 @@ async function showChangelog() {
         localStorage.lastChangelogHash = changelogHash;
         bandDialog(`v${semver} Changelog`, '', (dialog) => {
             dialog.style.pointerEvents = 'auto';
-            let change = document.createElement('h1');
+            const change = document.createElement('h1');
             change.style.cssText = "color: #fff; font-family: 'Manrope', monospace;";
             dialog.appendChild(change);
             const text = changelogParts.last().split('\n');
@@ -56,7 +56,7 @@ async function showChangelog() {
                     if (!/H[1-6]/.test(dialog.children.last().tagName))
                         dialog.appendChild(document.createElement('br'));
 
-                    let header = document.createElement(`h${Math.min(6, line.startsWithAmount('#'))}`);
+                    const header = document.createElement(`h${Math.min(6, line.startsWithAmount('#'))}`);
                     header.textContent = line.trimStart('#', ' ');
                     header.style.cssText = `
                         color: #fff;
@@ -73,7 +73,7 @@ async function showChangelog() {
 
                     dialog.appendChild(header);
                 } else {
-                    let changeSpan = document.createElement('span');
+                    const changeSpan = document.createElement('span');
                     changeSpan.style.cssText = `
                         text-shadow: 0px 0px 0px #fff;
                         transition: text-shadow .25s ease;
@@ -85,17 +85,18 @@ async function showChangelog() {
                         changeSpan.style.textShadow = '0px 0px 0px #fff';
                     };
                     dialog.appendChild(changeSpan);
-                    let text = line
+                    const text = line
                         .trimStart('-')
                         .trim(' ')
                         .replaceAll('``', '`')
                         .replaceAll('```', '`|');
                     if (!isDefined(text) || text.length < 1) return;
-                    let finalText = `• ${text}${/[\w"'`\)]/.test(text.last()) ? '.' : ''}`;
+
+                    const finalText = `• ${text}${/[\w"'`\)]/.test(text.last()) ? '.' : ''}`;
 
                     finalText.split('`').forEach((subtext, i) => {
                         if (i % 2) {
-                            let change = document.createElement('a');
+                            const change = document.createElement('a');
                             change.textContent = subtext.trimStart('|');
                             change.style.cssText = `
                                 color: #fff;
@@ -115,7 +116,7 @@ async function showChangelog() {
                             };
                             changeSpan.appendChild(change);
                         } else {
-                            let change = document.createElement('a');
+                            const change = document.createElement('a');
                             change.textContent = subtext;
                             change.style.cssText = "color: #fff; font-family: 'Manrope', monospace;";
                             changeSpan.appendChild(change);

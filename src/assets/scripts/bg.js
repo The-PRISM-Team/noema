@@ -250,17 +250,17 @@ function changeBGColor({
                 return;
             }
 
-            let topColor1 = new Color(currentColor.top);
-            let topColor2 = new Color(color.top);
-            let topLerp = topColor1.range(topColor2);
+            const topColor1 = new Color(currentColor.top);
+            const topColor2 = new Color(color.top);
+            const topLerp = topColor1.range(topColor2);
 
-            let botColor1 = new Color(currentColor.bottom);
-            let botColor2 = new Color(color.bottom);
-            let botLerp = botColor1.range(botColor2);
+            const botColor1 = new Color(currentColor.bottom);
+            const botColor2 = new Color(color.bottom);
+            const botLerp = botColor1.range(botColor2);
 
-            let accColor1 = new Color(accentColor);
-            let accColor2 = new Color(AccentColor);
-            let accLerp = accColor1.range(accColor2);
+            const accColor1 = new Color(accentColor);
+            const accColor2 = new Color(AccentColor);
+            const accLerp = accColor1.range(accColor2);
 
 
             t += easing;
@@ -282,8 +282,8 @@ prismflakes = {},
 prismflakesStarted = false;
 function addFlake() {
     if (!prismflakesStarted) return;
-    let id = `flake${Math.random()}`;
-    let pos = prismflakes[id] = {
+    const id = `flake${Math.random()}`;
+    const pos = prismflakes[id] = {
         'x': 0,
         'startingX': Math.floor(Math.random() * window.innerWidth),
         'y': -64,
@@ -292,7 +292,7 @@ function addFlake() {
         'yvel': Math.random() * 4 + 1,
         'rvel': Math.random() * 90 - 45
     };
-    let flake = document.createElement('img');
+    const flake = document.createElement('img');
     flake.id = id;
     flake.src = localStorage.coloredFavicon === 'true' ? '/assets/logos/prism/color.png' : '/assets/logos/prism/white.png';
     flake.height = '32';
@@ -305,8 +305,8 @@ function addFlake() {
 function updateFlakes() {
     for (const id in prismflakes) {
         if (!focused) continue;
-        let pos = prismflakes[id];
-        let flake = document.getElementById(id);
+        const pos = prismflakes[id];
+        const flake = document.getElementById(id);
         if (!flake) {
             delete prismflakes[id];
             continue;
@@ -347,7 +347,7 @@ function startFlakes() {
     prismflakesStarted = true;
 
     updateFlakes();
-    let int = setInterval(() => {
+    const int = setInterval(() => {
         if (!prismflakesStarted) {
             clearInterval(int);
             return;

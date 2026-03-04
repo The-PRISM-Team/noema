@@ -8,7 +8,7 @@ function startMod() {
         setTimeout(() => {
             notify('Example mod loaded!', null, 'star');
             // mod preinit
-            let modthemes = window.modthemes = {
+            const modthemes = window.modthemes = {
                 "default": {
                     "desc": "default theme",
                     "top": "#048",
@@ -61,9 +61,9 @@ function startMod() {
             if (new Date().getMonth() !== 11) startFlakes();
 
             // mod thingy
-            let modprefId = createOption('mod preferences');
-            let modthemesId = createOption('mod themes');
-            let modsillyId = createOption('flashbang');
+            const modprefId = createOption('mod preferences');
+            const modthemesId = createOption('mod themes');
+            const modsillyId = createOption('flashbang');
 
             createSuboption(modprefId, 'set bg music', 'sets the bg music source to any url', () => {
                 promptDialog((url) => {
@@ -111,8 +111,8 @@ function startMod() {
             }, 'wrench', 'power');
 
             createSuboption(modsillyId, 'flashbang', 'why did i make this', () => {
-                let flashbang = new Audio('https://file.garden/aHFDYCLeNBLSceNi/flashbang.mp3');
-                let flash = document.createElement('div');
+                const flashbang = new Audio('https://file.garden/aHFDYCLeNBLSceNi/flashbang.mp3');
+                const flash = document.createElement('div');
                 flash.style.backgroundColor = '#fff';
                 flash.style.transition = 'opacity 10s linear';
                 flash.style.position = 'fixed';

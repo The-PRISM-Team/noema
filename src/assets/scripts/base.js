@@ -9,7 +9,7 @@ function formatVersion(versionObj = version, separator = '.', startChar = 'v', m
 }
 document.getElementById('version-number').textContent = formatVersion();
 
-let fpsCounter = document.getElementById('fps');
+const fpsCounter = document.getElementById('fps');
 
 let fps = 60, // assume 60 fps before check since that's a safe FPS
     avgfps = fps,
@@ -34,7 +34,7 @@ window.addEventListener('blur', () =>{
     if (started && localStorage.pauseMusic === 'true') bgMusic.pause();
 });
 
-let _fpses = [];
+const fpses = [];
 function updateFps() {
     const now = performance.now();
     deltaTime = (now - _lastTime) / 1e3;
@@ -43,21 +43,21 @@ function updateFps() {
     fps = Math.floor(fps);
 
     if (focused) { // fps can be VERY inaccurate when the tab is unfocused
-        if (_fpses.length > 0) {
+        if (fpses.length > 0) {
             let fpsTotal = 0;
-            for (let i = 0; i < _fpses.length; i++) {
-                fpsTotal += _fpses[i];
+            for (let i = 0; i < fpses.length; i++) {
+                fpsTotal += fpses[i];
             }
-            avgfps = Math.round(fpsTotal / _fpses.length);
+            avgfps = Math.round(fpsTotal / fpses.length);
         } else {
             avgfps = fps;
         }
 
         if (avgfps === 0 && focused) avgfps = fps;
     }
-    _fpses.push(fps);
-    if (_fpses.length > 120) {
-        _fpses.shift();
+    fpses.push(fps);
+    if (fpses.length > 120) {
+        fpses.shift();
     }
 
     requestAnimationFrame(updateFps);
@@ -111,14 +111,14 @@ if (isDefined(window.matchMedia)) {
 }
 
 function startTimeRuntime() {
-    let date = new AdvDate();
+    const date = new AdvDate();
     const timeText = document.getElementById('time');
     const hourHand = document.getElementById('hourhand');
     const minHand = document.getElementById('minhand');
     const secHand = document.getElementById('sechand');
     const secHandLine = document.getElementById('sechand-line');
     function updateTime() {
-        let time = date.getDateString({
+        const time = date.getDateString({
             trimWeek: true,
             showWeek: false,
             monthFirst: true,
@@ -134,9 +134,9 @@ function startTimeRuntime() {
     updateTime();
 }
 function fadeInBackgroundMusic() {
-    let volume = parseFloat(localStorage.musicVolume).clamp(0, 1);
+    const volume = parseFloat(localStorage.musicVolume).clamp(0, 1);
     let t = 0;
-    let int = setInterval(() => {
+    const int = setInterval(() => {
         if (t >= volume) {
             bgMusic.volume = volume * masterVolume;
             clearInterval(int);
@@ -163,7 +163,7 @@ function loadDefaultScripts() {
         if (!isDefined(url)) return;
         if (!isURL(url)) return;
         if (document.getElementById('script-' + url)) return;
-        let script = document.createElement('script');
+        const script = document.createElement('script');
         script.src = url;
         script.id = 'script-' + url;
         document.body.appendChild(script);
@@ -173,7 +173,7 @@ function startBootRuntime() {
     if (new Date().getMonth() === 11) startFlakes();
     loadDefaultScripts();
     showChangelog();
-    let evtn = new CustomEvent('noemaStarted');
+    const evtn = new CustomEvent('noemaStarted');
     document.dispatchEvent(evtn);
 }
 
@@ -244,8 +244,8 @@ async function init() {
     runtimeModules.boot.start();
 }
 
-let battery, batteryWarned = false;
-let batteryInitialized = false;
+const battery, batteryWarned = false;
+const batteryInitialized = false;
 const batteryDiv = document.getElementById('battery-div');
 const batteryBar = document.getElementById('battery-bar');
 const batteryText = document.getElementById('battery-text');
@@ -308,7 +308,7 @@ async function updateLoop(timestamp) {
     if (inactivityMs > 60e3 * 1.5) {
         ui.classList.add('inactive');
     } else {
-        let suboptions = document.getElementById(`ui-content${selectedOption}`).querySelectorAll('.ui-suboption');
+        const suboptions = document.getElementById(`ui-content${selectedOption}`).querySelectorAll('.ui-suboption');
         if (inactivityMs > 9e3) {
             suboptions.forEach(suboption => {
                 suboption.classList.add('inactive');

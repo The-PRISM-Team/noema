@@ -40,7 +40,7 @@ function playSound(sound, volume, properties = {}) {
             volume = parseFloat(localStorage.uiSoundVolume) * masterVolume.clamp(0, 1);
 
         snd.volume = volume.clamp(0, 1);
-        for (let [property, value] of Object.entries(properties)) {
+        for (const [property, value] of Object.entries(properties)) {
             snd[property] = value;
         }
         snd.play();

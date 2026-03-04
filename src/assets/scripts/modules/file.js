@@ -1,8 +1,8 @@
-function downloadFileWithContent(filename = `Untitled file - ${Date.now()}`, content = '') {
-    let blob = new Blob([content], { type: 'text/plain' });
-    let url = URL.createObjectURL(blob);
+function downloadFileWithContent(filename = `Untitled file [${Date.now()}]`, content = '') {
+    const blob = new Blob([content], { type: 'text/plain' });
+    const url = URL.createObjectURL(blob);
 
-    let a = document.createElement('a');
+    const a = document.createElement('a');
     a.href = url;
     a.download = filename;
 
