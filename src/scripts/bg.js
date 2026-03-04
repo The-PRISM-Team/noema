@@ -194,6 +194,7 @@ const bgColors = {
 	}
 };
 if (!isDefined(localStorage.bgColor) || !Object.keys(bgColors).includes(localStorage.bgColor)) localStorage.bgColor = 'noema';
+if (!isDefined(localStorage.bgBrightness)) localStorage.bgBrightness = '1';
 let currentColor = {
 	top: "#000",
 	bottom: "#000"
@@ -202,7 +203,7 @@ let accentColor = currentColor.accentColor ?? currentColor.bottom;
 document.body.style.accentColor = currentColor;
 
 let bgTop = 5;
-let bgBrightness = 1;
+let bgBrightness = parseFloat(localStorage.bgBrightness) || 1;
 let bgBottom = 100;
 let changingBG = false;
 let queued;
@@ -239,6 +240,7 @@ function changeBGColor({
 	if (localStorage.noTransitions === 'true') {
 		document.body.style.background = formatBGGradient(bgTop, 100, topColor, bottomColor);
 		document.body.style.accentColor = accentColor = AccentColor;
+		document.body.style.filter = `brightness(${brightness})`;
 	} else {
 		changingBG = true;
 		let t = 0;
@@ -248,6 +250,7 @@ function changeBGColor({
 				changingBG = false;
 				document.body.style.background = formatBGGradient(bgTop, 100, topColor, bottomColor);
 				document.body.style.accentColor = accentColor = AccentColor;
+				document.body.style.filter = `brightness(${brightness})`;
 				if (queued) {
 					changeBGColor(queued);
 					queued = undefined;

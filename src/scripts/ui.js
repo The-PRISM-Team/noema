@@ -452,6 +452,18 @@ function initUI() {
 		'bin'
 	);
 
+	// Background Brightness preference
+	if (!isDefined(localStorage.bgBrightness)) localStorage.bgBrightness = '1';
+	createSuboption(prefTab, 'Background Brightness', `Background brightness currently set to ${decimalStrToPercentage(localStorage.bgBrightness)}%.`, () => {
+		inputDialog('Set Background Brightness', 'Adjust how bright the background appears. This affects the gradient and canvas drawing brightness.', decimalStrToPercentage(localStorage.bgBrightness), 10, 200, 1, '{value}%', (value) => {
+			localStorage.bgBrightness = percentageToDecimal(value);
+			try {
+				document.body.style.filter = `brightness(${localStorage.bgBrightness})`;
+			} catch (e) {}
+			setSuboption(selectedOption, selectedSuboption, 'Background Brightness', `Background brightness currently set to ${decimalStrToPercentage(localStorage.bgBrightness)}%.`);
+		});
+	}, 'wrench');
+
 	createSuboption(audioTab, 'Toggle pausing background music on unfocus',
 		localStorage.pauseMusic === 'true' ? 'Background music currently gets paused on unfocus.\nSelect to not mute it on unfocus.' : 'Background music currently doesn\'t get muted on unfocus.\nSelect to mute it on unfocus.',
 		() => {
