@@ -10,8 +10,8 @@
     "editor.selectionBackground": "#29bf2633",
     "editor.inactiveSelectionBackground": "#29bf2622",
     "editorCursor.foreground": "#29bf26",
-    "editorIndentGuide.background": "#21bf1544",
-    "editorIndentGuide.activeBackground": "#21bf1588",
+    "editorIndentGuide.background1": "#21bf1544",
+    "editorIndentGuide.activeBackground1": "#21bf1588",
 
     "activityBar.background": "#0a440f",
     "activityBar.foreground": "#c0ffc0",
