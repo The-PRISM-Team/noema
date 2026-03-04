@@ -150,12 +150,15 @@
     },
     "vscode-extension": {
         "files": [
+            "noema-themes-0.0.1.vsix",
+            "noema-themes-0.1.0.vsix",
             "package.json"
         ],
         "themes": {
             "files": [
                 "cherry-color-theme.json",
-                "frogleaf-color-theme.json"
+                "frogleaf-color-theme.json",
+                "watermelon-sugar-color-theme.json"
             ]
         }
     }
