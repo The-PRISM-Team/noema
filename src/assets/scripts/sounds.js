@@ -3,11 +3,11 @@ const sounds =
         'back.flac',
         'confirm.flac',
         'error.flac',
-        'fatal-error.flac',
         'notif.flac',
         'power.flac',
         'select.flac',
-        '../coldboot.flac', // this path is valid btw
+        '../fatal-error.flac', // this path is valid btw
+        '../coldboot.flac',
         '../menu_music.flac'
     ];
 const soundIndexByName = {};
