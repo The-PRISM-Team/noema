@@ -64,7 +64,7 @@ window.addEventListener("error", (event) => {
                     backdrop-filter: blur(50px) brightness(75%) opacity(90%);
 
                     font-family: 'Manrope', monospace;
-                    font-size: min(48px, 4vw);
+                    font-size: 48px;
                     font-weight: light;
                     color: #fff;
                     white-space: pre-wrap;
@@ -77,7 +77,6 @@ window.addEventListener("error", (event) => {
                 `;
                 warning.textContent = "STARTUP FAILED";
                 document.body.appendChild(warning);
-                warning.style.opacity = "100%";
                 setTimeout(()=>{
                     if (errorList.length > 0) {
                         warning.textContent = `Error(s):\n${errorList.join('\n')}`;
