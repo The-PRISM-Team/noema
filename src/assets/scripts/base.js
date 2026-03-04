@@ -409,11 +409,15 @@ async function init() {
             selectedSuboptions[themeTab] = i;
     });
 
-    createSuboption(waveTab, 'None', 'Disables the wave entirely, best for low-end devices.', 'density = 0; localStorage.spaghettiDensity = density', 'wrench');
-    createSuboption(waveTab, 'Lowest', 'Least detail, the fastest option if you want a background wave and more performance.', 'density = 15; localStorage.spaghettiDensity = density', 'wrench');
-    createSuboption(waveTab, 'Low', 'Less detail, a better option if you want a denser background wave and have a lower-end device.', 'density = 35; localStorage.spaghettiDensity = density', 'wrench');
-    createSuboption(waveTab, 'Medium', 'More detail, recommended for mid-range devices with good enough performance.', 'density = 50; localStorage.spaghettiDensity = density', 'wrench');
-    createSuboption(waveTab, 'High', "High detail, recommended for computers with a good CPU (or GPU, if supported).\nNot recommended for lower-end devices, since they could have slowdowns or overheat.", 'density = 75; localStorage.spaghettiDensity = density', 'wrench');
+    for (const [label, data] of Object.entries(densities)) {
+        createSuboption(
+            waveTab,
+            label.toTitleCase(),
+            data.desc,
+            `localStorage.spaghettiDensity = density = ${data.value};`,
+            'wrench'
+        );
+    }
 
     createSuboption(helpTab, 'Convert Save File', null, `
         const width = window.innerWidth / 2;
