@@ -139,7 +139,7 @@ function selectUISuboption(id) {
     });
 }
 function executeUISuboption() {
-    const suboption = document.body.querySelector(`#ui-content${selectedOption} #ui-content${selectedOption}`);
+    const suboption = document.body.querySelector(`#ui-content${selectedOption} #ui-suboption${selectedSuboption}`);
     const actionId = suboption.dataset.action;
     if (isDefined(actionId) && isDefined(uiSuboptionActions[actionId])) {
         uiSuboptionActions[actionId]();
