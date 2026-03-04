@@ -52,14 +52,11 @@ window.addEventListener("error", (event) => {
             setTimeout(() => {
                 document.body.style.background = "#800";
                 const warning = document.createElement('a');
-                warning.textContent = "STARTUP FAILED";
                 warning.style.cssText = `
                     z-index: calc(infinity);
                     opacity: 0%;
 
                     display: flex;
-                    jusify-content: center;
-                    align-content: center;
                     width: 100vw;
                     height: 100vh;
 
@@ -78,15 +75,16 @@ window.addEventListener("error", (event) => {
 
                     transition: opacity .5s ease;
                 `;
+                warning.textContent = "STARTUP FAILED";
                 document.body.appendChild(warning);
                 warning.style.opacity = "100%";
                 setTimeout(()=>{
                     if (errorList.length > 0) {
                         warning.textContent = `Error(s):\n${errorList.join('\n')}`;
                     } else {
-                        warning.textContent = `Error(s): Unknown`;
+                        warning.textContent = `Error(s):\nUnknown`;
                     }
-                }, 1.5e3);
+                }, 2e3);
                 setTimeout(()=>{
                     let time = 5;
                     setInterval(() => {
