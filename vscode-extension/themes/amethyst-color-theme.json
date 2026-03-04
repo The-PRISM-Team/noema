@@ -1,0 +1,124 @@
+{
+  "name": "Amethyst",
+  "type": "dark",
+  "category": "Noema",
+  "colors": {
+    "editor.background": "#a0c",
+    "editor.foreground": "#a0c",
+    "editorLineNumber.foreground": "#a0c",
+    "editorLineNumber.activeForeground": "#a0c",
+    "editor.selectionBackground": "#a0c",
+    "editor.inactiveSelectionBackground": "#a0c",
+    "editorCursor.foreground": "#a0c",
+    "editorIndentGuide.background": "#a0c",
+    "editorIndentGuide.activeBackground": "#a0c",
+    "activityBar.background": "#a0c",
+    "activityBar.foreground": "#f0f",
+    "activityBar.inactiveForeground": "#a0c",
+    "activityBar.border": "#a0c",
+    "activityBarBadge.background": "#f0f",
+    "activityBarBadge.foreground": "#f0f",
+    "sideBar.background": "#a0c",
+    "sideBar.foreground": "#f0f",
+    "sideBarTitle.foreground": "#f0f",
+    "sideBar.border": "#a0c",
+    "statusBar.background": "#a0c",
+    "statusBar.foreground": "#f0f",
+    "statusBar.noFolderBackground": "#a0c",
+    "statusBar.debuggingBackground": "#a0c",
+    "statusBar.border": "#a0c",
+    "titleBar.activeBackground": "#a0c",
+    "titleBar.activeForeground": "#a0c",
+    "titleBar.inactiveBackground": "#a0c",
+    "titleBar.inactiveForeground": "#a0c",
+    "tab.activeBackground": "#a0c",
+    "tab.inactiveBackground": "#a0c",
+    "tab.hoverBackground": "#a0c",
+    "tab.activeForeground": "#a0c",
+    "tab.inactiveForeground": "#a0c",
+    "tab.border": "#a0c",
+    "tab.activeBorder": "#a0c",
+    "panel.background": "#a0c",
+    "panel.border": "#a0c",
+    "panelTitle.activeForeground": "#a0c",
+    "input.background": "#a0c",
+    "input.foreground": "#f0f",
+    "input.placeholderForeground": "#a0c",
+    "inputOption.activeBorder": "#a0c",
+    "dropdown.background": "#a0c",
+    "dropdown.foreground": "#f0f",
+    "dropdown.border": "#a0c",
+    "dropdown.listBackground": "#a0c",
+    "list.hoverBackground": "#a0c",
+    "list.activeSelectionBackground": "#a0c",
+    "list.inactiveSelectionBackground": "#a0c",
+    "list.highlightForeground": "#f0f",
+    "scrollbarSlider.background": "#a0c",
+    "scrollbarSlider.hoverBackground": "#a0c",
+    "scrollbarSlider.activeBackground": "#a0c",
+    "badge.background": "#a0c",
+    "badge.foreground": "#f0f",
+    "button.background": "#f0f",
+    "button.foreground": "#f0f",
+    "button.hoverBackground": "#a0c",
+    "tooltip.background": "#a0c",
+    "tooltip.foreground": "#f0f",
+    "menu.background": "#a0c",
+    "menu.foreground": "#f0f",
+    "menu.selectionBackground": "#a0c",
+    "menu.selectionForeground": "#a0c",
+    "checkbox.background": "#a0c",
+    "checkbox.foreground": "#f0f",
+    "peekViewEditor.background": "#a0c"
+  },
+  "tokenColors": [
+    {
+      "scope": [
+        "comment",
+        "punctuation.definition.comment"
+      ],
+      "settings": {
+        "foreground": "#ff80ff",
+        "fontStyle": "italic"
+      }
+    },
+    {
+      "scope": [
+        "string"
+      ],
+      "settings": {
+        "foreground": "#ff0080"
+      }
+    },
+    {
+      "scope": [
+        "keyword",
+        "storage"
+      ],
+      "settings": {
+        "foreground": "#ff80ff",
+        "fontStyle": "bold"
+      }
+    },
+    {
+      "scope": [
+        "entity.name.function",
+        "support.function",
+        "entity.name.type"
+      ],
+      "settings": {
+        "foreground": "#ffffff",
+        "fontStyle": "bold"
+      }
+    },
+    {
+      "scope": [
+        "variable",
+        "identifier"
+      ],
+      "settings": {
+        "foreground": "#ffffff"
+      }
+    }
+  ]
+}

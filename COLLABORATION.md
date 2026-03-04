@@ -53,6 +53,8 @@ This document explains how contributors can work with the Noema codebase. Since 
 ### Notes for maintainers
 
 * A basic linter/formatter already runs on every commit, but you may still consider adding a package manager or test framework if the project expands. Guidelines can be revised as needed.
+
+* The `ACRONYMS.md` file lists project abbreviations such as **PO** (plain object) and should be consulted when unfamiliar terms appear.
 * The repository is intentionally minimal. Keep dependencies to a minimum and avoid introducing build steps unless absolutely necessary.
 
 Thanks for contributing to Noema. Every pull request and suggestion helps the project grow.

@@ -1,0 +1,124 @@
+{
+  "name": "Bisexual Flag",
+  "type": "dark",
+  "category": "Noema",
+  "colors": {
+    "editor.background": "#D60270",
+    "editor.foreground": "#D60270",
+    "editorLineNumber.foreground": "#D60270",
+    "editorLineNumber.activeForeground": "#D60270",
+    "editor.selectionBackground": "#D60270",
+    "editor.inactiveSelectionBackground": "#D60270",
+    "editorCursor.foreground": "#D60270",
+    "editorIndentGuide.background": "#D60270",
+    "editorIndentGuide.activeBackground": "#D60270",
+    "activityBar.background": "#D60270",
+    "activityBar.foreground": "#9B4F96",
+    "activityBar.inactiveForeground": "#D60270",
+    "activityBar.border": "#D60270",
+    "activityBarBadge.background": "#9B4F96",
+    "activityBarBadge.foreground": "#9B4F96",
+    "sideBar.background": "#D60270",
+    "sideBar.foreground": "#9B4F96",
+    "sideBarTitle.foreground": "#9B4F96",
+    "sideBar.border": "#D60270",
+    "statusBar.background": "#D60270",
+    "statusBar.foreground": "#9B4F96",
+    "statusBar.noFolderBackground": "#D60270",
+    "statusBar.debuggingBackground": "#D60270",
+    "statusBar.border": "#D60270",
+    "titleBar.activeBackground": "#D60270",
+    "titleBar.activeForeground": "#D60270",
+    "titleBar.inactiveBackground": "#D60270",
+    "titleBar.inactiveForeground": "#D60270",
+    "tab.activeBackground": "#D60270",
+    "tab.inactiveBackground": "#D60270",
+    "tab.hoverBackground": "#D60270",
+    "tab.activeForeground": "#D60270",
+    "tab.inactiveForeground": "#D60270",
+    "tab.border": "#D60270",
+    "tab.activeBorder": "#D60270",
+    "panel.background": "#D60270",
+    "panel.border": "#D60270",
+    "panelTitle.activeForeground": "#D60270",
+    "input.background": "#D60270",
+    "input.foreground": "#9B4F96",
+    "input.placeholderForeground": "#D60270",
+    "inputOption.activeBorder": "#D60270",
+    "dropdown.background": "#D60270",
+    "dropdown.foreground": "#9B4F96",
+    "dropdown.border": "#D60270",
+    "dropdown.listBackground": "#D60270",
+    "list.hoverBackground": "#D60270",
+    "list.activeSelectionBackground": "#D60270",
+    "list.inactiveSelectionBackground": "#D60270",
+    "list.highlightForeground": "#9B4F96",
+    "scrollbarSlider.background": "#D60270",
+    "scrollbarSlider.hoverBackground": "#D60270",
+    "scrollbarSlider.activeBackground": "#D60270",
+    "badge.background": "#D60270",
+    "badge.foreground": "#9B4F96",
+    "button.background": "#9B4F96",
+    "button.foreground": "#9B4F96",
+    "button.hoverBackground": "#D60270",
+    "tooltip.background": "#D60270",
+    "tooltip.foreground": "#9B4F96",
+    "menu.background": "#D60270",
+    "menu.foreground": "#9B4F96",
+    "menu.selectionBackground": "#D60270",
+    "menu.selectionForeground": "#D60270",
+    "checkbox.background": "#D60270",
+    "checkbox.foreground": "#9B4F96",
+    "peekViewEditor.background": "#D60270"
+  },
+  "tokenColors": [
+    {
+      "scope": [
+        "comment",
+        "punctuation.definition.comment"
+      ],
+      "settings": {
+        "foreground": "#ff80ff",
+        "fontStyle": "italic"
+      }
+    },
+    {
+      "scope": [
+        "string"
+      ],
+      "settings": {
+        "foreground": "#ff0080"
+      }
+    },
+    {
+      "scope": [
+        "keyword",
+        "storage"
+      ],
+      "settings": {
+        "foreground": "#ff80ff",
+        "fontStyle": "bold"
+      }
+    },
+    {
+      "scope": [
+        "entity.name.function",
+        "support.function",
+        "entity.name.type"
+      ],
+      "settings": {
+        "foreground": "#ffffff",
+        "fontStyle": "bold"
+      }
+    },
+    {
+      "scope": [
+        "variable",
+        "identifier"
+      ],
+      "settings": {
+        "foreground": "#ffffff"
+      }
+    }
+  ]
+}

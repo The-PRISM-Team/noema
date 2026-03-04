@@ -1,0 +1,124 @@
+{
+  "name": "Ash",
+  "type": "dark",
+  "category": "Noema",
+  "colors": {
+    "editor.background": "#ddd",
+    "editor.foreground": "#ddd",
+    "editorLineNumber.foreground": "#ddd",
+    "editorLineNumber.activeForeground": "#ddd",
+    "editor.selectionBackground": "#ddd",
+    "editor.inactiveSelectionBackground": "#ddd",
+    "editorCursor.foreground": "#ddd",
+    "editorIndentGuide.background": "#ddd",
+    "editorIndentGuide.activeBackground": "#ddd",
+    "activityBar.background": "#ddd",
+    "activityBar.foreground": "#aaa",
+    "activityBar.inactiveForeground": "#ddd",
+    "activityBar.border": "#ddd",
+    "activityBarBadge.background": "#aaa",
+    "activityBarBadge.foreground": "#aaa",
+    "sideBar.background": "#ddd",
+    "sideBar.foreground": "#aaa",
+    "sideBarTitle.foreground": "#aaa",
+    "sideBar.border": "#ddd",
+    "statusBar.background": "#ddd",
+    "statusBar.foreground": "#aaa",
+    "statusBar.noFolderBackground": "#ddd",
+    "statusBar.debuggingBackground": "#ddd",
+    "statusBar.border": "#ddd",
+    "titleBar.activeBackground": "#ddd",
+    "titleBar.activeForeground": "#ddd",
+    "titleBar.inactiveBackground": "#ddd",
+    "titleBar.inactiveForeground": "#ddd",
+    "tab.activeBackground": "#ddd",
+    "tab.inactiveBackground": "#ddd",
+    "tab.hoverBackground": "#ddd",
+    "tab.activeForeground": "#ddd",
+    "tab.inactiveForeground": "#ddd",
+    "tab.border": "#ddd",
+    "tab.activeBorder": "#ddd",
+    "panel.background": "#ddd",
+    "panel.border": "#ddd",
+    "panelTitle.activeForeground": "#ddd",
+    "input.background": "#ddd",
+    "input.foreground": "#aaa",
+    "input.placeholderForeground": "#ddd",
+    "inputOption.activeBorder": "#ddd",
+    "dropdown.background": "#ddd",
+    "dropdown.foreground": "#aaa",
+    "dropdown.border": "#ddd",
+    "dropdown.listBackground": "#ddd",
+    "list.hoverBackground": "#ddd",
+    "list.activeSelectionBackground": "#ddd",
+    "list.inactiveSelectionBackground": "#ddd",
+    "list.highlightForeground": "#aaa",
+    "scrollbarSlider.background": "#ddd",
+    "scrollbarSlider.hoverBackground": "#ddd",
+    "scrollbarSlider.activeBackground": "#ddd",
+    "badge.background": "#ddd",
+    "badge.foreground": "#aaa",
+    "button.background": "#aaa",
+    "button.foreground": "#aaa",
+    "button.hoverBackground": "#ddd",
+    "tooltip.background": "#ddd",
+    "tooltip.foreground": "#aaa",
+    "menu.background": "#ddd",
+    "menu.foreground": "#aaa",
+    "menu.selectionBackground": "#ddd",
+    "menu.selectionForeground": "#ddd",
+    "checkbox.background": "#ddd",
+    "checkbox.foreground": "#aaa",
+    "peekViewEditor.background": "#ddd"
+  },
+  "tokenColors": [
+    {
+      "scope": [
+        "comment",
+        "punctuation.definition.comment"
+      ],
+      "settings": {
+        "foreground": "#ff80ff",
+        "fontStyle": "italic"
+      }
+    },
+    {
+      "scope": [
+        "string"
+      ],
+      "settings": {
+        "foreground": "#ff0080"
+      }
+    },
+    {
+      "scope": [
+        "keyword",
+        "storage"
+      ],
+      "settings": {
+        "foreground": "#ff80ff",
+        "fontStyle": "bold"
+      }
+    },
+    {
+      "scope": [
+        "entity.name.function",
+        "support.function",
+        "entity.name.type"
+      ],
+      "settings": {
+        "foreground": "#ffffff",
+        "fontStyle": "bold"
+      }
+    },
+    {
+      "scope": [
+        "variable",
+        "identifier"
+      ],
+      "settings": {
+        "foreground": "#ffffff"
+      }
+    }
+  ]
+}

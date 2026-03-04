@@ -59,6 +59,7 @@ The project does not use a build system; opening `src/index.html` in a browser i
 * JavaScript is written in plain ES5/ES6; there is no transpilation step.
 * Modules in `/src/assets/scripts/modules` are included by `preinit.js` or at runtime by the core scripts.
 * The codebase has no automated tests or package manager; formatting is automatically enforced by a pre-commit lint workflow, so just write reasonably consistent code and the tooling will handle the rest.
+* A set of **Noema color themes** is provided via a VSCode extension.  All palettes defined in `src/assets/scripts/bg.js` are included, grouped under the "Noema" category. See the `vscode-extension/themes` folder for details.
 
 For background information, see the documents under `misc/markdowns`.
 

@@ -2,7 +2,7 @@
     "name": "noema-themes",
     "displayName": "Noema Themes",
     "description": "Collection of VSCode color themes based on all Noema palettes (Cherry, Frogleaf, Watermelon Sugar)",
-    "version": "0.1.0",
+    "version": "0.2.0",
     "publisher": "sophb-ccjt",
     "engines": {
         "vscode": "^1.50.0"
@@ -26,6 +26,81 @@
                 "label": "Watermelon Sugar",
                 "uiTheme": "vs-dark",
                 "path": "./themes/watermelon-sugar-color-theme.json"
+            },
+            {
+                "label": "Prism",
+                "uiTheme": "vs-dark",
+                "path": "./themes/PRISM-color-theme.json"
+            },
+            {
+                "label": "Amethyst",
+                "uiTheme": "vs-dark",
+                "path": "./themes/amethyst-color-theme.json"
+            },
+            {
+                "label": "Ash",
+                "uiTheme": "vs-dark",
+                "path": "./themes/ash-color-theme.json"
+            },
+            {
+                "label": "Bisexual Flag",
+                "uiTheme": "vs-dark",
+                "path": "./themes/bisexual-flag-color-theme.json"
+            },
+            {
+                "label": "Charcoal",
+                "uiTheme": "vs-dark",
+                "path": "./themes/charcoal-color-theme.json"
+            },
+            {
+                "label": "Cobalt",
+                "uiTheme": "vs-dark",
+                "path": "./themes/cobalt-color-theme.json"
+            },
+            {
+                "label": "Ember",
+                "uiTheme": "vs-dark",
+                "path": "./themes/ember-color-theme.json"
+            },
+            {
+                "label": "Gay Flag",
+                "uiTheme": "vs-dark",
+                "path": "./themes/gay-flag-color-theme.json"
+            },
+            {
+                "label": "Lesbian Flag",
+                "uiTheme": "vs-dark",
+                "path": "./themes/lesbian-flag-color-theme.json"
+            },
+            {
+                "label": "Meadow",
+                "uiTheme": "vs-dark",
+                "path": "./themes/meadow-color-theme.json"
+            },
+            {
+                "label": "Neonflux",
+                "uiTheme": "vs-dark",
+                "path": "./themes/neonflux-color-theme.json"
+            },
+            {
+                "label": "Noema",
+                "uiTheme": "vs-dark",
+                "path": "./themes/noema-color-theme.json"
+            },
+            {
+                "label": "Shore",
+                "uiTheme": "vs-dark",
+                "path": "./themes/shore-color-theme.json"
+            },
+            {
+                "label": "Sprite",
+                "uiTheme": "vs-dark",
+                "path": "./themes/sprite-color-theme.json"
+            },
+            {
+                "label": "Trans Flag",
+                "uiTheme": "vs-dark",
+                "path": "./themes/trans-flag-color-theme.json"
             }
         ]
     }

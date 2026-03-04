@@ -1,0 +1,124 @@
+{
+  "name": "Lesbian Flag",
+  "type": "dark",
+  "category": "Noema",
+  "colors": {
+    "editor.background": "#E95D27",
+    "editor.foreground": "#E95D27",
+    "editorLineNumber.foreground": "#E95D27",
+    "editorLineNumber.activeForeground": "#E95D27",
+    "editor.selectionBackground": "#E95D27",
+    "editor.inactiveSelectionBackground": "#E95D27",
+    "editorCursor.foreground": "#E95D27",
+    "editorIndentGuide.background": "#E95D27",
+    "editorIndentGuide.activeBackground": "#E95D27",
+    "activityBar.background": "#E95D27",
+    "activityBar.foreground": "#C0162D",
+    "activityBar.inactiveForeground": "#E95D27",
+    "activityBar.border": "#E95D27",
+    "activityBarBadge.background": "#C0162D",
+    "activityBarBadge.foreground": "#C0162D",
+    "sideBar.background": "#E95D27",
+    "sideBar.foreground": "#C0162D",
+    "sideBarTitle.foreground": "#C0162D",
+    "sideBar.border": "#E95D27",
+    "statusBar.background": "#E95D27",
+    "statusBar.foreground": "#C0162D",
+    "statusBar.noFolderBackground": "#E95D27",
+    "statusBar.debuggingBackground": "#E95D27",
+    "statusBar.border": "#E95D27",
+    "titleBar.activeBackground": "#E95D27",
+    "titleBar.activeForeground": "#E95D27",
+    "titleBar.inactiveBackground": "#E95D27",
+    "titleBar.inactiveForeground": "#E95D27",
+    "tab.activeBackground": "#E95D27",
+    "tab.inactiveBackground": "#E95D27",
+    "tab.hoverBackground": "#E95D27",
+    "tab.activeForeground": "#E95D27",
+    "tab.inactiveForeground": "#E95D27",
+    "tab.border": "#E95D27",
+    "tab.activeBorder": "#E95D27",
+    "panel.background": "#E95D27",
+    "panel.border": "#E95D27",
+    "panelTitle.activeForeground": "#E95D27",
+    "input.background": "#E95D27",
+    "input.foreground": "#C0162D",
+    "input.placeholderForeground": "#E95D27",
+    "inputOption.activeBorder": "#E95D27",
+    "dropdown.background": "#E95D27",
+    "dropdown.foreground": "#C0162D",
+    "dropdown.border": "#E95D27",
+    "dropdown.listBackground": "#E95D27",
+    "list.hoverBackground": "#E95D27",
+    "list.activeSelectionBackground": "#E95D27",
+    "list.inactiveSelectionBackground": "#E95D27",
+    "list.highlightForeground": "#C0162D",
+    "scrollbarSlider.background": "#E95D27",
+    "scrollbarSlider.hoverBackground": "#E95D27",
+    "scrollbarSlider.activeBackground": "#E95D27",
+    "badge.background": "#E95D27",
+    "badge.foreground": "#C0162D",
+    "button.background": "#C0162D",
+    "button.foreground": "#C0162D",
+    "button.hoverBackground": "#E95D27",
+    "tooltip.background": "#E95D27",
+    "tooltip.foreground": "#C0162D",
+    "menu.background": "#E95D27",
+    "menu.foreground": "#C0162D",
+    "menu.selectionBackground": "#E95D27",
+    "menu.selectionForeground": "#E95D27",
+    "checkbox.background": "#E95D27",
+    "checkbox.foreground": "#C0162D",
+    "peekViewEditor.background": "#E95D27"
+  },
+  "tokenColors": [
+    {
+      "scope": [
+        "comment",
+        "punctuation.definition.comment"
+      ],
+      "settings": {
+        "foreground": "#ff80ff",
+        "fontStyle": "italic"
+      }
+    },
+    {
+      "scope": [
+        "string"
+      ],
+      "settings": {
+        "foreground": "#ff0080"
+      }
+    },
+    {
+      "scope": [
+        "keyword",
+        "storage"
+      ],
+      "settings": {
+        "foreground": "#ff80ff",
+        "fontStyle": "bold"
+      }
+    },
+    {
+      "scope": [
+        "entity.name.function",
+        "support.function",
+        "entity.name.type"
+      ],
+      "settings": {
+        "foreground": "#ffffff",
+        "fontStyle": "bold"
+      }
+    },
+    {
+      "scope": [
+        "variable",
+        "identifier"
+      ],
+      "settings": {
+        "foreground": "#ffffff"
+      }
+    }
+  ]
+}
