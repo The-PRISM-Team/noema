@@ -44,9 +44,7 @@
     "src": {
         "files": [
             "css.css",
-            "index.html",
-            "test2.js",
-            "testlint.js"
+            "index.html"
         ],
         "assets": {
             "sounds": {
