@@ -48,10 +48,10 @@ function focusUIOption(id) {
     });
 }
 
-let selectedOption = 0;
-let selectedSuboption = 0;
-const selectedSuboptions = {};
-const uiSuboptionActions = {};
+let selectedOption = 0,
+    selectedSuboption = 0,
+    selectedSuboptions = {},
+    uiSuboptionActions = {};
 function normalizeActionId(value = '') {
     return value
         .toString()
