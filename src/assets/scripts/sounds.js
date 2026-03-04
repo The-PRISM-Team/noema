@@ -12,7 +12,9 @@ const sounds =
     ];
 const soundIndexByName = {};
 for (let i = 0; i < sounds.length; i++) {
-    soundIndexByName[sounds[i].split('.').slice(0, -1).join('.')] = i;
+    const soundNameRegex = /(.{0,2}\/)*([\w-]+)\.(\w+)/g;
+    const soundNameGroup = 2;
+    soundIndexByName[soundNameRegex.exec(sounds[i])[soundNameGroup]] = i;
 }
 
 let masterVolume = 1;
