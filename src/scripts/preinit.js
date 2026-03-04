@@ -20,6 +20,7 @@ if (!isDefined(localStorage.skipChargingTests)) localStorage.skipChargingTests =
 if (!isDefined(localStorage.masterVolume)) localStorage.masterVolume = '1';
 if (!isDefined(localStorage.musicVolume)) localStorage.musicVolume = '0.10';
 if (!isDefined(localStorage.uiSoundVolume)) localStorage.uiSoundVolume = '0.5';
+if (!isDefined(localStorage.bgBrightness)) localStorage.bgBrightness = '1';
 if (!isDefined(localStorage.noShaders) && navigator.deviceMemory < 4) localStorage.noShaders = 'true';
 if (!isDefined(localStorage.noTransitions) && navigator.deviceMemory < 2) localStorage.noTransitions = 'true';
 
