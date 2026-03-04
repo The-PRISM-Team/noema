@@ -1,0 +1,34 @@
+{
+  "name": "Frogleaf",
+  "type": "dark",
+  "colors": {
+    "editor.background": "#14881d",
+    "editor.foreground": "#e0ffe0",
+    "activityBar.background": "#14881d",
+    "sideBar.background": "#42ff2a",
+    "statusBar.background": "#14881d",
+    "button.background": "#52ff4c",
+    "editorLineNumber.foreground": "#a0ffa0",
+    "editorCursor.foreground": "#52ff4c",
+    "editor.selectionBackground": "#52ff4c33",
+    "editor.inactiveSelectionBackground": "#52ff4c22"
+  },
+  "tokenColors": [
+    {
+      "scope": ["comment", "punctuation.definition.comment"],
+      "settings": { "foreground": "#42ff2a", "fontStyle": "italic" }
+    },
+    {
+      "scope": ["string"],
+      "settings": { "foreground": "#ffff00" }
+    },
+    {
+      "scope": ["keyword", "storage"],
+      "settings": { "foreground": "#52ff4c", "fontStyle": "bold" }
+    },
+    {
+      "scope": ["variable", "identifier"],
+      "settings": { "foreground": "#e0ffe0" }
+    }
+  ]
+}

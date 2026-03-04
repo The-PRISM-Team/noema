@@ -1,0 +1,34 @@
+{
+  "name": "Cherry",
+  "type": "dark",
+  "colors": {
+    "editor.background": "#1e001e",
+    "editor.foreground": "#ff80ff",
+    "activityBar.background": "#ff0080",
+    "sideBar.background": "#2a001a",
+    "statusBar.background": "#ff0080",
+    "button.background": "#ff80ff",
+    "editorLineNumber.foreground": "#ff80ff",
+    "editorCursor.foreground": "#ff0080",
+    "editor.selectionBackground": "#ff008033",
+    "editor.inactiveSelectionBackground": "#ff008022"
+  },
+  "tokenColors": [
+    {
+      "scope": ["comment", "punctuation.definition.comment"],
+      "settings": { "foreground": "#ff80ff" }
+    },
+    {
+      "scope": ["string"],
+      "settings": { "foreground": "#ff0080" }
+    },
+    {
+      "scope": ["keyword", "storage"],
+      "settings": { "foreground": "#ff80ff", "fontStyle": "bold" }
+    },
+    {
+      "scope": ["variable", "identifier"],
+      "settings": { "foreground": "#ffffff" }
+    }
+  ]
+}

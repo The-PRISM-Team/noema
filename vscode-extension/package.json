@@ -1,0 +1,27 @@
+{
+  "name": "noema-themes",
+  "displayName": "Noema Themes",
+  "description": "Cherry and Frogleaf color themes inspired by Project Noema",
+  "version": "0.0.1",
+  "publisher": "sophb-ccjt",
+  "engines": {
+    "vscode": "^1.50.0"
+  },
+  "categories": [
+    "Themes"
+  ],
+  "contributes": {
+    "themes": [
+      {
+        "label": "Cherry",
+        "uiTheme": "vs-dark",
+        "path": "./themes/cherry-color-theme.json"
+      },
+      {
+        "label": "Frogleaf",
+        "uiTheme": "vs-dark",
+        "path": "./themes/frogleaf-color-theme.json"
+      }
+    ]
+  }
+}
