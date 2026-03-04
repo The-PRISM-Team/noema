@@ -4,10 +4,8 @@
         "COLLABORATION.md",
         "LICENSE",
         "README.md",
-        "anotherfile",
         "electron-start.js",
         "jsconfig.json",
-        "newfile.txt",
         "vs.code-workspace"
     ],
     "misc": {
@@ -38,7 +36,8 @@
     "src": {
         "files": [
             "css.css",
-            "index.html"
+            "index.html",
+            "testlint.js"
         ],
         "assets": {
             "sounds": {
