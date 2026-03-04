@@ -303,9 +303,9 @@ function initUI() {
             localStorage.coloredFavicon = localStorage.coloredFavicon === 'true' ? 'false' : 'true';
             icon();
             if (localStorage.coloredFavicon === 'true') {
-                setSuboption(selectedOption, selectedSuboption, 'Toggle monochrome favicon', 'Favicon is currently colored.\\nSelect to switch to a monochromatic favicon.');
+                setSuboption(selectedOption, selectedSuboption, 'Toggle monochrome favicon', 'Favicon is currently colored.\nSelect to switch to a monochromatic favicon.');
             } else {
-                setSuboption(selectedOption, selectedSuboption, 'Toggle monochrome favicon', 'Favicon is currently monochromatic.\\nSelect to switch to a colored favicon.');
+                setSuboption(selectedOption, selectedSuboption, 'Toggle monochrome favicon', 'Favicon is currently monochromatic.\nSelect to switch to a colored favicon.');
             }
         }, 'image');
     createSuboption(prefTab, 'Toggle open UI',
@@ -314,10 +314,10 @@ function initUI() {
             localStorage.openUI = localStorage.openUI === 'true' ? 'false' : 'true';
             if (localStorage.openUI === 'true') {
                 ui.classList.add('open');
-                setSuboption(selectedOption, selectedSuboption, 'Toggle open UI', 'UI is currently open.\\nSelect to close it.');
+                setSuboption(selectedOption, selectedSuboption, 'Toggle open UI', 'UI is currently open.\nSelect to close it.');
             } else {
                 ui.classList.remove('open');
-                setSuboption(selectedOption, selectedSuboption, 'Toggle open UI', 'UI is currently closed.\\nSelect to open it.');
+                setSuboption(selectedOption, selectedSuboption, 'Toggle open UI', 'UI is currently closed.\nSelect to open it.');
             }
         },
         'wrench'
@@ -327,9 +327,9 @@ function initUI() {
         () => {
             localStorage.startup = localStorage.startup === 'true' ? 'false' : 'true';
             if (localStorage.startup === 'true') {
-                setSuboption(selectedOption, selectedSuboption, 'Toggle startup animation', 'Startup animation is currently enabled.\\nSelect to disable it.');
+                setSuboption(selectedOption, selectedSuboption, 'Toggle startup animation', 'Startup animation is currently enabled.\nSelect to disable it.');
             } else {
-                setSuboption(selectedOption, selectedSuboption, 'Toggle startup animation', 'Startup animation is currently disabled.\\nSelect to enable it.');
+                setSuboption(selectedOption, selectedSuboption, 'Toggle startup animation', 'Startup animation is currently disabled.\nSelect to enable it.');
             }
         },
         'wrench'
@@ -341,9 +341,9 @@ function initUI() {
         () => {
             localStorage.fastBootDefault = localStorage.fastBootDefault === 'true' ? 'false' : 'true';
             if (localStorage.fastBootDefault === 'true') {
-                setSuboption(selectedOption, selectedSuboption, 'Fast boot by default', 'Fast boot is currently enabled by default.\\nStartup animation only plays when Reboot is used.\\nSelect to disable this.');
+                setSuboption(selectedOption, selectedSuboption, 'Fast boot by default', 'Fast boot is currently enabled by default.\nStartup animation only plays when Reboot is used.\nSelect to disable this.');
             } else {
-                setSuboption(selectedOption, selectedSuboption, 'Fast boot by default', 'Fast boot is currently disabled by default.\\nSelect to enable this and only show startup animation on Reboot.');
+                setSuboption(selectedOption, selectedSuboption, 'Fast boot by default', 'Fast boot is currently disabled by default.\nSelect to enable this and only show startup animation on Reboot.');
             }
         },
         'wrench'
@@ -391,7 +391,7 @@ function initUI() {
                             setTimeout(() => {
                                 notify(
                                     'Still want to recover your data?',
-                                    'We have a site that can safely convert the file and remove potentially unsafe data.\\nFind it in the "Help" tab.'
+                                    'We have a site that can safely convert the file and remove potentially unsafe data.\nFind it in the "Help" tab.'
                                 );
                             }, 2.5e3);
                             return;
@@ -447,7 +447,7 @@ function initUI() {
                 }, .5e3);
             },
                 'Are you sure?',
-                'Do not accept unless you know what you\'re doing.\\nOnce you reset your preferences, this process is IRREVERSIBLE, so make sure to save your preferences before resetting.\\n\\nThe system will restart after resetting to apply the default settings.');
+                'Do not accept unless you know what you\'re doing.\nOnce you reset your preferences, this process is IRREVERSIBLE, so make sure to save your preferences before resetting.\n\nThe system will restart after resetting to apply the default settings.');
         },
         'bin'
     );
@@ -457,10 +457,10 @@ function initUI() {
         () => {
             localStorage.pauseMusic = localStorage.pauseMusic === 'true' ? 'false' : 'true';
             if (localStorage.pauseMusic === 'true') {
-                setSuboption(selectedOption, selectedSuboption, 'Toggle pausing background music on unfocus', 'Background music currently gets paused on unfocus.\\nSelect to not mute it on unfocus.');
+                setSuboption(selectedOption, selectedSuboption, 'Toggle pausing background music on unfocus', 'Background music currently gets paused on unfocus.\nSelect to not mute it on unfocus.');
             } else {
                 bgMusic.play();
-                setSuboption(selectedOption, selectedSuboption, 'Toggle pausing background music on unfocus', 'Background music currently doesn\\\'t get muted on unfocus.\\nSelect to enable that.');
+                setSuboption(selectedOption, selectedSuboption, 'Toggle pausing background music on unfocus', 'Background music currently doesn\\\'t get muted on unfocus.\nSelect to enable that.');
             }
         },
         'wrench'
@@ -490,12 +490,12 @@ function initUI() {
         () => {
             localStorage.noShaders = localStorage.noShaders === 'true' ? 'false' : 'true';
             if (localStorage.noShaders === 'true') {
-                setSuboption(selectedOption, selectedSuboption, 'Toggle effects', 'Effects are currently disabled.\\nSelect to turn them on.');
+                setSuboption(selectedOption, selectedSuboption, 'Toggle effects', 'Effects are currently disabled.\nSelect to turn them on.');
                 traverseDOM(document.body, (element) => {
                     element.style.backdropFilter = 'none';
                 });
             } else {
-                setSuboption(selectedOption, selectedSuboption, 'Toggle effects', 'Effects are currently enabled.\\nSelect to turn them off.');
+                setSuboption(selectedOption, selectedSuboption, 'Toggle effects', 'Effects are currently enabled.\nSelect to turn them off.');
                 traverseDOM(document.body, (element) => {
                     element.style.backdropFilter = '';
                 });
@@ -508,13 +508,13 @@ function initUI() {
         () => {
             localStorage.noTransitions = localStorage.noTransitions === 'true' ? 'false' : 'true';
             if (localStorage.noTransitions === 'true') {
-                setSuboption(selectedOption, selectedSuboption, 'Toggle animations', 'Animations are currently disabled.\\nSelect to turn them on.');
+                setSuboption(selectedOption, selectedSuboption, 'Toggle animations', 'Animations are currently disabled.\nSelect to turn them on.');
                 traverseDOM(document.body, (element) => {
                     element.style.transition = 'none';
                     element.style.animation = 'none';
                 });
             } else {
-                setSuboption(selectedOption, selectedSuboption, 'Toggle animations', 'Animations are currently enabled.\\nSelect to turn them off.');
+                setSuboption(selectedOption, selectedSuboption, 'Toggle animations', 'Animations are currently enabled.\nSelect to turn them off.');
                 traverseDOM(document.body, (element) => {
                     element.style.transition = '';
                     element.style.animation = '';
@@ -568,10 +568,10 @@ function initUI() {
         localStorage.debugUI = localStorage.debugUI === 'true' ? 'false' : 'true';
         if (localStorage.debugUI === 'true') {
             document.getElementById('debug-ui').style.display = 'block';
-            setSuboption(selectedOption, selectedSuboption, 'Toggle debugging UI', 'Debug UI is currently on.\\nSelect to turn it off.');
+            setSuboption(selectedOption, selectedSuboption, 'Toggle debugging UI', 'Debug UI is currently on.\nSelect to turn it off.');
         } else {
             document.getElementById('debug-ui').style.display = 'none';
-            setSuboption(selectedOption, selectedSuboption, 'Toggle debugging UI', 'Debug UI is currently off.\\nSelect to turn it on.');
+            setSuboption(selectedOption, selectedSuboption, 'Toggle debugging UI', 'Debug UI is currently off.\nSelect to turn it on.');
         }
     }, 'star');
     createSuboption(debugTab, 'Clear Errors', null, () => {
