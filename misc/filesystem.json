@@ -30,13 +30,20 @@
     },
     ".vscode": {
         "files": [
-            "settings.json"
+            "settings.json",
+            "tasks.json"
+        ]
+    },
+    "scripts": {
+        "files": [
+            "lint_src.js"
         ]
     },
     "src": {
         "files": [
             "css.css",
             "index.html",
+            "test2.js",
             "testlint.js"
         ],
         "assets": {
