@@ -167,6 +167,11 @@ const bgColors = {
 		"bottom": "#00ff80",
 		"accentColor": "#ff0080"
 	},
+	"cherry": {
+		"top": "#ff0080",
+		"bottom": "#ff80ff",
+		"accentColor": "#ff0080"
+	},
 	"bisexual flag": {
 		"top": "#D60270",
 		"bottom": "#0038A8",
