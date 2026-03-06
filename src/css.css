@@ -308,7 +308,7 @@ body {
 	width: 80vw;
 	height: 70vh;
 	transform: translate(-50%, -50%) scale(95%);
-	background-color: #0001;
+	background-color: #0005;
 	outline: 3px solid #fff8;
 	padding: 5vh 5vw;
 	border-radius: 50px;
@@ -325,7 +325,7 @@ body {
 		transform 1.25s ease,
 		backdrop-filter 1.25s ease;
 	padding-top: 40px;
-	backdrop-filter: saturate(125%) blur(20px) opacity(90%);
+	backdrop-filter: saturate(125%) brightness(150%) blur(20px) opacity(90%);
 	overscroll-behavior: contain;
 	z-index: 100;
 	user-select: none;
