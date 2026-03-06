@@ -584,7 +584,7 @@ function initUI() {
 	}, 'star');
 	createSuboption(debugTab, 'Clear Errors', null, () => {
 		errors = 0;
-		errorList = [];
+		errorList.length = 0;
 		document.getElementById('errors').innerText = `Errors: ${errors}`;
 	}, 'star');
 	createSuboption(debugTab, 'Load Script', null, () => {
