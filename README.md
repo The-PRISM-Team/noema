@@ -115,10 +115,10 @@ No installation, no build process, no npm packages needed. It just works.
 Manual testing is required. Check:
 - Keyboard navigation (WASD/Arrows)
 - Gamepad support (if available)
-- Settings persistence (reload page)
-- Effects disabled modes
+- Settings persistence (Fast Reboot using UI selection)
+- Disabled effect modes
 - Different browsers
-- Console for errors
+- Console for errors (the system already notifies you of errors via sound and a visual counter)
 
 ---
 
