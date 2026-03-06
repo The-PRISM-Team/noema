@@ -857,6 +857,7 @@ function notify(title, text, icon) {
 let keyPressed = null;
 let pressedTime = null;
 let lastActivity = Date.now();
+let inputMultiplier = 1;
 function handleInput(event) {
 	const keyup = event.type === 'keyup';
 
@@ -869,6 +870,7 @@ function handleInput(event) {
 		if (Date.now() - lastActivity < 50) {
 			return;
 		}
+		inputMultiplier = event.shiftKey ? 10 : 1;
 	}
 	lastActivity = Date.now();
 	const uiOptions = document.getElementById('ui-options');
@@ -968,7 +970,7 @@ function handleInput(event) {
 			if (document.activeElement.tagName === 'INPUT' && document.activeElement?.type === 'range') {
 				event.preventDefault();
 				if (parseFloat(document.activeElement.value) > parseFloat(document.activeElement.min)) {
-					document.activeElement.value = parseFloat(document.activeElement.value) - parseFloat(document.activeElement.step || '1') * (event.shiftKey ? 10 : 1);
+					document.activeElement.value = parseFloat(document.activeElement.value) - parseFloat(document.activeElement.step || '1') * inputMultiplier;
 
 					const evtn = new Event('input', { bubbles: true });
 					document.activeElement.dispatchEvent(evtn);
@@ -981,7 +983,7 @@ function handleInput(event) {
 			if (document.activeElement.tagName === 'INPUT' && document.activeElement?.type === 'range') {
 				event.preventDefault();
 				if (parseFloat(document.activeElement.value) < parseFloat(document.activeElement.max)) {
-					document.activeElement.value = parseFloat(document.activeElement.value) + parseFloat(document.activeElement.step || '1') * (event.shiftKey ? 10 : 1);
+					document.activeElement.value = parseFloat(document.activeElement.value) + parseFloat(document.activeElement.step || '1') * inputMultiplier;
 
 					const evtn = new Event('input', { bubbles: true });
 					document.activeElement.dispatchEvent(evtn);
@@ -994,7 +996,7 @@ function handleInput(event) {
 			if (document.activeElement.tagName === 'INPUT' && document.activeElement?.type === 'number') {
 				event.preventDefault();
 				if (parseFloat(document.activeElement.value) < parseFloat(document.activeElement.max)) {
-					document.activeElement.value = parseFloat(document.activeElement.value) + parseFloat(document.activeElement.step || '1') * (event.shiftKey ? 10 : 1);
+					document.activeElement.value = parseFloat(document.activeElement.value) + parseFloat(document.activeElement.step || '1') * inputMultiplier;
 
 					const evtn = new Event('input', { bubbles: true });
 					document.activeElement.dispatchEvent(evtn);
@@ -1007,7 +1009,7 @@ function handleInput(event) {
 			if (document.activeElement.tagName === 'INPUT' && document.activeElement?.type === 'number') {
 				event.preventDefault();
 				if (parseFloat(document.activeElement.value) > parseFloat(document.activeElement.min)) {
-					document.activeElement.value = parseFloat(document.activeElement.value) - parseFloat(document.activeElement.step || '1') * (event.shiftKey ? 10 : 1);
+					document.activeElement.value = parseFloat(document.activeElement.value) - parseFloat(document.activeElement.step || '1') * inputMultiplier;
 
 					const evtn = new Event('input', { bubbles: true });
 					document.activeElement.dispatchEvent(evtn);

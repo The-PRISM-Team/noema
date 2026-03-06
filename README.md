@@ -1,148 +1,240 @@
 # Project Noema
 
-This repository contains the source code for **Project Noema** – a web‑based game “console” that runs entirely in the browser, with a user interface inspired by the PlayStation 3. The project is intended to function locally as well as when hosted on Vercel, and it supports loading and running games packaged in the custom NGP (Noema Game Package) format.
+**Project Noema** is a web-based game console that runs entirely in your browser, featuring a user interface inspired by the PlayStation 3. It provides a retro-futuristic gaming experience with support for custom games packaged in the NGP (Noema Game Package) format.
 
-The code here powers the Open Developer Beta (ODB) builds such as versions `v0.16.0` and `v0.17.0`. Future releases will continue to follow the versioning rules laid out in `/misc/markdowns/VERSIONING.md`.
+This is the **Open Developer Beta** (currently version `v0.16.0`), actively developed and evolving toward feature-complete releases. The project works both locally and when hosted, requiring no build tools or compilation.
+
+**Key Features:**
+- PS3-inspired UI with smooth animations and visual effects
+- Customizable themes and color palettes (18+ built-in themes)
+- Full keyboard and gamepad support
+- Persistent settings and save file management
+- Audio system with independent volume controls
+- Performance optimization for various device capabilities
+- No external dependencies for core functionality
+
+Future releases will continue to follow the versioning rules laid out in `/misc/markdowns/VERSIONING.md`.
 
 ---
 
-## Repository layout
+## Quick Start
+
+### Running Locally
+1. Clone this repository
+2. Open `src/index.html` in a modern web browser
+3. The console will start automatically
+
+No installation, no build process, no npm packages needed. It just works.
+
+### For Development
+1. Clone the repository and open it in VS Code
+2. Edit files under `src/scripts/` or `src/css.css`
+3. Refresh the browser to see changes
+4. Use browser DevTools for debugging
+
+> **Note:** The project works both via `file://` protocol (opening HTML directly) and when served via HTTP (e.g., `npx serve`).
+
+---
+
+## Repository Structure
 
 ```
-/                
-  README.md      
-  LICENSE
-  electron-start.js
-  jsconfig.json   
-  /src            
-    index.html
-    css.css
-    /assets
-      /fonts
-      /icons
-      /logos
-      /misc/CHANGELOG.md
-      /scripts
-        base.js
-        bg.js
-        …
-        /modules    
-  /subpages       
-    /convertsave
-      index.html
-      main.js
-  /misc/markdowns 
+/
+├── README.md
+├── LICENSE
+├── CONTRIBUTING.md
+├── COLLABORATION.md
+├── src/
+│   ├── index.html              # Entry point
+│   ├── css.css                 # All styles
+│   └── scripts/
+│       ├── base.js             # Core initialization
+│       ├── ui.js               # Menu system
+│       ├── bg.js               # Background rendering
+│       ├── sounds.js           # Audio system
+│       ├── power.js            # Startup/shutdown
+│       ├── game.js             # Game loading
+│       └── modules/            # Utility modules
+│           ├── util.js
+│           ├── protoplus.js
+│           └── ...
+├── subpages/
+│   └── convertsave/            # Save file converter
+└── misc/markdowns/             # Documentation
+    ├── TODO.md
+    ├── VERSIONING.md
+    ├── AGENTS.md
+    └── CMDS.md
 ```
 
-### Key areas
+### Key Directories
 
-* **`src/assets/scripts`** – primary JavaScript codebase. Modules are loaded dynamically via `start.js` and `preinit.js`.
-* **`subpages`** – additional mini‑apps that integrate with the main console; currently only a save‑file converter.
-* **`misc/markdowns`** – contains project documentation such as TODO lists, commands, and versioning specs.
-
----
-
-## Getting started
-
-The project does not use a build system; opening `src/index.html` in a browser is sufficient to run the console. To develop:
-
-1. Clone the repository and open the workspace in VS Code.
-2. Edit files under `src/assets/scripts` and reload the page in the browser.
-3. Use the browser devtools console for debugging.
-
-> **Note:** all game‑related functionality should work both when served via a web server and when opened as a local file (`file://`).
+* **`src/scripts/`** – Core JavaScript codebase. Modules are loaded dynamically via `preinit.js`.
+* **`src/scripts/modules/`** – Reusable utility modules and third-party libraries.
+* **`src/assets/`** – Fonts, icons, sounds, and other static resources.
+* **`subpages/`** – Standalone mini-apps that integrate with the console.
+* **`misc/markdowns/`** – Project documentation, TODOs, and specifications.
+* **`vscode-extension/`** – Custom VS Code color themes based on Noema palettes.
 
 ---
 
-## Development notes
+## Development Guide
 
-* JavaScript is written in plain ES5/ES6; there is no transpilation step.
-* Modules in `/src/assets/scripts/modules` are included by `preinit.js` or at runtime by the core scripts.
-* The codebase has no automated tests or package manager; formatting is automatically enforced by a pre-commit lint workflow, so just write reasonably consistent code and the tooling will handle the rest.
-* A set of **Noema color themes** is provided via a VSCode extension.  All palettes defined in `src/assets/scripts/bg.js` are included, grouped under the "Noema" category. See the `vscode-extension/themes` folder for details.
+### Code Style
+- **No build tools** – Write ES6+ JavaScript that runs directly in browsers
+- **Tabs for indentation** – The linter auto-fixes formatting on commit
+- **camelCase naming** – For variables and functions
+- **Minimal comments** – Code should be self-documenting; comment only complex logic
 
-For background information, see the documents under `misc/markdowns`.
+### Common Tasks
+
+#### Adding a Theme
+1. Add to `bgColors` object in `src/scripts/bg.js`:
+```javascript
+"mytheme": {
+    "top": "#color1",
+    "bottom": "#color2",
+    "accentColor": "#color3"
+}
+```
+2. Add UI option in `src/scripts/ui.js` (themeTab section)
+3. Optional: Create matching VS Code theme in `vscode-extension/themes/`
+
+#### Adding a Preference
+1. Set default in `src/scripts/preinit.js`
+2. Create UI option in `src/scripts/ui.js`
+3. Store value in `localStorage`
+4. Apply setting where needed
+
+#### Adding UI Sounds
+1. Place `.flac` file in `src/assets/sounds/menu/`
+2. Add filename to `sounds` array in `src/scripts/sounds.js`
+3. Use `playSound('soundname')` to play
+
+### Testing
+Manual testing is required. Check:
+- Keyboard navigation (WASD/Arrows)
+- Gamepad support (if available)
+- Settings persistence (reload page)
+- Effects disabled modes
+- Different browsers
+- Console for errors
 
 ---
 
-## Collaboration
+## Contributing
 
-See `COLLABORATION.md` for guidelines on how to work with the code, preferred branching/commit practices, and how to get involved.
+We welcome contributions! Please see [`CONTRIBUTING.md`](CONTRIBUTING.md) for detailed guidelines on:
+- Code style and conventions
+- Development workflow
+- Pull request process
+- Testing requirements
+- Community guidelines
+
+For architectural discussions and team workflows, see [`COLLABORATION.md`](COLLABORATION.md).
+
+### Quick Contribution Guide
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes
+4. Test thoroughly in browser
+5. Submit a pull request with clear description
+
+Small, focused PRs are reviewed faster. Open an issue first for major features.
 
 ---
 
 ## Feature Roadmap
 
-Planned / proposed features (not yet implemented). The bullets below describe ideas and priorities rather than existing functionality — this repository does not currently include game loading, packaged games (NGP), or game assets for published titles.
+Current priorities (see `misc/markdowns/TODO.md` for details):
 
-- Improve game loading and sandboxing (better NGP loading, secure execution)
-- Profiling and performance optimizations to address frame drops and CPU usage
-- Profile management (save/load user profiles, preferences)
-- Drag & drop support for importing save files into the UI
-- Better distinction between local and hosted (Vercel) modes, with environment-aware behavior
-- Dynamic local updates: optionally point the app at a local directory or a GitHub directory for iterative development
-- Publish PRISM‑specific assets and move PRISM code to a dedicated organization repository
+**In Progress:**
+- Game loading improvements (better sandboxing, NGP format support)
+- Performance profiling and optimization
 
+**Planned:**
+- Profile management (save/load user profiles)
+- Drag & drop support for save files
+- Enhanced local vs hosted mode distinction
+- Dynamic local updates via GitHub integration
 
-Roadmap items are tracked in `misc/markdowns/TODO.md`. If you want to work on any of these, open an issue or create a PR describing the intended approach.
-
----
-
-## Archived Roadmap (from repository history)
-
-This section preserves an earlier roadmap found in the repository history. It documents short-term goals the project tracked for v0.16.0 and v0.17.0.
-
-### Plan for 0.16.0
-- Add basic support for NGPs (decompression, loading, etc.)
-- Add local game storing (folder, localStorage and web links, etc)
-- Add APIs to all game-related functions
-- Add UI for game selection and others
-
-### Plan for 0.17.0
-- Polish game APIs and UI
-- Finish support for NGPs
-
-### Proposed NGP architecture (notes — not implemented)
-- Packaged using ZIP (proposal)
-- A suggested package layout might place game assets under `/assets` (images, sounds, animations, etc.) and game code under `/scripts`.
-- A `start.js` file at the package root could be responsible for loading the package's scripts and modules into the host document.
-
-These are architectural notes and design ideas captured from earlier discussions; they were not necessarily implemented in this repository at the time of writing.
-
-This archived roadmap is provided as a reference; see the live roadmap above and `misc/markdowns/TODO.md` for current priorities.
+**Future Considerations:**
+- PRISM-specific features (separate organization repository)
+- Expanded game library management
+- Multiplayer/networking features
 
 ---
 
-## Additional resources
+## Archived Roadmap
 
-* [Design notes and TODOs](misc/markdowns/TODO.md)
-* [Versioning system](misc/markdowns/VERSIONING.md)
-* [Agent instructions](misc/markdowns/AGENTS.md)
-* [Useful shell commands](misc/markdowns/CMDS.md)
+### Version 0.16.0 Goals
+- Add basic NGP support (decompression, loading)
+- Implement local game storage (localStorage, web links)
+- Create APIs for game-related functions
+- Build UI for game selection
 
-## Custom VS Code themes
+### Version 0.17.0 Goals
+- Polish game APIs
+- Complete NGP format implementation
 
-This repository includes a minimal VS Code extension in `vscode-extension/` that
-provides two colour themes:
+### NGP Architecture Notes (Proposed)
+- Package format: ZIP-based
+- Structure: `/assets/` for resources, `/scripts/` for code
+- Entry point: `start.js` at package root
 
-* **Cherry** — a medium‑contrast dark theme built around pink/magenta tones.
-* **Frogleaf** — another dark theme whose palette is derived from Noema's
-  "frogleaf" background colour set (`#14881d`, `#42ff2a`, `#52ff4c`).
+These are design notes from earlier discussions and may not reflect current implementation.
 
-To use them:
+---
 
-1. Open the `vscode-extension` folder in VS Code (or run `code --install-extension vscode-extension` from the workspace root).
-2. Press `F1` > `Developer: Reload Window` (or restart) so the themes are registered.
-3. Open the Command Palette and type `Color Theme` to select either Cherry or Frogleaf.
+## VS Code Themes
 
-You can also package and publish the extension using [`vsce`](https://code.visualstudio.com/api/working-with-extensions/publishing-extension).
+The repository includes 18+ custom VS Code themes based on Noema's color palettes, including:
+- **Cherry** – Pink/magenta dark theme
+- **Frogleaf** – Green-based dark theme
+- **Watermelon Sugar** – Pink and green gradient
+- **Trans Flag**, **Bisexual Flag**, **Lesbian Flag**, **Gay Flag** – Pride themes
+- And many more!
+
+### Installation
+1. Open `vscode-extension/` in VS Code
+2. Press `F1` > `Developer: Reload Window`
+3. Open Command Palette and select "Color Theme"
+4. Choose any theme from the "Noema" category
+
+Or package and install: `vsce package` then install the `.vsix` file.
+
+---
+
+## Resources
+
+* [Contributing Guide](CONTRIBUTING.md)
+* [Collaboration Guidelines](COLLABORATION.md)
+* [TODO List](misc/markdowns/TODO.md)
+* [Versioning Specification](misc/markdowns/VERSIONING.md)
+* [Agent Instructions](misc/markdowns/AGENTS.md)
+* [Useful Commands](misc/markdowns/CMDS.md)
+* [Changelog](src/assets/misc/CHANGELOG.md)
 
 ---
 
 ## License
 
-This project is licensed under the terms of the [LICENSE](LICENSE) file.
+This project is licensed under the **GNU Affero General Public License v3.0** (AGPL-3.0).
 
+See the [LICENSE](LICENSE) file for full terms.
+
+By contributing to this project, you agree that your contributions will be licensed under the same terms.
 
 ---
 
+## Acknowledgments
+
+Project Noema is developed by the PRISM team with contributions from the open-source community.
+
+Special thanks to all contributors who have helped improve the project through code, documentation, bug reports, and feedback.
+
+---
+
+**Questions?** Open an issue or check the documentation in `misc/markdowns/`.
+
+**Want to contribute?** See [`CONTRIBUTING.md`](CONTRIBUTING.md) to get started.
