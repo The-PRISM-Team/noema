@@ -17,15 +17,18 @@ This document provides guidelines for AI coding agents working on Project Noema.
 - Add comments only when logic is non-obvious
 - Avoid global state unless necessary
 - Prefer functional patterns where appropriate
+- Use Regex when working with patterns
 
 ### File Organization
 - Keep files focused on single responsibilities
 - Use proper imports/exports between modules
-- Place utility functions in `src/assets/scripts/modules/`
-- Main application logic goes in `src/assets/scripts/`
+- Place utility functions/files in `/src/assets/scripts/modules/`
+- Main application logic goes in `/src/assets/scripts/`
+- The code/page deployed via Vercel is in `/src`
 
 ### Browser Compatibility
 - Code must work in modern browsers (ES6+)
+- Support for old or niche platforms like IE and older Opera versions should be disregarded completely (in fact, the page is blocked if IE is detected!)
 - No transpilation or build steps
 - Support both `file://` and HTTP(S) serving
 - Test in multiple browsers when possible
@@ -33,8 +36,8 @@ This document provides guidelines for AI coding agents working on Project Noema.
 ## Common Tasks
 
 ### Adding New UI Options
-1. Use `createOption()` for main tabs
-2. Use `createSuboption()` for menu items
+1. Use `createOption()` for menu tabs
+2. Use `createSuboption()` for tab items (a.k.a. selections)
 3. Register actions with proper error handling
 4. Update localStorage for persistent settings
 5. Test keyboard and gamepad navigation
@@ -47,8 +50,8 @@ This document provides guidelines for AI coding agents working on Project Noema.
 
 ### Working with Sounds
 - Add sound files to `/src/assets/sounds/`
-- Register in sounds array if UI sound
-- Use `playSound()` API for UI feedback
+- Register relative path from `/src/assets/sounds` in sounds array if needed
+- Use `playSound()` API for sound playback
 - Respect user volume settings
 
 ## Git Workflow
@@ -114,4 +117,4 @@ After completing a task:
 - Don't break existing localStorage format
 - Don't remove features without deprecation
 - Don't ignore browser console errors
-- Don't commit commented-out code blocks
+- Keep and don't modify or remove commented-out code blocks
