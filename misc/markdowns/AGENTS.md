@@ -22,8 +22,8 @@ This document provides guidelines for AI coding agents working on Project Noema.
 ### File Organization
 - Keep files focused on single responsibilities
 - Use proper imports/exports between modules
-- Place utility functions/files in `/src/assets/scripts/modules/`
-- Main application logic goes in `/src/assets/scripts/`
+- Place utility functions/files in `/src/scripts/modules/`
+- Main application logic goes in `/src/scripts/`
 - The code/page deployed via Vercel is in `/src`
 
 ### Browser Compatibility
