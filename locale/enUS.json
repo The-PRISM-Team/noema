@@ -1,3 +1,15 @@
 {
-  "app.title": "Noema"
+    "appTitle": "Noema",
+    "pageTitle": "Project Noema - PRISM Open Development",
+    "debug.credits": "PRISM Open Development @ 2026",
+    "debug.errors": "Errors:",
+    "debug.estfps": "FPS:",
+    "debug.avgfps": "Avg. FPS:",
+    "menu.power.tab.title": "Power Options",
+    "menu.power.powerOff.title": "Power Off",
+    "menu.power.powerOff.desc": "Shuts down the system and closes the tab (if possible)",
+    "menu.power.reboot.title": "Reboot",
+    "menu.power.reboot.desc": "Restarts the system with the latest version of the system files.",
+    "menu.power.fastReboot.title": "Fast Reboot",
+    "menu.power.fastReboot.desc": "Restarts and skips startup animation once on the next boot."
 }
