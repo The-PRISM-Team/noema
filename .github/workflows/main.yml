@@ -1,9 +1,6 @@
 name: Convert JSON locales to JS
 
-on:
-  push:
-    paths:
-      - 'src/locales-json/**'
+on: push
 
 permissions:
   contents: write
