@@ -617,7 +617,7 @@ function getSuboption(optionId, suboptionId) {
 	};
 }
 
-function bandDialog(title, subtitle = '', setupFunc, confirmFunc, usesEnterKey = true) {
+function bandDialog(title = '', subtitle = '', setupFunc, confirmFunc, usesEnterKey = true) {
 	document.getElementById('custom-title').textContent = title;
 	document.getElementById('custom-items').innerHTML = '';
 	document.getElementById('custom-items').style.cssText = '';
