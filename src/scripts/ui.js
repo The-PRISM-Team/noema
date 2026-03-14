@@ -262,14 +262,15 @@ function initUI() {
 	clearUI();
 
 	// init default options
-	const powerTab = createOption('Power Options');
-	const prefTab = createOption('Preferences');
-	const audioTab = createOption('Audio');
-	const graphTab = createOption('Graphics');
-	const themeTab = createOption('Themes');
-	const waveTab = createOption('Wave Amount');
-	const helpTab = createOption('Help');
-	const debugTab = createOption('Debug');
+	const locale = locales[localStorage.locale] ?? {};
+	const powerTab = createOption(locale['menu.power.option.title'] ?? 'Power Options');
+	const prefTab = createOption(locale['menu.pref.option.title'] ?? 'Preferences');
+	const audioTab = createOption(locale['menu.audio.option.title'] ?? 'Audio');
+	const graphTab = createOption(locale['menu.graph.option.title'] ?? 'Graphics');
+	const themeTab = createOption(locale['menu.theme.option.title'] ?? 'Themes');
+	const waveTab = createOption(locale['menu.wave.option.title'] ?? 'Wave Amount');
+	const helpTab = createOption(locale['menu.help.option.title'] ?? 'Help');
+	const debugTab = createOption(locale['menu.debug.option.title'] ?? 'Debug');
 	const uiOptionCount = document.getElementById('ui-options').querySelectorAll('a').length;
 	for (let i = 0; i < uiOptionCount; i++) {
 		selectedSuboptions[i] = 0;
