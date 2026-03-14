@@ -17,7 +17,7 @@ globalThis.localesArray.push({
     "menu.audio.option.title": "Audio",
     "menu.graphics.option.title": "Graphics",
     "menu.themes.option.title": "Themes",
-    "menu.theme.suboption.description": "Select to set theme to \"{color}\".",
+    "menu.theme.color.description": "Select to set theme to \"{color}\".",
     "menu.wave.option.title": "Wave Amount",
     "menu.help.option.title": "Help",
     "menu.debug.option.title": "Debug",
