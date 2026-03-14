@@ -6,7 +6,7 @@ async function transition() {
 	transitioning = true; // congrats!! :kekw:
 	ui.style.width = "0px";
 	ui.style.height = "50vh";
-	setTimeougetLocaleStr(() => {
+	setTimeout(() => {
 		ui.style.width = "";
 		ui.style.height = "";
 		transitioning = false;
@@ -19,9 +19,9 @@ function focusUIOption(id) {
 	requestAnimationFrame(() => {
 		// alignment
 		const target = document.getElementById(`ui-option${id}`);
-		const targetRect = target.getBoundingClientRecgetLocaleStr();
+		const targetRect = target.getBoundingClientRect();
 
-		const uiRect = document.getElementById('ui').getBoundingClientRecgetLocaleStr();
+		const uiRect = document.getElementById('ui').getBoundingClientRect();
 
 		const targetCenter = targetRect.left + targetRect.width / 2;
 		const desiredCenter = uiRect.left + uiRect.width / 2;
@@ -31,7 +31,7 @@ function focusUIOption(id) {
 		optionDiv.style.left = `${optionDiv.offsetLeft + delta}px`;
 
 		// more-arrow shit
-		const optionDivRect = optionDiv.getBoundingClientRecgetLocaleStr();
+		const optionDivRect = optionDiv.getBoundingClientRect();
 
 		const leftArrow = document.getElementById('more-left');
 		const rightArrow = document.getElementById('more-right');
@@ -156,12 +156,12 @@ function executeUISuboption() {
 function createOption(name) {
 	const uiOptions = document.getElementById('ui-options');
 	const uiSuboptions = document.getElementById('ui-contents');
-	const tab = document.createElemengetLocaleStr('a');
+	const tab = document.createElement('a');
 	tab.id = 'ui-option' + uiOptions.children.length;
 	tab.className = 'ui-option';
 	tab.innerText = name;
 	uiOptions.appendChild(tab);
-	const suboptions = document.createElemengetLocaleStr('div');
+	const suboptions = document.createElement('div');
 	suboptions.id = 'ui-content' + uiSuboptions.children.length;
 	suboptions.className = 'ui-content';
 	uiSuboptions.appendChild(suboptions);
@@ -174,7 +174,7 @@ function createOption(name) {
 function createSuboption(optionId, title, desc = '', exec = null, icon, sound = "confirm") {
 	if ((!optionId && optionId !== 0) || !title) throw new Error('Please specify a valid option ID and title.');
 	const suboptions = document.getElementById(`ui-content${optionId}`);
-	const suboption = document.createElemengetLocaleStr('div');
+	const suboption = document.createElement('div');
 	suboption.id = 'ui-suboption' + suboptions.children.length;
 	suboption.className = 'ui-suboption';
 	if (isDefined(exec)) {
@@ -184,19 +184,19 @@ function createSuboption(optionId, title, desc = '', exec = null, icon, sound = 
 	if (isDefined(sound)) suboption.dataset.sound = sound;
 	suboption.style.top = `${20 + (-31 * (selectedSuboptions[optionId] - 3))}px`;
 
-	const suboptionTitle = document.createElemengetLocaleStr('a');
+	const suboptionTitle = document.createElement('a');
 	suboptionTitle.className = 'ui-suboption-title';
 	suboptionTitle.innerText = title;
 	suboption.append(suboptionTitle);
-	suboption.appendChild(document.createElemengetLocaleStr('br'));
-	const suboptionDesc = document.createElemengetLocaleStr('a');
+	suboption.appendChild(document.createElement('br'));
+	const suboptionDesc = document.createElement('a');
 	suboptionDesc.className = 'ui-suboption-text';
 	suboptionDesc.innerText = desc;
 	suboptionDesc.style.display = 'none';
 	suboption.append(suboptionDesc);
 	if (isDefined(icon)) {
-		const suboptionIcon = document.createElemengetLocaleStr('img');
-		if (urlRegex.tesgetLocaleStr(icon)) {
+		const suboptionIcon = document.createElement('img');
+		if (urlRegex.test(icon)) {
 			suboptionIcon.src = icon;
 		} else {
 			suboptionIcon.src = `/assets/icons/${icon}.png`;
@@ -263,14 +263,14 @@ function initUI() {
 	clearUI();
 
 	// init default options
-	const powerTab = createOption(getLocaleStr('menu.power.option.title', 'Power Options'));
-	const prefTab = createOption(getLocaleStr('menu.preferences.option.title', 'Preferences'));
-	const audioTab = createOption(getLocaleStr('menu.audio.option.title', 'Audio'));
-	const graphTab = createOption(getLocaleStr('menu.graphics.option.title', 'Graphics'));
-	const themeTab = createOption(getLocaleStr('menu.themes.option.title', 'Themes'));
-	const waveTab = createOption(getLocaleStr('menu.wave.option.title', 'Wave Amount'));
-	const helpTab = createOption(getLocaleStr('menu.help.option.title', 'Help'));
-	const debugTab = createOption(getLocaleStr('menu.debug.option.title', 'Debug'));
+	const powerTab = createOption(t('menu.power.option.title', 'Power Options'));
+	const prefTab = createOption(t('menu.preferences.option.title', 'Preferences'));
+	const audioTab = createOption(t('menu.audio.option.title', 'Audio'));
+	const graphTab = createOption(t('menu.graphics.option.title', 'Graphics'));
+	const themeTab = createOption(t('menu.themes.option.title', 'Themes'));
+	const waveTab = createOption(t('menu.wave.option.title', 'Wave Amount'));
+	const helpTab = createOption(t('menu.help.option.title', 'Help'));
+	const debugTab = createOption(t('menu.debug.option.title', 'Debug'));
 	const uiOptionCount = document.getElementById('ui-options').querySelectorAll('a').length;
 	for (let i = 0; i < uiOptionCount; i++) {
 		selectedSuboptions[i] = 0;
@@ -352,8 +352,8 @@ function initUI() {
 
 	createSuboption(prefTab, getLocaleStr('menu.preferences.savePreferences.title', 'Save preferences'), getLocaleStr('menu.preferences.savePreferences.desc', 'Select to download a file with your preferences to load them later.'), () => {
 		confirmDialog(() => {
-			downloadFileWithContengetLocaleStr(
-				`Noema Preferences Backup -- ${new Date().getFullYear()}-${(new Date().getMonth() + 1).toString().padStargetLocaleStr(2, '0')}-${new Date().getDate().toString().padStargetLocaleStr(2, '0')} ${new Date().getHours()}-${new Date().getMinutes().toString().padStargetLocaleStr(2, '0')}-${new Date().getSeconds().toString().padStargetLocaleStr(2, '0')}.nsf`,
+			downloadFileWithContent(
+				`Noema Preferences Backup -- ${new Date().getFullYear()}-${(new Date().getMonth() + 1).toString().padStart(2, '0')}-${new Date().getDate().toString().padStart(2, '0')} ${new Date().getHours()}-${new Date().getMinutes().toString().padStart(2, '0')}-${new Date().getSeconds().toString().padStart(2, '0')}.nsf`,
 				(() => {
 					const settings = JSON.parse(JSON.stringify(localStorage));
 					settings.exportDate = Date.now();
@@ -367,7 +367,7 @@ function initUI() {
 		}, getLocaleStr('dialog.confirm.title', 'Are you sure?'), getLocaleStr('dialog.confirm.subtitle.accidental', "Just making sure this wasn't pressed by accident."));
 	}, 'wrench');
 	createSuboption(prefTab, getLocaleStr('menu.preferences.loadPreferences.title', 'Load preferences'), getLocaleStr('menu.preferences.loadPreferences.desc', 'Select to load a file with your saved preferences.'), () => {
-		const importbtn = document.createElemengetLocaleStr('input');
+		const importbtn = document.createElement('input');
 		importbtn.type = 'file';
 		importbtn.multiple = 'false';
 		importbtn.style.display = 'none';
@@ -385,14 +385,14 @@ function initUI() {
 					if (formats.includes(content?.format)) {
 						if (content.format === 'NSF1.0') {
 							notify(
-								getLocaleStr('menu.pref.load.unsafe-save.title', 'That save file might be unsafe.'),
-								getLocaleStr('menu.pref.load.unsafe-save.description', "We didn't load it because the format of that save file has a known security issue."),
+								t('menu.pref.load.unsafe-save.title', 'That save file might be unsafe.'),
+								t('menu.pref.load.unsafe-save.description', "We didn't load it because the format of that save file has a known security issue."),
 								'warning'
 							);
-							setTimeougetLocaleStr(() => {
+							setTimeout(() => {
 								notify(
-									getLocaleStr('menu.pref.load.recover.title', 'Still want to recover your data?'),
-									getLocaleStr('menu.pref.load.recover.description', 'We have a site that can safely convert the file and remove potentially unsafe data.\nFind it in the "Help" tab.')
+									t('menu.pref.load.recover.title', 'Still want to recover your data?'),
+									t('menu.pref.load.recover.description', 'We have a site that can safely convert the file and remove potentially unsafe data.\nFind it in the "Help" tab.')
 								);
 							}, 2.5e3);
 							return;
@@ -419,11 +419,11 @@ function initUI() {
 
 							localStorage.lastChangelogHash = '0';
 						}
-						notify(getLocaleStr('menu.pref.load.success.title', 'Preferences file loaded successfully!'));
-						setTimeougetLocaleStr(() => {
-							notify(getLocaleStr('menu.pref.load.reboot.title', 'The system will reboot in 3 seconds to properly apply every setting.'), getLocaleStr('menu.pref.load.reboot.description', '(to set absent settings to their defaults and to apply settings that need a reboot to fully apply)'));
-							setTimeougetLocaleStr(() => {
-								reboogetLocaleStr();
+						notify(t('menu.pref.load.success.title', 'Preferences file loaded successfully!'));
+						setTimeout(() => {
+							notify(t('menu.pref.load.reboot.title', 'The system will reboot in 3 seconds to properly apply every setting.'), getLocaleStr('menu.pref.load.reboot.description', '(to set absent settings to their defaults and to apply settings that need a reboot to fully apply)'));
+							setTimeout(() => {
+								reboot();
 							}, 3e3);
 						}, 2e3);
 					} else {
@@ -431,16 +431,16 @@ function initUI() {
 					}
 					importbtn.remove();
 				};
-				reader.readAsTexgetLocaleStr(file);
+				reader.readAsText(file);
 			}
 		});
 		document.body.appendChild(importbtn);
 		importbtn.click();
 	}, 'wrench');
 	createSuboption(prefTab, getLocaleStr('menu.preferences.bgBrightness.title', 'Background Brightness'), getLocaleTempStr('menu.preferences.bgBrightness.desc', 'Background brightness currently set to {value}%.', { value: decimalStrToPercentage(localStorage.bgBrightness) }), () => {
-		inputDialog(getLocaleStr('menu.preferences.bgBrightness.dialogTitle', 'Set Background Brightness'), getLocaleStr('menu.preferences.bgBrightness.dialogSubtitle', 'Adjust how bright the background appears. This affects the gradient and canvas drawing brightness.'), decimalStrToPercentage(localStorage.bgBrightness), 25, 100, 1, '{value}%', (value) => {
+		inputDialog(t('menu.preferences.bgBrightness.dialogTitle', 'Set Background Brightness'), getLocaleStr('menu.preferences.bgBrightness.dialogSubtitle', 'Adjust how bright the background appears. This affects the gradient and canvas drawing brightness.'), decimalStrToPercentage(localStorage.bgBrightness), 25, 100, 1, '{value}%', (value) => {
 			localStorage.bgBrightness = percentageToDecimal(value);
-			changeBGColor({ colorName: localStorage.bgColor, brightness: parseFloagetLocaleStr(localStorage.bgBrightness) });
+			changeBGColor({ colorName: localStorage.bgColor, brightness: parseFloat(localStorage.bgBrightness) });
 			setSuboption(selectedOption, selectedSuboption, getLocaleStr('menu.preferences.bgBrightness.title', 'Background Brightness'), getLocaleTempStr('menu.preferences.bgBrightness.desc', 'Background brightness currently set to {value}%.', { value: decimalStrToPercentage(localStorage.bgBrightness) }));
 		});
 	}, 'wrench');
@@ -448,15 +448,15 @@ function initUI() {
 	createSuboption(prefTab, getLocaleStr('menu.preferences.resetPreferences.title', 'Reset preferences'), getLocaleStr('menu.preferences.resetPreferences.desc', 'This wipes EVERY preference (Background color, username, spaghetti density, etc).\nDo not use this unless you know what you\'re doing and haven\'t saved your preferences.\nOnce you reset your preferences, this process is IRREVERSIBLE.'),
 		() => {
 			confirmDialog(() => {
-				setTimeougetLocaleStr(() => {
+				setTimeout(() => {
 					confirmDialog(() => {
 						localStorage.clear();
-						reboogetLocaleStr();
+						reboot();
 					}, getLocaleStr('dialog.confirm.title.strong', 'Are you absolutely sure?'), '');
 				}, .5e3);
 			},
-				getLocaleStr('dialog.confirm.title', 'Are you sure?'),
-				getLocaleStr('menu.preferences.resetPreferences.dialogSubtitle', 'Do not accept unless you know what you\'re doing.\nOnce you reset your preferences, this process is IRREVERSIBLE, so make sure to save your preferences before resetting.\n\nThe system will restart after resetting to apply the default settings.'));
+				t('dialog.confirm.title', 'Are you sure?'),
+				t('menu.preferences.resetPreferences.dialogSubtitle', 'Do not accept unless you know what you\'re doing.\nOnce you reset your preferences, this process is IRREVERSIBLE, so make sure to save your preferences before resetting.\n\nThe system will restart after resetting to apply the default settings.'));
 		},
 		'bin'
 	);
@@ -475,20 +475,20 @@ function initUI() {
 		'wrench'
 	);
 	createSuboption(audioTab, getLocaleStr('menu.audio.setMasterVolume.title', 'Set master volume'), getLocaleTempStr('menu.audio.setMasterVolume.desc', 'Master volume is currently at {value}% volume.', { value: decimalStrToPercentage(localStorage.masterVolume) }), () => {
-		inputDialog(getLocaleStr('menu.audio.setMasterVolume.title', 'Set master volume'), null, decimalStrToPercentage(localStorage.masterVolume), 0, 100, 1, '{value}%', (volume) => {
+		inputDialog(t('menu.audio.setMasterVolume.title', 'Set master volume'), null, decimalStrToPercentage(localStorage.masterVolume), 0, 100, 1, '{value}%', (volume) => {
 			setMasterVolume(percentageToDecimal(volume));
 			setSuboption(selectedOption, selectedSuboption, getLocaleStr('menu.audio.setMasterVolume.title', 'Set master volume'), getLocaleTempStr('menu.audio.setMasterVolume.desc', 'Master volume is currently at {value}% volume.', { value: decimalStrToPercentage(localStorage.masterVolume) }));
 		});
 	}, 'wrench');
 	createSuboption(audioTab, getLocaleStr('menu.audio.setBackgroundMusicVolume.title', 'Set background music volume'), getLocaleTempStr('menu.audio.setBackgroundMusicVolume.desc', 'Background music is currently at {value}% volume.', { value: decimalStrToPercentage(localStorage.musicVolume) }), () => {
-		inputDialog(getLocaleStr('menu.audio.setBackgroundMusicVolume.title', 'Set background music volume'), null, decimalStrToPercentage(localStorage.musicVolume), 0, 100, 1, '{value}%', (volume) => {
+		inputDialog(t('menu.audio.setBackgroundMusicVolume.title', 'Set background music volume'), null, decimalStrToPercentage(localStorage.musicVolume), 0, 100, 1, '{value}%', (volume) => {
 			localStorage.musicVolume = percentageToDecimal(volume);
-			bgMusic.volume = parseFloagetLocaleStr(localStorage.musicVolume).clamp(0, 1) * masterVolume;
+			bgMusic.volume = parseFloat(localStorage.musicVolume).clamp(0, 1) * masterVolume;
 			setSuboption(selectedOption, selectedSuboption, getLocaleStr('menu.audio.setBackgroundMusicVolume.title', 'Set background music volume'), getLocaleTempStr('menu.audio.setBackgroundMusicVolume.desc', 'Background music is currently at {value}% volume.', { value: decimalStrToPercentage(localStorage.musicVolume) }));
 		});
 	}, 'wrench');
 	createSuboption(audioTab, getLocaleStr('menu.audio.setUiSoundVolume.title', 'Set UI sound volume'), getLocaleTempStr('menu.audio.setUiSoundVolume.desc', 'UI sounds are currently at {value}% volume.', { value: decimalStrToPercentage(localStorage.uiSoundVolume) }), () => {
-		inputDialog(getLocaleStr('menu.audio.setUiSoundVolume.title', 'Set UI sound volume'), null, decimalStrToPercentage(localStorage.uiSoundVolume), 0, 100, 1, '{value}%', (volume) => {
+		inputDialog(t('menu.audio.setUiSoundVolume.title', 'Set UI sound volume'), null, decimalStrToPercentage(localStorage.uiSoundVolume), 0, 100, 1, '{value}%', (volume) => {
 			localStorage.uiSoundVolume = percentageToDecimal(volume);
 			setSuboption(selectedOption, selectedSuboption, getLocaleStr('menu.audio.setUiSoundVolume.title', 'Set UI sound volume'), getLocaleTempStr('menu.audio.setUiSoundVolume.desc', 'UI sounds are currently at {value}% volume.', { value: decimalStrToPercentage(localStorage.uiSoundVolume) }));
 		});
@@ -593,7 +593,7 @@ function initUI() {
 			if (!url) return;
 			if (!isURL(url)) throw new TypeError("Script URL provided isn't even a URL.");
 			if (document.getElementById('script-' + url)) throw new Error('Script already loaded!');
-			const script = document.createElemengetLocaleStr('script');
+			const script = document.createElement('script');
 			script.src = url;
 			script.id = 'script-' + url;
 			document.body.appendChild(script);
@@ -708,7 +708,7 @@ function bandDialog(title = '', subtitle = '', setupFunc, confirmFunc, usesEnter
 function inputDialog(title = 'Select a value...', subtitle, startingValue, min, max, step = 1, formatStr, updFunc = () => { }) {
 	if (!formatStr && typeof formatStr !== 'string') console.warn('formatStr (7th argument): Every instance of the substring "{value}" will be replaced with the slider\'s current value.\nSet this parameter to an empty string to avoid this warning.');
 	bandDialog(title, subtitle, (dialog) => {
-		const slider = document.createElemengetLocaleStr('input');
+		const slider = document.createElement('input');
 		slider.type = 'range';
 		slider.min = min.toString();
 		slider.max = max.toString();
@@ -716,7 +716,7 @@ function inputDialog(title = 'Select a value...', subtitle, startingValue, min, 
 		slider.value = startingValue.toString();
 		dialog.appendChild(slider);
 
-		const slidertext = document.createElemengetLocaleStr('a');
+		const slidertext = document.createElement('a');
 		slidertext.textContent = ` ${formatStr.replaceAll("{value}", slider.value.toString())}`;
 		slidertext.style.color = '#fff';
 		slidertext.style.fontFamily = "'Manrope', monospace";
@@ -729,7 +729,7 @@ function inputDialog(title = 'Select a value...', subtitle, startingValue, min, 
 		slider.addEventListener('input', handler);
 		slider.onblur = () => slider.removeEventListener('input', handler);
 
-		dialog.appendChild(document.createElemengetLocaleStr('br'));
+		dialog.appendChild(document.createElement('br'));
 		slider.focus();
 		slider.onblur = slider.focus;
 		slider.style.outline = '0';
@@ -740,7 +740,7 @@ function confirmDialog(func = () => { }, title = 'Are you sure?', subtitle = '')
 }
 function promptDialog(func = (() => { }), title = 'Enter some text...', placeholder = '') {
 	bandDialog(title, '', (dialog) => {
-		const input = document.createElemengetLocaleStr('input');
+		const input = document.createElement('input');
 		input.type = 'text';
 		input.placeholder = placeholder;
 		input.id = 'custom-input';
@@ -757,11 +757,11 @@ function promptDialog(func = (() => { }), title = 'Enter some text...', placehol
 }
 function checkboxDialog(title, subtitle, label, toggleFunc = () => { }) {
 	bandDialog(title, subtitle, (dialog) => {
-		const text = document.createElemengetLocaleStr('a');
+		const text = document.createElement('a');
 		text.textContent = `${label} `;
 		text.style.cssText = "color: #fff; font-family: 'Manrope', monospace";
 
-		const checkbox = document.createElemengetLocaleStr('input');
+		const checkbox = document.createElement('input');
 		checkbox.type = 'checkbox';
 		checkbox.onblur = () => checkbox.focus();
 		checkbox.addEventListener('input', () => {
@@ -770,8 +770,8 @@ function checkboxDialog(title, subtitle, label, toggleFunc = () => { }) {
 
 		dialog.appendChild(text);
 		dialog.appendChild(checkbox);
-		dialog.appendChild(document.createElemengetLocaleStr('br'));
-		dialog.appendChild(document.createElemengetLocaleStr('br'));
+		dialog.appendChild(document.createElement('br'));
+		dialog.appendChild(document.createElement('br'));
 
 		checkbox.focus();
 	}, null, true);
@@ -780,7 +780,7 @@ const notifElements = {};
 const queuedNotifs = [];
 let notifCount = 0;
 function notify(title, text, icon) {
-	const notifDiv = document.createElemengetLocaleStr('span');
+	const notifDiv = document.createElement('span');
 	notifDiv.className = 'notif';
 	notifDiv.id = `notif-${Math.random()}`;
 	function notifHandler() {
@@ -788,25 +788,25 @@ function notify(title, text, icon) {
 		if (localStorage.noTransitions === 'true') notifDiv.style.transition = 'none';
 		document.getElementById('notif-div').appendChild(notifDiv);
 
-		const notifContent = document.createElemengetLocaleStr('span');
+		const notifContent = document.createElement('span');
 		notifContent.style.padding = '5px';
 		notifDiv.appendChild(notifContent);
 
-		const notifTitle = document.createElemengetLocaleStr('a');
+		const notifTitle = document.createElement('a');
 		notifTitle.textContent = title;
 		notifTitle.className = 'notif-title';
 		notifContent.appendChild(notifTitle);
 
 		if (isDefined(text)) {
-			notifContent.appendChild(document.createElemengetLocaleStr('br'));
-			const notifText = document.createElemengetLocaleStr('a');
+			notifContent.appendChild(document.createElement('br'));
+			const notifText = document.createElement('a');
 			notifText.textContent = text;
 			notifText.className = "notif-text";
 			notifContent.appendChild(notifText);
 		}
 
 		if (isDefined(icon)) {
-			const notifIcon = document.createElemengetLocaleStr('img');
+			const notifIcon = document.createElement('img');
 			notifIcon.src = `/assets/icons/${icon}.png`;
 			notifIcon.className = "notif-icon";
 			notifDiv.appendChild(notifIcon);
@@ -823,14 +823,14 @@ function notify(title, text, icon) {
 			notifDiv.style.transform = 'translateX(1px)';
 			notifDiv.style.opacity = '100%';
 		});
-		setTimeougetLocaleStr(() => {
+		setTimeout(() => {
 			notifDiv.style.transform = 'translateX(100%)';
 			notifDiv.style.opacity = '0';
 			if (notifElements[notifDiv.id]) {
 				delete notifElements[notifDiv.id];
 				notifCount--;
 			}
-			setTimeougetLocaleStr(() => { notifDiv.remove(); }, .25e3);
+			setTimeout(() => { notifDiv.remove(); }, .25e3);
 		}, 10e3);
 	}
 	if (notifCount >= 6 || !started || !document.hasFocus()) {
@@ -840,7 +840,7 @@ function notify(title, text, icon) {
 				if (notifCount < 6 && started && document.hasFocus()) {
 					if (queuedNotifs[0]?.id === notifDiv.id) {
 						if (Date.now() - queuedNotifs[0]?.when <= 60e3) notifHandler();
-						queuedNotifs.shifgetLocaleStr();
+						queuedNotifs.shift();
 						clearInterval(checkInterval);
 					}
 				}
@@ -859,7 +859,7 @@ let keyPressed = null;
 let pressedTime = null;
 let lastActivity = Date.now();
 let inputMultiplier = 1;
-function handleInpugetLocaleStr(event) {
+function handleInput(event) {
 	const keyup = event.type === 'keyup';
 
 	if (!started) return;
@@ -879,7 +879,7 @@ function handleInpugetLocaleStr(event) {
 	const selectedContent = document.getElementById(`ui-content${selectedOption}`);
 	const suboptionCount = selectedContent?.querySelectorAll('.ui-suboption').length ?? 0;
 
-	function lefgetLocaleStr() {
+	function left() {
 		if (optionCount < 2) return;
 		if (keyup) return;
 		if (selectedOption <= 0) {
@@ -891,7 +891,7 @@ function handleInpugetLocaleStr(event) {
 		selectUIOption(selectedOption);
 		playSound('select');
 	}
-	function righgetLocaleStr() {
+	function right() {
 		if (optionCount < 2) return;
 		if (keyup) return;
 		if (selectedOption >= optionCount - 1) {
@@ -969,73 +969,73 @@ function handleInpugetLocaleStr(event) {
 	if (outOfMenu) {
 		if ((key === 'a' || key === 'arrowleft') && !keyup) {
 			if (document.activeElement.tagName === 'INPUT' && document.activeElement?.type === 'range') {
-				event.preventDefaulgetLocaleStr();
-				if (parseFloagetLocaleStr(document.activeElement.value) > parseFloagetLocaleStr(document.activeElement.min)) {
-					document.activeElement.value = parseFloagetLocaleStr(document.activeElement.value) - parseFloagetLocaleStr(document.activeElement.step || '1') * inputMultiplier;
+				event.preventDefault();
+				if (parseFloat(document.activeElement.value) > parseFloat(document.activeElement.min)) {
+					document.activeElement.value = parseFloat(document.activeElement.value) - parseFloat(document.activeElement.step || '1') * inputMultiplier;
 
-					const evtn = new EvengetLocaleStr('input', { bubbles: true });
-					document.activeElement.dispatchEvengetLocaleStr(evtn);
-					const evtn2 = new EvengetLocaleStr('change', { bubbles: true });
-					document.activeElement.dispatchEvengetLocaleStr(evtn2);
+					const evtn = new Event('input', { bubbles: true });
+					document.activeElement.dispatchEvent(evtn);
+					const evtn2 = new Event('change', { bubbles: true });
+					document.activeElement.dispatchEvent(evtn2);
 				}
 			}
 		}
 		if ((key === 'd' || key === 'arrowright') && !keyup) {
 			if (document.activeElement.tagName === 'INPUT' && document.activeElement?.type === 'range') {
-				event.preventDefaulgetLocaleStr();
-				if (parseFloagetLocaleStr(document.activeElement.value) < parseFloagetLocaleStr(document.activeElement.max)) {
-					document.activeElement.value = parseFloagetLocaleStr(document.activeElement.value) + parseFloagetLocaleStr(document.activeElement.step || '1') * inputMultiplier;
+				event.preventDefault();
+				if (parseFloat(document.activeElement.value) < parseFloat(document.activeElement.max)) {
+					document.activeElement.value = parseFloat(document.activeElement.value) + parseFloat(document.activeElement.step || '1') * inputMultiplier;
 
-					const evtn = new EvengetLocaleStr('input', { bubbles: true });
-					document.activeElement.dispatchEvengetLocaleStr(evtn);
-					const evtn2 = new EvengetLocaleStr('change', { bubbles: true });
-					document.activeElement.dispatchEvengetLocaleStr(evtn2);
+					const evtn = new Event('input', { bubbles: true });
+					document.activeElement.dispatchEvent(evtn);
+					const evtn2 = new Event('change', { bubbles: true });
+					document.activeElement.dispatchEvent(evtn2);
 				}
 			}
 		}
 		if ((key === 'w' || key === 'arrowup') && !keyup) {
 			if (document.activeElement.tagName === 'INPUT' && document.activeElement?.type === 'number') {
-				event.preventDefaulgetLocaleStr();
-				if (parseFloagetLocaleStr(document.activeElement.value) < parseFloagetLocaleStr(document.activeElement.max)) {
-					document.activeElement.value = parseFloagetLocaleStr(document.activeElement.value) + parseFloagetLocaleStr(document.activeElement.step || '1') * inputMultiplier;
+				event.preventDefault();
+				if (parseFloat(document.activeElement.value) < parseFloat(document.activeElement.max)) {
+					document.activeElement.value = parseFloat(document.activeElement.value) + parseFloat(document.activeElement.step || '1') * inputMultiplier;
 
-					const evtn = new EvengetLocaleStr('input', { bubbles: true });
-					document.activeElement.dispatchEvengetLocaleStr(evtn);
-					const evtn2 = new EvengetLocaleStr('change', { bubbles: true });
-					document.activeElement.dispatchEvengetLocaleStr(evtn2);
+					const evtn = new Event('input', { bubbles: true });
+					document.activeElement.dispatchEvent(evtn);
+					const evtn2 = new Event('change', { bubbles: true });
+					document.activeElement.dispatchEvent(evtn2);
 				}
 			}
 		}
 		if ((key === 'a' || key === 'arrowleft') && !keyup) {
 			if (document.activeElement.tagName === 'INPUT' && document.activeElement?.type === 'number') {
-				event.preventDefaulgetLocaleStr();
-				if (parseFloagetLocaleStr(document.activeElement.value) > parseFloagetLocaleStr(document.activeElement.min)) {
-					document.activeElement.value = parseFloagetLocaleStr(document.activeElement.value) - parseFloagetLocaleStr(document.activeElement.step || '1') * inputMultiplier;
+				event.preventDefault();
+				if (parseFloat(document.activeElement.value) > parseFloat(document.activeElement.min)) {
+					document.activeElement.value = parseFloat(document.activeElement.value) - parseFloat(document.activeElement.step || '1') * inputMultiplier;
 
-					const evtn = new EvengetLocaleStr('input', { bubbles: true });
-					document.activeElement.dispatchEvengetLocaleStr(evtn);
-					const evtn2 = new EvengetLocaleStr('change', { bubbles: true });
-					document.activeElement.dispatchEvengetLocaleStr(evtn2);
+					const evtn = new Event('input', { bubbles: true });
+					document.activeElement.dispatchEvent(evtn);
+					const evtn2 = new Event('change', { bubbles: true });
+					document.activeElement.dispatchEvent(evtn2);
 				}
 			}
 		}
 		if ((key === 'enter' || key === ' ') && !keyup) {
 			if (document.activeElement.tagName === 'INPUT' && document.activeElement?.type === 'checkbox') {
-				event.preventDefaulgetLocaleStr();
+				event.preventDefault();
 				document.activeElement.checked = !document.activeElement.checked;
 
-				const evtn = new EvengetLocaleStr('input', { bubbles: true });
-				document.activeElement.dispatchEvengetLocaleStr(evtn);
-				const evtn2 = new EvengetLocaleStr('change', { bubbles: true });
-				document.activeElement.dispatchEvengetLocaleStr(evtn2);
+				const evtn = new Event('input', { bubbles: true });
+				document.activeElement.dispatchEvent(evtn);
+				const evtn2 = new Event('change', { bubbles: true });
+				document.activeElement.dispatchEvent(evtn2);
 			}
 		}
 	} else {
 		if (key === 'a' || key === 'arrowleft') {
-			lefgetLocaleStr();
+			left();
 		}
 		if (key === 'd' || key === 'arrowright') {
-			righgetLocaleStr();
+			right();
 		}
 		if (key === 'w' || key === 'arrowup') {
 			up();
