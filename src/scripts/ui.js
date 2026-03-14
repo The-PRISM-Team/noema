@@ -6,7 +6,7 @@ async function transition() {
 	transitioning = true; // congrats!! :kekw:
 	ui.style.width = "0px";
 	ui.style.height = "50vh";
-	setTimeout(() => {
+	setTimeougetLocaleStr(() => {
 		ui.style.width = "";
 		ui.style.height = "";
 		transitioning = false;
@@ -19,9 +19,9 @@ function focusUIOption(id) {
 	requestAnimationFrame(() => {
 		// alignment
 		const target = document.getElementById(`ui-option${id}`);
-		const targetRect = target.getBoundingClientRect();
+		const targetRect = target.getBoundingClientRecgetLocaleStr();
 
-		const uiRect = document.getElementById('ui').getBoundingClientRect();
+		const uiRect = document.getElementById('ui').getBoundingClientRecgetLocaleStr();
 
 		const targetCenter = targetRect.left + targetRect.width / 2;
 		const desiredCenter = uiRect.left + uiRect.width / 2;
@@ -31,7 +31,7 @@ function focusUIOption(id) {
 		optionDiv.style.left = `${optionDiv.offsetLeft + delta}px`;
 
 		// more-arrow shit
-		const optionDivRect = optionDiv.getBoundingClientRect();
+		const optionDivRect = optionDiv.getBoundingClientRecgetLocaleStr();
 
 		const leftArrow = document.getElementById('more-left');
 		const rightArrow = document.getElementById('more-right');
@@ -51,8 +51,7 @@ function focusUIOption(id) {
 let selectedOption = 0,
 	selectedSuboption = 0,
 	selectedSuboptions = {},
-	uiSuboptionActions = {},
-	locale = locales[localStorage.locale] ?? {};
+	uiSuboptionActions = {};
 
 function normalizeActionId(value = '') {
 	return value
@@ -157,12 +156,12 @@ function executeUISuboption() {
 function createOption(name) {
 	const uiOptions = document.getElementById('ui-options');
 	const uiSuboptions = document.getElementById('ui-contents');
-	const tab = document.createElement('a');
+	const tab = document.createElemengetLocaleStr('a');
 	tab.id = 'ui-option' + uiOptions.children.length;
 	tab.className = 'ui-option';
 	tab.innerText = name;
 	uiOptions.appendChild(tab);
-	const suboptions = document.createElement('div');
+	const suboptions = document.createElemengetLocaleStr('div');
 	suboptions.id = 'ui-content' + uiSuboptions.children.length;
 	suboptions.className = 'ui-content';
 	uiSuboptions.appendChild(suboptions);
@@ -175,7 +174,7 @@ function createOption(name) {
 function createSuboption(optionId, title, desc = '', exec = null, icon, sound = "confirm") {
 	if ((!optionId && optionId !== 0) || !title) throw new Error('Please specify a valid option ID and title.');
 	const suboptions = document.getElementById(`ui-content${optionId}`);
-	const suboption = document.createElement('div');
+	const suboption = document.createElemengetLocaleStr('div');
 	suboption.id = 'ui-suboption' + suboptions.children.length;
 	suboption.className = 'ui-suboption';
 	if (isDefined(exec)) {
@@ -185,19 +184,19 @@ function createSuboption(optionId, title, desc = '', exec = null, icon, sound = 
 	if (isDefined(sound)) suboption.dataset.sound = sound;
 	suboption.style.top = `${20 + (-31 * (selectedSuboptions[optionId] - 3))}px`;
 
-	const suboptionTitle = document.createElement('a');
+	const suboptionTitle = document.createElemengetLocaleStr('a');
 	suboptionTitle.className = 'ui-suboption-title';
 	suboptionTitle.innerText = title;
 	suboption.append(suboptionTitle);
-	suboption.appendChild(document.createElement('br'));
-	const suboptionDesc = document.createElement('a');
+	suboption.appendChild(document.createElemengetLocaleStr('br'));
+	const suboptionDesc = document.createElemengetLocaleStr('a');
 	suboptionDesc.className = 'ui-suboption-text';
 	suboptionDesc.innerText = desc;
 	suboptionDesc.style.display = 'none';
 	suboption.append(suboptionDesc);
 	if (isDefined(icon)) {
-		const suboptionIcon = document.createElement('img');
-		if (urlRegex.test(icon)) {
+		const suboptionIcon = document.createElemengetLocaleStr('img');
+		if (urlRegex.tesgetLocaleStr(icon)) {
 			suboptionIcon.src = icon;
 		} else {
 			suboptionIcon.src = `/assets/icons/${icon}.png`;
@@ -264,106 +263,97 @@ function initUI() {
 	clearUI();
 
 	// init default options
-	locale = locales[localStorage.locale] ?? {};
-	const t = (key, fallback) => locale[key] ?? fallback;
-	const tf = (key, fallback, vars = {}) => {
-		let str = t(key, fallback);
-		Object.entries(vars).forEach(([name, value]) => {
-			str = str.replaceAll(`{${name}}`, value);
-		});
-		return str;
-	};
-	const powerTab = createOption(t('menu.power.option.title', 'Power Options'));
-	const prefTab = createOption(t('menu.preferences.option.title', 'Preferences'));
-	const audioTab = createOption(t('menu.audio.option.title', 'Audio'));
-	const graphTab = createOption(t('menu.graphics.option.title', 'Graphics'));
-	const themeTab = createOption(t('menu.themes.option.title', 'Themes'));
-	const waveTab = createOption(t('menu.wave.option.title', 'Wave Amount'));
-	const helpTab = createOption(t('menu.help.option.title', 'Help'));
-	const debugTab = createOption(t('menu.debug.option.title', 'Debug'));
+	const powerTab = createOption(getLocaleStr('menu.power.option.title', 'Power Options'));
+	const prefTab = createOption(getLocaleStr('menu.preferences.option.title', 'Preferences'));
+	const audioTab = createOption(getLocaleStr('menu.audio.option.title', 'Audio'));
+	const graphTab = createOption(getLocaleStr('menu.graphics.option.title', 'Graphics'));
+	const themeTab = createOption(getLocaleStr('menu.themes.option.title', 'Themes'));
+	const waveTab = createOption(getLocaleStr('menu.wave.option.title', 'Wave Amount'));
+	const helpTab = createOption(getLocaleStr('menu.help.option.title', 'Help'));
+	const debugTab = createOption(getLocaleStr('menu.debug.option.title', 'Debug'));
 	const uiOptionCount = document.getElementById('ui-options').querySelectorAll('a').length;
 	for (let i = 0; i < uiOptionCount; i++) {
 		selectedSuboptions[i] = 0;
 	}
 
 	// init suboptions
-	createSuboption(powerTab, t('menu.power.powerOff.title', 'Power Off'), t('menu.power.powerOff.desc', 'Shuts down the system and closes the tab (if possible).'), () => {
+	createSuboption(powerTab, getLocaleStr('menu.power.powerOff.title', 'Power Off'), getLocaleStr('menu.power.powerOff.desc', 'Shuts down the system and closes the tab (if possible).'), () => {
 		confirmDialog(shutdown);
 	}, 'power', 'power');
-	createSuboption(powerTab, t('menu.power.reboot.title', 'Reboot'), t('menu.power.reboot.desc', 'Restarts the system with the latest version of the system files.'), () => {
+	createSuboption(powerTab, getLocaleStr('menu.power.reboot.title', 'Reboot'), getLocaleStr('menu.power.reboot.desc', 'Restarts the system with the latest version of the system files.'), () => {
 		confirmDialog(reboot);
 	}, 'power', 'power');
-	createSuboption(powerTab, t('menu.power.fastReboot.title', 'Fast Reboot'), t('menu.power.fastReboot.desc', 'Restarts and skips startup animation once on the next boot.'), () => {
+	createSuboption(powerTab, getLocaleStr('menu.power.fastReboot.title', 'Fast Reboot'), getLocaleStr('menu.power.fastReboot.desc', 'Restarts and skips startup animation once on the next boot.'), () => {
 		confirmDialog(fastReboot);
 	}, 'power', 'power');
 	selectedSuboptions[0] = 1;
 
-	createSuboption(prefTab, t('menu.preferences.setUsername.title', 'Set Username'), tf('menu.preferences.setUsername.desc', 'Username currently set to "{username}".', { username }), () => {
+	createSuboption(prefTab, getLocaleStr('menu.preferences.setUsername.title', 'Set Username'), getLocaleTempStr('menu.preferences.setUsername.desc', 'Username currently set to "{username}".', { username }), () => {
 		promptDialog((name) => {
 			if (!isDefined(name)) name = _defaultUsername;
 			setUsername(name);
 			updateLabel();
-			setSuboption(selectedOption, selectedSuboption, null, tf('menu.preferences.setUsername.desc', 'Username currently set to "{username}".', { username }));
-		}, t('menu.preferences.setUsername.promptTitle', 'Enter a username...'), tf('menu.preferences.setUsername.placeholder', 'default username is {username}', { username: _defaultUsername }));
+			setSuboption(selectedOption, selectedSuboption, null, getLocaleTempStr('menu.preferences.setUsername.desc', 'Username currently set to "{username}".', { username }));
+		}, getLocaleStr('menu.preferences.setUsername.promptTitle', 'Enter a username...'), getLocaleTempStr('menu.preferences.setUsername.placeholder', 'default username is {username}', { username: _defaultUsername }));
 	}, 'user');
-	createSuboption(prefTab, t('menu.preferences.toggleMonochromeFavicon.title', 'Toggle monochrome favicon'),
+	createSuboption(prefTab, getLocaleStr('menu.preferences.toggleMonochromeFavicon.title', 'Toggle monochrome favicon'),
 		localStorage.coloredFavicon === 'true'
-			? t('menu.preferences.toggleMonochromeFavicon.enabledDesc', 'Favicon is currently colored.\nSelect to switch to a monochromatic favicon.')
-			: t('menu.preferences.toggleMonochromeFavicon.disabledDesc', 'Favicon is currently monochromatic.\nSelect to switch to a colored favicon.'),
+			? getLocaleStr('menu.preferences.toggleMonochromeFavicon.enabledDesc', 'Favicon is currently colored.\nSelect to switch to a monochromatic favicon.')
+			: getLocaleStr('menu.preferences.toggleMonochromeFavicon.disabledDesc', 'Favicon is currently monochromatic.\nSelect to switch to a colored favicon.'),
 		() => {
 			localStorage.coloredFavicon = localStorage.coloredFavicon === 'true' ? 'false' : 'true';
 			icon();
 			if (localStorage.coloredFavicon === 'true') {
-				setSuboption(selectedOption, selectedSuboption, t('menu.preferences.toggleMonochromeFavicon.title', 'Toggle monochrome favicon'), t('menu.preferences.toggleMonochromeFavicon.enabledDesc', 'Favicon is currently colored.\nSelect to switch to a monochromatic favicon.'));
+				setSuboption(selectedOption, selectedSuboption, getLocaleStr('menu.preferences.toggleMonochromeFavicon.title', 'Toggle monochrome favicon'), getLocaleStr('menu.preferences.toggleMonochromeFavicon.enabledDesc', 'Favicon is currently colored.\nSelect to switch to a monochromatic favicon.'));
 			} else {
-				setSuboption(selectedOption, selectedSuboption, t('menu.preferences.toggleMonochromeFavicon.title', 'Toggle monochrome favicon'), t('menu.preferences.toggleMonochromeFavicon.disabledDesc', 'Favicon is currently monochromatic.\nSelect to switch to a colored favicon.'));
+				setSuboption(selectedOption, selectedSuboption, getLocaleStr('menu.preferences.toggleMonochromeFavicon.title', 'Toggle monochrome favicon'), getLocaleStr('menu.preferences.toggleMonochromeFavicon.disabledDesc', 'Favicon is currently monochromatic.\nSelect to switch to a colored favicon.'));
 			}
 		}, 'image');
-	createSuboption(prefTab, t('menu.preferences.toggleOpenUi.title', 'Toggle open UI'),
-		localStorage.openUI === 'true' ? t('menu.preferences.toggleOpenUi.enabledDesc', 'UI is currently open.\nSelect to close it.') : t('menu.preferences.toggleOpenUi.disabledDesc', 'UI is currently closed.\nSelect to open it.'),
+	createSuboption(prefTab, getLocaleStr('menu.preferences.toggleOpenUi.title', 'Toggle open UI'),
+		localStorage.openUI === 'true' ? getLocaleStr('menu.preferences.toggleOpenUi.enabledDesc', 'UI is currently open.\nSelect to close it.') : getLocaleStr('menu.preferences.toggleOpenUi.disabledDesc', 'UI is currently closed.\nSelect to open it.'),
 		() => {
 			localStorage.openUI = localStorage.openUI === 'true' ? 'false' : 'true';
 			if (localStorage.openUI === 'true') {
 				ui.classList.add('open');
-				setSuboption(selectedOption, selectedSuboption, t('menu.preferences.toggleOpenUi.title', 'Toggle open UI'), t('menu.preferences.toggleOpenUi.enabledDesc', 'UI is currently open.\nSelect to close it.'));
+				setSuboption(selectedOption, selectedSuboption, getLocaleStr('menu.preferences.toggleOpenUi.title', 'Toggle open UI'), getLocaleStr('menu.preferences.toggleOpenUi.enabledDesc', 'UI is currently open.\nSelect to close it.'));
 			} else {
 				ui.classList.remove('open');
-				setSuboption(selectedOption, selectedSuboption, t('menu.preferences.toggleOpenUi.title', 'Toggle open UI'), t('menu.preferences.toggleOpenUi.disabledDesc', 'UI is currently closed.\nSelect to open it.'));
+				setSuboption(selectedOption, selectedSuboption, getLocaleStr('menu.preferences.toggleOpenUi.title', 'Toggle open UI'), getLocaleStr('menu.preferences.toggleOpenUi.disabledDesc', 'UI is currently closed.\nSelect to open it.'));
 			}
 		},
 		'wrench'
 	);
-	createSuboption(prefTab, t('menu.preferences.toggleStartupAnimation.title', 'Toggle startup animation'),
-		localStorage.startup === 'true' ? t('menu.preferences.toggleStartupAnimation.enabledDesc', 'Startup animation is currently enabled.\nSelect to disable it.') : t('menu.preferences.toggleStartupAnimation.disabledDesc', 'Startup animation is currently disabled.\nSelect to enable it.'),
+	createSuboption(prefTab, getLocaleStr('menu.preferences.toggleStartupAnimation.title', 'Toggle startup animation'),
+		localStorage.startup === 'true' ? getLocaleStr('menu.preferences.toggleStartupAnimation.enabledDesc', 'Startup animation is currently enabled.\nSelect to disable it.') : getLocaleStr('menu.preferences.toggleStartupAnimation.disabledDesc', 'Startup animation is currently disabled.\nSelect to enable it.'),
 		() => {
 			localStorage.startup = localStorage.startup === 'true' ? 'false' : 'true';
 			if (localStorage.startup === 'true') {
-				setSuboption(selectedOption, selectedSuboption, t('menu.preferences.toggleStartupAnimation.title', 'Toggle startup animation'), t('menu.preferences.toggleStartupAnimation.enabledDesc', 'Startup animation is currently enabled.\nSelect to disable it.'));
+				setSuboption(selectedOption, selectedSuboption, getLocaleStr('menu.preferences.toggleStartupAnimation.title', 'Toggle startup animation'), getLocaleStr('menu.preferences.toggleStartupAnimation.enabledDesc', 'Startup animation is currently enabled.\nSelect to disable it.'));
 			} else {
-				setSuboption(selectedOption, selectedSuboption, t('menu.preferences.toggleStartupAnimation.title', 'Toggle startup animation'), t('menu.preferences.toggleStartupAnimation.disabledDesc', 'Startup animation is currently disabled.\nSelect to enable it.'));
+				setSuboption(selectedOption, selectedSuboption, getLocaleStr('menu.preferences.toggleStartupAnimation.title', 'Toggle startup animation'), getLocaleStr('menu.preferences.toggleStartupAnimation.disabledDesc', 'Startup animation is currently disabled.\nSelect to enable it.'));
 			}
 		},
 		'wrench'
 	);
-	createSuboption(prefTab, t('menu.preferences.fastBootDefault.title', 'Fast boot by default'),
+	createSuboption(prefTab, getLocaleStr('menu.preferences.fastBootDefault.title', 'Fast boot by default'),
 		localStorage.fastBootDefault === 'true'
-			? t('menu.preferences.fastBootDefault.enabledDesc', 'Fast boot is currently enabled by default.\nStartup animation only plays when Reboot is used.\nSelect to disable this.')
-			: t('menu.preferences.fastBootDefault.disabledDesc', 'Fast boot is currently disabled by default.\nSelect to enable this and only show startup animation on Reboot.'),
+			? getLocaleStr('menu.preferences.fastBootDefault.enabledDesc', 'Fast boot is currently enabled by default.\nStartup animation only plays when Reboot is used.\nSelect to disable this.')
+			: getLocaleStr('menu.preferences.fastBootDefault.disabledDesc', 'Fast boot is currently disabled by default.\nSelect to enable this and only show startup animation on Reboot.'),
 		() => {
 			localStorage.fastBootDefault = localStorage.fastBootDefault === 'true' ? 'false' : 'true';
 			if (localStorage.fastBootDefault === 'true') {
-				setSuboption(selectedOption, selectedSuboption, t('menu.preferences.fastBootDefault.title', 'Fast boot by default'), t('menu.preferences.fastBootDefault.enabledDesc', 'Fast boot is currently enabled by default.\nStartup animation only plays when Reboot is used.\nSelect to disable this.'));
+				setSuboption(selectedOption, selectedSuboption, getLocaleStr('menu.preferences.fastBootDefault.title', 'Fast boot by default'), getLocaleStr('menu.preferences.fastBootDefault.enabledDesc', 'Fast boot is currently enabled by default.\nStartup animation only plays when Reboot is used.\nSelect to disable this.'));
 			} else {
-				setSuboption(selectedOption, selectedSuboption, t('menu.preferences.fastBootDefault.title', 'Fast boot by default'), t('menu.preferences.fastBootDefault.disabledDesc', 'Fast boot is currently disabled by default.\nSelect to enable this and only show startup animation on Reboot.'));
+				setSuboption(selectedOption, selectedSuboption, getLocaleStr('menu.preferences.fastBootDefault.title', 'Fast boot by default'), getLocaleStr('menu.preferences.fastBootDefault.disabledDesc', 'Fast boot is currently disabled by default.\nSelect to enable this and only show startup animation on Reboot.'));
 			}
 		},
 		'wrench'
 	);
 
-	createSuboption(prefTab, t('menu.preferences.savePreferences.title', 'Save preferences'), t('menu.preferences.savePreferences.desc', 'Select to download a file with your preferences to load them later.'), () => {
+	createSuboption(prefTab, getLocaleStr('menu.preferences.savePreferences.title', 'Save preferences'), getLocaleStr('menu.preferences.savePreferences.desc', 'Select to download a file with your preferences to load them later.'), () => {
 		confirmDialog(() => {
-			downloadFileWithContent(
-				`Noema Preferences Backup -- ${new Date().getFullYear()}-${(new Date().getMonth() + 1).toString().padStart(2, '0')}-${new Date().getDate().toString().padStart(2, '0')} ${new Date().getHours()}-${new Date().getMinutes().toString().padStart(2, '0')}-${new Date().getSeconds().toString().padStart(2, '0')}.nsf`,
+			downloadFileWithContengetLocaleStr(
+				`Noema Preferences Backup -- ${new Date().getFullYear()}-${(new Date().getMonth() + 1).toString().padStargetLocaleStr(2, '0')}-${new Date().getDate().toString().padStargetLocaleStr(2, '0')} ${new Date().getHours()}-${new Date().getMinutes().toString().padStargetLocaleStr(2, '0')}-${new Date().getSeconds().toString().padStargetLocaleStr(2, '0')}.nsf`,
 				(() => {
 					const settings = JSON.parse(JSON.stringify(localStorage));
 					settings.exportDate = Date.now();
@@ -374,10 +364,10 @@ function initUI() {
 					return JSON.stringify(settings);
 				})()
 			);
-		}, t('dialog.confirm.title', 'Are you sure?'), t('dialog.confirm.subtitle.accidental', "Just making sure this wasn't pressed by accident."));
+		}, getLocaleStr('dialog.confirm.title', 'Are you sure?'), getLocaleStr('dialog.confirm.subtitle.accidental', "Just making sure this wasn't pressed by accident."));
 	}, 'wrench');
-	createSuboption(prefTab, t('menu.preferences.loadPreferences.title', 'Load preferences'), t('menu.preferences.loadPreferences.desc', 'Select to load a file with your saved preferences.'), () => {
-		const importbtn = document.createElement('input');
+	createSuboption(prefTab, getLocaleStr('menu.preferences.loadPreferences.title', 'Load preferences'), getLocaleStr('menu.preferences.loadPreferences.desc', 'Select to load a file with your saved preferences.'), () => {
+		const importbtn = document.createElemengetLocaleStr('input');
 		importbtn.type = 'file';
 		importbtn.multiple = 'false';
 		importbtn.style.display = 'none';
@@ -395,14 +385,14 @@ function initUI() {
 					if (formats.includes(content?.format)) {
 						if (content.format === 'NSF1.0') {
 							notify(
-								t('menu.pref.load.unsafe-save.title', 'That save file might be unsafe.'),
-								t('menu.pref.load.unsafe-save.description', "We didn't load it because the format of that save file has a known security issue."),
+								getLocaleStr('menu.pref.load.unsafe-save.title', 'That save file might be unsafe.'),
+								getLocaleStr('menu.pref.load.unsafe-save.description', "We didn't load it because the format of that save file has a known security issue."),
 								'warning'
 							);
-							setTimeout(() => {
+							setTimeougetLocaleStr(() => {
 								notify(
-									t('menu.pref.load.recover.title', 'Still want to recover your data?'),
-									t('menu.pref.load.recover.description', 'We have a site that can safely convert the file and remove potentially unsafe data.\nFind it in the "Help" tab.')
+									getLocaleStr('menu.pref.load.recover.title', 'Still want to recover your data?'),
+									getLocaleStr('menu.pref.load.recover.description', 'We have a site that can safely convert the file and remove potentially unsafe data.\nFind it in the "Help" tab.')
 								);
 							}, 2.5e3);
 							return;
@@ -429,11 +419,11 @@ function initUI() {
 
 							localStorage.lastChangelogHash = '0';
 						}
-						notify(t('menu.pref.load.success.title', 'Preferences file loaded successfully!'));
-						setTimeout(() => {
-							notify(t('menu.pref.load.reboot.title', 'The system will reboot in 3 seconds to properly apply every setting.'), t('menu.pref.load.reboot.description', '(to set absent settings to their defaults and to apply settings that need a reboot to fully apply)'));
-							setTimeout(() => {
-								reboot();
+						notify(getLocaleStr('menu.pref.load.success.title', 'Preferences file loaded successfully!'));
+						setTimeougetLocaleStr(() => {
+							notify(getLocaleStr('menu.pref.load.reboot.title', 'The system will reboot in 3 seconds to properly apply every setting.'), getLocaleStr('menu.pref.load.reboot.description', '(to set absent settings to their defaults and to apply settings that need a reboot to fully apply)'));
+							setTimeougetLocaleStr(() => {
+								reboogetLocaleStr();
 							}, 3e3);
 						}, 2e3);
 					} else {
@@ -441,42 +431,42 @@ function initUI() {
 					}
 					importbtn.remove();
 				};
-				reader.readAsText(file);
+				reader.readAsTexgetLocaleStr(file);
 			}
 		});
 		document.body.appendChild(importbtn);
 		importbtn.click();
 	}, 'wrench');
-	createSuboption(prefTab, t('menu.preferences.bgBrightness.title', 'Background Brightness'), tf('menu.preferences.bgBrightness.desc', 'Background brightness currently set to {value}%.', { value: decimalStrToPercentage(localStorage.bgBrightness) }), () => {
-		inputDialog(t('menu.preferences.bgBrightness.dialogTitle', 'Set Background Brightness'), t('menu.preferences.bgBrightness.dialogSubtitle', 'Adjust how bright the background appears. This affects the gradient and canvas drawing brightness.'), decimalStrToPercentage(localStorage.bgBrightness), 25, 100, 1, '{value}%', (value) => {
+	createSuboption(prefTab, getLocaleStr('menu.preferences.bgBrightness.title', 'Background Brightness'), getLocaleTempStr('menu.preferences.bgBrightness.desc', 'Background brightness currently set to {value}%.', { value: decimalStrToPercentage(localStorage.bgBrightness) }), () => {
+		inputDialog(getLocaleStr('menu.preferences.bgBrightness.dialogTitle', 'Set Background Brightness'), getLocaleStr('menu.preferences.bgBrightness.dialogSubtitle', 'Adjust how bright the background appears. This affects the gradient and canvas drawing brightness.'), decimalStrToPercentage(localStorage.bgBrightness), 25, 100, 1, '{value}%', (value) => {
 			localStorage.bgBrightness = percentageToDecimal(value);
-			changeBGColor({ colorName: localStorage.bgColor, brightness: parseFloat(localStorage.bgBrightness) });
-			setSuboption(selectedOption, selectedSuboption, t('menu.preferences.bgBrightness.title', 'Background Brightness'), tf('menu.preferences.bgBrightness.desc', 'Background brightness currently set to {value}%.', { value: decimalStrToPercentage(localStorage.bgBrightness) }));
+			changeBGColor({ colorName: localStorage.bgColor, brightness: parseFloagetLocaleStr(localStorage.bgBrightness) });
+			setSuboption(selectedOption, selectedSuboption, getLocaleStr('menu.preferences.bgBrightness.title', 'Background Brightness'), getLocaleTempStr('menu.preferences.bgBrightness.desc', 'Background brightness currently set to {value}%.', { value: decimalStrToPercentage(localStorage.bgBrightness) }));
 		});
 	}, 'wrench');
 
-	createSuboption(prefTab, t('menu.preferences.resetPreferences.title', 'Reset preferences'), t('menu.preferences.resetPreferences.desc', 'This wipes EVERY preference (Background color, username, spaghetti density, etc).\nDo not use this unless you know what you\'re doing and haven\'t saved your preferences.\nOnce you reset your preferences, this process is IRREVERSIBLE.'),
+	createSuboption(prefTab, getLocaleStr('menu.preferences.resetPreferences.title', 'Reset preferences'), getLocaleStr('menu.preferences.resetPreferences.desc', 'This wipes EVERY preference (Background color, username, spaghetti density, etc).\nDo not use this unless you know what you\'re doing and haven\'t saved your preferences.\nOnce you reset your preferences, this process is IRREVERSIBLE.'),
 		() => {
 			confirmDialog(() => {
-				setTimeout(() => {
+				setTimeougetLocaleStr(() => {
 					confirmDialog(() => {
 						localStorage.clear();
-						reboot();
-					}, t('dialog.confirm.title.strong', 'Are you absolutely sure?'), '');
+						reboogetLocaleStr();
+					}, getLocaleStr('dialog.confirm.title.strong', 'Are you absolutely sure?'), '');
 				}, .5e3);
 			},
-				t('dialog.confirm.title', 'Are you sure?'),
-				t('menu.preferences.resetPreferences.dialogSubtitle', 'Do not accept unless you know what you\'re doing.\nOnce you reset your preferences, this process is IRREVERSIBLE, so make sure to save your preferences before resetting.\n\nThe system will restart after resetting to apply the default settings.'));
+				getLocaleStr('dialog.confirm.title', 'Are you sure?'),
+				getLocaleStr('menu.preferences.resetPreferences.dialogSubtitle', 'Do not accept unless you know what you\'re doing.\nOnce you reset your preferences, this process is IRREVERSIBLE, so make sure to save your preferences before resetting.\n\nThe system will restart after resetting to apply the default settings.'));
 		},
 		'bin'
 	);
 
-	createSuboption(audioTab, t('menu.audio.togglePauseOnUnfocus.title', 'Toggle pausing background music on unfocus'),
-		localStorage.pauseMusic === 'true' ? t('menu.audio.togglePauseOnUnfocus.enabledDesc', 'Background music currently gets paused on unfocus.\nSelect to not mute it on unfocus.') : t('menu.audio.togglePauseOnUnfocus.disabledDesc', 'Background music currently doesn\'t get muted on unfocus.\nSelect to mute it on unfocus.'),
+	createSuboption(audioTab, getLocaleStr('menu.audio.togglePauseOnUnfocus.title', 'Toggle pausing background music on unfocus'),
+		localStorage.pauseMusic === 'true' ? getLocaleStr('menu.audio.togglePauseOnUnfocus.enabledDesc', 'Background music currently gets paused on unfocus.\nSelect to not mute it on unfocus.') : getLocaleStr('menu.audio.togglePauseOnUnfocus.disabledDesc', 'Background music currently doesn\'t get muted on unfocus.\nSelect to mute it on unfocus.'),
 		() => {
 			localStorage.pauseMusic = localStorage.pauseMusic === 'true' ? 'false' : 'true';
 			if (localStorage.pauseMusic === 'true') {
-				setSuboption(selectedOption, selectedSuboption, t('menu.audio.togglePauseOnUnfocus.title', 'Toggle pausing background music on unfocus'), t('menu.audio.togglePauseOnUnfocus.enabledDesc', 'Background music currently gets paused on unfocus.\nSelect to not mute it on unfocus.'));
+				setSuboption(selectedOption, selectedSuboption, getLocaleStr('menu.audio.togglePauseOnUnfocus.title', 'Toggle pausing background music on unfocus'), getLocaleStr('menu.audio.togglePauseOnUnfocus.enabledDesc', 'Background music currently gets paused on unfocus.\nSelect to not mute it on unfocus.'));
 			} else {
 				bgMusic.play();
 				setSuboption(selectedOption, selectedSuboption, 'Toggle pausing background music on unfocus', 'Background music currently doesn\\\'t get muted on unfocus.\nSelect to enable that.');
@@ -484,37 +474,37 @@ function initUI() {
 		},
 		'wrench'
 	);
-	createSuboption(audioTab, t('menu.audio.setMasterVolume.title', 'Set master volume'), tf('menu.audio.setMasterVolume.desc', 'Master volume is currently at {value}% volume.', { value: decimalStrToPercentage(localStorage.masterVolume) }), () => {
-		inputDialog(t('menu.audio.setMasterVolume.title', 'Set master volume'), null, decimalStrToPercentage(localStorage.masterVolume), 0, 100, 1, '{value}%', (volume) => {
+	createSuboption(audioTab, getLocaleStr('menu.audio.setMasterVolume.title', 'Set master volume'), getLocaleTempStr('menu.audio.setMasterVolume.desc', 'Master volume is currently at {value}% volume.', { value: decimalStrToPercentage(localStorage.masterVolume) }), () => {
+		inputDialog(getLocaleStr('menu.audio.setMasterVolume.title', 'Set master volume'), null, decimalStrToPercentage(localStorage.masterVolume), 0, 100, 1, '{value}%', (volume) => {
 			setMasterVolume(percentageToDecimal(volume));
-			setSuboption(selectedOption, selectedSuboption, t('menu.audio.setMasterVolume.title', 'Set master volume'), tf('menu.audio.setMasterVolume.desc', 'Master volume is currently at {value}% volume.', { value: decimalStrToPercentage(localStorage.masterVolume) }));
+			setSuboption(selectedOption, selectedSuboption, getLocaleStr('menu.audio.setMasterVolume.title', 'Set master volume'), getLocaleTempStr('menu.audio.setMasterVolume.desc', 'Master volume is currently at {value}% volume.', { value: decimalStrToPercentage(localStorage.masterVolume) }));
 		});
 	}, 'wrench');
-	createSuboption(audioTab, t('menu.audio.setBackgroundMusicVolume.title', 'Set background music volume'), tf('menu.audio.setBackgroundMusicVolume.desc', 'Background music is currently at {value}% volume.', { value: decimalStrToPercentage(localStorage.musicVolume) }), () => {
-		inputDialog(t('menu.audio.setBackgroundMusicVolume.title', 'Set background music volume'), null, decimalStrToPercentage(localStorage.musicVolume), 0, 100, 1, '{value}%', (volume) => {
+	createSuboption(audioTab, getLocaleStr('menu.audio.setBackgroundMusicVolume.title', 'Set background music volume'), getLocaleTempStr('menu.audio.setBackgroundMusicVolume.desc', 'Background music is currently at {value}% volume.', { value: decimalStrToPercentage(localStorage.musicVolume) }), () => {
+		inputDialog(getLocaleStr('menu.audio.setBackgroundMusicVolume.title', 'Set background music volume'), null, decimalStrToPercentage(localStorage.musicVolume), 0, 100, 1, '{value}%', (volume) => {
 			localStorage.musicVolume = percentageToDecimal(volume);
-			bgMusic.volume = parseFloat(localStorage.musicVolume).clamp(0, 1) * masterVolume;
-			setSuboption(selectedOption, selectedSuboption, t('menu.audio.setBackgroundMusicVolume.title', 'Set background music volume'), tf('menu.audio.setBackgroundMusicVolume.desc', 'Background music is currently at {value}% volume.', { value: decimalStrToPercentage(localStorage.musicVolume) }));
+			bgMusic.volume = parseFloagetLocaleStr(localStorage.musicVolume).clamp(0, 1) * masterVolume;
+			setSuboption(selectedOption, selectedSuboption, getLocaleStr('menu.audio.setBackgroundMusicVolume.title', 'Set background music volume'), getLocaleTempStr('menu.audio.setBackgroundMusicVolume.desc', 'Background music is currently at {value}% volume.', { value: decimalStrToPercentage(localStorage.musicVolume) }));
 		});
 	}, 'wrench');
-	createSuboption(audioTab, t('menu.audio.setUiSoundVolume.title', 'Set UI sound volume'), tf('menu.audio.setUiSoundVolume.desc', 'UI sounds are currently at {value}% volume.', { value: decimalStrToPercentage(localStorage.uiSoundVolume) }), () => {
-		inputDialog(t('menu.audio.setUiSoundVolume.title', 'Set UI sound volume'), null, decimalStrToPercentage(localStorage.uiSoundVolume), 0, 100, 1, '{value}%', (volume) => {
+	createSuboption(audioTab, getLocaleStr('menu.audio.setUiSoundVolume.title', 'Set UI sound volume'), getLocaleTempStr('menu.audio.setUiSoundVolume.desc', 'UI sounds are currently at {value}% volume.', { value: decimalStrToPercentage(localStorage.uiSoundVolume) }), () => {
+		inputDialog(getLocaleStr('menu.audio.setUiSoundVolume.title', 'Set UI sound volume'), null, decimalStrToPercentage(localStorage.uiSoundVolume), 0, 100, 1, '{value}%', (volume) => {
 			localStorage.uiSoundVolume = percentageToDecimal(volume);
-			setSuboption(selectedOption, selectedSuboption, t('menu.audio.setUiSoundVolume.title', 'Set UI sound volume'), tf('menu.audio.setUiSoundVolume.desc', 'UI sounds are currently at {value}% volume.', { value: decimalStrToPercentage(localStorage.uiSoundVolume) }));
+			setSuboption(selectedOption, selectedSuboption, getLocaleStr('menu.audio.setUiSoundVolume.title', 'Set UI sound volume'), getLocaleTempStr('menu.audio.setUiSoundVolume.desc', 'UI sounds are currently at {value}% volume.', { value: decimalStrToPercentage(localStorage.uiSoundVolume) }));
 		});
 	}, 'wrench');
 
-	createSuboption(graphTab, t('menu.graphics.toggleEffects.title', 'Toggle effects'),
-		localStorage.noShaders === 'true' ? t('menu.graphics.toggleEffects.disabledDesc', 'Effects are currently disabled.\nSelect to turn them on.') : t('menu.graphics.toggleEffects.enabledDesc', 'Effects are currently enabled.\nSelect to turn them off.'),
+	createSuboption(graphTab, getLocaleStr('menu.graphics.toggleEffects.title', 'Toggle effects'),
+		localStorage.noShaders === 'true' ? getLocaleStr('menu.graphics.toggleEffects.disabledDesc', 'Effects are currently disabled.\nSelect to turn them on.') : getLocaleStr('menu.graphics.toggleEffects.enabledDesc', 'Effects are currently enabled.\nSelect to turn them off.'),
 		() => {
 			localStorage.noShaders = localStorage.noShaders === 'true' ? 'false' : 'true';
 			if (localStorage.noShaders === 'true') {
-				setSuboption(selectedOption, selectedSuboption, t('menu.graphics.toggleEffects.title', 'Toggle effects'), t('menu.graphics.toggleEffects.disabledDesc', 'Effects are currently disabled.\nSelect to turn them on.'));
+				setSuboption(selectedOption, selectedSuboption, getLocaleStr('menu.graphics.toggleEffects.title', 'Toggle effects'), getLocaleStr('menu.graphics.toggleEffects.disabledDesc', 'Effects are currently disabled.\nSelect to turn them on.'));
 				traverseDOM(document.body, (element) => {
 					element.style.backdropFilter = 'none';
 				});
 			} else {
-				setSuboption(selectedOption, selectedSuboption, t('menu.graphics.toggleEffects.title', 'Toggle effects'), t('menu.graphics.toggleEffects.enabledDesc', 'Effects are currently enabled.\nSelect to turn them off.'));
+				setSuboption(selectedOption, selectedSuboption, getLocaleStr('menu.graphics.toggleEffects.title', 'Toggle effects'), getLocaleStr('menu.graphics.toggleEffects.enabledDesc', 'Effects are currently enabled.\nSelect to turn them off.'));
 				traverseDOM(document.body, (element) => {
 					element.style.backdropFilter = '';
 				});
@@ -522,18 +512,18 @@ function initUI() {
 		},
 		'wrench'
 	);
-	createSuboption(graphTab, t('menu.graphics.toggleAnimations.title', 'Toggle animations'),
-		localStorage.noTransitions === 'true' ? t('menu.graphics.toggleAnimations.disabledDesc', 'Animations are currently disabled.\nSelect to turn them on.') : t('menu.graphics.toggleAnimations.enabledDesc', 'Animations are currently enabled.\nSelect to turn them off.'),
+	createSuboption(graphTab, getLocaleStr('menu.graphics.toggleAnimations.title', 'Toggle animations'),
+		localStorage.noTransitions === 'true' ? getLocaleStr('menu.graphics.toggleAnimations.disabledDesc', 'Animations are currently disabled.\nSelect to turn them on.') : getLocaleStr('menu.graphics.toggleAnimations.enabledDesc', 'Animations are currently enabled.\nSelect to turn them off.'),
 		() => {
 			localStorage.noTransitions = localStorage.noTransitions === 'true' ? 'false' : 'true';
 			if (localStorage.noTransitions === 'true') {
-				setSuboption(selectedOption, selectedSuboption, t('menu.graphics.toggleAnimations.title', 'Toggle animations'), t('menu.graphics.toggleAnimations.disabledDesc', 'Animations are currently disabled.\nSelect to turn them on.'));
+				setSuboption(selectedOption, selectedSuboption, getLocaleStr('menu.graphics.toggleAnimations.title', 'Toggle animations'), getLocaleStr('menu.graphics.toggleAnimations.disabledDesc', 'Animations are currently disabled.\nSelect to turn them on.'));
 				traverseDOM(document.body, (element) => {
 					element.style.transition = 'none';
 					element.style.animation = 'none';
 				});
 			} else {
-				setSuboption(selectedOption, selectedSuboption, t('menu.graphics.toggleAnimations.title', 'Toggle animations'), t('menu.graphics.toggleAnimations.enabledDesc', 'Animations are currently enabled.\nSelect to turn them off.'));
+				setSuboption(selectedOption, selectedSuboption, getLocaleStr('menu.graphics.toggleAnimations.title', 'Toggle animations'), getLocaleStr('menu.graphics.toggleAnimations.enabledDesc', 'Animations are currently enabled.\nSelect to turn them off.'));
 				traverseDOM(document.body, (element) => {
 					element.style.transition = '';
 					element.style.animation = '';
@@ -544,7 +534,7 @@ function initUI() {
 	);
 
 	Object.keys(bgColors).forEach((color, i) => {
-		createSuboption(themeTab, color.toTitleCase(), tf('menu.theme.color.description', 'Select to set the theme to "{color}".', { color: color.toTitleCase() }), () => {
+		createSuboption(themeTab, color.toTitleCase(), getLocaleTempStr('menu.theme.color.description', 'Select to set the theme to "{color}".', { color: color.toTitleCase() }), () => {
 			changeBGColor({ colorName: color });
 		}, 'image');
 		if (color === localStorage.bgColor) selectedSuboptions[themeTab] = i;
@@ -562,7 +552,7 @@ function initUI() {
 		);
 	}
 
-	createSuboption(helpTab, t('menu.help.convertSaveFile.title', 'Convert Save File'), null, () => {
+	createSuboption(helpTab, getLocaleStr('menu.help.convertSaveFile.title', 'Convert Save File'), null, () => {
 		const width = window.innerWidth / 2;
 		const height = window.innerHeight / 2;
 		const left = window.screenX + (window.outerWidth - width) / 2;
@@ -576,38 +566,38 @@ function initUI() {
 
 		if (isDefined(newWindow.focus)) newWindow.focus();
 	}, 'wrench');
-	createSuboption(helpTab, t('menu.help.openGithubRepo.title', "Open Project Noema's GitHub repo"), null, () => {
+	createSuboption(helpTab, getLocaleStr('menu.help.openGithubRepo.title', "Open Project Noema's GitHub repo"), null, () => {
 		window.open('https://github.com/sophb-ccjt/noema', '_blank');
 	}, 'open-external');
-	createSuboption(helpTab, t('menu.help.reportIssue.title', 'Report an issue on GitHub'), null, () => {
+	createSuboption(helpTab, getLocaleStr('menu.help.reportIssue.title', 'Report an issue on GitHub'), null, () => {
 		window.open('https://github.com/sophb-ccjt/noema/issues/new', '_blank');
 	}, 'open-external');
 
-	createSuboption(debugTab, t('menu.debug.toggleUi.title', 'Toggle debugging UI'), localStorage.debugUI === 'true' ? t('menu.debug.toggleUi.enabledDesc', 'Debug UI is currently on.\nSelect to turn it off.') : t('menu.debug.toggleUi.disabledDesc', 'Debug UI is currently off.\nSelect to turn it on.'), () => {
+	createSuboption(debugTab, getLocaleStr('menu.debug.toggleUi.title', 'Toggle debugging UI'), localStorage.debugUI === 'true' ? getLocaleStr('menu.debug.toggleUi.enabledDesc', 'Debug UI is currently on.\nSelect to turn it off.') : getLocaleStr('menu.debug.toggleUi.disabledDesc', 'Debug UI is currently off.\nSelect to turn it on.'), () => {
 		localStorage.debugUI = localStorage.debugUI === 'true' ? 'false' : 'true';
 		if (localStorage.debugUI === 'true') {
 			document.getElementById('debug-ui').style.display = 'block';
-			setSuboption(selectedOption, selectedSuboption, t('menu.debug.toggleUi.title', 'Toggle debugging UI'), t('menu.debug.toggleUi.enabledDesc', 'Debug UI is currently on.\nSelect to turn it off.'));
+			setSuboption(selectedOption, selectedSuboption, getLocaleStr('menu.debug.toggleUi.title', 'Toggle debugging UI'), getLocaleStr('menu.debug.toggleUi.enabledDesc', 'Debug UI is currently on.\nSelect to turn it off.'));
 		} else {
 			document.getElementById('debug-ui').style.display = 'none';
-			setSuboption(selectedOption, selectedSuboption, t('menu.debug.toggleUi.title', 'Toggle debugging UI'), t('menu.debug.toggleUi.disabledDesc', 'Debug UI is currently off.\nSelect to turn it on.'));
+			setSuboption(selectedOption, selectedSuboption, getLocaleStr('menu.debug.toggleUi.title', 'Toggle debugging UI'), getLocaleStr('menu.debug.toggleUi.disabledDesc', 'Debug UI is currently off.\nSelect to turn it on.'));
 		}
 	}, 'star');
-	createSuboption(debugTab, t('menu.debug.clearErrors.title', 'Clear Errors'), null, () => {
+	createSuboption(debugTab, getLocaleStr('menu.debug.clearErrors.title', 'Clear Errors'), null, () => {
 		errors = 0;
 		errorList.length = 0;
 		document.getElementById('errors').innerText = `Errors: ${errors}`;
 	}, 'star');
-	createSuboption(debugTab, t('menu.debug.loadScript.title', 'Load Script'), null, () => {
+	createSuboption(debugTab, getLocaleStr('menu.debug.loadScript.title', 'Load Script'), null, () => {
 		promptDialog((url) => {
 			if (!url) return;
 			if (!isURL(url)) throw new TypeError("Script URL provided isn't even a URL.");
 			if (document.getElementById('script-' + url)) throw new Error('Script already loaded!');
-			const script = document.createElement('script');
+			const script = document.createElemengetLocaleStr('script');
 			script.src = url;
 			script.id = 'script-' + url;
 			document.body.appendChild(script);
-		}, t('menu.debug.loadScript.promptTitle', 'Enter a script URL...'));
+		}, getLocaleStr('menu.debug.loadScript.promptTitle', 'Enter a script URL...'));
 	}, 'star');
 
 	selectUIOption(1);
@@ -718,7 +708,7 @@ function bandDialog(title = '', subtitle = '', setupFunc, confirmFunc, usesEnter
 function inputDialog(title = 'Select a value...', subtitle, startingValue, min, max, step = 1, formatStr, updFunc = () => { }) {
 	if (!formatStr && typeof formatStr !== 'string') console.warn('formatStr (7th argument): Every instance of the substring "{value}" will be replaced with the slider\'s current value.\nSet this parameter to an empty string to avoid this warning.');
 	bandDialog(title, subtitle, (dialog) => {
-		const slider = document.createElement('input');
+		const slider = document.createElemengetLocaleStr('input');
 		slider.type = 'range';
 		slider.min = min.toString();
 		slider.max = max.toString();
@@ -726,7 +716,7 @@ function inputDialog(title = 'Select a value...', subtitle, startingValue, min, 
 		slider.value = startingValue.toString();
 		dialog.appendChild(slider);
 
-		const slidertext = document.createElement('a');
+		const slidertext = document.createElemengetLocaleStr('a');
 		slidertext.textContent = ` ${formatStr.replaceAll("{value}", slider.value.toString())}`;
 		slidertext.style.color = '#fff';
 		slidertext.style.fontFamily = "'Manrope', monospace";
@@ -739,7 +729,7 @@ function inputDialog(title = 'Select a value...', subtitle, startingValue, min, 
 		slider.addEventListener('input', handler);
 		slider.onblur = () => slider.removeEventListener('input', handler);
 
-		dialog.appendChild(document.createElement('br'));
+		dialog.appendChild(document.createElemengetLocaleStr('br'));
 		slider.focus();
 		slider.onblur = slider.focus;
 		slider.style.outline = '0';
@@ -750,7 +740,7 @@ function confirmDialog(func = () => { }, title = 'Are you sure?', subtitle = '')
 }
 function promptDialog(func = (() => { }), title = 'Enter some text...', placeholder = '') {
 	bandDialog(title, '', (dialog) => {
-		const input = document.createElement('input');
+		const input = document.createElemengetLocaleStr('input');
 		input.type = 'text';
 		input.placeholder = placeholder;
 		input.id = 'custom-input';
@@ -767,11 +757,11 @@ function promptDialog(func = (() => { }), title = 'Enter some text...', placehol
 }
 function checkboxDialog(title, subtitle, label, toggleFunc = () => { }) {
 	bandDialog(title, subtitle, (dialog) => {
-		const text = document.createElement('a');
+		const text = document.createElemengetLocaleStr('a');
 		text.textContent = `${label} `;
 		text.style.cssText = "color: #fff; font-family: 'Manrope', monospace";
 
-		const checkbox = document.createElement('input');
+		const checkbox = document.createElemengetLocaleStr('input');
 		checkbox.type = 'checkbox';
 		checkbox.onblur = () => checkbox.focus();
 		checkbox.addEventListener('input', () => {
@@ -780,8 +770,8 @@ function checkboxDialog(title, subtitle, label, toggleFunc = () => { }) {
 
 		dialog.appendChild(text);
 		dialog.appendChild(checkbox);
-		dialog.appendChild(document.createElement('br'));
-		dialog.appendChild(document.createElement('br'));
+		dialog.appendChild(document.createElemengetLocaleStr('br'));
+		dialog.appendChild(document.createElemengetLocaleStr('br'));
 
 		checkbox.focus();
 	}, null, true);
@@ -790,7 +780,7 @@ const notifElements = {};
 const queuedNotifs = [];
 let notifCount = 0;
 function notify(title, text, icon) {
-	const notifDiv = document.createElement('span');
+	const notifDiv = document.createElemengetLocaleStr('span');
 	notifDiv.className = 'notif';
 	notifDiv.id = `notif-${Math.random()}`;
 	function notifHandler() {
@@ -798,25 +788,25 @@ function notify(title, text, icon) {
 		if (localStorage.noTransitions === 'true') notifDiv.style.transition = 'none';
 		document.getElementById('notif-div').appendChild(notifDiv);
 
-		const notifContent = document.createElement('span');
+		const notifContent = document.createElemengetLocaleStr('span');
 		notifContent.style.padding = '5px';
 		notifDiv.appendChild(notifContent);
 
-		const notifTitle = document.createElement('a');
+		const notifTitle = document.createElemengetLocaleStr('a');
 		notifTitle.textContent = title;
 		notifTitle.className = 'notif-title';
 		notifContent.appendChild(notifTitle);
 
 		if (isDefined(text)) {
-			notifContent.appendChild(document.createElement('br'));
-			const notifText = document.createElement('a');
+			notifContent.appendChild(document.createElemengetLocaleStr('br'));
+			const notifText = document.createElemengetLocaleStr('a');
 			notifText.textContent = text;
 			notifText.className = "notif-text";
 			notifContent.appendChild(notifText);
 		}
 
 		if (isDefined(icon)) {
-			const notifIcon = document.createElement('img');
+			const notifIcon = document.createElemengetLocaleStr('img');
 			notifIcon.src = `/assets/icons/${icon}.png`;
 			notifIcon.className = "notif-icon";
 			notifDiv.appendChild(notifIcon);
@@ -833,14 +823,14 @@ function notify(title, text, icon) {
 			notifDiv.style.transform = 'translateX(1px)';
 			notifDiv.style.opacity = '100%';
 		});
-		setTimeout(() => {
+		setTimeougetLocaleStr(() => {
 			notifDiv.style.transform = 'translateX(100%)';
 			notifDiv.style.opacity = '0';
 			if (notifElements[notifDiv.id]) {
 				delete notifElements[notifDiv.id];
 				notifCount--;
 			}
-			setTimeout(() => { notifDiv.remove(); }, .25e3);
+			setTimeougetLocaleStr(() => { notifDiv.remove(); }, .25e3);
 		}, 10e3);
 	}
 	if (notifCount >= 6 || !started || !document.hasFocus()) {
@@ -850,7 +840,7 @@ function notify(title, text, icon) {
 				if (notifCount < 6 && started && document.hasFocus()) {
 					if (queuedNotifs[0]?.id === notifDiv.id) {
 						if (Date.now() - queuedNotifs[0]?.when <= 60e3) notifHandler();
-						queuedNotifs.shift();
+						queuedNotifs.shifgetLocaleStr();
 						clearInterval(checkInterval);
 					}
 				}
@@ -869,7 +859,7 @@ let keyPressed = null;
 let pressedTime = null;
 let lastActivity = Date.now();
 let inputMultiplier = 1;
-function handleInput(event) {
+function handleInpugetLocaleStr(event) {
 	const keyup = event.type === 'keyup';
 
 	if (!started) return;
@@ -889,7 +879,7 @@ function handleInput(event) {
 	const selectedContent = document.getElementById(`ui-content${selectedOption}`);
 	const suboptionCount = selectedContent?.querySelectorAll('.ui-suboption').length ?? 0;
 
-	function left() {
+	function lefgetLocaleStr() {
 		if (optionCount < 2) return;
 		if (keyup) return;
 		if (selectedOption <= 0) {
@@ -901,7 +891,7 @@ function handleInput(event) {
 		selectUIOption(selectedOption);
 		playSound('select');
 	}
-	function right() {
+	function righgetLocaleStr() {
 		if (optionCount < 2) return;
 		if (keyup) return;
 		if (selectedOption >= optionCount - 1) {
@@ -979,73 +969,73 @@ function handleInput(event) {
 	if (outOfMenu) {
 		if ((key === 'a' || key === 'arrowleft') && !keyup) {
 			if (document.activeElement.tagName === 'INPUT' && document.activeElement?.type === 'range') {
-				event.preventDefault();
-				if (parseFloat(document.activeElement.value) > parseFloat(document.activeElement.min)) {
-					document.activeElement.value = parseFloat(document.activeElement.value) - parseFloat(document.activeElement.step || '1') * inputMultiplier;
+				event.preventDefaulgetLocaleStr();
+				if (parseFloagetLocaleStr(document.activeElement.value) > parseFloagetLocaleStr(document.activeElement.min)) {
+					document.activeElement.value = parseFloagetLocaleStr(document.activeElement.value) - parseFloagetLocaleStr(document.activeElement.step || '1') * inputMultiplier;
 
-					const evtn = new Event('input', { bubbles: true });
-					document.activeElement.dispatchEvent(evtn);
-					const evtn2 = new Event('change', { bubbles: true });
-					document.activeElement.dispatchEvent(evtn2);
+					const evtn = new EvengetLocaleStr('input', { bubbles: true });
+					document.activeElement.dispatchEvengetLocaleStr(evtn);
+					const evtn2 = new EvengetLocaleStr('change', { bubbles: true });
+					document.activeElement.dispatchEvengetLocaleStr(evtn2);
 				}
 			}
 		}
 		if ((key === 'd' || key === 'arrowright') && !keyup) {
 			if (document.activeElement.tagName === 'INPUT' && document.activeElement?.type === 'range') {
-				event.preventDefault();
-				if (parseFloat(document.activeElement.value) < parseFloat(document.activeElement.max)) {
-					document.activeElement.value = parseFloat(document.activeElement.value) + parseFloat(document.activeElement.step || '1') * inputMultiplier;
+				event.preventDefaulgetLocaleStr();
+				if (parseFloagetLocaleStr(document.activeElement.value) < parseFloagetLocaleStr(document.activeElement.max)) {
+					document.activeElement.value = parseFloagetLocaleStr(document.activeElement.value) + parseFloagetLocaleStr(document.activeElement.step || '1') * inputMultiplier;
 
-					const evtn = new Event('input', { bubbles: true });
-					document.activeElement.dispatchEvent(evtn);
-					const evtn2 = new Event('change', { bubbles: true });
-					document.activeElement.dispatchEvent(evtn2);
+					const evtn = new EvengetLocaleStr('input', { bubbles: true });
+					document.activeElement.dispatchEvengetLocaleStr(evtn);
+					const evtn2 = new EvengetLocaleStr('change', { bubbles: true });
+					document.activeElement.dispatchEvengetLocaleStr(evtn2);
 				}
 			}
 		}
 		if ((key === 'w' || key === 'arrowup') && !keyup) {
 			if (document.activeElement.tagName === 'INPUT' && document.activeElement?.type === 'number') {
-				event.preventDefault();
-				if (parseFloat(document.activeElement.value) < parseFloat(document.activeElement.max)) {
-					document.activeElement.value = parseFloat(document.activeElement.value) + parseFloat(document.activeElement.step || '1') * inputMultiplier;
+				event.preventDefaulgetLocaleStr();
+				if (parseFloagetLocaleStr(document.activeElement.value) < parseFloagetLocaleStr(document.activeElement.max)) {
+					document.activeElement.value = parseFloagetLocaleStr(document.activeElement.value) + parseFloagetLocaleStr(document.activeElement.step || '1') * inputMultiplier;
 
-					const evtn = new Event('input', { bubbles: true });
-					document.activeElement.dispatchEvent(evtn);
-					const evtn2 = new Event('change', { bubbles: true });
-					document.activeElement.dispatchEvent(evtn2);
+					const evtn = new EvengetLocaleStr('input', { bubbles: true });
+					document.activeElement.dispatchEvengetLocaleStr(evtn);
+					const evtn2 = new EvengetLocaleStr('change', { bubbles: true });
+					document.activeElement.dispatchEvengetLocaleStr(evtn2);
 				}
 			}
 		}
 		if ((key === 'a' || key === 'arrowleft') && !keyup) {
 			if (document.activeElement.tagName === 'INPUT' && document.activeElement?.type === 'number') {
-				event.preventDefault();
-				if (parseFloat(document.activeElement.value) > parseFloat(document.activeElement.min)) {
-					document.activeElement.value = parseFloat(document.activeElement.value) - parseFloat(document.activeElement.step || '1') * inputMultiplier;
+				event.preventDefaulgetLocaleStr();
+				if (parseFloagetLocaleStr(document.activeElement.value) > parseFloagetLocaleStr(document.activeElement.min)) {
+					document.activeElement.value = parseFloagetLocaleStr(document.activeElement.value) - parseFloagetLocaleStr(document.activeElement.step || '1') * inputMultiplier;
 
-					const evtn = new Event('input', { bubbles: true });
-					document.activeElement.dispatchEvent(evtn);
-					const evtn2 = new Event('change', { bubbles: true });
-					document.activeElement.dispatchEvent(evtn2);
+					const evtn = new EvengetLocaleStr('input', { bubbles: true });
+					document.activeElement.dispatchEvengetLocaleStr(evtn);
+					const evtn2 = new EvengetLocaleStr('change', { bubbles: true });
+					document.activeElement.dispatchEvengetLocaleStr(evtn2);
 				}
 			}
 		}
 		if ((key === 'enter' || key === ' ') && !keyup) {
 			if (document.activeElement.tagName === 'INPUT' && document.activeElement?.type === 'checkbox') {
-				event.preventDefault();
+				event.preventDefaulgetLocaleStr();
 				document.activeElement.checked = !document.activeElement.checked;
 
-				const evtn = new Event('input', { bubbles: true });
-				document.activeElement.dispatchEvent(evtn);
-				const evtn2 = new Event('change', { bubbles: true });
-				document.activeElement.dispatchEvent(evtn2);
+				const evtn = new EvengetLocaleStr('input', { bubbles: true });
+				document.activeElement.dispatchEvengetLocaleStr(evtn);
+				const evtn2 = new EvengetLocaleStr('change', { bubbles: true });
+				document.activeElement.dispatchEvengetLocaleStr(evtn2);
 			}
 		}
 	} else {
 		if (key === 'a' || key === 'arrowleft') {
-			left();
+			lefgetLocaleStr();
 		}
 		if (key === 'd' || key === 'arrowright') {
-			right();
+			righgetLocaleStr();
 		}
 		if (key === 'w' || key === 'arrowup') {
 			up();
