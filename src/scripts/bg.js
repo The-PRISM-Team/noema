@@ -55,7 +55,7 @@ if (!isDefined(localStorage.spaghettiDensity)) {
 }
 
 let density = parseInt(localStorage.spaghettiDensity); // how many sines are drawn
-let spaghettiColor = "#fff8";
+let spaghettiColor = "#0000";
 let calcY = function (x, canvasHeight, wave) {
 	return canvasHeight / 2 - wave +
 		Math.sin(x / 200 + t + wave / (density * t) + ((Math.cos(t) + -Math.cos(t3))) * .75) * 40 +
@@ -253,7 +253,7 @@ function changeBGColor({
 		const bottomFinal = applyBrightness(bottomColor, brightness);
 		document.body.style.background = formatBGGradient(bgTop, 100, topFinal, bottomFinal);
 		document.body.style.accentColor = accentColor = AccentColor;
-		spaghettiColor = `rgba(255, 255, 255, ${0x88 / 255 * brightness})`;
+		spaghettiColor = `rgba(255, 255, 255, ${brightness})`;
 	} else {
 		changingBG = true;
 		let t = 0;
@@ -265,7 +265,7 @@ function changeBGColor({
 				const bottomFinal = applyBrightness(bottomColor, brightness);
 				document.body.style.background = formatBGGradient(bgTop, 100, topFinal, bottomFinal);
 				document.body.style.accentColor = accentColor = AccentColor;
-				spaghettiColor = `rgba(255, 255, 255, ${0x88 / 255 * brightness})`;
+				spaghettiColor = `rgba(255, 255, 255, ${brightness})`;
 				if (queued) {
 					changeBGColor(queued);
 					queued = undefined;
