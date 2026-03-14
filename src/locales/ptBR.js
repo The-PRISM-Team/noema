@@ -1,4 +1,5 @@
-{
+globalThis.localesArray = globalThis.localesArray ?? [];
+globalThis.localesArray.push({
     "lang": "ptBR",
     "appTitle": "Noema",
     "pageTitle": "Projeto Noema - Desenvolvimento Aberto da PRISM",
@@ -109,4 +110,4 @@
     "error.listTitle": "Erro(s):",
     "error.unknown": "Desconhecido(s)",
     "error.restartingIn": "Reiniciando em {time}"
-}
+})
