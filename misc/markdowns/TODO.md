@@ -4,9 +4,9 @@ Tasks are listed in priority order (highest priority first).
 
 ## Completed
 
-- ✅ Update README and create CONTRIBUTING.md
-- ✅ Polish documentation files (AGENTS.md, CONTRIBUTING.md, README.md)
-- ✅ Fix shift key multiplier issue with fast key repeat rates
+* Update README and create CONTRIBUTING.md
+* Polish documentation files (AGENTS.md, CONTRIBUTING.md, README.md)
+* Differentiate between local and hosted (Vercel) modes
 
 ## In Progress
 
@@ -42,7 +42,6 @@ Tasks are listed in priority order (highest priority first).
 ## Medium Priority
 
 ### Platform Detection
-- Differentiate between local and hosted (Vercel) modes
 - Environment-specific features and warnings
 - Optimize for each deployment type
 
@@ -56,6 +55,10 @@ Tasks are listed in priority order (highest priority first).
 - Game metadata display
 - Search and filtering
 - Favorites/collections
+
+## General Bugs
+- Fix shift key multiplier issue with fast key repeat rates
+
 
 ## Low Priority
 
