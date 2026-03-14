@@ -44,7 +44,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 	document.getElementById('clicktostart').textContent = 'loading scripts, please wait';
 	scriptStart = performance.now();
 	await loadScripts((done, total)=>{
-		document.getElementById('loading-progress').style.width = `${Math.max(1, 1 + Math.round(((part / total) * 100) / 2) - 2)}%`;
+		document.getElementById('loading-progress').style.width = `${Math.max(1, 1 + Math.round(((done / total) * 100) / 2) - 2)}%`;
 	});
 
 	console.log(`Scripts loaded in ${(performance.now() - scriptStart).toFixed(2)}ms.`);
