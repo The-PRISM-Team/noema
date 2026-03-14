@@ -73,6 +73,8 @@ globalThis.localesArray.push({
     "menu.help.convertSaveFile.title": "😀",
     "menu.help.openGithubRepo.title": "😀",
     "menu.help.reportIssue.title": "😀",
+    "menu.pref.load.unsafe-save.title": "😀",
+    "menu.pref.load.unsafe-save.description": "😀",
     "menu.debug.toggleUi.title": "😀",
     "menu.debug.toggleUi.enabledDesc": "😀",
     "menu.debug.toggleUi.disabledDesc": "😀",

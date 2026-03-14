@@ -294,7 +294,7 @@ function initUI() {
 			setUsername(name);
 			updateLabel();
 			setSuboption(selectedOption, selectedSuboption, null, getLocaleTempStr('menu.preferences.setUsername.desc', 'enUS', { username }));
-		}, getLocaleStr('menu.preferences.setUsername.promptTitle', 'enUS', { username: _defaultUsername }));
+		}, getLocaleStr('menu.preferences.setUsername.promptTitle'), getLocaleTempStr('menu.preferences.setUsername.placeholder', 'enUS', { username: _defaultUsername }));
 	}, 'user');
 	createSuboption(prefTab, getLocaleStr('menu.preferences.toggleMonochromeFavicon.title'),
 		localStorage.coloredFavicon === 'true'
@@ -310,7 +310,7 @@ function initUI() {
 			}
 		}, 'image');
 	createSuboption(prefTab, getLocaleStr('menu.preferences.toggleOpenUi.title'),
-		localStorage.openUI === 'true' ? getLocaleStr('menu.preferences.toggleOpenUi.enabledDesc'),
+		localStorage.openUI === 'true' ? getLocaleStr('menu.preferences.toggleOpenUi.enabledDesc') : getLocaleStr('menu.preferences.toggleOpenUi.disabledDesc'),
 		() => {
 			localStorage.openUI = localStorage.openUI === 'true' ? 'false' : 'true';
 			if (localStorage.openUI === 'true') {
@@ -324,7 +324,7 @@ function initUI() {
 		'wrench'
 	);
 	createSuboption(prefTab, getLocaleStr('menu.preferences.toggleStartupAnimation.title'),
-		localStorage.startup === 'true' ? getLocaleStr('menu.preferences.toggleStartupAnimation.enabledDesc'),
+		localStorage.startup === 'true' ? getLocaleStr('menu.preferences.toggleStartupAnimation.enabledDesc') : getLocaleStr('menu.preferences.toggleStartupAnimation.disabledDesc'),
 		() => {
 			localStorage.startup = localStorage.startup === 'true' ? 'false' : 'true';
 			if (localStorage.startup === 'true') {
@@ -364,7 +364,7 @@ function initUI() {
 					return JSON.stringify(settings);
 				})()
 			);
-		}, getLocaleStr('dialog.confirm.title', 'enUS', "Just making sure this wasn't pressed by accident."));
+		}, getLocaleStr('dialog.confirm.title'), getLocaleStr('dialog.confirm.subtitle.accidental', "Just making sure this wasn't pressed by accident."));
 	}, 'wrench');
 	createSuboption(prefTab, getLocaleStr('menu.preferences.loadPreferences.title'), getLocaleStr('menu.preferences.loadPreferences.desc'), () => {
 		const importbtn = document.createElement('input');
@@ -385,8 +385,8 @@ function initUI() {
 					if (formats.includes(content?.format)) {
 						if (content.format === 'NSF1.0') {
 							notify(
-								getLocaleStr('menu.pref.load.unsafe-save.title', 'That save file might be unsafe.'),
-								getLocaleStr('menu.pref.load.unsafe-save.description', "We didn't load it because the format of that save file has a known security issue."),
+								getLocaleStr('menu.pref.load.unsafe-save.title'),
+								getLocaleStr('menu.pref.load.unsafe-save.description'),
 								'warning'
 							);
 							setTimeout(() => {
@@ -421,7 +421,7 @@ function initUI() {
 						}
 						notify(getLocaleStr('menu.pref.load.success.title'));
 						setTimeout(() => {
-							notify(getLocaleStr('menu.pref.load.reboot.title'));
+							notify(getLocaleStr('menu.pref.load.reboot.title'), getLocaleStr('menu.pref.load.reboot.description'));
 							setTimeout(() => {
 								reboot();
 							}, 3e3);
@@ -438,7 +438,7 @@ function initUI() {
 		importbtn.click();
 	}, 'wrench');
 	createSuboption(prefTab, getLocaleStr('menu.preferences.bgBrightness.title'), getLocaleTempStr('menu.preferences.bgBrightness.desc', 'enUS', { value: decimalStrToPercentage(localStorage.bgBrightness) }), () => {
-		inputDialog(getLocaleStr('menu.preferences.bgBrightness.dialogTitle'), getLocaleStr('menu.preferences.bgBrightness.dialogSubtitle', 'enUS', (value) => {
+		inputDialog(getLocaleStr('menu.preferences.bgBrightness.dialogTitle'), getLocaleStr('menu.preferences.bgBrightness.dialogSubtitle'), decimalStrToPercentage(localStorage.bgBrightness), 25, 100, 1, '{value}%', (value) => {
 			localStorage.bgBrightness = percentageToDecimal(value);
 			changeBGColor({ colorName: localStorage.bgColor, brightness: parseFloat(localStorage.bgBrightness) });
 			setSuboption(selectedOption, selectedSuboption, getLocaleStr('menu.preferences.bgBrightness.title'), getLocaleTempStr('menu.preferences.bgBrightness.desc', 'enUS', { value: decimalStrToPercentage(localStorage.bgBrightness) }));
@@ -452,7 +452,7 @@ function initUI() {
 					confirmDialog(() => {
 						localStorage.clear();
 						reboot();
-					}, getLocaleStr('dialog.confirm.title.strong');
+					}, getLocaleStr('dialog.confirm.title.strong'), '');
 				}, .5e3);
 			},
 				getLocaleStr('dialog.confirm.title'),
@@ -462,7 +462,7 @@ function initUI() {
 	);
 
 	createSuboption(audioTab, getLocaleStr('menu.audio.togglePauseOnUnfocus.title'),
-		localStorage.pauseMusic === 'true' ? getLocaleStr('menu.audio.togglePauseOnUnfocus.enabledDesc'),
+		localStorage.pauseMusic === 'true' ? getLocaleStr('menu.audio.togglePauseOnUnfocus.enabledDesc') : getLocaleStr('menu.audio.togglePauseOnUnfocus.disabledDesc'),
 		() => {
 			localStorage.pauseMusic = localStorage.pauseMusic === 'true' ? 'false' : 'true';
 			if (localStorage.pauseMusic === 'true') {
@@ -495,7 +495,7 @@ function initUI() {
 	}, 'wrench');
 
 	createSuboption(graphTab, getLocaleStr('menu.graphics.toggleEffects.title'),
-		localStorage.noShaders === 'true' ? getLocaleStr('menu.graphics.toggleEffects.disabledDesc'),
+		localStorage.noShaders === 'true' ? getLocaleStr('menu.graphics.toggleEffects.disabledDesc') : getLocaleStr('menu.graphics.toggleEffects.enabledDesc'),
 		() => {
 			localStorage.noShaders = localStorage.noShaders === 'true' ? 'false' : 'true';
 			if (localStorage.noShaders === 'true') {
@@ -513,7 +513,7 @@ function initUI() {
 		'wrench'
 	);
 	createSuboption(graphTab, getLocaleStr('menu.graphics.toggleAnimations.title'),
-		localStorage.noTransitions === 'true' ? getLocaleStr('menu.graphics.toggleAnimations.disabledDesc'),
+		localStorage.noTransitions === 'true' ? getLocaleStr('menu.graphics.toggleAnimations.disabledDesc') : getLocaleStr('menu.graphics.toggleAnimations.enabledDesc'),
 		() => {
 			localStorage.noTransitions = localStorage.noTransitions === 'true' ? 'false' : 'true';
 			if (localStorage.noTransitions === 'true') {
@@ -566,14 +566,14 @@ function initUI() {
 
 		if (isDefined(newWindow.focus)) newWindow.focus();
 	}, 'wrench');
-	createSuboption(helpTab, getLocaleStr('menu.help.openGithubRepo.title', "Open Project Noema's GitHub repo"), null, () => {
+	createSuboption(helpTab, getLocaleStr('menu.help.openGithubRepo.title'), null, () => {
 		window.open('https://github.com/sophb-ccjt/noema', '_blank');
 	}, 'open-external');
 	createSuboption(helpTab, getLocaleStr('menu.help.reportIssue.title'), null, () => {
 		window.open('https://github.com/sophb-ccjt/noema/issues/new', '_blank');
 	}, 'open-external');
 
-	createSuboption(debugTab, getLocaleStr('menu.debug.toggleUi.title'), localStorage.debugUI === 'true' ? getLocaleStr('menu.debug.toggleUi.enabledDesc'), () => {
+	createSuboption(debugTab, getLocaleStr('menu.debug.toggleUi.title'), localStorage.debugUI === 'true' ? getLocaleStr('menu.debug.toggleUi.enabledDesc') : getLocaleStr('menu.debug.toggleUi.disabledDesc'), () => {
 		localStorage.debugUI = localStorage.debugUI === 'true' ? 'false' : 'true';
 		if (localStorage.debugUI === 'true') {
 			document.getElementById('debug-ui').style.display = 'block';
@@ -659,19 +659,20 @@ function bandDialog(title = '', subtitle = '', setupFunc, confirmFunc, usesEnter
 	});
 	if (lastInput === 'gamepad') {
 		if (usesEnterKey) {
-			document.getElementById('custom-controls').textContent = "Press ✕/Ⓐ to confirm, and ⭘/Ⓑ to cancel.";
+			document.getElementById('custom-controls').textContent = getLocaleStr('dialog.controls.gamepad.confirm');
+;
 		} else {
-			document.getElementById('custom-controls').textContent = "Press ⭘/Ⓑ to exit.";
+			document.getElementById('custom-controls').textContent = getLocaleStr('dialog.controls.gamepad.exit');
 		}
 	} else {
 		if (usesEnterKey) {
 			if (hasInput) {
-				document.getElementById('custom-controls').textContent = "Press Enter to confirm, and Escape to cancel.";
+				document.getElementById('custom-controls').textContent = getLocaleStr('dialog.controls.keyboard.confirmInput');
 			} else {
-				document.getElementById('custom-controls').textContent = "Press Enter or Space to confirm, and Escape to cancel.";
+				document.getElementById('custom-controls').textContent = getLocaleStr('dialog.controls.keyboard.confirm');
 			}
 		} else {
-			document.getElementById('custom-controls').textContent = "Press Escape to exit.";
+			document.getElementById('custom-controls').textContent = getLocaleStr('dialog.controls.keyboard.confirmInput');
 		}
 	}
 
@@ -705,7 +706,7 @@ function bandDialog(title = '', subtitle = '', setupFunc, confirmFunc, usesEnter
 	document.getElementById('custom-dialog').style.opacity = '100%';
 	document.addEventListener('keyup', handler);
 }
-function inputDialog(title = 'Select a value...', subtitle, startingValue, min, max, step = 1, formatStr, updFunc = () => { }) {
+function inputDialog(title = getLocaleStr('dialog.input.title'), subtitle, startingValue, min, max, step = 1, formatStr, updFunc = () => { }) {
 	if (!formatStr && typeof formatStr !== 'string') console.warn('formatStr (7th argument): Every instance of the substring "{value}" will be replaced with the slider\'s current value.\nSet this parameter to an empty string to avoid this warning.');
 	bandDialog(title, subtitle, (dialog) => {
 		const slider = document.createElement('input');
@@ -738,7 +739,7 @@ function inputDialog(title = 'Select a value...', subtitle, startingValue, min, 
 function confirmDialog(func = () => { }, title = getLocaleStr('dialog.confirm.title'), subtitle = '') {
 	bandDialog(title, subtitle, null, func, true);
 }
-function promptDialog(func = (() => { }), title = 'Enter some text...', placeholder = '') {
+function promptDialog(func = (() => { }), title = getLocaleStr('dialog.prompt.title'), placeholder = '') {
 	bandDialog(title, '', (dialog) => {
 		const input = document.createElement('input');
 		input.type = 'text';

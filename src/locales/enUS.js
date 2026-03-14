@@ -73,6 +73,8 @@ globalThis.localesArray.push({
     "menu.help.convertSaveFile.title": "Convert save file",
     "menu.help.openGithubRepo.title": "Open Project Noema's GitHub repo",
     "menu.help.reportIssue.title": "Report an issue on GitHub",
+    "menu.pref.load.unsafe-save.title": "That save file might be unsafe.",
+    "menu.pref.load.unsafe-save.description": "We didn't load it because the format of that save file has a known security issue.",
     "menu.debug.toggleUi.title": "Toggle debugging UI",
     "menu.debug.toggleUi.enabledDesc": "Debug UI is currently on.\nSelect to turn it off.",
     "menu.debug.toggleUi.disabledDesc": "Debug UI is currently off.\nSelect to turn it on.",

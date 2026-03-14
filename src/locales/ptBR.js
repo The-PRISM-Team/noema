@@ -48,6 +48,8 @@ globalThis.localesArray.push({
     "menu.preferences.savePreferences.desc": "Selecione esta opção para baixar um arquivo com as tuas preferências que podes usar para carregar as suas preferências no futuro.",
     "menu.preferences.loadPreferences.title": "Carregar preferências",
     "menu.preferences.loadPreferences.desc": "Selecione esta opcão para carregar um arquivo com as tuas preferências salvas.",
+    "menu.pref.load.unsafe-save.title": "Esse arquivo de preferências pode não ser seguro.",
+    "menu.pref.load.unsafe-save.description": "Nós não o carregamos porque o formato dele tem um problema de segurança conhecido.",
     "menu.preferences.bgBrightness.title": "Brilho do fundo",
     "menu.preferences.bgBrightness.desc": "O brilho do fundo atualmente está definido para {value}%.",
     "menu.preferences.bgBrightness.dialogTitle": "Definir brilho do fundo",
