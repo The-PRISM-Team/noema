@@ -1,0 +1,47 @@
+name: Convert JSON locales to JS
+
+on:
+  push:
+    paths:
+      - 'locales-json/**'
+
+jobs:
+  convert-locales:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        run: npm install fs-extra
+
+      - name: Convert JSON to JS
+        run: |
+          node <<'EOF'
+          const fs = require('fs-extra');
+          const path = require('path');
+
+          const inputDir = path.join(__dirname, '..', 'locales-json');
+          const outputDir = path.join(__dirname, '..', 'locales');
+
+          fs.ensureDirSync(outputDir);
+
+          const files = fs.readdirSync(inputDir).filter(f => f.endsWith('.json'));
+
+          for (const file of files) {
+            const jsonPath = path.join(inputDir, file);
+            const jsPath = path.join(outputDir, file.replace('.json', '.js'));
+
+            const data = fs.readJsonSync(jsonPath, { encoding: 'utf8' });
+            const jsonStr = JSON.stringify(data, null, 4);
+
+            const jsContent = `globalThis.localesArray = globalThis.localesArray ?? [];\nglobalThis.localesArray.push(${jsonStr});\n`;
+
+            fs.writeFileSync(jsPath, jsContent, { encoding: 'utf8' });
+            console.log(`Converted ${file} → ${path.basename(jsPath)}`);
+          }
+          EOF
