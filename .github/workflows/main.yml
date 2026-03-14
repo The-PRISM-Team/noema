@@ -28,8 +28,10 @@ jobs:
           const fs = require('fs-extra');
           const path = require('path');
 
-          const inputDir = 'src/locales-json';
-          const outputDir = 'src/locales';
+          // Use absolute paths relative to repo root
+          const repoRoot = process.cwd();
+          const inputDir = path.join(repoRoot, 'src', 'locales-json');
+          const outputDir = path.join(repoRoot, 'src', 'locales');
 
           fs.ensureDirSync(outputDir);
 
