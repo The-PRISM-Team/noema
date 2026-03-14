@@ -280,21 +280,21 @@ function initUI() {
 	createSuboption(powerTab, getLocaleStr('menu.power.powerOff.title', 'enUS'), getLocaleStr('menu.power.powerOff.desc', 'Shuts down the system and closes the tab (if possible).'), () => {
 		confirmDialog(shutdown);
 	}, 'power', 'power');
-	createSuboption(powerTab, getLocaleStr('menu.power.reboot.title', 'enUS'), getLocaleStr('menu.power.reboot.desc', 'enUS'), () => {
+	createSuboption(powerTab, getLocaleStr('menu.power.reboot.title', 'enUS'), getLocaleStr('menu.power.reboot.desc', 'Restarts the system with the latest version of the system files.'), () => {
 		confirmDialog(reboot);
 	}, 'power', 'power');
-	createSuboption(powerTab, getLocaleStr('menu.power.fastReboot.title', 'enUS'), getLocaleStr('menu.power.fastReboot.desc', 'enUS'), () => {
+	createSuboption(powerTab, getLocaleStr('menu.power.fastReboot.title', 'enUS'), getLocaleStr('menu.power.fastReboot.desc', 'Restarts and skips startup animation once on the next boot.'), () => {
 		confirmDialog(fastReboot);
 	}, 'power', 'power');
 	selectedSuboptions[0] = 1;
 
-	createSuboption(prefTab, getLocaleStr('menu.preferences.setUsername.title', 'enUS'), getLocaleTempStr('menu.preferences.setUsername.desc', 'Username currently set to "{username}".', { username }), () => {
+	createSuboption(prefTab, getLocaleStr('menu.preferences.setUsername.title', 'enUS'), getLocaleTempStr('menu.preferences.setUsername.desc', 'enUS', { username }), () => {
 		promptDialog((name) => {
 			if (!isDefined(name)) name = _defaultUsername;
 			setUsername(name);
 			updateLabel();
-			setSuboption(selectedOption, selectedSuboption, null, getLocaleTempStr('menu.preferences.setUsername.desc', 'Username currently set to "{username}".', { username }));
-		}, getLocaleStr('menu.preferences.setUsername.promptTitle', 'enUS'), getLocaleTempStr('menu.preferences.setUsername.placeholder', 'default username is {username}', { username: _defaultUsername }));
+			setSuboption(selectedOption, selectedSuboption, null, getLocaleTempStr('menu.preferences.setUsername.desc', 'enUS', { username }));
+		}, getLocaleStr('menu.preferences.setUsername.promptTitle', 'Enter a username...'), getLocaleTempStr('menu.preferences.setUsername.placeholder', 'enUS', { username: _defaultUsername }));
 	}, 'user');
 	createSuboption(prefTab, getLocaleStr('menu.preferences.toggleMonochromeFavicon.title', 'enUS'),
 		localStorage.coloredFavicon === 'true'
@@ -350,7 +350,7 @@ function initUI() {
 		'wrench'
 	);
 
-	createSuboption(prefTab, getLocaleStr('menu.preferences.savePreferences.title', 'enUS'), getLocaleStr('menu.preferences.savePreferences.desc', 'enUS'), () => {
+	createSuboption(prefTab, getLocaleStr('menu.preferences.savePreferences.title', 'enUS'), getLocaleStr('menu.preferences.savePreferences.desc', 'Select to download a file with your preferences to load them later.'), () => {
 		confirmDialog(() => {
 			downloadFileWithContent(
 				`Noema Preferences Backup -- ${new Date().getFullYear()}-${(new Date().getMonth() + 1).toString().padStart(2, '0')}-${new Date().getDate().toString().padStart(2, '0')} ${new Date().getHours()}-${new Date().getMinutes().toString().padStart(2, '0')}-${new Date().getSeconds().toString().padStart(2, '0')}.nsf`,
@@ -366,7 +366,7 @@ function initUI() {
 			);
 		}, getLocaleStr('dialog.confirm.title', 'Are you sure?'), getLocaleStr('dialog.confirm.subtitle.accidental', "Just making sure this wasn't pressed by accident."));
 	}, 'wrench');
-	createSuboption(prefTab, getLocaleStr('menu.preferences.loadPreferences.title', 'enUS'), getLocaleStr('menu.preferences.loadPreferences.desc', 'enUS'), () => {
+	createSuboption(prefTab, getLocaleStr('menu.preferences.loadPreferences.title', 'enUS'), getLocaleStr('menu.preferences.loadPreferences.desc', 'Select to load a file with your saved preferences.'), () => {
 		const importbtn = document.createElement('input');
 		importbtn.type = 'file';
 		importbtn.multiple = 'false';
@@ -421,7 +421,7 @@ function initUI() {
 						}
 						notify(getLocaleStr('menu.pref.load.success.title', 'Preferences file loaded successfully!'));
 						setTimeout(() => {
-							notify(getLocaleStr('menu.pref.load.reboot.title', 'enUS'), getLocaleStr('menu.pref.load.reboot.description', '(to set absent settings to their defaults and to apply settings that need a reboot to fully apply)'));
+							notify(getLocaleStr('menu.pref.load.reboot.title', 'The system will reboot in 3 seconds to properly apply every setting.'), getLocaleStr('menu.pref.load.reboot.description', '(to set absent settings to their defaults and to apply settings that need a reboot to fully apply)'));
 							setTimeout(() => {
 								reboot();
 							}, 3e3);
@@ -437,11 +437,11 @@ function initUI() {
 		document.body.appendChild(importbtn);
 		importbtn.click();
 	}, 'wrench');
-	createSuboption(prefTab, getLocaleStr('menu.preferences.bgBrightness.title', 'enUS'), getLocaleTempStr('menu.preferences.bgBrightness.desc', 'Background brightness currently set to {value}%.', { value: decimalStrToPercentage(localStorage.bgBrightness) }), () => {
-		inputDialog(getLocaleStr('menu.preferences.bgBrightness.dialogTitle', 'enUS'), getLocaleStr('menu.preferences.bgBrightness.dialogSubtitle', 'enUS'), decimalStrToPercentage(localStorage.bgBrightness), 25, 100, 1, '{value}%', (value) => {
+	createSuboption(prefTab, getLocaleStr('menu.preferences.bgBrightness.title', 'enUS'), getLocaleTempStr('menu.preferences.bgBrightness.desc', 'enUS', { value: decimalStrToPercentage(localStorage.bgBrightness) }), () => {
+		inputDialog(getLocaleStr('menu.preferences.bgBrightness.dialogTitle', 'enUS'), getLocaleStr('menu.preferences.bgBrightness.dialogSubtitle', 'Adjust how bright the background appears. This affects the gradient and canvas drawing brightness.'), decimalStrToPercentage(localStorage.bgBrightness), 25, 100, 1, '{value}%', (value) => {
 			localStorage.bgBrightness = percentageToDecimal(value);
 			changeBGColor({ colorName: localStorage.bgColor, brightness: parseFloat(localStorage.bgBrightness) });
-			setSuboption(selectedOption, selectedSuboption, getLocaleStr('menu.preferences.bgBrightness.title', 'enUS'), getLocaleTempStr('menu.preferences.bgBrightness.desc', 'Background brightness currently set to {value}%.', { value: decimalStrToPercentage(localStorage.bgBrightness) }));
+			setSuboption(selectedOption, selectedSuboption, getLocaleStr('menu.preferences.bgBrightness.title', 'enUS'), getLocaleTempStr('menu.preferences.bgBrightness.desc', 'enUS', { value: decimalStrToPercentage(localStorage.bgBrightness) }));
 		});
 	}, 'wrench');
 
@@ -474,23 +474,23 @@ function initUI() {
 		},
 		'wrench'
 	);
-	createSuboption(audioTab, getLocaleStr('menu.audio.setMasterVolume.title', 'enUS'), getLocaleTempStr('menu.audio.setMasterVolume.desc', 'Master volume is currently at {value}% volume.', { value: decimalStrToPercentage(localStorage.masterVolume) }), () => {
+	createSuboption(audioTab, getLocaleStr('menu.audio.setMasterVolume.title', 'enUS'), getLocaleTempStr('menu.audio.setMasterVolume.desc', 'enUS', { value: decimalStrToPercentage(localStorage.masterVolume) }), () => {
 		inputDialog(getLocaleStr('menu.audio.setMasterVolume.title', 'enUS'), null, decimalStrToPercentage(localStorage.masterVolume), 0, 100, 1, '{value}%', (volume) => {
 			setMasterVolume(percentageToDecimal(volume));
-			setSuboption(selectedOption, selectedSuboption, getLocaleStr('menu.audio.setMasterVolume.title', 'enUS'), getLocaleTempStr('menu.audio.setMasterVolume.desc', 'Master volume is currently at {value}% volume.', { value: decimalStrToPercentage(localStorage.masterVolume) }));
+			setSuboption(selectedOption, selectedSuboption, getLocaleStr('menu.audio.setMasterVolume.title', 'enUS'), getLocaleTempStr('menu.audio.setMasterVolume.desc', 'enUS', { value: decimalStrToPercentage(localStorage.masterVolume) }));
 		});
 	}, 'wrench');
-	createSuboption(audioTab, getLocaleStr('menu.audio.setBackgroundMusicVolume.title', 'enUS'), getLocaleTempStr('menu.audio.setBackgroundMusicVolume.desc', 'Background music is currently at {value}% volume.', { value: decimalStrToPercentage(localStorage.musicVolume) }), () => {
+	createSuboption(audioTab, getLocaleStr('menu.audio.setBackgroundMusicVolume.title', 'enUS'), getLocaleTempStr('menu.audio.setBackgroundMusicVolume.desc', 'enUS', { value: decimalStrToPercentage(localStorage.musicVolume) }), () => {
 		inputDialog(getLocaleStr('menu.audio.setBackgroundMusicVolume.title', 'enUS'), null, decimalStrToPercentage(localStorage.musicVolume), 0, 100, 1, '{value}%', (volume) => {
 			localStorage.musicVolume = percentageToDecimal(volume);
 			bgMusic.volume = parseFloat(localStorage.musicVolume).clamp(0, 1) * masterVolume;
-			setSuboption(selectedOption, selectedSuboption, getLocaleStr('menu.audio.setBackgroundMusicVolume.title', 'enUS'), getLocaleTempStr('menu.audio.setBackgroundMusicVolume.desc', 'Background music is currently at {value}% volume.', { value: decimalStrToPercentage(localStorage.musicVolume) }));
+			setSuboption(selectedOption, selectedSuboption, getLocaleStr('menu.audio.setBackgroundMusicVolume.title', 'enUS'), getLocaleTempStr('menu.audio.setBackgroundMusicVolume.desc', 'enUS', { value: decimalStrToPercentage(localStorage.musicVolume) }));
 		});
 	}, 'wrench');
-	createSuboption(audioTab, getLocaleStr('menu.audio.setUiSoundVolume.title', 'enUS'), getLocaleTempStr('menu.audio.setUiSoundVolume.desc', 'UI sounds are currently at {value}% volume.', { value: decimalStrToPercentage(localStorage.uiSoundVolume) }), () => {
+	createSuboption(audioTab, getLocaleStr('menu.audio.setUiSoundVolume.title', 'enUS'), getLocaleTempStr('menu.audio.setUiSoundVolume.desc', 'enUS', { value: decimalStrToPercentage(localStorage.uiSoundVolume) }), () => {
 		inputDialog(getLocaleStr('menu.audio.setUiSoundVolume.title', 'enUS'), null, decimalStrToPercentage(localStorage.uiSoundVolume), 0, 100, 1, '{value}%', (volume) => {
 			localStorage.uiSoundVolume = percentageToDecimal(volume);
-			setSuboption(selectedOption, selectedSuboption, getLocaleStr('menu.audio.setUiSoundVolume.title', 'enUS'), getLocaleTempStr('menu.audio.setUiSoundVolume.desc', 'UI sounds are currently at {value}% volume.', { value: decimalStrToPercentage(localStorage.uiSoundVolume) }));
+			setSuboption(selectedOption, selectedSuboption, getLocaleStr('menu.audio.setUiSoundVolume.title', 'enUS'), getLocaleTempStr('menu.audio.setUiSoundVolume.desc', 'enUS', { value: decimalStrToPercentage(localStorage.uiSoundVolume) }));
 		});
 	}, 'wrench');
 
@@ -534,7 +534,7 @@ function initUI() {
 	);
 
 	Object.keys(bgColors).forEach((color, i) => {
-		createSuboption(themeTab, color.toTitleCase(), getLocaleTempStr('menu.theme.color.description', 'Select to set the theme to "{color}".', { color: color.toTitleCase() }), () => {
+		createSuboption(themeTab, color.toTitleCase(), getLocaleTempStr('menu.theme.color.description', 'enUS', { color: color.toTitleCase() }), () => {
 			changeBGColor({ colorName: color });
 		}, 'image');
 		if (color === localStorage.bgColor) selectedSuboptions[themeTab] = i;
@@ -597,7 +597,7 @@ function initUI() {
 			script.src = url;
 			script.id = 'script-' + url;
 			document.body.appendChild(script);
-		}, getLocaleStr('menu.debug.loadScript.promptTitle', 'enUS'));
+		}, getLocaleStr('menu.debug.loadScript.promptTitle', 'Enter a script URL...'));
 	}, 'star');
 
 	selectUIOption(1);
