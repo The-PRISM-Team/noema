@@ -277,13 +277,13 @@ function initUI() {
 	}
 
 	// init suboptions
-	createSuboption(powerTab, getLocaleStr('menu.power.powerOff.title'), getLocaleStr('menu.power.powerOff.desc', 'Shuts down the system and closes the tab (if possible).'), () => {
+	createSuboption(powerTab, getLocaleStr('menu.power.powerOff.title'), getLocaleStr('menu.power.powerOff.desc'), () => {
 		confirmDialog(shutdown);
 	}, 'power', 'power');
-	createSuboption(powerTab, getLocaleStr('menu.power.reboot.title'), getLocaleStr('menu.power.reboot.desc', 'Restarts the system with the latest version of the system files.'), () => {
+	createSuboption(powerTab, getLocaleStr('menu.power.reboot.title'), getLocaleStr('menu.power.reboot.desc'), () => {
 		confirmDialog(reboot);
 	}, 'power', 'power');
-	createSuboption(powerTab, getLocaleStr('menu.power.fastReboot.title'), getLocaleStr('menu.power.fastReboot.desc', 'Restarts and skips startup animation once on the next boot.'), () => {
+	createSuboption(powerTab, getLocaleStr('menu.power.fastReboot.title'), getLocaleStr('menu.power.fastReboot.desc'), () => {
 		confirmDialog(fastReboot);
 	}, 'power', 'power');
 	selectedSuboptions[0] = 1;
@@ -294,63 +294,63 @@ function initUI() {
 			setUsername(name);
 			updateLabel();
 			setSuboption(selectedOption, selectedSuboption, null, getLocaleTempStr('menu.preferences.setUsername.desc', 'enUS', { username }));
-		}, getLocaleStr('menu.preferences.setUsername.promptTitle', 'Enter a username...'), getLocaleTempStr('menu.preferences.setUsername.placeholder', 'enUS', { username: _defaultUsername }));
+		}, getLocaleStr('menu.preferences.setUsername.promptTitle', 'enUS', { username: _defaultUsername }));
 	}, 'user');
 	createSuboption(prefTab, getLocaleStr('menu.preferences.toggleMonochromeFavicon.title'),
 		localStorage.coloredFavicon === 'true'
-			? getLocaleStr('menu.preferences.toggleMonochromeFavicon.enabledDesc', 'Favicon is currently colored.\nSelect to switch to a monochromatic favicon.')
-			: getLocaleStr('menu.preferences.toggleMonochromeFavicon.disabledDesc', 'Favicon is currently monochromatic.\nSelect to switch to a colored favicon.'),
+			? getLocaleStr('menu.preferences.toggleMonochromeFavicon.enabledDesc')
+			: getLocaleStr('menu.preferences.toggleMonochromeFavicon.disabledDesc'),
 		() => {
 			localStorage.coloredFavicon = localStorage.coloredFavicon === 'true' ? 'false' : 'true';
 			icon();
 			if (localStorage.coloredFavicon === 'true') {
-				setSuboption(selectedOption, selectedSuboption, getLocaleStr('menu.preferences.toggleMonochromeFavicon.title'), getLocaleStr('menu.preferences.toggleMonochromeFavicon.enabledDesc', 'Favicon is currently colored.\nSelect to switch to a monochromatic favicon.'));
+				setSuboption(selectedOption, selectedSuboption, getLocaleStr('menu.preferences.toggleMonochromeFavicon.title'), getLocaleStr('menu.preferences.toggleMonochromeFavicon.enabledDesc'));
 			} else {
-				setSuboption(selectedOption, selectedSuboption, getLocaleStr('menu.preferences.toggleMonochromeFavicon.title'), getLocaleStr('menu.preferences.toggleMonochromeFavicon.disabledDesc', 'Favicon is currently monochromatic.\nSelect to switch to a colored favicon.'));
+				setSuboption(selectedOption, selectedSuboption, getLocaleStr('menu.preferences.toggleMonochromeFavicon.title'), getLocaleStr('menu.preferences.toggleMonochromeFavicon.disabledDesc'));
 			}
 		}, 'image');
 	createSuboption(prefTab, getLocaleStr('menu.preferences.toggleOpenUi.title'),
-		localStorage.openUI === 'true' ? getLocaleStr('menu.preferences.toggleOpenUi.enabledDesc', 'UI is currently open.\nSelect to close it.') : getLocaleStr('menu.preferences.toggleOpenUi.disabledDesc', 'UI is currently closed.\nSelect to open it.'),
+		localStorage.openUI === 'true' ? getLocaleStr('menu.preferences.toggleOpenUi.enabledDesc'),
 		() => {
 			localStorage.openUI = localStorage.openUI === 'true' ? 'false' : 'true';
 			if (localStorage.openUI === 'true') {
 				ui.classList.add('open');
-				setSuboption(selectedOption, selectedSuboption, getLocaleStr('menu.preferences.toggleOpenUi.title'), getLocaleStr('menu.preferences.toggleOpenUi.enabledDesc', 'UI is currently open.\nSelect to close it.'));
+				setSuboption(selectedOption, selectedSuboption, getLocaleStr('menu.preferences.toggleOpenUi.title'), getLocaleStr('menu.preferences.toggleOpenUi.enabledDesc'));
 			} else {
 				ui.classList.remove('open');
-				setSuboption(selectedOption, selectedSuboption, getLocaleStr('menu.preferences.toggleOpenUi.title'), getLocaleStr('menu.preferences.toggleOpenUi.disabledDesc', 'UI is currently closed.\nSelect to open it.'));
+				setSuboption(selectedOption, selectedSuboption, getLocaleStr('menu.preferences.toggleOpenUi.title'), getLocaleStr('menu.preferences.toggleOpenUi.disabledDesc'));
 			}
 		},
 		'wrench'
 	);
 	createSuboption(prefTab, getLocaleStr('menu.preferences.toggleStartupAnimation.title'),
-		localStorage.startup === 'true' ? getLocaleStr('menu.preferences.toggleStartupAnimation.enabledDesc', 'Startup animation is currently enabled.\nSelect to disable it.') : getLocaleStr('menu.preferences.toggleStartupAnimation.disabledDesc', 'Startup animation is currently disabled.\nSelect to enable it.'),
+		localStorage.startup === 'true' ? getLocaleStr('menu.preferences.toggleStartupAnimation.enabledDesc'),
 		() => {
 			localStorage.startup = localStorage.startup === 'true' ? 'false' : 'true';
 			if (localStorage.startup === 'true') {
-				setSuboption(selectedOption, selectedSuboption, getLocaleStr('menu.preferences.toggleStartupAnimation.title'), getLocaleStr('menu.preferences.toggleStartupAnimation.enabledDesc', 'Startup animation is currently enabled.\nSelect to disable it.'));
+				setSuboption(selectedOption, selectedSuboption, getLocaleStr('menu.preferences.toggleStartupAnimation.title'), getLocaleStr('menu.preferences.toggleStartupAnimation.enabledDesc'));
 			} else {
-				setSuboption(selectedOption, selectedSuboption, getLocaleStr('menu.preferences.toggleStartupAnimation.title'), getLocaleStr('menu.preferences.toggleStartupAnimation.disabledDesc', 'Startup animation is currently disabled.\nSelect to enable it.'));
+				setSuboption(selectedOption, selectedSuboption, getLocaleStr('menu.preferences.toggleStartupAnimation.title'), getLocaleStr('menu.preferences.toggleStartupAnimation.disabledDesc'));
 			}
 		},
 		'wrench'
 	);
 	createSuboption(prefTab, getLocaleStr('menu.preferences.fastBootDefault.title'),
 		localStorage.fastBootDefault === 'true'
-			? getLocaleStr('menu.preferences.fastBootDefault.enabledDesc', 'Fast boot is currently enabled by default.\nStartup animation only plays when Reboot is used.\nSelect to disable this.')
-			: getLocaleStr('menu.preferences.fastBootDefault.disabledDesc', 'Fast boot is currently disabled by default.\nSelect to enable this and only show startup animation on Reboot.'),
+			? getLocaleStr('menu.preferences.fastBootDefault.enabledDesc')
+			: getLocaleStr('menu.preferences.fastBootDefault.disabledDesc'),
 		() => {
 			localStorage.fastBootDefault = localStorage.fastBootDefault === 'true' ? 'false' : 'true';
 			if (localStorage.fastBootDefault === 'true') {
-				setSuboption(selectedOption, selectedSuboption, getLocaleStr('menu.preferences.fastBootDefault.title'), getLocaleStr('menu.preferences.fastBootDefault.enabledDesc', 'Fast boot is currently enabled by default.\nStartup animation only plays when Reboot is used.\nSelect to disable this.'));
+				setSuboption(selectedOption, selectedSuboption, getLocaleStr('menu.preferences.fastBootDefault.title'), getLocaleStr('menu.preferences.fastBootDefault.enabledDesc'));
 			} else {
-				setSuboption(selectedOption, selectedSuboption, getLocaleStr('menu.preferences.fastBootDefault.title'), getLocaleStr('menu.preferences.fastBootDefault.disabledDesc', 'Fast boot is currently disabled by default.\nSelect to enable this and only show startup animation on Reboot.'));
+				setSuboption(selectedOption, selectedSuboption, getLocaleStr('menu.preferences.fastBootDefault.title'), getLocaleStr('menu.preferences.fastBootDefault.disabledDesc'));
 			}
 		},
 		'wrench'
 	);
 
-	createSuboption(prefTab, getLocaleStr('menu.preferences.savePreferences.title'), getLocaleStr('menu.preferences.savePreferences.desc', 'Select to download a file with your preferences to load them later.'), () => {
+	createSuboption(prefTab, getLocaleStr('menu.preferences.savePreferences.title'), getLocaleStr('menu.preferences.savePreferences.desc'), () => {
 		confirmDialog(() => {
 			downloadFileWithContent(
 				`Noema Preferences Backup -- ${new Date().getFullYear()}-${(new Date().getMonth() + 1).toString().padStart(2, '0')}-${new Date().getDate().toString().padStart(2, '0')} ${new Date().getHours()}-${new Date().getMinutes().toString().padStart(2, '0')}-${new Date().getSeconds().toString().padStart(2, '0')}.nsf`,
@@ -364,9 +364,9 @@ function initUI() {
 					return JSON.stringify(settings);
 				})()
 			);
-		}, getLocaleStr('dialog.confirm.title', 'Are you sure?'), getLocaleStr('dialog.confirm.subtitle.accidental', "Just making sure this wasn't pressed by accident."));
+		}, getLocaleStr('dialog.confirm.title', 'enUS', "Just making sure this wasn't pressed by accident."));
 	}, 'wrench');
-	createSuboption(prefTab, getLocaleStr('menu.preferences.loadPreferences.title'), getLocaleStr('menu.preferences.loadPreferences.desc', 'Select to load a file with your saved preferences.'), () => {
+	createSuboption(prefTab, getLocaleStr('menu.preferences.loadPreferences.title'), getLocaleStr('menu.preferences.loadPreferences.desc'), () => {
 		const importbtn = document.createElement('input');
 		importbtn.type = 'file';
 		importbtn.multiple = 'false';
@@ -391,8 +391,8 @@ function initUI() {
 							);
 							setTimeout(() => {
 								notify(
-									getLocaleStr('menu.pref.load.recover.title', 'Still want to recover your data?'),
-									getLocaleStr('menu.pref.load.recover.description', 'We have a site that can safely convert the file and remove potentially unsafe data.\nFind it in the "Help" tab.')
+									getLocaleStr('menu.pref.load.recover.title'),
+									getLocaleStr('menu.pref.load.recover.description')
 								);
 							}, 2.5e3);
 							return;
@@ -419,9 +419,9 @@ function initUI() {
 
 							localStorage.lastChangelogHash = '0';
 						}
-						notify(getLocaleStr('menu.pref.load.success.title', 'Preferences file loaded successfully!'));
+						notify(getLocaleStr('menu.pref.load.success.title'));
 						setTimeout(() => {
-							notify(getLocaleStr('menu.pref.load.reboot.title', 'The system will reboot in 3 seconds to properly apply every setting.'), getLocaleStr('menu.pref.load.reboot.description', '(to set absent settings to their defaults and to apply settings that need a reboot to fully apply)'));
+							notify(getLocaleStr('menu.pref.load.reboot.title'));
 							setTimeout(() => {
 								reboot();
 							}, 3e3);
@@ -438,35 +438,35 @@ function initUI() {
 		importbtn.click();
 	}, 'wrench');
 	createSuboption(prefTab, getLocaleStr('menu.preferences.bgBrightness.title'), getLocaleTempStr('menu.preferences.bgBrightness.desc', 'enUS', { value: decimalStrToPercentage(localStorage.bgBrightness) }), () => {
-		inputDialog(getLocaleStr('menu.preferences.bgBrightness.dialogTitle'), getLocaleStr('menu.preferences.bgBrightness.dialogSubtitle', 'Adjust how bright the background appears. This affects the gradient and canvas drawing brightness.'), decimalStrToPercentage(localStorage.bgBrightness), 25, 100, 1, '{value}%', (value) => {
+		inputDialog(getLocaleStr('menu.preferences.bgBrightness.dialogTitle'), getLocaleStr('menu.preferences.bgBrightness.dialogSubtitle', 'enUS', (value) => {
 			localStorage.bgBrightness = percentageToDecimal(value);
 			changeBGColor({ colorName: localStorage.bgColor, brightness: parseFloat(localStorage.bgBrightness) });
 			setSuboption(selectedOption, selectedSuboption, getLocaleStr('menu.preferences.bgBrightness.title'), getLocaleTempStr('menu.preferences.bgBrightness.desc', 'enUS', { value: decimalStrToPercentage(localStorage.bgBrightness) }));
 		});
 	}, 'wrench');
 
-	createSuboption(prefTab, getLocaleStr('menu.preferences.resetPreferences.title'), getLocaleStr('menu.preferences.resetPreferences.desc', 'This wipes EVERY preference (Background color, username, spaghetti density, etc).\nDo not use this unless you know what you\'re doing and haven\'t saved your preferences.\nOnce you reset your preferences, this process is IRREVERSIBLE.'),
+	createSuboption(prefTab, getLocaleStr('menu.preferences.resetPreferences.title'), getLocaleStr('menu.preferences.resetPreferences.desc'),
 		() => {
 			confirmDialog(() => {
 				setTimeout(() => {
 					confirmDialog(() => {
 						localStorage.clear();
 						reboot();
-					}, getLocaleStr('dialog.confirm.title.strong', 'Are you absolutely sure?'), '');
+					}, getLocaleStr('dialog.confirm.title.strong');
 				}, .5e3);
 			},
-				getLocaleStr('dialog.confirm.title', 'Are you sure?'),
-				getLocaleStr('menu.preferences.resetPreferences.dialogSubtitle', 'Do not accept unless you know what you\'re doing.\nOnce you reset your preferences, this process is IRREVERSIBLE, so make sure to save your preferences before resetting.\n\nThe system will restart after resetting to apply the default settings.'));
+				getLocaleStr('dialog.confirm.title'),
+				getLocaleStr('menu.preferences.resetPreferences.dialogSubtitle'));
 		},
 		'bin'
 	);
 
 	createSuboption(audioTab, getLocaleStr('menu.audio.togglePauseOnUnfocus.title'),
-		localStorage.pauseMusic === 'true' ? getLocaleStr('menu.audio.togglePauseOnUnfocus.enabledDesc', 'Background music currently gets paused on unfocus.\nSelect to not mute it on unfocus.') : getLocaleStr('menu.audio.togglePauseOnUnfocus.disabledDesc', 'Background music currently doesn\'t get muted on unfocus.\nSelect to mute it on unfocus.'),
+		localStorage.pauseMusic === 'true' ? getLocaleStr('menu.audio.togglePauseOnUnfocus.enabledDesc'),
 		() => {
 			localStorage.pauseMusic = localStorage.pauseMusic === 'true' ? 'false' : 'true';
 			if (localStorage.pauseMusic === 'true') {
-				setSuboption(selectedOption, selectedSuboption, getLocaleStr('menu.audio.togglePauseOnUnfocus.title'), getLocaleStr('menu.audio.togglePauseOnUnfocus.enabledDesc', 'Background music currently gets paused on unfocus.\nSelect to not mute it on unfocus.'));
+				setSuboption(selectedOption, selectedSuboption, getLocaleStr('menu.audio.togglePauseOnUnfocus.title'), getLocaleStr('menu.audio.togglePauseOnUnfocus.enabledDesc'));
 			} else {
 				bgMusic.play();
 				setSuboption(selectedOption, selectedSuboption, 'Toggle pausing background music on unfocus', 'Background music currently doesn\\\'t get muted on unfocus.\nSelect to enable that.');
@@ -495,16 +495,16 @@ function initUI() {
 	}, 'wrench');
 
 	createSuboption(graphTab, getLocaleStr('menu.graphics.toggleEffects.title'),
-		localStorage.noShaders === 'true' ? getLocaleStr('menu.graphics.toggleEffects.disabledDesc', 'Effects are currently disabled.\nSelect to turn them on.') : getLocaleStr('menu.graphics.toggleEffects.enabledDesc', 'Effects are currently enabled.\nSelect to turn them off.'),
+		localStorage.noShaders === 'true' ? getLocaleStr('menu.graphics.toggleEffects.disabledDesc'),
 		() => {
 			localStorage.noShaders = localStorage.noShaders === 'true' ? 'false' : 'true';
 			if (localStorage.noShaders === 'true') {
-				setSuboption(selectedOption, selectedSuboption, getLocaleStr('menu.graphics.toggleEffects.title'), getLocaleStr('menu.graphics.toggleEffects.disabledDesc', 'Effects are currently disabled.\nSelect to turn them on.'));
+				setSuboption(selectedOption, selectedSuboption, getLocaleStr('menu.graphics.toggleEffects.title'), getLocaleStr('menu.graphics.toggleEffects.disabledDesc'));
 				traverseDOM(document.body, (element) => {
 					element.style.backdropFilter = 'none';
 				});
 			} else {
-				setSuboption(selectedOption, selectedSuboption, getLocaleStr('menu.graphics.toggleEffects.title'), getLocaleStr('menu.graphics.toggleEffects.enabledDesc', 'Effects are currently enabled.\nSelect to turn them off.'));
+				setSuboption(selectedOption, selectedSuboption, getLocaleStr('menu.graphics.toggleEffects.title'), getLocaleStr('menu.graphics.toggleEffects.enabledDesc'));
 				traverseDOM(document.body, (element) => {
 					element.style.backdropFilter = '';
 				});
@@ -513,17 +513,17 @@ function initUI() {
 		'wrench'
 	);
 	createSuboption(graphTab, getLocaleStr('menu.graphics.toggleAnimations.title'),
-		localStorage.noTransitions === 'true' ? getLocaleStr('menu.graphics.toggleAnimations.disabledDesc', 'Animations are currently disabled.\nSelect to turn them on.') : getLocaleStr('menu.graphics.toggleAnimations.enabledDesc', 'Animations are currently enabled.\nSelect to turn them off.'),
+		localStorage.noTransitions === 'true' ? getLocaleStr('menu.graphics.toggleAnimations.disabledDesc'),
 		() => {
 			localStorage.noTransitions = localStorage.noTransitions === 'true' ? 'false' : 'true';
 			if (localStorage.noTransitions === 'true') {
-				setSuboption(selectedOption, selectedSuboption, getLocaleStr('menu.graphics.toggleAnimations.title'), getLocaleStr('menu.graphics.toggleAnimations.disabledDesc', 'Animations are currently disabled.\nSelect to turn them on.'));
+				setSuboption(selectedOption, selectedSuboption, getLocaleStr('menu.graphics.toggleAnimations.title'), getLocaleStr('menu.graphics.toggleAnimations.disabledDesc'));
 				traverseDOM(document.body, (element) => {
 					element.style.transition = 'none';
 					element.style.animation = 'none';
 				});
 			} else {
-				setSuboption(selectedOption, selectedSuboption, getLocaleStr('menu.graphics.toggleAnimations.title'), getLocaleStr('menu.graphics.toggleAnimations.enabledDesc', 'Animations are currently enabled.\nSelect to turn them off.'));
+				setSuboption(selectedOption, selectedSuboption, getLocaleStr('menu.graphics.toggleAnimations.title'), getLocaleStr('menu.graphics.toggleAnimations.enabledDesc'));
 				traverseDOM(document.body, (element) => {
 					element.style.transition = '';
 					element.style.animation = '';
@@ -573,14 +573,14 @@ function initUI() {
 		window.open('https://github.com/sophb-ccjt/noema/issues/new', '_blank');
 	}, 'open-external');
 
-	createSuboption(debugTab, getLocaleStr('menu.debug.toggleUi.title'), localStorage.debugUI === 'true' ? getLocaleStr('menu.debug.toggleUi.enabledDesc', 'Debug UI is currently on.\nSelect to turn it off.') : getLocaleStr('menu.debug.toggleUi.disabledDesc', 'Debug UI is currently off.\nSelect to turn it on.'), () => {
+	createSuboption(debugTab, getLocaleStr('menu.debug.toggleUi.title'), localStorage.debugUI === 'true' ? getLocaleStr('menu.debug.toggleUi.enabledDesc'), () => {
 		localStorage.debugUI = localStorage.debugUI === 'true' ? 'false' : 'true';
 		if (localStorage.debugUI === 'true') {
 			document.getElementById('debug-ui').style.display = 'block';
-			setSuboption(selectedOption, selectedSuboption, getLocaleStr('menu.debug.toggleUi.title'), getLocaleStr('menu.debug.toggleUi.enabledDesc', 'Debug UI is currently on.\nSelect to turn it off.'));
+			setSuboption(selectedOption, selectedSuboption, getLocaleStr('menu.debug.toggleUi.title'), getLocaleStr('menu.debug.toggleUi.enabledDesc'));
 		} else {
 			document.getElementById('debug-ui').style.display = 'none';
-			setSuboption(selectedOption, selectedSuboption, getLocaleStr('menu.debug.toggleUi.title'), getLocaleStr('menu.debug.toggleUi.disabledDesc', 'Debug UI is currently off.\nSelect to turn it on.'));
+			setSuboption(selectedOption, selectedSuboption, getLocaleStr('menu.debug.toggleUi.title'), getLocaleStr('menu.debug.toggleUi.disabledDesc'));
 		}
 	}, 'star');
 	createSuboption(debugTab, getLocaleStr('menu.debug.clearErrors.title'), null, () => {
@@ -597,7 +597,7 @@ function initUI() {
 			script.src = url;
 			script.id = 'script-' + url;
 			document.body.appendChild(script);
-		}, getLocaleStr('menu.debug.loadScript.promptTitle', 'Enter a script URL...'));
+		}, getLocaleStr('menu.debug.loadScript.promptTitle'));
 	}, 'star');
 
 	selectUIOption(1);
