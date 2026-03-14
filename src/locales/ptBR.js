@@ -78,7 +78,7 @@ globalThis.localesArray.push({
     "menu.debug.toggleUi.disabledDesc": "A IU de debugging atualmente está desativada.\nSelecione esta opção para ativá-la.",
     "menu.debug.clearErrors.title": "Limpar Erros",
     "menu.debug.loadScript.title": "Carregar Script",
-    "menu.debug.loadScript.promptTitle": "Entre um URL (link) de um arquivo de script...",
+    "menu.debug.loadScript.promptTitle": "Entre um URL de um arquivo de script...",
     "menu.wave.none.title": "Nenhum",
     "menu.wave.none.desc": "Completamente desabilita a onda, o melhor para dispositivos de baixa performance.",
     "menu.wave.lowest.title": "Mais baixo",
