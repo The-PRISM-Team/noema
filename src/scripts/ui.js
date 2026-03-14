@@ -264,6 +264,7 @@ function initUI() {
 	clearUI();
 
 	// init default options
+	locale = locales[localStorage.locale] ?? {};
 	const t = (key, fallback) => locale[key] ?? fallback;
 	const tf = (key, fallback, vars = {}) => {
 		let str = t(key, fallback);
@@ -273,10 +274,10 @@ function initUI() {
 		return str;
 	};
 	const powerTab = createOption(t('menu.power.option.title', 'Power Options'));
-	const prefTab = createOption(t('menu.pref.option.title', 'Preferences'));
+	const prefTab = createOption(t('menu.preferences.option.title', 'Preferences'));
 	const audioTab = createOption(t('menu.audio.option.title', 'Audio'));
-	const graphTab = createOption(t('menu.graph.option.title', 'Graphics'));
-	const themeTab = createOption(t('menu.theme.option.title', 'Themes'));
+	const graphTab = createOption(t('menu.graphics.option.title', 'Graphics'));
+	const themeTab = createOption(t('menu.themes.option.title', 'Themes'));
 	const waveTab = createOption(t('menu.wave.option.title', 'Wave Amount'));
 	const helpTab = createOption(t('menu.help.option.title', 'Help'));
 	const debugTab = createOption(t('menu.debug.option.title', 'Debug'));
@@ -286,80 +287,80 @@ function initUI() {
 	}
 
 	// init suboptions
-	createSuboption(powerTab, t('menu.power.off.title', 'Power Off'), t('menu.power.off.description', 'Shuts down the system and closes the tab (if possible).'), () => {
+	createSuboption(powerTab, t('menu.power.powerOff.title', 'Power Off'), t('menu.power.powerOff.desc', 'Shuts down the system and closes the tab (if possible).'), () => {
 		confirmDialog(shutdown);
 	}, 'power', 'power');
-	createSuboption(powerTab, t('menu.power.reboot.title', 'Reboot'), t('menu.power.reboot.description', 'Restarts the system with the latest version of the system files.'), () => {
+	createSuboption(powerTab, t('menu.power.reboot.title', 'Reboot'), t('menu.power.reboot.desc', 'Restarts the system with the latest version of the system files.'), () => {
 		confirmDialog(reboot);
 	}, 'power', 'power');
-	createSuboption(powerTab, t('menu.power.fast-reboot.title', 'Fast Reboot'), t('menu.power.fast-reboot.description', 'Restarts and skips startup animation once on the next boot.'), () => {
+	createSuboption(powerTab, t('menu.power.fastReboot.title', 'Fast Reboot'), t('menu.power.fastReboot.desc', 'Restarts and skips startup animation once on the next boot.'), () => {
 		confirmDialog(fastReboot);
 	}, 'power', 'power');
 	selectedSuboptions[0] = 1;
 
-	createSuboption(prefTab, t('menu.pref.username.title', 'Set Username'), tf('menu.pref.username.description', 'Username currently set to "{username}".', { username }), () => {
+	createSuboption(prefTab, t('menu.preferences.setUsername.title', 'Set Username'), tf('menu.preferences.setUsername.desc', 'Username currently set to "{username}".', { username }), () => {
 		promptDialog((name) => {
 			if (!isDefined(name)) name = _defaultUsername;
 			setUsername(name);
 			updateLabel();
-			setSuboption(selectedOption, selectedSuboption, null, tf('menu.pref.username.description', 'Username currently set to "{username}".', { username }));
-		}, t('menu.pref.username.prompt.title', 'Enter a username...'), tf('menu.pref.username.prompt.description', 'default username is {username}', { username: _defaultUsername }));
+			setSuboption(selectedOption, selectedSuboption, null, tf('menu.preferences.setUsername.desc', 'Username currently set to "{username}".', { username }));
+		}, t('menu.preferences.setUsername.promptTitle', 'Enter a username...'), tf('menu.preferences.setUsername.placeholder', 'default username is {username}', { username: _defaultUsername }));
 	}, 'user');
-	createSuboption(prefTab, t('menu.pref.favicon.title', 'Toggle monochrome favicon'),
+	createSuboption(prefTab, t('menu.preferences.toggleMonochromeFavicon.title', 'Toggle monochrome favicon'),
 		localStorage.coloredFavicon === 'true'
-			? t('menu.pref.favicon.description.colored', 'Favicon is currently colored.\nSelect to switch to a monochromatic favicon.')
-			: t('menu.pref.favicon.description.mono', 'Favicon is currently monochromatic.\nSelect to switch to a colored favicon.'),
+			? t('menu.preferences.toggleMonochromeFavicon.enabledDesc', 'Favicon is currently colored.\nSelect to switch to a monochromatic favicon.')
+			: t('menu.preferences.toggleMonochromeFavicon.disabledDesc', 'Favicon is currently monochromatic.\nSelect to switch to a colored favicon.'),
 		() => {
 			localStorage.coloredFavicon = localStorage.coloredFavicon === 'true' ? 'false' : 'true';
 			icon();
 			if (localStorage.coloredFavicon === 'true') {
-				setSuboption(selectedOption, selectedSuboption, t('menu.pref.favicon.title', 'Toggle monochrome favicon'), t('menu.pref.favicon.description.colored', 'Favicon is currently colored.\nSelect to switch to a monochromatic favicon.'));
+				setSuboption(selectedOption, selectedSuboption, t('menu.preferences.toggleMonochromeFavicon.title', 'Toggle monochrome favicon'), t('menu.preferences.toggleMonochromeFavicon.enabledDesc', 'Favicon is currently colored.\nSelect to switch to a monochromatic favicon.'));
 			} else {
-				setSuboption(selectedOption, selectedSuboption, t('menu.pref.favicon.title', 'Toggle monochrome favicon'), t('menu.pref.favicon.description.mono', 'Favicon is currently monochromatic.\nSelect to switch to a colored favicon.'));
+				setSuboption(selectedOption, selectedSuboption, t('menu.preferences.toggleMonochromeFavicon.title', 'Toggle monochrome favicon'), t('menu.preferences.toggleMonochromeFavicon.disabledDesc', 'Favicon is currently monochromatic.\nSelect to switch to a colored favicon.'));
 			}
 		}, 'image');
-	createSuboption(prefTab, t('menu.pref.open-ui.title', 'Toggle open UI'),
-		localStorage.openUI === 'true' ? t('menu.pref.open-ui.description.open', 'UI is currently open.\nSelect to close it.') : t('menu.pref.open-ui.description.closed', 'UI is currently closed.\nSelect to open it.'),
+	createSuboption(prefTab, t('menu.preferences.toggleOpenUi.title', 'Toggle open UI'),
+		localStorage.openUI === 'true' ? t('menu.preferences.toggleOpenUi.enabledDesc', 'UI is currently open.\nSelect to close it.') : t('menu.preferences.toggleOpenUi.disabledDesc', 'UI is currently closed.\nSelect to open it.'),
 		() => {
 			localStorage.openUI = localStorage.openUI === 'true' ? 'false' : 'true';
 			if (localStorage.openUI === 'true') {
 				ui.classList.add('open');
-				setSuboption(selectedOption, selectedSuboption, t('menu.pref.open-ui.title', 'Toggle open UI'), t('menu.pref.open-ui.description.open', 'UI is currently open.\nSelect to close it.'));
+				setSuboption(selectedOption, selectedSuboption, t('menu.preferences.toggleOpenUi.title', 'Toggle open UI'), t('menu.preferences.toggleOpenUi.enabledDesc', 'UI is currently open.\nSelect to close it.'));
 			} else {
 				ui.classList.remove('open');
-				setSuboption(selectedOption, selectedSuboption, t('menu.pref.open-ui.title', 'Toggle open UI'), t('menu.pref.open-ui.description.closed', 'UI is currently closed.\nSelect to open it.'));
+				setSuboption(selectedOption, selectedSuboption, t('menu.preferences.toggleOpenUi.title', 'Toggle open UI'), t('menu.preferences.toggleOpenUi.disabledDesc', 'UI is currently closed.\nSelect to open it.'));
 			}
 		},
 		'wrench'
 	);
-	createSuboption(prefTab, t('menu.pref.startup.title', 'Toggle startup animation'),
-		localStorage.startup === 'true' ? t('menu.pref.startup.description.enabled', 'Startup animation is currently enabled.\nSelect to disable it.') : t('menu.pref.startup.description.disabled', 'Startup animation is currently disabled.\nSelect to enable it.'),
+	createSuboption(prefTab, t('menu.preferences.toggleStartupAnimation.title', 'Toggle startup animation'),
+		localStorage.startup === 'true' ? t('menu.preferences.toggleStartupAnimation.enabledDesc', 'Startup animation is currently enabled.\nSelect to disable it.') : t('menu.preferences.toggleStartupAnimation.disabledDesc', 'Startup animation is currently disabled.\nSelect to enable it.'),
 		() => {
 			localStorage.startup = localStorage.startup === 'true' ? 'false' : 'true';
 			if (localStorage.startup === 'true') {
-				setSuboption(selectedOption, selectedSuboption, t('menu.pref.startup.title', 'Toggle startup animation'), t('menu.pref.startup.description.enabled', 'Startup animation is currently enabled.\nSelect to disable it.'));
+				setSuboption(selectedOption, selectedSuboption, t('menu.preferences.toggleStartupAnimation.title', 'Toggle startup animation'), t('menu.preferences.toggleStartupAnimation.enabledDesc', 'Startup animation is currently enabled.\nSelect to disable it.'));
 			} else {
-				setSuboption(selectedOption, selectedSuboption, t('menu.pref.startup.title', 'Toggle startup animation'), t('menu.pref.startup.description.disabled', 'Startup animation is currently disabled.\nSelect to enable it.'));
+				setSuboption(selectedOption, selectedSuboption, t('menu.preferences.toggleStartupAnimation.title', 'Toggle startup animation'), t('menu.preferences.toggleStartupAnimation.disabledDesc', 'Startup animation is currently disabled.\nSelect to enable it.'));
 			}
 		},
 		'wrench'
 	);
-	createSuboption(prefTab, t('menu.pref.fast-boot.title', 'Fast boot by default'),
+	createSuboption(prefTab, t('menu.preferences.fastBootDefault.title', 'Fast boot by default'),
 		localStorage.fastBootDefault === 'true'
-			? t('menu.pref.fast-boot.description.enabled', 'Fast boot is currently enabled by default.\nStartup animation only plays when Reboot is used.\nSelect to disable this.')
-			: t('menu.pref.fast-boot.description.disabled', 'Fast boot is currently disabled by default.\nSelect to enable this and only show startup animation on Reboot.'),
+			? t('menu.preferences.fastBootDefault.enabledDesc', 'Fast boot is currently enabled by default.\nStartup animation only plays when Reboot is used.\nSelect to disable this.')
+			: t('menu.preferences.fastBootDefault.disabledDesc', 'Fast boot is currently disabled by default.\nSelect to enable this and only show startup animation on Reboot.'),
 		() => {
 			localStorage.fastBootDefault = localStorage.fastBootDefault === 'true' ? 'false' : 'true';
 			if (localStorage.fastBootDefault === 'true') {
-				setSuboption(selectedOption, selectedSuboption, t('menu.pref.fast-boot.title', 'Fast boot by default'), t('menu.pref.fast-boot.description.enabled', 'Fast boot is currently enabled by default.\nStartup animation only plays when Reboot is used.\nSelect to disable this.'));
+				setSuboption(selectedOption, selectedSuboption, t('menu.preferences.fastBootDefault.title', 'Fast boot by default'), t('menu.preferences.fastBootDefault.enabledDesc', 'Fast boot is currently enabled by default.\nStartup animation only plays when Reboot is used.\nSelect to disable this.'));
 			} else {
-				setSuboption(selectedOption, selectedSuboption, t('menu.pref.fast-boot.title', 'Fast boot by default'), t('menu.pref.fast-boot.description.disabled', 'Fast boot is currently disabled by default.\nSelect to enable this and only show startup animation on Reboot.'));
+				setSuboption(selectedOption, selectedSuboption, t('menu.preferences.fastBootDefault.title', 'Fast boot by default'), t('menu.preferences.fastBootDefault.disabledDesc', 'Fast boot is currently disabled by default.\nSelect to enable this and only show startup animation on Reboot.'));
 			}
 		},
 		'wrench'
 	);
 
-	createSuboption(prefTab, t('menu.pref.save.title', 'Save preferences'), t('menu.pref.save.description', 'Select to download a file with your preferences to load them later.'), () => {
+	createSuboption(prefTab, t('menu.preferences.savePreferences.title', 'Save preferences'), t('menu.preferences.savePreferences.desc', 'Select to download a file with your preferences to load them later.'), () => {
 		confirmDialog(() => {
 			downloadFileWithContent(
 				`Noema Preferences Backup -- ${new Date().getFullYear()}-${(new Date().getMonth() + 1).toString().padStart(2, '0')}-${new Date().getDate().toString().padStart(2, '0')} ${new Date().getHours()}-${new Date().getMinutes().toString().padStart(2, '0')}-${new Date().getSeconds().toString().padStart(2, '0')}.nsf`,
@@ -373,9 +374,9 @@ function initUI() {
 					return JSON.stringify(settings);
 				})()
 			);
-		}, t('menu.confirm.are-you-sure.title', 'Are you sure?'), t('menu.confirm.save-prefs.description', "Just making sure this wasn't pressed by accident."));
+		}, t('dialog.confirm.title', 'Are you sure?'), t('dialog.confirm.subtitle.accidental', "Just making sure this wasn't pressed by accident."));
 	}, 'wrench');
-	createSuboption(prefTab, t('menu.pref.load.title', 'Load preferences'), t('menu.pref.load.description', 'Select to load a file with your saved preferences.'), () => {
+	createSuboption(prefTab, t('menu.preferences.loadPreferences.title', 'Load preferences'), t('menu.preferences.loadPreferences.desc', 'Select to load a file with your saved preferences.'), () => {
 		const importbtn = document.createElement('input');
 		importbtn.type = 'file';
 		importbtn.multiple = 'false';
@@ -446,36 +447,36 @@ function initUI() {
 		document.body.appendChild(importbtn);
 		importbtn.click();
 	}, 'wrench');
-	createSuboption(prefTab, t('menu.pref.bg-brightness.title', 'Background Brightness'), tf('menu.pref.bg-brightness.description', 'Background brightness currently set to {value}%.', { value: decimalStrToPercentage(localStorage.bgBrightness) }), () => {
-		inputDialog(t('menu.pref.bg-brightness.input.title', 'Set Background Brightness'), t('menu.pref.bg-brightness.input.description', 'Adjust how bright the background appears. This affects the gradient and canvas drawing brightness.'), decimalStrToPercentage(localStorage.bgBrightness), 25, 100, 1, '{value}%', (value) => {
+	createSuboption(prefTab, t('menu.preferences.bgBrightness.title', 'Background Brightness'), tf('menu.preferences.bgBrightness.desc', 'Background brightness currently set to {value}%.', { value: decimalStrToPercentage(localStorage.bgBrightness) }), () => {
+		inputDialog(t('menu.preferences.bgBrightness.dialogTitle', 'Set Background Brightness'), t('menu.preferences.bgBrightness.dialogSubtitle', 'Adjust how bright the background appears. This affects the gradient and canvas drawing brightness.'), decimalStrToPercentage(localStorage.bgBrightness), 25, 100, 1, '{value}%', (value) => {
 			localStorage.bgBrightness = percentageToDecimal(value);
 			changeBGColor({ colorName: localStorage.bgColor, brightness: parseFloat(localStorage.bgBrightness) });
-			setSuboption(selectedOption, selectedSuboption, t('menu.pref.bg-brightness.title', 'Background Brightness'), tf('menu.pref.bg-brightness.description', 'Background brightness currently set to {value}%.', { value: decimalStrToPercentage(localStorage.bgBrightness) }));
+			setSuboption(selectedOption, selectedSuboption, t('menu.preferences.bgBrightness.title', 'Background Brightness'), tf('menu.preferences.bgBrightness.desc', 'Background brightness currently set to {value}%.', { value: decimalStrToPercentage(localStorage.bgBrightness) }));
 		});
 	}, 'wrench');
 
-	createSuboption(prefTab, t('menu.pref.reset.title', 'Reset preferences'), t('menu.pref.reset.description', 'This wipes EVERY preference (Background color, username, spaghetti density, etc).\nDo not use this unless you know what you\'re doing and haven\'t saved your preferences.\nOnce you reset your preferences, this process is IRREVERSIBLE.'),
+	createSuboption(prefTab, t('menu.preferences.resetPreferences.title', 'Reset preferences'), t('menu.preferences.resetPreferences.desc', 'This wipes EVERY preference (Background color, username, spaghetti density, etc).\nDo not use this unless you know what you\'re doing and haven\'t saved your preferences.\nOnce you reset your preferences, this process is IRREVERSIBLE.'),
 		() => {
 			confirmDialog(() => {
 				setTimeout(() => {
 					confirmDialog(() => {
 						localStorage.clear();
 						reboot();
-					}, t('menu.pref.reset.confirm2.title', 'Are you absolutely sure?'), '');
+					}, t('dialog.confirm.title.strong', 'Are you absolutely sure?'), '');
 				}, .5e3);
 			},
-				t('menu.pref.reset.confirm1.title', 'Are you sure?'),
-				t('menu.pref.reset.confirm1.description', 'Do not accept unless you know what you\'re doing.\nOnce you reset your preferences, this process is IRREVERSIBLE, so make sure to save your preferences before resetting.\n\nThe system will restart after resetting to apply the default settings.'));
+				t('dialog.confirm.title', 'Are you sure?'),
+				t('menu.preferences.resetPreferences.dialogSubtitle', 'Do not accept unless you know what you\'re doing.\nOnce you reset your preferences, this process is IRREVERSIBLE, so make sure to save your preferences before resetting.\n\nThe system will restart after resetting to apply the default settings.'));
 		},
 		'bin'
 	);
 
-	createSuboption(audioTab, t('menu.audio.pause-on-unfocus.title', 'Toggle pausing background music on unfocus'),
-		localStorage.pauseMusic === 'true' ? t('menu.audio.pause-on-unfocus.description.on', 'Background music currently gets paused on unfocus.\nSelect to not mute it on unfocus.') : t('menu.audio.pause-on-unfocus.description.off', 'Background music currently doesn\'t get muted on unfocus.\nSelect to mute it on unfocus.'),
+	createSuboption(audioTab, t('menu.audio.togglePauseOnUnfocus.title', 'Toggle pausing background music on unfocus'),
+		localStorage.pauseMusic === 'true' ? t('menu.audio.togglePauseOnUnfocus.enabledDesc', 'Background music currently gets paused on unfocus.\nSelect to not mute it on unfocus.') : t('menu.audio.togglePauseOnUnfocus.disabledDesc', 'Background music currently doesn\'t get muted on unfocus.\nSelect to mute it on unfocus.'),
 		() => {
 			localStorage.pauseMusic = localStorage.pauseMusic === 'true' ? 'false' : 'true';
 			if (localStorage.pauseMusic === 'true') {
-				setSuboption(selectedOption, selectedSuboption, t('menu.audio.pause-on-unfocus.title', 'Toggle pausing background music on unfocus'), t('menu.audio.pause-on-unfocus.description.on', 'Background music currently gets paused on unfocus.\nSelect to not mute it on unfocus.'));
+				setSuboption(selectedOption, selectedSuboption, t('menu.audio.togglePauseOnUnfocus.title', 'Toggle pausing background music on unfocus'), t('menu.audio.togglePauseOnUnfocus.enabledDesc', 'Background music currently gets paused on unfocus.\nSelect to not mute it on unfocus.'));
 			} else {
 				bgMusic.play();
 				setSuboption(selectedOption, selectedSuboption, 'Toggle pausing background music on unfocus', 'Background music currently doesn\\\'t get muted on unfocus.\nSelect to enable that.');
@@ -483,37 +484,37 @@ function initUI() {
 		},
 		'wrench'
 	);
-	createSuboption(audioTab, t('menu.audio.master-volume.title', 'Set master volume'), tf('menu.audio.master-volume.description', 'Master volume is currently at {value}% volume.', { value: decimalStrToPercentage(localStorage.masterVolume) }), () => {
-		inputDialog(t('menu.audio.master-volume.input.title', 'Set master volume'), null, decimalStrToPercentage(localStorage.masterVolume), 0, 100, 1, '{value}%', (volume) => {
+	createSuboption(audioTab, t('menu.audio.setMasterVolume.title', 'Set master volume'), tf('menu.audio.setMasterVolume.desc', 'Master volume is currently at {value}% volume.', { value: decimalStrToPercentage(localStorage.masterVolume) }), () => {
+		inputDialog(t('menu.audio.setMasterVolume.title', 'Set master volume'), null, decimalStrToPercentage(localStorage.masterVolume), 0, 100, 1, '{value}%', (volume) => {
 			setMasterVolume(percentageToDecimal(volume));
-			setSuboption(selectedOption, selectedSuboption, t('menu.audio.master-volume.title', 'Set master volume'), tf('menu.audio.master-volume.description', 'Master volume is currently at {value}% volume.', { value: decimalStrToPercentage(localStorage.masterVolume) }));
+			setSuboption(selectedOption, selectedSuboption, t('menu.audio.setMasterVolume.title', 'Set master volume'), tf('menu.audio.setMasterVolume.desc', 'Master volume is currently at {value}% volume.', { value: decimalStrToPercentage(localStorage.masterVolume) }));
 		});
 	}, 'wrench');
-	createSuboption(audioTab, t('menu.audio.music-volume.title', 'Set background music volume'), tf('menu.audio.music-volume.description', 'Background music is currently at {value}% volume.', { value: decimalStrToPercentage(localStorage.musicVolume) }), () => {
-		inputDialog(t('menu.audio.music-volume.input.title', 'Set background music volume'), null, decimalStrToPercentage(localStorage.musicVolume), 0, 100, 1, '{value}%', (volume) => {
+	createSuboption(audioTab, t('menu.audio.setBackgroundMusicVolume.title', 'Set background music volume'), tf('menu.audio.setBackgroundMusicVolume.desc', 'Background music is currently at {value}% volume.', { value: decimalStrToPercentage(localStorage.musicVolume) }), () => {
+		inputDialog(t('menu.audio.setBackgroundMusicVolume.title', 'Set background music volume'), null, decimalStrToPercentage(localStorage.musicVolume), 0, 100, 1, '{value}%', (volume) => {
 			localStorage.musicVolume = percentageToDecimal(volume);
 			bgMusic.volume = parseFloat(localStorage.musicVolume).clamp(0, 1) * masterVolume;
-			setSuboption(selectedOption, selectedSuboption, t('menu.audio.music-volume.title', 'Set background music volume'), tf('menu.audio.music-volume.description', 'Background music is currently at {value}% volume.', { value: decimalStrToPercentage(localStorage.musicVolume) }));
+			setSuboption(selectedOption, selectedSuboption, t('menu.audio.setBackgroundMusicVolume.title', 'Set background music volume'), tf('menu.audio.setBackgroundMusicVolume.desc', 'Background music is currently at {value}% volume.', { value: decimalStrToPercentage(localStorage.musicVolume) }));
 		});
 	}, 'wrench');
-	createSuboption(audioTab, t('menu.audio.ui-volume.title', 'Set UI sound volume'), tf('menu.audio.ui-volume.description', 'UI sounds are currently at {value}% volume.', { value: decimalStrToPercentage(localStorage.uiSoundVolume) }), () => {
-		inputDialog(t('menu.audio.ui-volume.input.title', 'Set UI sound volume'), null, decimalStrToPercentage(localStorage.uiSoundVolume), 0, 100, 1, '{value}%', (volume) => {
+	createSuboption(audioTab, t('menu.audio.setUiSoundVolume.title', 'Set UI sound volume'), tf('menu.audio.setUiSoundVolume.desc', 'UI sounds are currently at {value}% volume.', { value: decimalStrToPercentage(localStorage.uiSoundVolume) }), () => {
+		inputDialog(t('menu.audio.setUiSoundVolume.title', 'Set UI sound volume'), null, decimalStrToPercentage(localStorage.uiSoundVolume), 0, 100, 1, '{value}%', (volume) => {
 			localStorage.uiSoundVolume = percentageToDecimal(volume);
-			setSuboption(selectedOption, selectedSuboption, t('menu.audio.ui-volume.title', 'Set UI sound volume'), tf('menu.audio.ui-volume.description', 'UI sounds are currently at {value}% volume.', { value: decimalStrToPercentage(localStorage.uiSoundVolume) }));
+			setSuboption(selectedOption, selectedSuboption, t('menu.audio.setUiSoundVolume.title', 'Set UI sound volume'), tf('menu.audio.setUiSoundVolume.desc', 'UI sounds are currently at {value}% volume.', { value: decimalStrToPercentage(localStorage.uiSoundVolume) }));
 		});
 	}, 'wrench');
 
-	createSuboption(graphTab, t('menu.graph.effects.title', 'Toggle effects'),
-		localStorage.noShaders === 'true' ? t('menu.graph.effects.description.disabled', 'Effects are currently disabled.\nSelect to turn them on.') : t('menu.graph.effects.description.enabled', 'Effects are currently enabled.\nSelect to turn them off.'),
+	createSuboption(graphTab, t('menu.graphics.toggleEffects.title', 'Toggle effects'),
+		localStorage.noShaders === 'true' ? t('menu.graphics.toggleEffects.disabledDesc', 'Effects are currently disabled.\nSelect to turn them on.') : t('menu.graphics.toggleEffects.enabledDesc', 'Effects are currently enabled.\nSelect to turn them off.'),
 		() => {
 			localStorage.noShaders = localStorage.noShaders === 'true' ? 'false' : 'true';
 			if (localStorage.noShaders === 'true') {
-				setSuboption(selectedOption, selectedSuboption, t('menu.graph.effects.title', 'Toggle effects'), t('menu.graph.effects.description.disabled', 'Effects are currently disabled.\nSelect to turn them on.'));
+				setSuboption(selectedOption, selectedSuboption, t('menu.graphics.toggleEffects.title', 'Toggle effects'), t('menu.graphics.toggleEffects.disabledDesc', 'Effects are currently disabled.\nSelect to turn them on.'));
 				traverseDOM(document.body, (element) => {
 					element.style.backdropFilter = 'none';
 				});
 			} else {
-				setSuboption(selectedOption, selectedSuboption, t('menu.graph.effects.title', 'Toggle effects'), t('menu.graph.effects.description.enabled', 'Effects are currently enabled.\nSelect to turn them off.'));
+				setSuboption(selectedOption, selectedSuboption, t('menu.graphics.toggleEffects.title', 'Toggle effects'), t('menu.graphics.toggleEffects.enabledDesc', 'Effects are currently enabled.\nSelect to turn them off.'));
 				traverseDOM(document.body, (element) => {
 					element.style.backdropFilter = '';
 				});
@@ -521,18 +522,18 @@ function initUI() {
 		},
 		'wrench'
 	);
-	createSuboption(graphTab, t('menu.graph.animations.title', 'Toggle animations'),
-		localStorage.noTransitions === 'true' ? t('menu.graph.animations.description.disabled', 'Animations are currently disabled.\nSelect to turn them on.') : t('menu.graph.animations.description.enabled', 'Animations are currently enabled.\nSelect to turn them off.'),
+	createSuboption(graphTab, t('menu.graphics.toggleAnimations.title', 'Toggle animations'),
+		localStorage.noTransitions === 'true' ? t('menu.graphics.toggleAnimations.disabledDesc', 'Animations are currently disabled.\nSelect to turn them on.') : t('menu.graphics.toggleAnimations.enabledDesc', 'Animations are currently enabled.\nSelect to turn them off.'),
 		() => {
 			localStorage.noTransitions = localStorage.noTransitions === 'true' ? 'false' : 'true';
 			if (localStorage.noTransitions === 'true') {
-				setSuboption(selectedOption, selectedSuboption, t('menu.graph.animations.title', 'Toggle animations'), t('menu.graph.animations.description.disabled', 'Animations are currently disabled.\nSelect to turn them on.'));
+				setSuboption(selectedOption, selectedSuboption, t('menu.graphics.toggleAnimations.title', 'Toggle animations'), t('menu.graphics.toggleAnimations.disabledDesc', 'Animations are currently disabled.\nSelect to turn them on.'));
 				traverseDOM(document.body, (element) => {
 					element.style.transition = 'none';
 					element.style.animation = 'none';
 				});
 			} else {
-				setSuboption(selectedOption, selectedSuboption, t('menu.graph.animations.title', 'Toggle animations'), t('menu.graph.animations.description.enabled', 'Animations are currently enabled.\nSelect to turn them off.'));
+				setSuboption(selectedOption, selectedSuboption, t('menu.graphics.toggleAnimations.title', 'Toggle animations'), t('menu.graphics.toggleAnimations.enabledDesc', 'Animations are currently enabled.\nSelect to turn them off.'));
 				traverseDOM(document.body, (element) => {
 					element.style.transition = '';
 					element.style.animation = '';
@@ -561,7 +562,7 @@ function initUI() {
 		);
 	}
 
-	createSuboption(helpTab, t('menu.help.convert-save.title', 'Convert Save File'), null, () => {
+	createSuboption(helpTab, t('menu.help.convertSaveFile.title', 'Convert Save File'), null, () => {
 		const width = window.innerWidth / 2;
 		const height = window.innerHeight / 2;
 		const left = window.screenX + (window.outerWidth - width) / 2;
@@ -575,29 +576,29 @@ function initUI() {
 
 		if (isDefined(newWindow.focus)) newWindow.focus();
 	}, 'wrench');
-	createSuboption(helpTab, t('menu.help.github.title', "Open Project Noema's GitHub repo"), null, () => {
+	createSuboption(helpTab, t('menu.help.openGithubRepo.title', "Open Project Noema's GitHub repo"), null, () => {
 		window.open('https://github.com/sophb-ccjt/noema', '_blank');
 	}, 'open-external');
-	createSuboption(helpTab, t('menu.help.report-issue.title', 'Report an issue on GitHub'), null, () => {
+	createSuboption(helpTab, t('menu.help.reportIssue.title', 'Report an issue on GitHub'), null, () => {
 		window.open('https://github.com/sophb-ccjt/noema/issues/new', '_blank');
 	}, 'open-external');
 
-	createSuboption(debugTab, t('menu.debug.toggle-ui.title', 'Toggle debugging UI'), localStorage.debugUI === 'true' ? t('menu.debug.toggle-ui.description.on', 'Debug UI is currently on.\nSelect to turn it off.') : t('menu.debug.toggle-ui.description.off', 'Debug UI is currently off.\nSelect to turn it on.'), () => {
+	createSuboption(debugTab, t('menu.debug.toggleUi.title', 'Toggle debugging UI'), localStorage.debugUI === 'true' ? t('menu.debug.toggleUi.enabledDesc', 'Debug UI is currently on.\nSelect to turn it off.') : t('menu.debug.toggleUi.disabledDesc', 'Debug UI is currently off.\nSelect to turn it on.'), () => {
 		localStorage.debugUI = localStorage.debugUI === 'true' ? 'false' : 'true';
 		if (localStorage.debugUI === 'true') {
 			document.getElementById('debug-ui').style.display = 'block';
-			setSuboption(selectedOption, selectedSuboption, t('menu.debug.toggle-ui.title', 'Toggle debugging UI'), t('menu.debug.toggle-ui.description.on', 'Debug UI is currently on.\nSelect to turn it off.'));
+			setSuboption(selectedOption, selectedSuboption, t('menu.debug.toggleUi.title', 'Toggle debugging UI'), t('menu.debug.toggleUi.enabledDesc', 'Debug UI is currently on.\nSelect to turn it off.'));
 		} else {
 			document.getElementById('debug-ui').style.display = 'none';
-			setSuboption(selectedOption, selectedSuboption, t('menu.debug.toggle-ui.title', 'Toggle debugging UI'), t('menu.debug.toggle-ui.description.off', 'Debug UI is currently off.\nSelect to turn it on.'));
+			setSuboption(selectedOption, selectedSuboption, t('menu.debug.toggleUi.title', 'Toggle debugging UI'), t('menu.debug.toggleUi.disabledDesc', 'Debug UI is currently off.\nSelect to turn it on.'));
 		}
 	}, 'star');
-	createSuboption(debugTab, t('menu.debug.clear-errors.title', 'Clear Errors'), null, () => {
+	createSuboption(debugTab, t('menu.debug.clearErrors.title', 'Clear Errors'), null, () => {
 		errors = 0;
 		errorList.length = 0;
 		document.getElementById('errors').innerText = `Errors: ${errors}`;
 	}, 'star');
-	createSuboption(debugTab, t('menu.debug.load-script.title', 'Load Script'), null, () => {
+	createSuboption(debugTab, t('menu.debug.loadScript.title', 'Load Script'), null, () => {
 		promptDialog((url) => {
 			if (!url) return;
 			if (!isURL(url)) throw new TypeError("Script URL provided isn't even a URL.");
@@ -606,7 +607,7 @@ function initUI() {
 			script.src = url;
 			script.id = 'script-' + url;
 			document.body.appendChild(script);
-		}, t('menu.debug.load-script.prompt.title', 'Enter a script URL...'));
+		}, t('menu.debug.loadScript.promptTitle', 'Enter a script URL...'));
 	}, 'star');
 
 	selectUIOption(1);
