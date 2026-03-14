@@ -111,4 +111,4 @@ globalThis.localesArray.push({
     "error.listTitle": "Erro(s):",
     "error.unknown": "Desconhecido(s)",
     "error.restartingIn": "Reiniciando em {time}"
-})
+});
