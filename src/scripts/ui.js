@@ -51,8 +51,9 @@ function focusUIOption(id) {
 let selectedOption = 0,
 	selectedSuboption = 0,
 	selectedSuboptions = {},
-	uiSuboptionActions = {};
-let locale = {};
+	uiSuboptionActions = {},
+	locale = locales[localStorage.locale] ?? {};
+
 function normalizeActionId(value = '') {
 	return value
 		.toString()
@@ -394,14 +395,14 @@ function initUI() {
 					if (formats.includes(content?.format)) {
 						if (content.format === 'NSF1.0') {
 							notify(
-								'That save file might be unsafe.',
-								"We didn't load it because the format of that save file has a known security issue.",
+								t('menu.pref.load.unsafe-save.title', 'That save file might be unsafe.'),
+								t('menu.pref.load.unsafe-save.description', "We didn't load it because the format of that save file has a known security issue."),
 								'warning'
 							);
 							setTimeout(() => {
 								notify(
-									'Still want to recover your data?',
-									'We have a site that can safely convert the file and remove potentially unsafe data.\nFind it in the "Help" tab.'
+									t('menu.pref.load.recover.title', 'Still want to recover your data?'),
+									t('menu.pref.load.recover.description', 'We have a site that can safely convert the file and remove potentially unsafe data.\nFind it in the "Help" tab.')
 								);
 							}, 2.5e3);
 							return;
@@ -428,9 +429,9 @@ function initUI() {
 
 							localStorage.lastChangelogHash = '0';
 						}
-						notify('Preferences file loaded successfully!');
+						notify(t('menu.pref.load.success.title', 'Preferences file loaded successfully!'));
 						setTimeout(() => {
-							notify('The system will reboot in 3 seconds to properly apply every setting.', '(to set absent settings to their defaults and to apply settings that need a reboot to fully apply)');
+							notify(t('menu.pref.load.reboot.title', 'The system will reboot in 3 seconds to properly apply every setting.'), t('menu.pref.load.reboot.description', '(to set absent settings to their defaults and to apply settings that need a reboot to fully apply)'));
 							setTimeout(() => {
 								reboot();
 							}, 3e3);
@@ -543,7 +544,7 @@ function initUI() {
 	);
 
 	Object.keys(bgColors).forEach((color, i) => {
-		createSuboption(themeTab, color.toTitleCase(), `Select to set the theme to "${color.toTitleCase()}".`, () => {
+		createSuboption(themeTab, color.toTitleCase(), tf('menu.theme.color.description', 'Select to set the theme to "{color}".', { color: color.toTitleCase() }), () => {
 			changeBGColor({ colorName: color });
 		}, 'image');
 		if (color === localStorage.bgColor) selectedSuboptions[themeTab] = i;
