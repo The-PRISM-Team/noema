@@ -104,20 +104,19 @@ async function loadScripts(cb = ()=>{}) {
 		if (!isDefined(scriptObj.async)) script.async = false;
 		await new Promise((resolve, reject) => {
 			script.onload = () => {
-				cb(i, scripts.length, script);
+				cb(i + 1, scripts.length, script);
 				resolve();
 			};
 			script.onerror = reject;
 			for (const [property, value] of Object.entries(scriptObj)) {
 				script[property] = value;
 			}
-			/*
 			Object.defineProperty(script, "origin", {
 				value: "preloader",
 				writable: false,
 				configurable: false,
 				enumerable: true
-			});*/
+			});
 			/* use if loadedScripts becomes a PO
 			const scriptNameRegex = /^\/?(?:\w+\/)*(\w+)(?:\.\w+)?$/;
 			loadedScripts[
