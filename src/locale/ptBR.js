@@ -1,6 +1,6 @@
-window.locales = window.locales ?? [];
-window.locales.push({
-    "lang": 'ptBR',
+globalThis.localesArray = globalThis.localesArray ?? [];
+globalThis.localesArray.push({
+    "lang": "ptBR",
     "appTitle": "Noema",
     "pageTitle": "Projeto Noema - Desenvolvimento Aberto da PRISM",
     "debug.credits": "Desenvolvimento Aberto da PRISM em 2026",
