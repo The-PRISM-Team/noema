@@ -57,5 +57,4 @@ jobs:
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add src/locales/*.js
           git commit -m "Update generated JS locales from JSON" || echo "No changes to commit"
-          BRANCH=${GITHUB_REF#refs/heads/}
-          git push origin HEAD
+          git push "https://${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" HEAD
