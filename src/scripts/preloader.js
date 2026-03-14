@@ -1,10 +1,12 @@
 const loadedScripts = [];
 async function loadScripts(cb) {
-	loadedScripts.length = 0;
-	// remove all scripts added by the preloader
-	[
-		...document.body.querySelectorAll('script[origin=preloader]')
-	].forEach(el => el.remove());
+	if (document.body.querySelectorAll('script[origin=preloader]').length > 0) {
+		// remove all scripts added by the preloader
+		loadedScripts.length = 0;
+		[
+			...document.body.querySelectorAll('script[origin=preloader]')
+		].forEach(el => el.remove());
+	}
 
 	const scripts = [
 		// locales
@@ -111,12 +113,13 @@ async function loadScripts(cb) {
 			for (const [property, value] of Object.entries(scriptObj)) {
 				script[property] = value;
 			}
+			/*
 			Object.defineProperty(script, "origin", {
 				value: "preloader",
 				writable: false,
 				configurable: false,
 				enumerable: true
-			});
+			});*/
 			/* use if loadedScripts becomes a PO
 			const scriptNameRegex = /^\/?(?:\w+\/)*(\w+)(?:\.\w+)?$/;
 			loadedScripts[
