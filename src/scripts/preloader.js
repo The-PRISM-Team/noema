@@ -1,5 +1,5 @@
 const loadedScripts = [];
-async function loadScripts(cb) {
+async function loadScripts(cb = ()=>{}) {
 	if (document.body.querySelectorAll('script[origin=preloader]').length > 0) {
 		// remove all scripts added by the preloader
 		loadedScripts.length = 0;
