@@ -470,8 +470,13 @@ function initUI() {
 			def['menu.lang.setLang.desc'].replace('{lang}', def.langTitle),
 			async () => {
 				localStorage.locale = locale;
-				notify('Restarting in 3 seconds...')
-				await delay(3e3);
+				notify('Restarting in 3 seconds...');
+				await delay(1e3);
+				notify('Restarting in 2 seconds...');
+				await delay(1e3);
+				notify('Restarting in 1 seconds...');
+				await delay(1e3);
+				notify('Restarting...');
 				reboot();
 			},
 			'wrench'
