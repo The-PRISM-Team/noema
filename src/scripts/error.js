@@ -75,19 +75,20 @@ window.addEventListener("error", (event) => {
 
 					transition: opacity .5s ease;
 				`;
-				warning.textContent = "STARTUP FAILED";
+				warning.textContent = getLocaleStr('error.startupFailed');
 				document.body.appendChild(warning);
 				setTimeout(()=>{
 					if (errorList.length > 0) {
-						warning.textContent = `Error(s):\n${errorList.join('\n')}`;
+						warning.textContent = `${getLocaleStr('error.listTitle')}\n${errorList.join('\n')}`;
 					} else {
-						warning.textContent = `Error(s):\nUnknown`;
+						warning.textContent = `${getLocaleStr('error.listTitle')}\n${getLocaleStr('error.unknown')}`;
 					}
 				}, 2e3);
 				setTimeout(()=>{
 					let time = 5;
 					setInterval(() => {
-						warning.textContent = `Restarting in ${time}${('.').repeat(time)}`;
+						
+						warning.textContent = `${getLocaleTempStr('error.restartingIn', 'enUS', { time })}${('.').repeat(time)}`;
 						if (time <= 0)
 							window.location.reload();
 						time--;
@@ -105,5 +106,5 @@ window.addEventListener("error", (event) => {
 		document.getElementById('errors').style.transition = 'color 1s linear';
 		document.getElementById('errors').style.color = '#fff';
 	});
-	document.getElementById('errors').innerText = `Errors: ${errors}`;
+	document.getElementById('errors').innerText = `${getLocaleStr('debug.errors')} ${errors}`;
 }, true);

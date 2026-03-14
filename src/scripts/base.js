@@ -27,7 +27,7 @@ function traverseDOM(element, callback = console.log) {
 let focused = true;
 window.addEventListener('focus', () =>{
 	focused = true;
-	if (started && localStorage.pauseMusic === 'true') bgMusic.resume();
+	if (started) bgMusic.resume();
 });
 window.addEventListener('blur', () =>{
 	focused = false;
@@ -64,7 +64,7 @@ function updateFps() {
 }
 updateFps();
 setInterval(() => {
-	fpsCounter.textContent = `FPS: ${fps} | Avg. FPS: ${avgfps}`;
+	fpsCounter.textContent = `${getLocaleStr('debug.estfps')} ${fps} | ${getLocaleStr('debug.avgfps')}: ${avgfps}`;
 	if (fps >= 45) {
 		fpsCounter.style.color = "#fff";
 	} else if (fps >= 30) {

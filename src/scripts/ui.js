@@ -262,6 +262,9 @@ function clearUI() {
 function initUI() {
 	clearUI();
 
+	// innit misc UI locale
+	document.title = getLocaleStr('pageTitle');
+	document.getElementById('bubble-credits').textContent = getLocaleStr('debug.credits');
 	// init default options
 	const powerTab = createOption(getLocaleStr('menu.power.option.title'));
 	const prefTab = createOption(getLocaleStr('menu.preferences.option.title'));
@@ -688,7 +691,7 @@ function bandDialog(title = '', subtitle = '', setupFunc, confirmFunc, usesEnter
 				}
 			});
 		}
-		if ((key === 'enter' || (key === ' ' && !hasInput)) && usesEnterKey) {
+		if ((key === 'enter' || (key === 'space' && !hasInput)) && usesEnterKey) {
 			if (usesEnterKey) {
 				confirmFunc();
 				playSound('confirm');
@@ -954,7 +957,7 @@ function handleInput(event) {
 	if (event.isTrusted) {
 		lastInput = 'keyboard';
 	}
-	const key = event.key.toLowerCase();
+	const key = event.key === ' ' ? 'space' : event.key.toLowerCase();
 	// console.log('key press:', key)
 
 	// input handler, make it JSON later?
@@ -1020,7 +1023,7 @@ function handleInput(event) {
 				}
 			}
 		}
-		if ((key === 'enter' || key === ' ') && !keyup) {
+		if ((key === 'enter' || key === 'space') && !keyup) {
 			if (document.activeElement.tagName === 'INPUT' && document.activeElement?.type === 'checkbox') {
 				event.preventDefault();
 				document.activeElement.checked = !document.activeElement.checked;
@@ -1044,7 +1047,7 @@ function handleInput(event) {
 		if (key === 's' || key === 'arrowdown') {
 			down();
 		}
-		if (key === 'enter' || key === ' ') {
+		if (key === 'enter' || key === 'space') {
 			if (!event.repeat && keyup)
 				executeUISuboption();
 		}
