@@ -55,6 +55,7 @@ globalThis.localesArray.push({
     "menu.preferences.resetPreferences.title": "😀",
     "menu.preferences.resetPreferences.desc": "😀",
     "menu.preferences.resetPreferences.dialogSubtitle": "😀",
+    "menu.lang.setLang.desc": "😀 {lang}\n😄😄😄",
     "menu.audio.togglePauseOnUnfocus.title": "😀",
     "menu.audio.togglePauseOnUnfocus.enabledDesc": "😀",
     "menu.audio.togglePauseOnUnfocus.disabledDesc": "😀",

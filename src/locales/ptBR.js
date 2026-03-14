@@ -57,6 +57,7 @@ globalThis.localesArray.push({
     "menu.preferences.resetPreferences.title": "Redefinir preferências",
     "menu.preferences.resetPreferences.desc": "Isto apaga TODAS as suas preferências (Tema, nome de usuário, densidade da onda, etc.) e define elas para seu padrão canônico.\nNUNCA use isto se não souberes o que está fazendo e/ou não baixou um arquivo com as tuas preferências.\nDepois de redefinir as tuas preferências, desfazer esta operação e IMPOSSÍVEL.",
     "menu.preferences.resetPreferences.dialogSubtitle": "Não aceite a não ser que tu sabes do que estás fazendo. Depois de redefinir as tuas preferências, desfazer esta operação e IMPOSSÍVEL, então tenha certeza que tu tens um arquivo com as tuas preferências salvo em teu computador.\n\nO sistema vai reiniciar depois de redefinir para aplicar as configurações padrão.",
+    "menu.lang.setLang.desc": "Mudar o idioma para {lang}.\nIsto vai reiniciar o sistema para aplicar.",
     "menu.audio.togglePauseOnUnfocus.title": "Ativar/desativar a pausa da música de fundo ao desfocar",
     "menu.audio.togglePauseOnUnfocus.enabledDesc": "A música de fundo atualmente é pausada ao desfocar.\nSelecione esta opção para não pausar ela ao desfocar.",
     "menu.audio.togglePauseOnUnfocus.disabledDesc": "A música de fundo atualmente não é pausada ao desfocar.\nSelecione está opção para pausar ela ao desfocar.",

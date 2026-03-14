@@ -55,6 +55,7 @@ globalThis.localesArray.push({
     "menu.preferences.resetPreferences.title": "Reset preferences",
     "menu.preferences.resetPreferences.desc": "This wipes EVERY preference (Background color, username, spaghetti density, etc).\nDo not use this unless you know what you're doing and haven't saved your preferences.\nOnce you reset your preferences, this process is IRREVERSIBLE.",
     "menu.preferences.resetPreferences.dialogSubtitle": "Do not accept unless you know what you're doing.\nOnce you reset your preferences, this process is IRREVERSIBLE, so make sure to save your preferences before resetting.\n\nThe system will restart after resetting to apply the default settings.",
+    "menu.lang.setLang.desc": "Set the language to {lang}.\nThis will restart the system to apply.",
     "menu.audio.togglePauseOnUnfocus.title": "Toggle pausing background music on unfocus",
     "menu.audio.togglePauseOnUnfocus.enabledDesc": "Background music currently gets paused on unfocus.\nSelect to not mute it on unfocus.",
     "menu.audio.togglePauseOnUnfocus.disabledDesc": "Background music currently doesn't get muted on unfocus.\nSelect to mute it on unfocus.",

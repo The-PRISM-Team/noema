@@ -268,6 +268,7 @@ function initUI() {
 	// init default options
 	const powerTab = createOption(getLocaleStr('menu.power.option.title'));
 	const prefTab = createOption(getLocaleStr('menu.preferences.option.title'));
+	const langTab = createOption(getLocaleStr('menu.lang.option.title'));
 	const audioTab = createOption(getLocaleStr('menu.audio.option.title'));
 	const graphTab = createOption(getLocaleStr('menu.graphics.option.title'));
 	const themeTab = createOption(getLocaleStr('menu.themes.option.title'));
@@ -447,7 +448,6 @@ function initUI() {
 			setSuboption(selectedOption, selectedSuboption, getLocaleStr('menu.preferences.bgBrightness.title'), getLocaleTempStr('menu.preferences.bgBrightness.desc', 'enUS', { value: decimalStrToPercentage(localStorage.bgBrightness) }));
 		});
 	}, 'wrench');
-
 	createSuboption(prefTab, getLocaleStr('menu.preferences.resetPreferences.title'), getLocaleStr('menu.preferences.resetPreferences.desc'),
 		() => {
 			confirmDialog(() => {
@@ -463,6 +463,20 @@ function initUI() {
 		},
 		'bin'
 	);
+
+	for (const [locale, def] of Object.entries(locales)) {
+		createSuboption(langTab,
+			def.langTitle,
+			def['menu.lang.setLang.desc'].replace('{lang}', def.langTitle),
+			null,
+			async () => {
+				localStorage.locale = locale;
+				notify('Restarting in 3 seconds...')
+				await delay(3e3);
+				reboot();
+			}
+		);
+	}
 
 	createSuboption(audioTab, getLocaleStr('menu.audio.togglePauseOnUnfocus.title'),
 		localStorage.pauseMusic === 'true' ? getLocaleStr('menu.audio.togglePauseOnUnfocus.enabledDesc') : getLocaleStr('menu.audio.togglePauseOnUnfocus.disabledDesc'),
