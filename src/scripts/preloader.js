@@ -131,4 +131,5 @@ async function loadScripts(cb = ()=>{}) {
 			document.body.appendChild(script);
 		});
 	}
+	return loadedScripts;
 }
