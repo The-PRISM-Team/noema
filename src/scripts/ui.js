@@ -159,7 +159,7 @@ function createOption(name) {
 	const tab = document.createElement('a');
 	tab.id = 'ui-option' + uiOptions.children.length;
 	tab.className = 'ui-option';
-	tab.innerText = name;
+	tab.textContent = name;
 	uiOptions.appendChild(tab);
 	const suboptions = document.createElement('div');
 	suboptions.id = 'ui-content' + uiSuboptions.children.length;
@@ -186,12 +186,12 @@ function createSuboption(optionId, title, desc = '', exec = null, icon, sound = 
 
 	const suboptionTitle = document.createElement('a');
 	suboptionTitle.className = 'ui-suboption-title';
-	suboptionTitle.innerText = title;
+	suboptionTitle.textContent = title;
 	suboption.append(suboptionTitle);
 	suboption.appendChild(document.createElement('br'));
 	const suboptionDesc = document.createElement('a');
 	suboptionDesc.className = 'ui-suboption-text';
-	suboptionDesc.innerText = desc;
+	suboptionDesc.textContent = desc;
 	suboptionDesc.style.display = 'none';
 	suboption.append(suboptionDesc);
 	if (isDefined(icon)) {
@@ -231,15 +231,15 @@ function removeSuboption(optionId, suboptionId) {
 }
 
 function setOption(optionId, text) {
-	document.getElementById(`ui-option${optionId}`).innerText = text;
+	document.getElementById(`ui-option${optionId}`).textContent = text;
 }
 function setSuboption(optionId, suboptionId, title, desc, icon, exec, sound) {
 	const suboption = document.querySelector(`#ui-content${optionId} #ui-suboption${suboptionId}`);
-	if (isDefined(title)) suboption.querySelector('.ui-suboption-title').innerText = title;
-	if (isDefined(desc)) suboption.querySelector('.ui-suboption-text').innerText = desc;
+	if (isDefined(title)) suboption.querySelector('.ui-suboption-title').textContent = title;
+	if (isDefined(desc)) suboption.querySelector('.ui-suboption-text').textContent = desc;
 	if (isDefined(icon)) suboption.querySelector('.ui-suboption-icon').src = `/assets/icons/${icon}.png`;
 	if (isDefined(exec)) {
-		const actionId = registerUISuboptionAction(exec, `${optionId}-${title ?? suboption.querySelector('.ui-suboption-title')?.innerText ?? suboptionId}`);
+		const actionId = registerUISuboptionAction(exec, `${optionId}-${title ?? suboption.querySelector('.ui-suboption-title')?.textContent ?? suboptionId}`);
 		suboption.dataset.action = actionId;
 	}
 	if (isDefined(sound)) suboption.dataset.sound = sound;
@@ -265,6 +265,7 @@ function initUI() {
 	// innit misc UI locale
 	document.title = getLocaleStr('pageTitle');
 	document.getElementById('bubble-credits').textContent = getLocaleStr('debug.credits');
+	document.getElementById('errors').textContent = getLocaleStr('debug.errors')
 	// init default options
 	const powerTab = createOption(getLocaleStr('menu.power.option.title'));
 	const prefTab = createOption(getLocaleStr('menu.preferences.option.title'));
@@ -608,7 +609,7 @@ function initUI() {
 	createSuboption(debugTab, getLocaleStr('menu.debug.clearErrors.title'), null, () => {
 		errors = 0;
 		errorList.length = 0;
-		document.getElementById('errors').innerText = `Errors: ${errors}`;
+		document.getElementById('errors').textContent = `${getLocaleStr('debug.errors')} ${errors}`;
 	}, 'star');
 	createSuboption(debugTab, getLocaleStr('menu.debug.loadScript.title'), null, () => {
 		promptDialog((url) => {

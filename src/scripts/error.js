@@ -106,5 +106,5 @@ window.addEventListener("error", (event) => {
 		document.getElementById('errors').style.transition = 'color 1s linear';
 		document.getElementById('errors').style.color = '#fff';
 	});
-	document.getElementById('errors').innerText = `${getLocaleStr('debug.errors')} ${errors}`;
+	document.getElementById('errors').textContent = `${getLocaleStr('debug.errors')} ${errors}`;
 }, true);

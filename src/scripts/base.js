@@ -124,7 +124,7 @@ function startTimeRuntime() {
 			monthFirst: true,
 			timeFirst: true
 		});
-		timeText.innerText = time;
+		timeText.textContent = time;
 		hourHand.style.transform = `rotateZ(${360 * (date.hours() % 12) / 12}deg)`;
 		minHand.style.transform = `rotateZ(${360 * date.minutes() / 60}deg)`;
 		secHand.style.transform = `rotateZ(${360 * date.seconds() / 60}deg)`;
