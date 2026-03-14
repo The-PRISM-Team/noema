@@ -263,14 +263,14 @@ function initUI() {
 	clearUI();
 
 	// init default options
-	const powerTab = createOption(t('menu.power.option.title', 'Power Options'));
-	const prefTab = createOption(t('menu.preferences.option.title', 'Preferences'));
-	const audioTab = createOption(t('menu.audio.option.title', 'Audio'));
-	const graphTab = createOption(t('menu.graphics.option.title', 'Graphics'));
-	const themeTab = createOption(t('menu.themes.option.title', 'Themes'));
-	const waveTab = createOption(t('menu.wave.option.title', 'Wave Amount'));
-	const helpTab = createOption(t('menu.help.option.title', 'Help'));
-	const debugTab = createOption(t('menu.debug.option.title', 'Debug'));
+	const powerTab = createOption(getLocaleStr('menu.power.option.title', 'Power Options'));
+	const prefTab = createOption(getLocaleStr('menu.preferences.option.title', 'Preferences'));
+	const audioTab = createOption(getLocaleStr('menu.audio.option.title', 'Audio'));
+	const graphTab = createOption(getLocaleStr('menu.graphics.option.title', 'Graphics'));
+	const themeTab = createOption(getLocaleStr('menu.themes.option.title', 'Themes'));
+	const waveTab = createOption(getLocaleStr('menu.wave.option.title', 'Wave Amount'));
+	const helpTab = createOption(getLocaleStr('menu.help.option.title', 'Help'));
+	const debugTab = createOption(getLocaleStr('menu.debug.option.title', 'Debug'));
 	const uiOptionCount = document.getElementById('ui-options').querySelectorAll('a').length;
 	for (let i = 0; i < uiOptionCount; i++) {
 		selectedSuboptions[i] = 0;
@@ -385,14 +385,14 @@ function initUI() {
 					if (formats.includes(content?.format)) {
 						if (content.format === 'NSF1.0') {
 							notify(
-								t('menu.pref.load.unsafe-save.title', 'That save file might be unsafe.'),
-								t('menu.pref.load.unsafe-save.description', "We didn't load it because the format of that save file has a known security issue."),
+								getLocaleStr('menu.pref.load.unsafe-save.title', 'That save file might be unsafe.'),
+								getLocaleStr('menu.pref.load.unsafe-save.description', "We didn't load it because the format of that save file has a known security issue."),
 								'warning'
 							);
 							setTimeout(() => {
 								notify(
-									t('menu.pref.load.recover.title', 'Still want to recover your data?'),
-									t('menu.pref.load.recover.description', 'We have a site that can safely convert the file and remove potentially unsafe data.\nFind it in the "Help" tab.')
+									getLocaleStr('menu.pref.load.recover.title', 'Still want to recover your data?'),
+									getLocaleStr('menu.pref.load.recover.description', 'We have a site that can safely convert the file and remove potentially unsafe data.\nFind it in the "Help" tab.')
 								);
 							}, 2.5e3);
 							return;
@@ -419,9 +419,9 @@ function initUI() {
 
 							localStorage.lastChangelogHash = '0';
 						}
-						notify(t('menu.pref.load.success.title', 'Preferences file loaded successfully!'));
+						notify(getLocaleStr('menu.pref.load.success.title', 'Preferences file loaded successfully!'));
 						setTimeout(() => {
-							notify(t('menu.pref.load.reboot.title', 'The system will reboot in 3 seconds to properly apply every setting.'), getLocaleStr('menu.pref.load.reboot.description', '(to set absent settings to their defaults and to apply settings that need a reboot to fully apply)'));
+							notify(getLocaleStr('menu.pref.load.reboot.title', 'The system will reboot in 3 seconds to properly apply every setting.'), getLocaleStr('menu.pref.load.reboot.description', '(to set absent settings to their defaults and to apply settings that need a reboot to fully apply)'));
 							setTimeout(() => {
 								reboot();
 							}, 3e3);
@@ -438,7 +438,7 @@ function initUI() {
 		importbtn.click();
 	}, 'wrench');
 	createSuboption(prefTab, getLocaleStr('menu.preferences.bgBrightness.title', 'Background Brightness'), getLocaleTempStr('menu.preferences.bgBrightness.desc', 'Background brightness currently set to {value}%.', { value: decimalStrToPercentage(localStorage.bgBrightness) }), () => {
-		inputDialog(t('menu.preferences.bgBrightness.dialogTitle', 'Set Background Brightness'), getLocaleStr('menu.preferences.bgBrightness.dialogSubtitle', 'Adjust how bright the background appears. This affects the gradient and canvas drawing brightness.'), decimalStrToPercentage(localStorage.bgBrightness), 25, 100, 1, '{value}%', (value) => {
+		inputDialog(getLocaleStr('menu.preferences.bgBrightness.dialogTitle', 'Set Background Brightness'), getLocaleStr('menu.preferences.bgBrightness.dialogSubtitle', 'Adjust how bright the background appears. This affects the gradient and canvas drawing brightness.'), decimalStrToPercentage(localStorage.bgBrightness), 25, 100, 1, '{value}%', (value) => {
 			localStorage.bgBrightness = percentageToDecimal(value);
 			changeBGColor({ colorName: localStorage.bgColor, brightness: parseFloat(localStorage.bgBrightness) });
 			setSuboption(selectedOption, selectedSuboption, getLocaleStr('menu.preferences.bgBrightness.title', 'Background Brightness'), getLocaleTempStr('menu.preferences.bgBrightness.desc', 'Background brightness currently set to {value}%.', { value: decimalStrToPercentage(localStorage.bgBrightness) }));
@@ -455,8 +455,8 @@ function initUI() {
 					}, getLocaleStr('dialog.confirm.title.strong', 'Are you absolutely sure?'), '');
 				}, .5e3);
 			},
-				t('dialog.confirm.title', 'Are you sure?'),
-				t('menu.preferences.resetPreferences.dialogSubtitle', 'Do not accept unless you know what you\'re doing.\nOnce you reset your preferences, this process is IRREVERSIBLE, so make sure to save your preferences before resetting.\n\nThe system will restart after resetting to apply the default settings.'));
+				getLocaleStr('dialog.confirm.title', 'Are you sure?'),
+				getLocaleStr('menu.preferences.resetPreferences.dialogSubtitle', 'Do not accept unless you know what you\'re doing.\nOnce you reset your preferences, this process is IRREVERSIBLE, so make sure to save your preferences before resetting.\n\nThe system will restart after resetting to apply the default settings.'));
 		},
 		'bin'
 	);
@@ -475,20 +475,20 @@ function initUI() {
 		'wrench'
 	);
 	createSuboption(audioTab, getLocaleStr('menu.audio.setMasterVolume.title', 'Set master volume'), getLocaleTempStr('menu.audio.setMasterVolume.desc', 'Master volume is currently at {value}% volume.', { value: decimalStrToPercentage(localStorage.masterVolume) }), () => {
-		inputDialog(t('menu.audio.setMasterVolume.title', 'Set master volume'), null, decimalStrToPercentage(localStorage.masterVolume), 0, 100, 1, '{value}%', (volume) => {
+		inputDialog(getLocaleStr('menu.audio.setMasterVolume.title', 'Set master volume'), null, decimalStrToPercentage(localStorage.masterVolume), 0, 100, 1, '{value}%', (volume) => {
 			setMasterVolume(percentageToDecimal(volume));
 			setSuboption(selectedOption, selectedSuboption, getLocaleStr('menu.audio.setMasterVolume.title', 'Set master volume'), getLocaleTempStr('menu.audio.setMasterVolume.desc', 'Master volume is currently at {value}% volume.', { value: decimalStrToPercentage(localStorage.masterVolume) }));
 		});
 	}, 'wrench');
 	createSuboption(audioTab, getLocaleStr('menu.audio.setBackgroundMusicVolume.title', 'Set background music volume'), getLocaleTempStr('menu.audio.setBackgroundMusicVolume.desc', 'Background music is currently at {value}% volume.', { value: decimalStrToPercentage(localStorage.musicVolume) }), () => {
-		inputDialog(t('menu.audio.setBackgroundMusicVolume.title', 'Set background music volume'), null, decimalStrToPercentage(localStorage.musicVolume), 0, 100, 1, '{value}%', (volume) => {
+		inputDialog(getLocaleStr('menu.audio.setBackgroundMusicVolume.title', 'Set background music volume'), null, decimalStrToPercentage(localStorage.musicVolume), 0, 100, 1, '{value}%', (volume) => {
 			localStorage.musicVolume = percentageToDecimal(volume);
 			bgMusic.volume = parseFloat(localStorage.musicVolume).clamp(0, 1) * masterVolume;
 			setSuboption(selectedOption, selectedSuboption, getLocaleStr('menu.audio.setBackgroundMusicVolume.title', 'Set background music volume'), getLocaleTempStr('menu.audio.setBackgroundMusicVolume.desc', 'Background music is currently at {value}% volume.', { value: decimalStrToPercentage(localStorage.musicVolume) }));
 		});
 	}, 'wrench');
 	createSuboption(audioTab, getLocaleStr('menu.audio.setUiSoundVolume.title', 'Set UI sound volume'), getLocaleTempStr('menu.audio.setUiSoundVolume.desc', 'UI sounds are currently at {value}% volume.', { value: decimalStrToPercentage(localStorage.uiSoundVolume) }), () => {
-		inputDialog(t('menu.audio.setUiSoundVolume.title', 'Set UI sound volume'), null, decimalStrToPercentage(localStorage.uiSoundVolume), 0, 100, 1, '{value}%', (volume) => {
+		inputDialog(getLocaleStr('menu.audio.setUiSoundVolume.title', 'Set UI sound volume'), null, decimalStrToPercentage(localStorage.uiSoundVolume), 0, 100, 1, '{value}%', (volume) => {
 			localStorage.uiSoundVolume = percentageToDecimal(volume);
 			setSuboption(selectedOption, selectedSuboption, getLocaleStr('menu.audio.setUiSoundVolume.title', 'Set UI sound volume'), getLocaleTempStr('menu.audio.setUiSoundVolume.desc', 'UI sounds are currently at {value}% volume.', { value: decimalStrToPercentage(localStorage.uiSoundVolume) }));
 		});
