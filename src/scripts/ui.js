@@ -468,13 +468,13 @@ function initUI() {
 		createSuboption(langTab,
 			def.langTitle,
 			def['menu.lang.setLang.desc'].replace('{lang}', def.langTitle),
-			null,
 			async () => {
 				localStorage.locale = locale;
 				notify('Restarting in 3 seconds...')
 				await delay(3e3);
 				reboot();
-			}
+			},
+			'wrench'
 		);
 	}
 
