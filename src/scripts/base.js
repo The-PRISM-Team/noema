@@ -64,7 +64,7 @@ function updateFps() {
 }
 updateFps();
 setInterval(() => {
-	fpsCounter.textContent = `${getLocaleStr('debug.estfps')} ${fps} | ${getLocaleStr('debug.avgfps')}: ${avgfps}`;
+	fpsCounter.textContent = `${getLocaleStr('debug.estfps')} ${fps} | ${getLocaleStr('debug.avgfps')} ${avgfps}`;
 	if (fps >= 45) {
 		fpsCounter.style.color = "#fff";
 	} else if (fps >= 30) {
