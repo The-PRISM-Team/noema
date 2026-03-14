@@ -51,8 +51,9 @@ function focusUIOption(id) {
 let selectedOption = 0,
 	selectedSuboption = 0,
 	selectedSuboptions = {},
-	uiSuboptionActions = {};
-let locale = {};
+	uiSuboptionActions = {},
+	locale = locales[localStorage.locale] ?? {};
+
 function normalizeActionId(value = '') {
 	return value
 		.toString()
@@ -263,7 +264,6 @@ function initUI() {
 	clearUI();
 
 	// init default options
-	locale = locales[localStorage.locale] ?? {};
 	const t = (key, fallback) => locale[key] ?? fallback;
 	const tf = (key, fallback, vars = {}) => {
 		let str = t(key, fallback);
