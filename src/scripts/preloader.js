@@ -1,5 +1,22 @@
+const loadedScripts = [];
 async function loadScripts(cb) {
+	loadedScripts.length = 0;
+	// remove all scripts added by the preloader
+	[
+		...document.body.querySelectorAll('script[origin=preloader]')
+	].forEach(el => el.remove());
+
 	const scripts = [
+		// locales
+		{
+			src: '/locale/enUS.json',
+			type: 'application/json'
+		},
+		{
+			src: '/locale/ptBR.json',
+			type: 'application/json'
+		},
+		// modules
 		{
 			src: '/scripts/modules/util.js'
 		},
@@ -38,6 +55,7 @@ async function loadScripts(cb) {
 		{
 			src: '/scripts/modules/version.js'
 		},
+		// scripts
 		{
 			src: '/scripts/error.js'
 		},
@@ -55,6 +73,9 @@ async function loadScripts(cb) {
 		},
 		{
 			src: '/scripts/bg.js'
+		},
+		{
+			src: '/scripts/lang.js'
 		},
 		{
 			src: '/scripts/ui.js'
@@ -90,6 +111,19 @@ async function loadScripts(cb) {
 			for (const [property, value] of Object.entries(scriptObj)) {
 				script[property] = value;
 			}
+			Object.defineProperty(script, "origin", {
+				value: "preloader",
+				writable: false,
+				configurable: false,
+				enumerable: true
+			});
+			/* use if loadedScripts becomes a PO
+			const scriptNameRegex = /^\/?(?:\w+\/)*(\w+)(?:\.\w+)?$/;
+			loadedScripts[
+				scriptNameRegex.exec(script.src)[1]
+			] = script;
+			*/
+			loadedScripts.push(script);
 
 			document.body.appendChild(script);
 		});
