@@ -10,12 +10,9 @@ async function loadScripts(cb = ()=>{}) {
 
 	const scripts = [
 		// locales
-		{
-			src: '/locales/enUS.js'
-		},
-		{
-			src: '/locales/ptBR.js'
-		},
+		{ src: '/locales/enUS.js' },
+		{ src: '/locales/ptBR.js' },
+		{ src: '/locales/😀😀.js' },
 		// modules
 		{
 			src: '/scripts/modules/util.js'
