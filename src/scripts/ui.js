@@ -428,7 +428,7 @@ function initUI() {
 						setTimeout(() => {
 							notify(getLocaleStr('menu.pref.load.reboot.title'), getLocaleStr('menu.pref.load.reboot.description'));
 							setTimeout(() => {
-								reboot();
+								fastReboot();
 							}, 3e3);
 						}, 2e3);
 					} else {
@@ -455,7 +455,7 @@ function initUI() {
 				setTimeout(() => {
 					confirmDialog(() => {
 						localStorage.clear();
-						reboot();
+						fastReboot();
 					}, getLocaleStr('dialog.confirm.title.strong'), '');
 				}, .5e3);
 			},
@@ -478,7 +478,7 @@ function initUI() {
 				notify('Restarting in 1 seconds...');
 				await delay(1e3);
 				notify('Restarting...');
-				reboot();
+				fastReboot();
 			},
 			'wrench'
 		);
