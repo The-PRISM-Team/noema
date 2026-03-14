@@ -89,7 +89,7 @@ window.addEventListener('load', async () => {
 		} catch {
 			console.log('%cSystem test failed!!', 'background-color: #b00; border-radius: 5px 5px 5px 0px; padding: 2px; font-size: 15px;');
 			document.getElementById('clicktostart').innerHTML = 'system test failed!! the page will refresh very soon.';
-			await delay(500);
+			await delay(3000);
 			location.reload();
 			return;
 		}
