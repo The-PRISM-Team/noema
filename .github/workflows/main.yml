@@ -14,6 +14,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
         with:
+          token: ${{ secrets.GITHUB_TOKEN }}
           persist-credentials: false          
 
       - name: Set up Node.js
@@ -58,4 +59,4 @@ jobs:
           git add locales/*.js
           git commit -m "Update generated JS locales from JSON" || echo "No changes to commit"
           BRANCH=${GITHUB_REF#refs/heads/}
-          git push "https://${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" HEAD:$BRANCH
+          git push origin HEAD
