@@ -16,6 +16,7 @@ globalThis.localesArray.push({
     "menu.wave.option.title": "Wave Amount",
     "menu.help.option.title": "Help",
     "menu.debug.option.title": "Debug",
+    "menu.lang.option.title": "Language",
     "menu.power.powerOff.title": "Power Off",
     "menu.power.powerOff.desc": "Shuts down the system and closes the tab (if possible)",
     "menu.power.reboot.title": "Reboot",

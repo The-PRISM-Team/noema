@@ -16,6 +16,7 @@ globalThis.localesArray.push({
     "menu.wave.option.title": "Densidade da Onda",
     "menu.help.option.title": "Ajuda",
     "menu.debug.option.title": "Debug",
+    "menu.lang.option.title": "Idioma",
     "menu.power.powerOff.title": "Desligar",
     "menu.power.powerOff.desc": "Desliga o sistema e fecha a guia (se possível)",
     "menu.power.reboot.title": "Reiniciar",
