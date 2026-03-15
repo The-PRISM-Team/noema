@@ -1,5 +1,3 @@
-const { errors } = require("undici-types");
-
 const ui = document.getElementById('ui');
 
 let transitioning = false;
