@@ -683,7 +683,6 @@ function bandDialog(title = '', subtitle = '', setupFunc, confirmFunc, usesEnter
 	if (lastInput === 'gamepad') {
 		if (usesEnterKey) {
 			document.getElementById('custom-controls').textContent = getLocaleStr('dialog.controls.gamepad.confirm');
-;
 		} else {
 			document.getElementById('custom-controls').textContent = getLocaleStr('dialog.controls.gamepad.exit');
 		}
