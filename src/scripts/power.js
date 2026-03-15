@@ -110,6 +110,7 @@ function startup() {
 				topColor: "#aaa",
 				bottomColor: "#aaa"
 			});
+			document.getElementById('startup-text').textContent = getLocaleStr('appTitle', 'enUS', 'Noema');
 			setTimeout(() => {
 				document.getElementById('startup-logo').style.opacity = '100%';
 				setTimeout(() => {

@@ -1,3 +1,5 @@
+const { errors } = require("undici-types");
+
 const ui = document.getElementById('ui');
 
 let transitioning = false;
@@ -265,7 +267,7 @@ function initUI() {
 	// innit misc UI locale
 	document.title = getLocaleStr('pageTitle');
 	document.getElementById('bubble-credits').textContent = getLocaleStr('debug.credits');
-	document.getElementById('errors').textContent = getLocaleStr('debug.errors')
+	document.getElementById('errors').textContent = `${getLocaleStr('debug.errors')} ${errors}`;
 	// init default options
 	const powerTab = createOption(getLocaleStr('menu.power.option.title'));
 	const prefTab = createOption(getLocaleStr('menu.preferences.option.title'));

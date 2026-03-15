@@ -24,7 +24,7 @@
 						<line id="sechand-line" x1="12" y1="14" x2="12" y2="0" style='stroke-width:2' stroke='#f00'>
 					</svg>
 				</span>
-				<a id='time' class="time"></a>
+				<p id='time' class="time"></p>
 			</div>
 			<div id="battery-div">
 				<div class="battery">
@@ -40,46 +40,46 @@
 					'></div> -->
 				</div>
 
-				<a id='battery-text' style="
+				<p id='battery-text' style="
 					font-size: 16px;
 					color: #fff;
 					font-family: 'Manrope', monospace;
 					font-weight: bolder;
 					font-size: 20px
-				">???%</a>
+				">???%</p>
 			</div>
 			<span id='debug-ui' style='display: none;'>
-				<a id='version-number' class='bubble-text' style="right: 5px; bottom: 30px; border-radius: 15px 15px 0px 15px;"></a>
-				<a id='bubble-credits' class='bubble-text' style="right: 5px; bottom: 5px; border-radius: 15px 0px 0px 15px;">
+				<p id='version-number' class='bubble-text' style="right: 5px; bottom: 30px; border-radius: 15px 15px 0px 15px;"></p>
+				<p id='bubble-credits' class='bubble-text' style="right: 5px; bottom: 5px; border-radius: 15px 0px 0px 15px;">
 					PRISM Open Development @ 2026
-				</a>
-				<a id="fps" class='bubble-text' style="left: 5px; top: 5px; border-radius: 0px 15px 15px 15px;">
+				</p>
+				<p id="fps" class='bubble-text' style="left: 5px; top: 5px; border-radius: 0px 15px 15px 15px;">
 					FPS: ???
-				</a>
-				<a id="errors" class='bubble-text' style="right: 5px; top: 5px; border-radius: 15px 0px 15px 15px;">
+				</p>
+				<p id="errors" class='bubble-text' style="right: 5px; top: 5px; border-radius: 15px 0px 15px 15px;">
 					Errors: 0
-				</a>
+				</p>
 			</span>
 		</div>
 
 		<div id="global-overlay"></div>
 		<div class="loading">
-			<a id="clicktostart">
+			<p id="clicktostart">
 				loading page, please wait
-			</a>
+			</p>
 			<div id="loading-bar">
 				<span id="loading-progress"></span>
 			</div>
 		</div>
 
 		<img id='startup-logo' src="/assets/logos/noema/color.png"/>
-		<a id='startup-text'>Noema</a>
+		<p id='startup-text'>Noema</p>
 
 		<div class="ui" id='ui'>
 			<div id="ui-options" class='ui-options'></div>
 			<div id="ui-contents"></div>
 
-			<a class='infolabel' id='info'></a>
+			<p class='infolabel' id='info'></p>
 			<svg class='more-arrow' style="left: 30px;" width="32" height='32' id="more-left">
 				<defs>
 					<linearGradient id="gradleft" x1="0%" y1="0%" x2="100%" y2="0%">
@@ -113,14 +113,14 @@
 		<div class='band-dialog' id='custom-dialog'>
 			<h1 id='custom-title' style="color: #fff; font-family: 'Manrope';"></h1>
 			<span id="custom-subtitle" style="display: none;">
-				<a id="custom-subtitle-text" style="color: #fff; font-family: 'Manrope'; white-space: pre-wrap;"></a>
+				<p id="custom-subtitle-text" style="color: #fff; font-family: 'Manrope'; white-space: pre-wrap;"></p>
 				<br>
 				<br>
 			</span>
 			<div id="custom-items"></div>
-			<a id='custom-controls' style="color: #fff; font-family: 'Manrope';">
+			<p id='custom-controls' style="color: #fff; font-family: 'Manrope';">
 				Press Enter to confirm and press Escape to cancel.
-			</a>
+			</p>
 		</div>
 
 		<canvas id="bg" class='spaghetti'></canvas>
