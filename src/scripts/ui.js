@@ -695,7 +695,7 @@ function bandDialog(title = '', subtitle = '', setupFunc, confirmFunc, usesEnter
 				document.getElementById('custom-controls').textContent = getLocaleStr('dialog.controls.keyboard.confirm');
 			}
 		} else {
-			document.getElementById('custom-controls').textContent = getLocaleStr('dialog.controls.keyboard.confirmInput');
+			document.getElementById('custom-controls').textContent = getLocaleStr('dialog.controls.keyboard.exit');
 		}
 	}
 
