@@ -30,13 +30,13 @@
 
 **?** — Deterministic (can be or act like multiple types)
 
-**⋮** — Non-type / miscellaneous (e.g., a filename)
+**⋮** — Non-type / miscellaneous (e.g. a filename)
 
 ---
 
 
 # Milestone: Games!
-- working on it :/
+- working on it ;P
 
 ## UI Changes
 - Added `⋮ Fast Reboot` to the `⋮ Power` tab to skip startup animation once on the next boot
@@ -51,7 +51,7 @@
 
 - The startup logo and favicon now use Noema's new (conceptual) logo
 
-- Made UI background more "blurry" (when effects are turned on)
+- Made closed UI background darker and more blurry
 
 - Added a battery indicator to the bottom left of the screen
 
@@ -61,7 +61,10 @@
 
 - Changelog is now hash-based, meaning that if the changelog updates without a version number change, the changelog now appears
 
-- Remapped Ctrl and Alt to Q and E, respectively.
+- Remapped Ctrl and Alt to Q and E, respectively, due to input conflicts
+
+- Added UI localization
+  - Added `⋮ Language` tab
 
 
 ## API Changes
@@ -71,13 +74,16 @@
 
 - Added `𝑓 playSound` API
 
+- Added locale APIs (`𝑓 getLocaleStr`, `𝑓 getLocaleTempStr`, `𝘰 locales`, `𝘰 locale`) to `⋮ lang.js`
+  - Added `𝑠 localStorage.locale` property
+
+- Added `𝑓 fastReboot` function
+
 
 ## Bugfixes
 - Added click/enter fallbacks when startup or background audio autoplay is blocked by the browser
 
 - Fixed background music volume handling so `⋮ Set background music volume` no longer double-scales with master volume
-
-- Fixed loading progress behavior during preloading/startup
 
 - Fixed startup flow edge-cases around refresh/reboot state handling
 
@@ -91,7 +97,7 @@
 
 
 ## Misc.
-- Added startup state flags used by fast-boot and reboot flows: `fromRefresh`, `fastBoot`, and `fastBootDefault`
+- Added startup state flags used by fast-boot and reboot flows (`𝑏 fromRefresh`, `𝑏 fastBoot`, and `𝑏 fastBootDefault`)
 
 - Added Noema logo (conceptual) to source code
 
