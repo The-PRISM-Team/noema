@@ -1,5 +1,6 @@
 function test(mode = 0) {
 	if (mode === 0) {
+		// resource test
 		let errored = false;
 		try {
 			$;
