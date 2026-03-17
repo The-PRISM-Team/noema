@@ -12,14 +12,23 @@ function getLocaleTimeStr(type) {
     if (Object.keys(locale).includes(localeStr)) {
         const date = new AdvDate();
         return getLocaleTempStr(localeStr, 'enUS', {
+            // date
             yy: date.year().toString().slice(-2),
             yyyy: date.year(),
-            MM: date.month(),
-            dd: date.day(),
-            hh: date.hours(),
-            mm: date.minutes(),
-            ss: date.seconds(),
-            ms: date.milliseconds(),
+            MM: date.month()
+                .toString().padStart(2, '0'),
+            dd: date.day()
+                .toString().padStart(2, '0'),
+
+            // time
+            hh: date.hours()
+                .toString().padStart(2, '0'),
+            mm: date.minutes()
+                .toString().padStart(2, '0'),
+            ss: date.seconds()
+                .toString().padStart(2, '0'),
+            ms: date.milliseconds()
+                .toString().padStart(2, '0')
         });
     } else {
         throw new Error(`Unknown locale time string "${type}"`);

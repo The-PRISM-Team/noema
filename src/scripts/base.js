@@ -118,12 +118,7 @@ function startTimeRuntime() {
 	const secHand = document.getElementById('sechand');
 	const secHandLine = document.getElementById('sechand-line');
 	function updateTime() {
-		const time = date.getDateString({
-			trimWeek: true,
-			showWeek: false,
-			monthFirst: true,
-			timeFirst: true
-		});
+		const time = getLocaleTimeStr('time') + ' ' + getLocaleTimeStr('date');
 		timeText.textContent = time;
 		hourHand.style.transform = `rotateZ(${360 * (date.hours() % 12) / 12}deg)`;
 		minHand.style.transform = `rotateZ(${360 * date.minutes() / 60}deg)`;

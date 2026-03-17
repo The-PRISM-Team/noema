@@ -36,7 +36,7 @@
 
 
 # Milestone: Games!
-- working on it ;P
+- todo!
 
 ## UI Changes
 - Added `⋮ Fast Reboot` to the `⋮ Power` tab to skip startup animation once on the next boot
