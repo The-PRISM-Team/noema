@@ -74,7 +74,7 @@
 
 - Added `𝑓 playSound` API
 
-- Added locale APIs (`𝑓 getLocaleStr`, `𝑓 getLocaleTempStr`, `𝘰 locales`, `𝘰 locale`) to `⋮ lang.js`
+- Added locale APIs (`𝑓 getLocaleStr`, `𝑓 getLocaleTempStr`, `𝑓 getLocaleTimeStr`, `𝘰 locales`, `𝘰 locale`) to `⋮ lang.js`
   - Added `𝑠 localStorage.locale` property
 
 - Added `𝑓 fastReboot` function

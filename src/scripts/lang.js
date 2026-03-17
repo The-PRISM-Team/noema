@@ -7,4 +7,22 @@ const getLocaleTempStr = (key, fallbackLocale = 'enUS', vars = {}, fallbackStr) 
 	});
 	return str;
 };
+function getLocaleTimeStr(type) {
+    const localeStr = `time.format.${type}`
+    if (Object.keys(locale).includes(localeStr)) {
+        const date = new AdvDate();
+        return getLocaleTempStr(localeStr, 'enUS', {
+            yy: date.year().toString().slice(-2),
+            yyyy: date.year(),
+            MM: date.month(),
+            dd: date.day(),
+            hh: date.hours(),
+            mm: date.minutes(),
+            ss: date.seconds(),
+            ms: date.milliseconds(),
+        });
+    } else {
+        throw new Error(`Unknown locale time string "${type}"`);
+    }
+}
 let locale = locales[localStorage.locale] ?? {};
