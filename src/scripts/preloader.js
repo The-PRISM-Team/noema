@@ -12,6 +12,7 @@ async function loadScripts(cb = ()=>{}) {
 		// locale
 		{ src: '/locales/enUS.js' },
 		{ src: '/locales/ptBR.js' },
+		{ src: '/locales/jp.js' },
 		{ src: '/locales/😀😀.js' },
 		{
 			src: '/scripts/lang.js'
