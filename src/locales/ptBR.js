@@ -34,7 +34,7 @@ globalThis.localesArray.push({
     "menu.power.fastReboot.title": "Reinício Rápido",
     "menu.power.fastReboot.desc": "Reinicia e pula a animação de inicialização (se estiver ativada).",
     "menu.preferences.setUsername.title": "Definir nome de usuário",
-    "menu.preferences.setUsername.desc": "O seu nome de usuário atualmente é \"{username}\".",
+    "menu.preferences.setUsername.desc": "Teu nome de usuário atualmente é \"{username}\".",
     "menu.preferences.setUsername.promptTitle": "Entre um nome de usuário...",
     "menu.preferences.setUsername.placeholder": "o nome de usuário padrão é {defaultUsername}",
     "menu.preferences.toggleMonochromeFavicon.title": "Ativar/desativar ícone da guia monocromático",
