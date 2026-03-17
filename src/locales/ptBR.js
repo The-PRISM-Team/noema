@@ -96,7 +96,7 @@ globalThis.localesArray.push({
     "menu.wave.medium.title": "Médio",
     "menu.wave.medium.desc": "Mais detalhe, recomendado para dispositivos com performance média.",
     "menu.wave.high.title": "Alto",
-    "menu.wave.high.desc": "Detalhe alto, recomendado para dispositivos com uma CPU (ou GPU, se suportada).\nNão recomendado para dispositivos com baixa performance, pois isto pode causar lentidão ou superaquecimento.",
+    "menu.wave.high.desc": "Detalhe alto, recomendado para dispositivos com uma CPU (ou GPU, se suportada) potente.\nNão recomendado para dispositivos com baixa performance, pois isto pode causar lentidão ou superaquecimento.",
     "dialog.confirm.title": "Tu tens certeza?",
     "dialog.confirm.subtitle.accidental": "Somente tendo certeza que não apertastes isto por acidente.",
     "dialog.confirm.title.strong": "Tens certeza absoluta?",
