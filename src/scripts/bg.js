@@ -16,27 +16,22 @@ let t = Math.PI, // spaghetti phase
 
 const densities = {
 	none: {
-		desc: 'Disables the wave entirely, best for low-end devices.',
 		value: 0,
 		memFunc: (mem) => mem < 2
 	},
 	lowest: {
-		desc: 'Least detail, the fastest option if you want a background wave and more performance.',
 		value: 15,
 		memFunc: (mem) => mem < 4
 	},
 	low: {
-		desc: 'Less detail, a better option if you want a denser background wave and have a lower-end device.',
 		value: 35,
 		memFunc: (mem) => mem < 16
 	},
 	medium: {
-		desc: 'More detail, recommended for mid-range devices with good enough performance.',
 		value: 50,
 		memFunc: (mem) => mem < 24
 	},
 	high: {
-		desc: 'High detail, recommended for computers with a good CPU (or GPU, if supported).\nNot recommended for lower-end devices, since they could have slowdowns or overheat.',
 		value: 75,
 		memFunc: (mem) => mem >= 24
 	}

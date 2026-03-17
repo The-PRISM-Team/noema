@@ -566,8 +566,8 @@ function initUI() {
 	for (const [label, data] of Object.entries(densities)) {
 		createSuboption(
 			waveTab,
-			label.toTitleCase(),
-			data.desc,
+			getLocaleStr(`menu.wave.${label}.title`),
+			getLocaleStr(`menu.wave.${label}.desc`),
 			() => {
 				localStorage.spaghettiDensity = density = data.value;
 			},
