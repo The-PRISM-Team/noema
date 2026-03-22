@@ -65,8 +65,8 @@ function getLocaleTimeStr(type) {
 // locale defs
 if (!isDefined(localStorage.locale))
     localStorage.locale =
-        Object.keys(locales).includes(shortenBCP(navigator.locale))
-        ? shortenBCP(navigator.locale)
+        Object.keys(locales).includes(shortenBCP(navigator.language))
+        ? shortenBCP(navigator.language)
         : 'enUS';
 
 let locale = locales[localStorage.locale] ?? locales['enUS'] ?? {};
