@@ -1,4 +1,4 @@
-const changelogMarkdownPath = '/assets/misc/CHANGELOG.md';
+const changelogMarkdownPath = getAbsPath('./assets/misc/CHANGELOG.md');
 const fallbackChangelog = `# Changelog for Noema v0.0.0
 - Failed to load \`${changelogMarkdownPath}\`.`;
 

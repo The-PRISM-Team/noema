@@ -1,6 +1,6 @@
 @font-face {
-  font-family: 'Manrope';
-  src: url('./assets/fonts/manrope.ttf');
+	font-family: 'Manrope';
+	src: url('./assets/fonts/manrope.ttf');
 }
 
 * {
@@ -8,7 +8,8 @@
 }
 
 /* for electron  */
-html, body {
+html,
+body {
 	width: 100vw;
 	height: 100vh;
 	margin: 0;
@@ -55,6 +56,7 @@ body {
 	opacity: 50%;
 	transition: opacity .5s ease-out;
 }
+
 #loading-progress {
 	display: block;
 	background-color: var(--color);
@@ -95,6 +97,7 @@ body {
 	opacity: 0%;
 	z-index: 100;
 }
+
 #startup-logo {
 	filter: drop-shadow(0px 0px 25px #fff);
 	position: fixed;
@@ -108,12 +111,14 @@ body {
 	opacity: 0%;
 	z-index: 100;
 }
+
 /* --- outer ui --- */
 .time {
 	color: #fff;
 	font-family: 'Manrope', monospace;
 	font-size: 20px;
 }
+
 .time-bar {
 	position: fixed;
 	left: 50vw;
@@ -137,6 +142,7 @@ body {
 	backdrop-filter: saturate(125%) blur(5px);
 	transition: transform 1s ease;
 }
+
 #clock {
 	display: inline-block;
 	position: relative;
@@ -148,22 +154,28 @@ body {
 }
 
 @keyframes hourhand-load {
-  from {
-   transform: rotateZ(0deg);
-  }
-  to {
-   transform: rotateZ(360deg);
-  }
+	from {
+		transform: rotateZ(0deg);
+	}
+
+	to {
+		transform: rotateZ(360deg);
+	}
 }
+
 @keyframes minhand-load {
-  from {
-   transform: rotateZ(135deg);
-  }
-  to {
-   transform: rotateZ(495deg);
-  }
+	from {
+		transform: rotateZ(135deg);
+	}
+
+	to {
+		transform: rotateZ(495deg);
+	}
 }
-#hourhand, #minhand, #sechand {
+
+#hourhand,
+#minhand,
+#sechand {
 	position: absolute;
 	transition: transform .75s ease;
 }
@@ -191,6 +203,7 @@ body {
 	user-select: none;
 	pointer-events: none;
 }
+
 #fps {
 	color: #fff;
 	position: fixed;
@@ -204,6 +217,7 @@ body {
 	user-select: none;
 	pointer-events: none;
 }
+
 #errors {
 	color: #fff;
 	position: fixed;
@@ -229,6 +243,7 @@ body {
 	align-items: center;
 	overflow: visible;
 }
+
 .battery {
 	min-width: 50px;
 	min-height: 20px;
@@ -239,6 +254,7 @@ body {
 	position: relative;
 	outline: solid 3px #fff;
 }
+
 #battery-bar {
 	display: block;
 	width: 100%;
@@ -262,6 +278,7 @@ body {
 	right: 0;
 	z-index: calc(infinity);
 }
+
 .notif {
 	display: flex;
 	flex-direction: row;
@@ -284,16 +301,19 @@ body {
 		transform 1s ease,
 		opacity .25s ease-out;
 }
+
 .notif-title {
 	color: #fff;
 	font-size: 1.5em;
 	font-weight: bolder;
 	font-family: 'Manrope', monospace;
 }
+
 .notif-text {
 	color: #fff;
 	font-family: 'Manrope', monospace;
 }
+
 .notif-icon {
 	float: left;
 	padding: 5px;
@@ -334,6 +354,7 @@ body {
 	pointer-events: none;
 	cursor: none;
 }
+
 .ui.open {
 	background-color: #0000;
 	outline: 0px solid #fff0;
@@ -344,6 +365,7 @@ body {
 	backdrop-filter: none;
 	transform: translate(-50%, -50%);
 }
+
 .ui.inactive {
 	transition:
 		top 1s ease,
@@ -375,6 +397,7 @@ body {
 	transition: left .2s linear;
 	z-index: 110;
 }
+
 .ui-option {
 	font-family: 'Manrope', monospace;
 	background-color: #0000;
@@ -394,19 +417,22 @@ body {
 	margin: 0px 20px;
 	user-select: none;
 }
+
 @keyframes highlight-option {
-  from {
-   box-shadow: 0px 0px 5px #0004;
-  }
-  to {
-   box-shadow: 0px 0px 10px 5px #0004;
-  }
+	from {
+		box-shadow: 0px 0px 5px #0004;
+	}
+
+	to {
+		box-shadow: 0px 0px 10px 5px #0004;
+	}
 }
+
 .ui-option.selected {
 	font-weight: bolder;
 	text-decoration-color: #fff;
 	background-color: #0004;
-   box-shadow: 0px 0px 10px 5px #0004;
+	box-shadow: 0px 0px 10px 5px #0004;
 	animation: highlight-option linear 1s infinite alternate;
 }
 
@@ -414,60 +440,47 @@ body {
 	position: absolute;
 	overflow: visible;
 	opacity: 0%;
-	left: 50vw;
 	height: 90%;
 	top: 80px;
 	margin-top: -40px;
-	margin-left: -40px;
-	padding-left: 40px;
 	opacity: 0%;
 	mask-image: linear-gradient(to bottom,
-	#0000 0%,
-	#000 20%,
-	#000 90%,
-	#0000 100%
-	);
+			#0000 0%,
+			#000 20%,
+			#000 90%,
+			#0000 100%);
 	display: none;
+	z-index: -50;
+}
+
+.ui-content:not(.rtl) {
+	left: 50vw;
+	margin-left: -40px;
+	padding-left: 40px;
 	transition:
 		left .5s ease,
 		top 1.5s ease,
 		opacity .15s ease-in,
 		display 1s allow-discrete;
-	z-index: -50;
 }
-.ui-content.selected {
-	left: 25vw;
-	opacity: 100%;
-	z-index: 105;
-}
-
-.ui-content/*.rtl*/ {
-	position: absolute;
-	overflow: visible;
-	opacity: 0%;
-	right: 0vw;
-	height: 90%;
-	top: 80px;
-	margin-top: -40px;
-	margin-left: -40px;
-	padding-left: 40px;
-	opacity: 0%;
-	mask-image: linear-gradient(to bottom,
-	#0000 0%,
-	#000 20%,
-	#000 90%,
-	#0000 100%
-	);
-	display: none;
+.ui-content.rtl {
+	right: 40vw;
+	margin-right: -40px;
+	padding-right: 40px;
 	transition:
 		right .5s ease,
 		top 1.5s ease,
 		opacity .15s ease-in,
 		display 1s allow-discrete;
-	z-index: -50;
 }
-.ui-content.selected/*.rtl*/ {
-	right: 15vw;
+
+.ui-content.selected:not(.rtl) {
+	left: 25vw;
+	opacity: 100%;
+	z-index: 105;
+}
+.ui-content.selected.rtl {
+	right: 25vw;
 	opacity: 100%;
 	z-index: 105;
 }
@@ -475,15 +488,6 @@ body {
 .ui-suboption {
 	position: relative;
 	padding: 2px 10px;
-	left: -20px;
-	transition:
-		border-left .25s ease,
-		margin-top .5s ease-out,
-		margin-bottom .5s ease-out,
-		top .5s ease,
-		left .25s ease,
-		opacity .15s linear,
-		background-color .5s ease;
 	border-radius: 10px;
 	width: min-content;
 	white-space: pre;
@@ -498,47 +502,70 @@ body {
 		background-color .5s ease;
 	opacity: 15%;
 }
-@keyframes highlight-text {
-  from {
-   text-shadow: 0px 0px 5px #fff;
-  }
-  to {
-   text-shadow: 0px 0px 5px #fff, 0px 0px 10px #fff;
-  }
+
+.ui-suboption:not(.rtl) {
+	left: -20px;
+	transition:
+		border-left .25s ease,
+		margin-top .5s ease-out,
+		margin-bottom .5s ease-out,
+		top .5s ease,
+		left .25s ease,
+		opacity .15s linear,
+		background-color .5s ease;
 }
+.ui-suboption.rtl {
+	right: -20px;
+	transition:
+		border-left .25s ease,
+		margin-top .5s ease-out,
+		margin-bottom .5s ease-out,
+		top .5s ease,
+		right .25s ease,
+		opacity .15s linear,
+		background-color .5s ease;
+}
+
+@keyframes highlight-text {
+	from {
+		text-shadow: 0px 0px 5px #fff;
+	}
+
+	to {
+		text-shadow: 0px 0px 5px #fff, 0px 0px 10px #fff;
+	}
+}
+
 .ui-suboption.selected {
 	margin-top: 5px;
 	margin-bottom: 5px;
+	background-color: #0006;
+	color: #fff;
+	text-shadow: 0px 0px 5px #fff;
+	animation: highlight-text linear 1s infinite alternate;
+}
+.ui-suboption.selected:not(.rtl) {
 	border-radius: 3px 10px 10px 3px;
 	left: 0px;
 	border-left: 5px solid #fff;
-	background-color: #0006;
-	color: #fff;
 	transition:
 		border-left .25s ease,
 		top .5s ease,
 		margin-top .5s ease-out,
 		margin-bottom .5s ease-out,
 		left .25s ease;
-   text-shadow: 0px 0px 5px #fff;
-	animation: highlight-text linear 1s infinite alternate;
 }
-.ui-suboption.selected/*.rtl*/ {
-	margin-top: 5px;
-	margin-bottom: 5px;
+
+.ui-suboption.selected.rtl {
 	border-radius: 10px 3px 3px 10px;
-	left: 0px;
+	right: 0px;
 	border-right: 5px solid #fff;
-	background-color: #0006;
-	color: #fff;
 	transition:
-		border-left .25s ease,
+		border-right .25s ease,
 		top .5s ease,
 		margin-top .5s ease-out,
 		margin-bottom .5s ease-out,
-		left .25s ease;
-   text-shadow: 0px 0px 5px #fff;
-	animation: highlight-text linear 1s infinite alternate;
+		right .25s ease;
 }
 
 .ui-suboption-title {
@@ -554,13 +581,15 @@ body {
 }
 
 @keyframes highlight-icon {
-  from {
-   filter: drop-shadow(0px 0px 2px #fff);
-  }
-  to {
-   filter: drop-shadow(0px 0px 5px #fff);
-  }
+	from {
+		filter: drop-shadow(0px 0px 2px #fff);
+	}
+
+	to {
+		filter: drop-shadow(0px 0px 5px #fff);
+	}
 }
+
 .ui-suboption-icon {
 	position: relative;
 	padding: 0;
@@ -570,6 +599,7 @@ body {
 	filter: contrast(0%) brightness(0%);
 	animation: none;
 }
+
 .ui-suboption-icon.selected {
 	width: 24px;
 	top: 6px;
@@ -627,6 +657,7 @@ body {
 
 	z-index: 1000;
 }
+
 button {
 	box-shadow: 0px 0px 3px #000;
 	border: 1px solid #000;
@@ -670,19 +701,23 @@ button {
 		background-color 1s ease,
 		backdrop-filter 1s ease;
 }
+
 .loadingdiv:has(> .loadingwheel.rotate) {
 	background-color: #000a;
 	backdrop-filter: saturate(2.5) blur(8px) brightness(75%);
 	opacity: 100%;
 }
+
 @keyframes spin-wheel {
-  from {
-   transform: rotate(360deg);
-  }
-  to {
-   transform: rotate(0deg);
-  }
+	from {
+		transform: rotate(360deg);
+	}
+
+	to {
+		transform: rotate(0deg);
+	}
 }
+
 .loadingwheel {
 	position: fixed;
 	z-index: 10000001;

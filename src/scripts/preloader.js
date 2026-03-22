@@ -1,5 +1,9 @@
 const loadedScripts = [];
-async function loadScripts(cb = ()=>{}) {
+
+function getAbsPath(relPath, basePath = location.href) {
+	return new URL(relPath, basePath).href;
+}
+async function loadScripts(cb = ()=>{}, cacheBusting = true) {
 	if (document.body.querySelectorAll('script[origin=preloader]').length > 0) {
 		// remove all scripts added by the preloader
 		loadedScripts.length = 0;
@@ -106,7 +110,12 @@ async function loadScripts(cb = ()=>{}) {
 				resolve();
 			};
 			script.onerror = reject;
-			for (const [property, value] of Object.entries(scriptObj)) {
+			for (let [property, value] of Object.entries(scriptObj)) {
+				if (cacheBusting && property === 'src') {
+					const src = new URL(getAbsPath(value));
+					src.searchParams.set('cacheBusting', Math.random().toString());
+					value = src.toString();
+				}
 				script[property] = value;
 			}
 			Object.defineProperty(script, "origin", {

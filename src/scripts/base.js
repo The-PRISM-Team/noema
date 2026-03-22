@@ -82,22 +82,22 @@ function icon(
 ) {
 	if (started) {
 		if (localStorage.coloredFavicon === 'true') {
-			favicon.href = '/assets/logos/noema/color.png';
+			favicon.href = getAbsPath('./assets/logos/noema/color.png');
 		} else {
 			if (darkmode) {
-				favicon.href = '/assets/logos/noema/white.png';
+				favicon.href = getAbsPath('./assets/logos/noema/white.png');
 			} else {
-				favicon.href = '/assets/logos/noema/black.png';
+				favicon.href = getAbsPath('./assets/logos/noema/black.png');
 			}
 		}
 	} else {
 		if (localStorage.coloredFavicon === 'true') {
-			favicon.href = '/assets/logos/prism/color.png';
+			favicon.href = getAbsPath('./assets/logos/noema/color.png');
 		} else {
 			if (darkmode) {
-				favicon.href = '/assets/logos/prism/white.png';
+				favicon.href = getAbsPath('./assets/logos/noema/white.png');
 			} else {
-				favicon.href = '/assets/logos/prism/black.png';
+				favicon.href = getAbsPath('./assets/logos/noema/black.png');
 			}
 		}
 	}

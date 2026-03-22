@@ -169,6 +169,7 @@ function createOption(name) {
 		tab.style.transition = 'none';
 		suboptions.style.transition = 'none';
 	}
+	if (getLocaleStr('langIsRTL')) suboptions.classList.add('rtl');
 	return uiOptions.children.length - 1;
 }
 function createSuboption(optionId, title, desc = '', exec = null, icon, sound = "confirm") {
@@ -199,7 +200,7 @@ function createSuboption(optionId, title, desc = '', exec = null, icon, sound = 
 		if (urlRegex.test(icon)) {
 			suboptionIcon.src = icon;
 		} else {
-			suboptionIcon.src = `/assets/icons/${icon}.png`;
+			suboptionIcon.src = getAbsPath(`./assets/icons/${icon}.png`);
 		}
 		suboptionIcon.className = 'ui-suboption-icon';
 		suboption.prepend(suboptionIcon);
@@ -208,6 +209,7 @@ function createSuboption(optionId, title, desc = '', exec = null, icon, sound = 
 		suboption.style.transition = 'none';
 	}
 
+	if (getLocaleStr('langIsRTL')) suboption.classList.add('rtl');
 	suboptions.appendChild(suboption);
 	return suboptions.children.length - 1;
 }
@@ -260,6 +262,8 @@ function clearUI() {
 	});
 }
 function initUI() {
+	if (getLocaleStr('langIsRTL')) document.documentElement.dir = 'rtl';
+	// else document.documentElement.dir = 'ltr'; // idk if i need to use this
 	clearUI();
 
 	// innit misc UI locale
