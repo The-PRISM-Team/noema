@@ -1,5 +1,4 @@
-if (!isDefined(localStorage.locale)) localStorage.locale = 'enUS';
-
+// BCP utils
 function shortenBCP(bcpCode) {
     const convRegex = /^[\t ]*([a-z]+)(?:(?:-[^-\n\r\f]+)*(?:-([A-Z]{2}|\d+))(?:-[^-\n\r\f]+)*)?[\t ]*$/;
     const match = convRegex.exec(bcpCode);
@@ -25,6 +24,7 @@ function getBCPType(bcpCode) {
     }
 }
 
+// locale utils
 const locales = Object.fromEntries(globalThis.localesArray.map(v => [v.lang, v]));
 const getLocaleStr = (key, fallbackLocale = 'enUS', fallbackStr) => locale[key] ?? locales[fallbackLocale]?.[key] ?? (fallbackStr || `Missing locale entry (k:${key};l:${localStorage.locale};f:${fallbackLocale})! This is a bug, please report it!`);
 const getLocaleTempStr = (key, fallbackLocale = 'enUS', vars = {}, fallbackStr) => {
@@ -61,4 +61,12 @@ function getLocaleTimeStr(type) {
         throw new Error(`Unknown locale time string "${type}"`);
     }
 }
-let locale = locales[localStorage.locale] ?? {};
+
+// locale defs
+if (!isDefined(localStorage.locale))
+    localStorage.locale =
+        Object.keys(locales).includes(shortenBCP(navigator.locale))
+        ? shortenBCP(navigator.locale)
+        : 'enUS';
+
+let locale = locales[localStorage.locale] ?? locales['enUS'] ?? {};
