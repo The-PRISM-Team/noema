@@ -2,7 +2,7 @@ globalThis.localesArray = globalThis.localesArray ?? [];
 globalThis.localesArray.push({
     "lang": "😀😀",
     "langTitle": "😀 (😀)",
-    "langBCP": "😀-😀",
+    "langIsRTL": true,
     "appTitle": "😀",
     "pageTitle": "😀 - 😀",
     "option": "😀",
