@@ -1,3 +1,5 @@
+if (!isDefined(localStorage.locale)) localStorage.locale = 'enUS';
+
 const locales = Object.fromEntries(globalThis.localesArray.map(v => [v.lang, v]));
 const getLocaleStr = (key, fallbackLocale = 'enUS', fallbackStr) => locale[key] ?? locales[fallbackLocale]?.[key] ?? (fallbackStr || `Missing locale entry (k:${key};l:${localStorage.locale};f:${fallbackLocale})! This is a bug, please report it!`);
 const getLocaleTempStr = (key, fallbackLocale = 'enUS', vars = {}, fallbackStr) => {

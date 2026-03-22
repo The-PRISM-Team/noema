@@ -17,7 +17,7 @@ if (!isDefined(localStorage.startup)) localStorage.startup = 'true';
 if (!isDefined(localStorage.fastBootDefault)) localStorage.fastBootDefault = 'false';
 if (!isDefined(localStorage.pauseMusic)) localStorage.pauseMusic = 'true';
 if (!isDefined(localStorage.skipChargingTests)) localStorage.skipChargingTests = 'true';
-if (!isDefined(localStorage.locale)) localStorage.locale = 'enUS';
+
 if (!isDefined(localStorage.masterVolume)) localStorage.masterVolume = '1';
 if (!isDefined(localStorage.musicVolume)) localStorage.musicVolume = '0.10';
 if (!isDefined(localStorage.uiSoundVolume)) localStorage.uiSoundVolume = '0.5';
