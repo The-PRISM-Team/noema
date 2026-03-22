@@ -37,7 +37,7 @@ setMasterVolume(localStorage.masterVolume);
 function playSound(sound, volume, properties = {}) {
 	const targetSoundIndex = soundIndexByName[sound];
 	if (typeof targetSoundIndex === 'number') {
-		const snd = new Audio(`/assets/sounds/menu/${sounds[targetSoundIndex]}`);
+		const snd = new Audio(`./assets/sounds/menu/${sounds[targetSoundIndex]}`);
 		if (!isDefined(volume))
 			volume = parseFloat(localStorage.uiSoundVolume) * masterVolume.clamp(0, 1);
 

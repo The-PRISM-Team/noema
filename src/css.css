@@ -1,6 +1,6 @@
 @font-face {
   font-family: 'Manrope';
-  src: url('/assets/fonts/manrope.ttf');
+  src: url('./assets/fonts/manrope.ttf');
 }
 
 * {
@@ -441,6 +441,37 @@ body {
 	z-index: 105;
 }
 
+.ui-content/*.rtl*/ {
+	position: absolute;
+	overflow: visible;
+	opacity: 0%;
+	right: 0vw;
+	height: 90%;
+	top: 80px;
+	margin-top: -40px;
+	margin-left: -40px;
+	padding-left: 40px;
+	opacity: 0%;
+	mask-image: linear-gradient(to bottom,
+	#0000 0%,
+	#000 20%,
+	#000 90%,
+	#0000 100%
+	);
+	display: none;
+	transition:
+		right .5s ease,
+		top 1.5s ease,
+		opacity .15s ease-in,
+		display 1s allow-discrete;
+	z-index: -50;
+}
+.ui-content.selected/*.rtl*/ {
+	right: 15vw;
+	opacity: 100%;
+	z-index: 105;
+}
+
 .ui-suboption {
 	position: relative;
 	padding: 2px 10px;
@@ -481,6 +512,23 @@ body {
 	border-radius: 3px 10px 10px 3px;
 	left: 0px;
 	border-left: 5px solid #fff;
+	background-color: #0006;
+	color: #fff;
+	transition:
+		border-left .25s ease,
+		top .5s ease,
+		margin-top .5s ease-out,
+		margin-bottom .5s ease-out,
+		left .25s ease;
+   text-shadow: 0px 0px 5px #fff;
+	animation: highlight-text linear 1s infinite alternate;
+}
+.ui-suboption.selected/*.rtl*/ {
+	margin-top: 5px;
+	margin-bottom: 5px;
+	border-radius: 10px 3px 3px 10px;
+	left: 0px;
+	border-right: 5px solid #fff;
 	background-color: #0006;
 	color: #fff;
 	transition:
