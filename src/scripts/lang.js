@@ -1,5 +1,30 @@
 if (!isDefined(localStorage.locale)) localStorage.locale = 'enUS';
 
+function shortenBCP(bcpCode) {
+    const convRegex = /^[\t ]*([a-z]+)(?:(?:-[^-\n\r\f]+)*(?:-([A-Z]{2}|\d+))(?:-[^-\n\r\f]+)*)?[\t ]*$/;
+    const match = convRegex.exec(bcpCode);
+    if (match != null) {
+        match[1] = match[1].toLowerCase();
+        if (match[2]) match[2] = match[2].toUpperCase();
+        return match.slice(1).join('');
+    } else return null;
+}
+function getBCPType(bcpCode) {
+    const shortBCPRegex = /^[\t ]*[a-z]+(?:[A-Z]{2}|\d+)?[\t ]*$/;
+    const BCP47Regex = /^[\t ]*[a-z]+(?:-[^-\n\r\f]+)*(?:-(?:[A-Z]{2}|\d+))?(?:-[^-\n\r\f]+)*[\t ]*$/;
+    const looseBCP47Regex = /^[\t ]*[a-z]+(?:-[^-\n\r\f]+)*(?:-(?:[A-Za-z]{2}|\d+))?(?:-[^-\n\r\f]+)*[\t ]*$/;
+
+    if (shortBCPRegex.test(bcpCode)) {
+        return 'shortbcp';
+    } else if (BCP47Regex.test(bcpCode)) {
+        return 'bcp47';
+    } else if (looseBCP47Regex.test(bcpCode)) {
+        return 'loosebcp47';
+    } else {
+        return 'unknown';
+    }
+}
+
 const locales = Object.fromEntries(globalThis.localesArray.map(v => [v.lang, v]));
 const getLocaleStr = (key, fallbackLocale = 'enUS', fallbackStr) => locale[key] ?? locales[fallbackLocale]?.[key] ?? (fallbackStr || `Missing locale entry (k:${key};l:${localStorage.locale};f:${fallbackLocale})! This is a bug, please report it!`);
 const getLocaleTempStr = (key, fallbackLocale = 'enUS', vars = {}, fallbackStr) => {
