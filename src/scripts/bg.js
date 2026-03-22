@@ -4,6 +4,7 @@ const ctx = canvas.getContext("2d");
 function resize() {
 	canvas.width = innerWidth;
 	canvas.height = innerHeight;
+	drawSpaghettiFrame();
 }
 
 window.addEventListener("resize", resize);
@@ -57,12 +58,7 @@ let calcY = function (x, canvasHeight, wave) {
 		Math.cos(wave + t) * 40
 		+ (Math.cos(t) + -Math.cos(t2)) * 30;
 };
-function drawSpaghetti(time) {
-	if (!focused) {
-		requestAnimationFrame(drawSpaghetti);
-		return;
-	}
-
+function drawSpaghettiFrame() {
 	ctx.clearRect(0, 0, canvas.width, canvas.height);
 
 	let step;
@@ -88,12 +84,18 @@ function drawSpaghetti(time) {
 
 		ctx.stroke();
 	}
+}
+function animSpaghetti() {
+	if (!focused) {
+		requestAnimationFrame(animSpaghetti);
+		return;
+	}
 
+	drawSpaghettiFrame();
 	t += .01 * 60/avgfps;
 	t2 += .015 * 60/avgfps;
 	t3 += .025 * 60/avgfps;
-
-	requestAnimationFrame(drawSpaghetti);
+	requestAnimationFrame(animSpaghetti);
 }
 
 // background gradient

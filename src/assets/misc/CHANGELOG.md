@@ -65,6 +65,7 @@
 
 - Added UI localization
   - Added `⋮ Language` tab
+  - Added Right-to-Left UI support
 
 
 ## API Changes
@@ -79,11 +80,13 @@
 
 - Added `𝑓 fastReboot` function
 
+- Renamed `𝑓 drawSpaghetti` to `𝑓 animSpaghetti`
+
+- Added `𝑓 drawSpaghettiFrame` API
+
 
 ## Bugfixes
 - Added click/enter fallbacks when startup or background audio autoplay is blocked by the browser
-
-- Fixed background music volume handling so `⋮ Set background music volume` no longer double-scales with master volume
 
 - Fixed startup flow edge-cases around refresh/reboot state handling
 
@@ -98,8 +101,6 @@
 
 ## Misc.
 - Added startup state flags used by fast-boot and reboot flows (`𝑏 fromRefresh`, `𝑏 fastBoot`, and `𝑏 fastBootDefault`)
-
-- Added Noema logo (conceptual) to source code
 
 - Added `⋮ Noema` theme (will change if Noema's logo changes)
 

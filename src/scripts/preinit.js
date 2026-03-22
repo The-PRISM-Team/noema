@@ -12,12 +12,11 @@ if (isNode) {
 
 const isLocal = location.protocol === 'file:';
 // localstorage definitions go here because this is the best place i could find
-// don't even try asking why
+// don't even try asking why (because i forgot why 🥀)
 if (!isDefined(localStorage.startup)) localStorage.startup = 'true';
 if (!isDefined(localStorage.fastBootDefault)) localStorage.fastBootDefault = 'false';
 if (!isDefined(localStorage.pauseMusic)) localStorage.pauseMusic = 'true';
 if (!isDefined(localStorage.skipChargingTests)) localStorage.skipChargingTests = 'true';
-
 if (!isDefined(localStorage.masterVolume)) localStorage.masterVolume = '1';
 if (!isDefined(localStorage.musicVolume)) localStorage.musicVolume = '0.10';
 if (!isDefined(localStorage.uiSoundVolume)) localStorage.uiSoundVolume = '0.5';
@@ -147,7 +146,7 @@ window.addEventListener('load', async () => {
 	const fastBootDefault = localStorage.fastBootDefault === 'true';
 	const shouldPlayStartup = localStorage.startup === 'true' && (!fastBootDefault || fromRebootBoot) && !fastBoot;
 	if (fromRebootBoot || fromRefreshBoot) {
-		drawSpaghetti();
+		animSpaghetti();
 		if (shouldPlayStartup) {
 			document.getElementById('clicktostart').innerHTML = getLocaleStr('startup.starting', 'enUS', 'starting...');
 			if (typeof startup !== 'undefined')
@@ -170,7 +169,7 @@ window.addEventListener('load', async () => {
 			setCursor('none');
 			document.onclick = document.onkeydown = null;
 
-			drawSpaghetti();
+			animSpaghetti();
 
 			if (shouldPlayStartup) {
 				if (typeof startup !== 'undefined') {
