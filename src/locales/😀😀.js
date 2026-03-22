@@ -1,7 +1,8 @@
 globalThis.localesArray = globalThis.localesArray ?? [];
 globalThis.localesArray.push({
-    "lang": "😀",
+    "lang": "😀😀",
     "langTitle": "😀 (😀)",
+    "langBCP": "😀-😀",
     "appTitle": "😀",
     "pageTitle": "😀 - 😀",
     "option": "😀",

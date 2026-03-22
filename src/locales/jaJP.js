@@ -1,7 +1,8 @@
 globalThis.localesArray = globalThis.localesArray ?? [];
 globalThis.localesArray.push({
-    "lang": "jp",
+    "lang": "jaJP",
     "langTitle": "日本語",
+    "langBCP": "ja-JP",
     "appTitle": "Noema",
     "pageTitle": "Project Noema - PRISMのオープン開発",
     "option": "タブ",

@@ -1,6 +1,7 @@
 {
     "lang": "esVE",
     "langTitle": "This should be 'Spanish (Venezuelan)' translated to spanish",
+    "langBCP": "es-VE",
     "appTitle": "Noema",
     "pageTitle": "Project Noema - PRISM Open Development",
     "option": "Tab",
