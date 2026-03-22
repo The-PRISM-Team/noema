@@ -1,16 +1,7 @@
 const canvas = document.getElementById("bg");
 const ctx = canvas.getContext("2d");
 
-function resize() {
-	canvas.width = innerWidth;
-	canvas.height = innerHeight;
-	drawSpaghettiFrame();
-}
-
-window.addEventListener("resize", resize);
-resize();
-
-// spaghetti
+// spaghetti values
 let t = Math.PI, // spaghetti phase
 	t2 = t, // spaghetti up/down shift
 	t3 = t; // spaghetti left/right shift
@@ -97,6 +88,16 @@ function animSpaghetti() {
 	t3 += .025 * 60/avgfps;
 	requestAnimationFrame(animSpaghetti);
 }
+
+// resize logic
+function resize() {
+	canvas.width = innerWidth;
+	canvas.height = innerHeight;
+	drawSpaghettiFrame();
+}
+
+window.addEventListener("resize", resize);
+resize();
 
 // background gradient
 const bgColors = {
