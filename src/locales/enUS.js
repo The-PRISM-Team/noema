@@ -14,7 +14,7 @@ globalThis.localesArray.push({
     "time.format.dateshort": "{MM}/{dd}/{yy}",
     "time.format.timems": "{hh}:{mm}:{ss}.{ms}",
     "time.format.time": "{hh}:{mm}:{ss}",
-    "time.format.timeshort": "{hh}:{mm}",
+    "time.format.timeshort": "{hh}:{mm} {meridiem}",
     "time.format.am": "AM",
     "time.format.pm": "PM",
     "debug.credits": "PRISM Open Development @ 2026",

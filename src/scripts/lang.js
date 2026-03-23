@@ -38,7 +38,9 @@ function getLocaleTimeStr(type) {
     const localeStr = `time.format.${type}`
     if (Object.keys(locale).includes(localeStr)) {
         const date = new AdvDate({
-            'hour24': getLocaleStr('time.is24hr')
+            hour24: getLocaleStr('time.is24hr'),
+            am: getLocaleStr('time.format.am'),
+            pm: getLocaleStr('time.format.pm'),
         });
         return getLocaleTempStr(localeStr, 'enUS', {
             // date
@@ -58,9 +60,8 @@ function getLocaleTimeStr(type) {
                 .toString().padStart(2, '0'),
             ms: date.milliseconds()
                 .toString().padStart(2, '0'),
-                
-            am: getLocaleStr('time.format.am'),
-            pm: getLocaleStr('time.format.pm')
+
+            meridiem: date.meridiem(),
         });
     } else {
         throw new Error(`Unknown locale time string "${type}"`);

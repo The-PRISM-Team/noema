@@ -63,7 +63,7 @@ class AdvDate {
 			minutes: ()=>new Date(getTimestamp()).getMinutes(),
 			seconds: ()=>new Date(getTimestamp()).getSeconds(),
 			milliseconds: ()=>new Date(getTimestamp()).getMilliseconds(),
-			amPm: ()=> {
+			meridiem: ()=>{
 				if (isDefined(is24hour) && !is24hour) {
 					return new Date().toLocaleTimeString('en-US', {
 						hour: 'numeric',
