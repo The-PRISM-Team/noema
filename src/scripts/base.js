@@ -78,35 +78,23 @@ setInterval(() => {
 
 
 function icon(
-	darkmode = window.matchMedia ? window.matchMedia('(prefers-color-scheme: dark)')?.matches : null
+	darkmode = isDefined(window?.matchMedia) ? window.matchMedia('(prefers-color-scheme: dark)')?.matches : null
 ) {
-	if (started) {
-		if (localStorage.coloredFavicon === 'true') {
-			favicon.href = getAbsPath('./assets/logos/noema/color.png');
-		} else {
-			if (darkmode) {
-				favicon.href = getAbsPath('./assets/logos/noema/white.png');
-			} else {
-				favicon.href = getAbsPath('./assets/logos/noema/black.png');
-			}
-		}
+	if (localStorage.coloredFavicon === 'true') {
+		favicon.href = getAbsPath('./assets/logos/noema/color.png');
 	} else {
-		if (localStorage.coloredFavicon === 'true') {
-			favicon.href = getAbsPath('./assets/logos/noema/color.png');
+		if (darkmode) {
+			favicon.href = getAbsPath('./assets/logos/noema/white.png');
 		} else {
-			if (darkmode) {
-				favicon.href = getAbsPath('./assets/logos/noema/white.png');
-			} else {
-				favicon.href = getAbsPath('./assets/logos/noema/black.png');
-			}
+			favicon.href = getAbsPath('./assets/logos/noema/black.png');
 		}
 	}
 }
-if (isDefined(window.matchMedia)) {
+if (isDefined(window?.matchMedia)) {
 	const match = window.matchMedia('(prefers-color-scheme: dark)');
 
 	match.addEventListener('change', () => {
-		icon(match.matches);
+		icon();
 	});
 }
 
