@@ -70,7 +70,7 @@ class AdvDate {
 						minute: 'numeric',
 						hour12: true
 					}).split(' ')[1] === 'AM' ? am:pm;
-				} else return null;
+				} else return '';
 			}
 		};
 
