@@ -38,7 +38,7 @@ function getLocaleTimeStr(type) {
     const localeStr = `time.format.${type}`
     if (Object.keys(locale).includes(localeStr)) {
         const date = new AdvDate({
-            hour24: getLocaleStr('time.is24hr'),
+            is24hour: getLocaleStr('time.is24hr'),
             am: getLocaleStr('time.format.am'),
             pm: getLocaleStr('time.format.pm'),
         });
