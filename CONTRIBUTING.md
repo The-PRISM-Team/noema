@@ -43,6 +43,8 @@ You may work directly on `main` for small fixes, but feature branches are encour
 - Sound effect additions
 - Color theme additions (see `src/scripts/bg.js`)
 - Bug fixes with clear reproduction steps
+- Translation & localization
+- Performance optimization on older and/or low-end devices
 
 ### Larger Features
 For significant features (game loading, new APIs, architectural changes):
@@ -62,14 +64,16 @@ There are no automated tests currently. Manual testing is expected:
 - Verify audio works correctly
 - Test on different screen sizes
 - Check browser console for errors
+- Test in LTR and RTL UI layouts
 
 ### Testing on Different Configurations
 The app should work:
 - Via `file://` protocol (open HTML directly)
 - Via HTTP server (e.g., `npx serve`)
+- Via Electron (Using the official `electron-start.js` provided in the repo)
 - With effects enabled and disabled
 - With animations enabled and disabled
-- On high-end and low-end devices
+- On high-end, low-end, and older devices (IE support is completely disregarded.)
 
 ## Code Organization
 
@@ -78,10 +82,13 @@ src/
 ├── index.html              # Main entry point
 ├── css.css                 # All styles
 └── scripts/
+    ├── preloader.js        # Script loading
+    ├── preinit.js          # Core pre-initialization
     ├── base.js             # Core initialization
-    ├── ui.js               # Menu system
     ├── bg.js               # Background rendering
+    ├── ui.js               # Menu system
     ├── sounds.js           # Audio system
+    ...
     └── modules/            # Utility modules
         ├── util.js         # Helper functions
         ├── protoplus.js    # Prototype extensions
@@ -117,7 +124,7 @@ src/
 Adds a new color theme "Ocean Breeze"
 
 ## Changes
-- Added theme to bgColors in bg.js
+- Added theme to `bgColors` in `bg.js`
 - Added theme selection in UI
 - Created VS Code theme variant
 
@@ -134,7 +141,7 @@ Adds a new color theme "Ocean Breeze"
 
 ### Adding a Color Theme
 1. Add to `bgColors` object in `src/scripts/bg.js`
-2. Add UI option in `src/scripts/ui.js` (themeTab section)
+2. Add UI option in `src/scripts/ui.js` (`themeTab` section)
 3. Optionally create VS Code theme in `vscode-extension/themes/`
 
 ### Adding UI Sounds
@@ -145,15 +152,15 @@ Adds a new color theme "Ocean Breeze"
 ### Adding Preferences
 1. Set default in `src/scripts/preinit.js`
 2. Create UI option in `src/scripts/ui.js`
-3. Store in localStorage
+3. Store in `localStorage`
 4. Apply setting where needed
 
 ## Documentation
 
 ### When to Update Docs
-- README.md: User-facing features or setup changes
-- CHANGELOG.md: All changes (features, fixes, improvements)
-- AGENTS.md: Developer guidelines or architectural changes
+- `README.md`: User-facing features or setup changes
+- `CHANGELOG.md`: All changes (features, fixes, improvements)
+- `AGENTS.md`: Developer guidelines or architectural changes
 - Code comments: Complex algorithms or non-obvious logic
 
 ### Documentation Style
