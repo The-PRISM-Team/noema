@@ -10,7 +10,7 @@ class AdvDate {
 	constructor({
 		timestampFn = Date.now,
 		is24hour = null
-	}) {
+	} = {}) {
 		this.weekNames = [
 			"Sunday",
 			"Monday",
