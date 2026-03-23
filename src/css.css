@@ -455,7 +455,7 @@ body {
 }
 
 .ui-content:not(.rtl) {
-	left: 50vw;
+	left: 50%;
 	margin-left: -40px;
 	padding-left: 40px;
 	transition:
@@ -465,7 +465,7 @@ body {
 		display 1s allow-discrete;
 }
 .ui-content.rtl {
-	right: 40vw;
+	right: 50%;
 	margin-right: -40px;
 	padding-right: 40px;
 	transition:
