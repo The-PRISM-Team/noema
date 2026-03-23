@@ -291,7 +291,6 @@ body {
 	border: solid 1px #fff;
 	border-right: none;
 	border-radius: 10px 0px 0px 10px;
-	padding-right: 25vw;
 	corner-shape: superellipse(0);
 	background-color: #0008;
 	backdrop-filter: saturate(500%) blur(5px) opacity(95%) brightness(50%);
