@@ -289,6 +289,7 @@ body {
 	max-width: 75vw;
 	transform: translateX(100%);
 	border: solid 1px #fff;
+	border-right: none;
 	border-radius: 10px 0px 0px 10px;
 	corner-shape: superellipse(0);
 	background-color: #0008;

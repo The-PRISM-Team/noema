@@ -847,7 +847,7 @@ function notify(title, text, icon) {
 		notifElements[notifDiv.id] = notifDiv;
 		notifCount++;
 		requestAnimationFrame(() => {
-			notifDiv.style.transform = 'translateX(1px)';
+			notifDiv.style.transform = 'translateX(0)';
 			notifDiv.style.opacity = '100%';
 		});
 		setTimeout(() => {
