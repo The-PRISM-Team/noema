@@ -37,7 +37,9 @@ const getLocaleTempStr = (key, fallbackLocale = 'enUS', vars = {}, fallbackStr) 
 function getLocaleTimeStr(type) {
     const localeStr = `time.format.${type}`
     if (Object.keys(locale).includes(localeStr)) {
-        const date = new AdvDate();
+        const date = new AdvDate({
+            'hour24': getLocaleStr('time.is24hr')
+        });
         return getLocaleTempStr(localeStr, 'enUS', {
             // date
             yy: date.year().toString().slice(-2),

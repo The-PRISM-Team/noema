@@ -7,7 +7,10 @@ function delay(ms) {
 }
 
 class AdvDate {
-	constructor(timestamp) {
+	constructor({
+		timestampFn = Date.now,
+		is24hour = null
+	}) {
 		this.weekNames = [
 			"Sunday",
 			"Monday",
@@ -18,7 +21,33 @@ class AdvDate {
 			"Saturday"
 		];
 
-		const getTimestamp = timestamp ? ()=>timestamp : Date.now
+		const getTimestamp = timestampFn ? timestampFn : Date.now
+		const getHour = ()=>{
+			switch (is24hour) {
+				case true:
+					return parseInt(
+						new Date(getTimestamp()).toLocaleTimeString('en-US', {
+							hour12: false,
+							hour: '2-digit'
+						})
+					);
+				
+				case false:
+					return parseInt(
+						new Date(getTimestamp()).toLocaleTimeString('en-US', {
+							hour12: true,
+							hour: '2-digit'
+						})
+					);
+				
+				default:
+					return parseInt(
+						new Date(getTimestamp()).toLocaleTimeString(undefined, {
+							hour: '2-digit'
+						})
+					);
+			}
+		};
 		this.times = {
 			timestamp: getTimestamp,
 			weekDay: ()=>new Date(getTimestamp()).getDay() + 1,
@@ -28,7 +57,7 @@ class AdvDate {
 			weekName: ()=>(this.weekNames[new Date(getTimestamp()).getDay()]),
 			month: ()=>new Date(getTimestamp()).getMonth() + 1,
 			year: ()=>new Date(getTimestamp()).getFullYear(),
-			hours: ()=>new Date(getTimestamp()).getHours(),
+			hours: getHour,
 			minutes: ()=>new Date(getTimestamp()).getMinutes(),
 			seconds: ()=>new Date(getTimestamp()).getSeconds(),
 			milliseconds: ()=>new Date(getTimestamp()).getMilliseconds()
