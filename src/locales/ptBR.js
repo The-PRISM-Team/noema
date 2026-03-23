@@ -9,6 +9,7 @@ globalThis.localesArray.push({
     "suboption": "Opção",
     "tasm.long": "Menu de Guias e Opções",
     "tasm.acro": "MGO",
+    "time.is24hr": true,
     "time.format.date": "{dd}/{MM}/{yyyy}",
     "time.format.dateshort": "{dd}/{MM}/{yy}",
     "time.format.timems": "{hh}:{mm}:{ss}.{ms}",

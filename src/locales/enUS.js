@@ -9,6 +9,7 @@ globalThis.localesArray.push({
     "suboption": "Selection",
     "tasm.long": "Tab And Selection Menu",
     "tasm.acro": "TASM",
+    "time.is24hr": false,
     "time.format.date": "{MM}/{dd}/{yyyy}",
     "time.format.dateshort": "{MM}/{dd}/{yy}",
     "time.format.timems": "{hh}:{mm}:{ss}.{ms}",
