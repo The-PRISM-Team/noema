@@ -82,8 +82,8 @@ src/
 ├── index.html              # Main entry point
 ├── css.css                 # All styles
 └── scripts/
-    ├── preloader.js        # Script loading
-    ├── preinit.js          # Core pre-initialization
+    ├── preinit.js          # System pre-initialization
+    ├── preloader.js        # Script pre-loading
     ├── base.js             # Core initialization
     ├── bg.js               # Background rendering
     ├── ui.js               # Menu system
