@@ -9,7 +9,9 @@ function delay(ms) {
 class AdvDate {
 	constructor({
 		timestampFn = Date.now,
-		is24hour = null
+		is24hour = null,
+		am = 'AM',
+		pm = 'PM'
 	} = {}) {
 		this.weekNames = [
 			"Sunday",
@@ -60,7 +62,16 @@ class AdvDate {
 			hours: getHour,
 			minutes: ()=>new Date(getTimestamp()).getMinutes(),
 			seconds: ()=>new Date(getTimestamp()).getSeconds(),
-			milliseconds: ()=>new Date(getTimestamp()).getMilliseconds()
+			milliseconds: ()=>new Date(getTimestamp()).getMilliseconds(),
+			amPm: ()=> {
+				if (isDefined(is24hour)) {
+					return new Date().toLocaleTimeString('en-US', {
+						hour: 'numeric',
+						minute: 'numeric',
+						hour12: true
+					}).split(' ')[1] === 'AM' ? am:pm;
+				} else return null;
+			}
 		};
 
 		Object.keys(this.times).forEach(k => this[k] = this.times[k]);

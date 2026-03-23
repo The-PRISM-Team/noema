@@ -57,7 +57,10 @@ function getLocaleTimeStr(type) {
             ss: date.seconds()
                 .toString().padStart(2, '0'),
             ms: date.milliseconds()
-                .toString().padStart(2, '0')
+                .toString().padStart(2, '0'),
+                
+            am: getLocaleStr('time.format.am'),
+            pm: getLocaleStr('time.format.pm')
         });
     } else {
         throw new Error(`Unknown locale time string "${type}"`);
