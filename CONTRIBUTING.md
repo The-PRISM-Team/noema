@@ -6,7 +6,7 @@ Thanks for your interest in contributing to Project Noema! This guide will help 
 
 1. **Fork the repository** if you don't have write access
 2. **Clone your fork** locally
-3. **Open `src/index.html`** in a modern browser to test
+3. **Open [`/src/index.html`](/src/index.html)** in a modern browser to test
 4. **Make your changes** following the guidelines below
 5. **Test thoroughly** in your browser
 6. **Submit a pull request** with a clear description
@@ -41,7 +41,7 @@ You may work directly on `main` for small fixes, but feature branches are encour
 - Documentation improvements
 - UI polish and visual refinements
 - Sound effect additions
-- Color theme additions (see `src/scripts/bg.js`)
+- Color theme additions (see [`/src/scripts/bg.js`](/src/scripts/bg.js))
 - Bug fixes with clear reproduction steps
 - Translation & localization
 - Performance optimization on older and/or low-end devices
@@ -70,7 +70,7 @@ There are no automated tests currently. Manual testing is expected:
 The app should work:
 - Via `file://` protocol (open HTML directly)
 - Via HTTP server (e.g., `npx serve`)
-- Via Electron (Using the official `electron-start.js` provided in the repo)
+- Via Electron (Using the official [`/electron-start.js`](/electron-start.js) provided in the repo)
 - With effects enabled and disabled
 - With animations enabled and disabled
 - On high-end, low-end, and older devices (IE support is completely disregarded.)
@@ -96,11 +96,11 @@ src/
 ```
 
 ### Adding New Files
-- Core features: `src/scripts/`
-- Utilities and helpers: `src/scripts/modules/`
-- Sounds: `src/assets/sounds/`
-- Icons: `src/assets/icons/`
-- Documentation: `misc/markdowns/`
+- Core features: [`/src/scripts/`](/src/scripts/)
+- Utilities and helpers: [`/src/scripts/modules/`](/src/scripts/modules/)
+- Sounds: [`/src/assets/sounds/`](/src/assets/sounds/)
+- Icons: [`/src/assets/icons/`](/src/assets/icons/)
+- Documentation: [`/misc/markdowns/`](/misc/markdowns/)
 
 ## Pull Request Guidelines
 
@@ -140,27 +140,27 @@ Adds a new color theme "Ocean Breeze"
 ## Common Contributions
 
 ### Adding a Color Theme
-1. Add to `bgColors` object in `src/scripts/bg.js`
-2. Add UI option in `src/scripts/ui.js` (`themeTab` section)
-3. Optionally create VS Code theme in `vscode-extension/themes/`
+1. Add to `bgColors` object in [`/src/scripts/bg.js`](/src/scripts/bg.js)
+2. Add UI option in [`/src/scripts/ui.js`](/src/scripts/ui.js) (`themeTab` section)
+3. Optionally create VS Code theme in [`/vscode-extension/themes/`](/vscode-extension/themes/)
 
 ### Adding UI Sounds
-1. Place `.flac` file in `src/assets/sounds/menu/`
-2. Add filename to `sounds` array in `src/scripts/sounds.js`
+1. Place `.flac` file in [`/src/assets/sounds/menu/`](/src/assets/sounds/menu/)
+2. Add filename to `sounds` array in [`/src/scripts/sounds.js`](/src/scripts/sounds.js)
 3. Use `playSound('name')` to play
 
 ### Adding Preferences
-1. Set default in `src/scripts/preinit.js`
-2. Create UI option in `src/scripts/ui.js`
+1. Set default in [`/src/scripts/preinit.js`](/src/scripts/preinit.js)
+2. Create UI option in [`/src/scripts/ui.js`](/src/scripts/ui.js)
 3. Store in `localStorage`
 4. Apply setting where needed
 
 ## Documentation
 
 ### When to Update Docs
-- `README.md`: User-facing features or setup changes
-- `CHANGELOG.md`: All changes (features, fixes, improvements)
-- `AGENTS.md`: Developer guidelines or architectural changes
+- [`/README.md`](/README.md): User-facing features or setup changes
+- [`/CHANGELOG.md`](/src/assets/misc/CHANGELOG.md): All changes (features, fixes, improvements)
+- [`/AGENTS.md`](/misc/markdowns/AGENTS.md): Developer guidelines or architectural changes
 - Code comments: Complex algorithms or non-obvious logic
 
 ### Documentation Style
@@ -184,7 +184,7 @@ Adds a new color theme "Ocean Breeze"
 - Be open to feedback and iteration
 
 ### Getting Help
-- Check `COLLABORATION.md` for review process details
+- Check [`/COLLABORATION.md`](/COLLABORATION.md) for review process details
 - Ask questions in issue comments
 - Email maintainer for urgent matters: `sophb.code@proton.me`
 - Keep discussions in the repository when possible
@@ -206,7 +206,7 @@ Adds a new color theme "Ocean Breeze"
 
 ## Release Process
 
-Releases follow semantic versioning (see `misc/markdowns/VERSIONING.md`):
+Releases follow semantic versioning (see [`/misc/markdowns/VERSIONING.md`](/misc/markdowns/VERSIONING.md)):
 - Major updates: Significant changes to look/feel/functionality
 - Minor updates: New features or significant fixes
 - Patch updates: Bug fixes and small improvements
@@ -215,7 +215,7 @@ Maintainers handle versioning and releases - contributors don't need to worry ab
 
 ## License
 
-By contributing, you agree that your contributions will be licensed under the project's GNU AGPL v3 license (see `LICENSE` file).
+By contributing, you agree that your contributions will be licensed under the project's GNU AGPL v3 license (see [`/LICENSE`](/LICENSE) file).
 
 ## Recognition
 
@@ -225,7 +225,7 @@ All contributors will be recognized in the project. Significant contributions ma
 
 If you have questions not covered here:
 - Open a discussion issue
-- Check `COLLABORATION.md` for more details
+- Check [`/COLLABORATION.md`](/COLLABORATION.md) for more details
 - Reach out to maintainers
 
 Thank you for contributing to Project Noema!

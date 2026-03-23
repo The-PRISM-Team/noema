@@ -2,6 +2,8 @@
 
 This document provides guidelines for AI coding agents working on Project Noema.
 
+[`/CONTRIBUTING.md`](/CONTRIBUTING.md) also includes useful information, so make sure to read that too.
+
 ## General Principles
 
 - Follow existing code style and conventions
@@ -22,9 +24,9 @@ This document provides guidelines for AI coding agents working on Project Noema.
 ### File Organization
 - Keep files focused on single responsibilities
 - Use proper imports/exports between modules
-- Place utility functions/files in `/src/scripts/modules/`
-- Main application logic goes in `/src/scripts/`
-- The code/page deployed via Vercel is in `/src`
+- Place utility functions/files in [`/src/scripts/modules/`](/src/scripts/modules/)
+- Main application logic goes in [`/src/scripts/`](/src/scripts/)
+- The code/page deployed via Vercel is in [`/src`](/src)
 
 ### Browser Compatibility
 - Code must work in modern browsers (ES6+)
@@ -49,8 +51,8 @@ This document provides guidelines for AI coding agents working on Project Noema.
 - Consider performance impact of visual changes
 
 ### Working with Sounds
-- Add sound files to `/src/assets/sounds/`
-- Register relative path from `/src/assets/sounds` in sounds array if needed
+- Add sound files to [`/src/assets/sounds/`](/src/assets/sounds/)
+- Register relative path from [`/src/assets/sounds`](/src/assets/sounds) in sounds array if needed
 - Use `playSound()` API for sound playback
 - Respect user volume settings
 

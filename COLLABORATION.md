@@ -7,7 +7,7 @@ This document explains how contributors can work with the Noema codebase. Since 
 1. **Fork the repository** (if you do not have write access) and open a pull request (PR) against `main`.
 2. If you are a member of the core team you may work directly on `main`, but feature branches are encouraged.
 3. PRs should include a brief description of what was changed and, if relevant, how to exercise the new behaviour in the browser.
-4. All contributions must be licensed under the project's existing license (see `LICENSE`).
+4. All contributions must be licensed under the project's existing license (see [`/LICENSE`](/LICENSE)).
 
 ## Branching and commits
 
@@ -18,9 +18,9 @@ This document explains how contributors can work with the Noema codebase. Since 
 
 ## Code structure and style
 
-* JavaScript files live in `src/assets/scripts`. Helper modules are placed in `src/assets/scripts/modules` and are typically loaded with `include.js` or by the core engine.
-* When adding new JS files, update `preinit.js` or `start.js` if they need to be loaded automatically.
-* Follow the existing style: spaces for indentation, `camelCase` for identifiers, and minimal global state. Comments are appreciated when logic is non‑obvious.
+* JavaScript files live in [`/src/scripts`](/src/assets/scripts). Helper modules are placed in [`/src/scripts/modules`](/src/assets/scripts/modules) and are typically loaded by [`preloader.js`](/src/scripts/preloader.js).
+* When adding new JS files, update [`preloader.js`](/src/scripts/preloader.js) if they need to be loaded automatically.
+* Follow the existing style: spaces for indentation, `camelCase` for identifiers, and minimal global state. Comments are appreciated when logic is non-obvious.
 * No transpilation or minification is performed; write code that works in modern browsers (ES6+).
 
 ## Testing and validation
@@ -42,19 +42,19 @@ This document explains how contributors can work with the Noema codebase. Since 
 
 ## Documenting work
 
-* Update `misc/markdowns/TODO.md` or add new documentation files when you add significant features.
-* If you modify the versioning behaviour, edit `misc/markdowns/VERSIONING.md` accordingly.
+* Update [`/misc/markdowns/TODO.md`](/misc/markdowns/TODO.md) or add new documentation files when you add significant features.
+* If you modify the versioning behaviour, edit [`/misc/markdowns/VERSIONING.md`](/misc/markdowns/VERSIONING.md) accordingly.
 
 ## Release management
 
-* Releases follow the versioning spec in `misc/markdowns/VERSIONING.md`. Tag the repository appropriately when a new version is ready.
+* Releases follow the versioning spec in [`/misc/markdowns/VERSIONING.md`](/misc/markdowns/VERSIONING.md). Tag the repository appropriately when a new version is ready.
 * Minor/patch updates may be merged directly by a maintainer; major features should be discussed beforehand.
 
 ### Notes for maintainers
 
 * A basic linter/formatter already runs on every commit, but you may still consider adding a package manager or test framework if the project expands. Guidelines can be revised as needed.
 
-* The `ACRONYMS.md` file lists project abbreviations such as **PO** (plain object) and should be consulted when unfamiliar terms appear.
+* The [`/ACRONYMS.md`](/ACRONYMS.md) file lists project abbreviations such as **PO** (plain object) and should be consulted when unfamiliar terms appear.
 * The repository is intentionally minimal. Keep dependencies to a minimum and avoid introducing build steps unless absolutely necessary.
 
 Thanks for contributing to Noema. Every pull request and suggestion helps the project grow.

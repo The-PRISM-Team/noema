@@ -11,7 +11,7 @@ Tasks are listed in priority order (highest priority first).
 ## In Progress
 
 ### Game Loading System
-- Basic loader implemented in `src/scripts/loadGame.js`
+- Basic loader implemented in [`/src/scripts/loadGame.js`](/src/scripts/loadGame.js)
 - Needs improvements:
   - Better sandboxing for security
   - NGP format decompression
