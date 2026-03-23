@@ -475,13 +475,24 @@ function initUI() {
 			def['menu.lang.setLang.desc'].replace('{lang}', def.langTitle),
 			async () => {
 				localStorage.locale = locale;
-				notify('Restarting in 3 seconds...');
+				notify(
+					getLocaleTempStr('error.restartingIn', 'enUS', {
+						time: '3...'
+					}, 'Restarting in 3...')
+				);
 				await delay(1e3);
-				notify('Restarting in 2 seconds...');
+				notify(
+					getLocaleTempStr('error.restartingIn', 'enUS', {
+						time: '2...'
+					}, 'Restarting in 2...')
+				);
 				await delay(1e3);
-				notify('Restarting in 1 seconds...');
+				notify(
+					getLocaleTempStr('error.restartingIn', 'enUS', {
+						time: '1...'
+					}, 'Restarting in 1...')
+				);
 				await delay(1e3);
-				notify('Restarting...');
 				fastReboot();
 			},
 			'wrench'
