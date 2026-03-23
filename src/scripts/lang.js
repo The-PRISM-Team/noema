@@ -51,7 +51,7 @@ function getLocaleTimeStr(type) {
 
             // time
             hh: date.hours()
-                .toString().padStart(2, '0'),
+                .toString().padStart(getLocaleStr('time.is24hr') * 2, '0'),
             mm: date.minutes()
                 .toString().padStart(2, '0'),
             ss: date.seconds()
