@@ -1,13 +1,11 @@
 # Acronyms & Jargon
 
-This document collects abbreviations and terminology used throughout the
+This document clarifies non-obvious abbreviations and/or terminology used throughout the
 codebase and collaboration notes.
 
 * **PO** - *Plain Object*. A JavaScript object created using `{}` or
   `new Object()` with no special prototype or class; often used as a
   simple key/value map.
-* **VSCode** - Visual Studio Code, the editor used by this project.
-* **CSS** - Cascading Style Sheets, used for styling web pages.
 * **PRISM** - ""Company"" name
 * **LTR** or **LtR** - Left-to-Right, usually referring to UI layout and/or locale reading direction.
 * **RTL** or **RtL** - Right-to-Left, usually referring to UI layout and/or locale reading direction.
