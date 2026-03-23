@@ -64,7 +64,8 @@ There are no automated tests currently. Manual testing is expected:
 - Verify audio works correctly
 - Test on different screen sizes
 - Check browser console for errors
-- Test in LTR and RTL UI layouts
+- Test on LTR (`English (US)` locale) and RTL (`😀 (😀)` locale) UI layouts
+- Test with `😀 (😀)` locale
 
 ### Testing on Different Configurations
 The app should work:
