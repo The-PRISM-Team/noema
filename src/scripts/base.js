@@ -78,7 +78,7 @@ setInterval(() => {
 
 
 function icon(
-	darkmode = window.matchMedia ? window.matchMedia('(prefers-color-scheme: dark)') : null
+	darkmode = window.matchMedia ? window.matchMedia('(prefers-color-scheme: dark)')?.matches : null
 ) {
 	if (started) {
 		if (localStorage.coloredFavicon === 'true') {
