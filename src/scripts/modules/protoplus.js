@@ -221,10 +221,10 @@ Array.prototype.sort = function (compareFn) {
 	const arrType = this.genericType();
 
 	if (compareFn !== undefined) {
-		if (typeof compareFn === 'function') {
+		if (Object.typeOf(compareFn) === 'function') {
 			___nativeSort.call(this, compareFn);
 		} else {
-			throw new TypeError(`The comparison function should not be of type '${typeof compareFn}', only 'function' or 'undefined'`);
+			throw new TypeError(`The comparison function should not be of type '${Object.typeOf(compareFn)}', only 'function' or 'undefined'`);
 		}
 	} else {
 		if (arrType === 'number')
