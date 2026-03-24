@@ -111,7 +111,7 @@ window.addEventListener('load', async () => {
 	// get commit ID
 	Object.defineProperty(globalThis, "commitId", {
 		value: (
-			await fetchJson('https://api.github.com/repos/sophb-ccjt/noema/commits?per_page=1&sha=main')
+			await fetchJson('https://api.github.com/repos/The-PRISM-Team/noema/commits?per_page=1&sha=main')
 		)[0].sha,
 		writable: false,
 		configurable: false,
