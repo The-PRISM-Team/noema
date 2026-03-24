@@ -605,10 +605,10 @@ function initUI() {
 		if (isDefined(newWindow.focus)) newWindow.focus();
 	}, 'wrench');
 	createSuboption(helpTab, getLocaleStr('menu.help.openGithubRepo.title'), null, () => {
-		window.open('https://github.com/sophb-ccjt/noema', '_blank');
+		window.open('https://github.com/The-PRISM-Team/noema', '_blank');
 	}, 'open-external');
 	createSuboption(helpTab, getLocaleStr('menu.help.reportIssue.title'), null, () => {
-		window.open('https://github.com/sophb-ccjt/noema/issues/new', '_blank');
+		window.open('https://github.com/The-PRISM-Team/noema/issues/new', '_blank');
 	}, 'open-external');
 
 	createSuboption(debugTab, getLocaleStr('menu.debug.toggleUi.title'), localStorage.debugUI === 'true' ? getLocaleStr('menu.debug.toggleUi.enabledDesc') : getLocaleStr('menu.debug.toggleUi.disabledDesc'), () => {
