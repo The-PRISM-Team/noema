@@ -268,15 +268,20 @@ body {
 }
 
 /* --- notifications --- */
-.notif-div {
+html:not([dir='rtl']) .notif-div {
 	display: flex;
 	flex-direction: column;
-	align-items: flex-end;
 	gap: 5px;
 	position: fixed;
 	top: 10vh;
 	right: 0;
 	z-index: calc(infinity);
+}
+html:not([dir='rtl']) .notif-div {
+	align-items: flex-end;
+}
+html[dir='rtl'] .notif-div {
+	align-items: flex-start;
 }
 
 .notif {
@@ -455,7 +460,7 @@ body {
 	z-index: -50;
 }
 
-.ui-content:not(.rtl) {
+html:not([dir='rtl']) .ui-content {
 	left: 50%;
 	margin-left: -40px;
 	padding-left: 40px;
@@ -465,7 +470,7 @@ body {
 		opacity .15s ease-in,
 		display 1s allow-discrete;
 }
-.ui-content.rtl {
+html[dir='rtl'] .ui-content {
 	right: 50%;
 	margin-right: -40px;
 	padding-right: 40px;
@@ -476,12 +481,12 @@ body {
 		display 1s allow-discrete;
 }
 
-.ui-content.selected:not(.rtl) {
+html:not([dir='rtl']) .ui-content.selected {
 	left: 25vw;
 	opacity: 100%;
 	z-index: 105;
 }
-.ui-content.selected.rtl {
+html[dir='rtl'] .ui-content.selected {
 	right: 25vw;
 	opacity: 100%;
 	z-index: 105;
@@ -505,7 +510,7 @@ body {
 	opacity: 15%;
 }
 
-.ui-suboption:not(.rtl) {
+html:not([dir='rtl']) .ui-suboption {
 	left: -20px;
 	transition:
 		border-left .25s ease,
@@ -516,7 +521,7 @@ body {
 		opacity .15s linear,
 		background-color .5s ease;
 }
-.ui-suboption.rtl {
+html[dir='rtl'] .ui-suboption {
 	right: -20px;
 	transition:
 		border-left .25s ease,
@@ -546,7 +551,7 @@ body {
 	text-shadow: 0px 0px 5px #fff;
 	animation: highlight-text linear 1s infinite alternate;
 }
-.ui-suboption.selected:not(.rtl) {
+html:not([dir='rtl']) .ui-suboption.selected {
 	border-radius: 3px 10px 10px 3px;
 	left: 0px;
 	border-left: 5px solid #fff;
@@ -558,7 +563,7 @@ body {
 		left .25s ease;
 }
 
-.ui-suboption.selected.rtl {
+html[dir='rtl'] .ui-suboption.selected {
 	border-radius: 10px 3px 3px 10px;
 	right: 0px;
 	border-right: 5px solid #fff;
