@@ -318,6 +318,13 @@ function initUI() {
 				setSuboption(selectedOption, selectedSuboption, getLocaleStr('menu.preferences.toggleMonochromeFavicon.title'), getLocaleStr('menu.preferences.toggleMonochromeFavicon.disabledDesc'));
 			}
 		}, 'image');
+	createSuboption(prefTab, getLocaleStr('menu.preferences.bgBrightness.title'), getLocaleTempStr('menu.preferences.bgBrightness.desc', 'enUS', { value: decimalStrToPercentage(localStorage.bgBrightness) }), () => {
+		inputDialog(getLocaleStr('menu.preferences.bgBrightness.dialogTitle'), getLocaleStr('menu.preferences.bgBrightness.dialogSubtitle'), decimalStrToPercentage(localStorage.bgBrightness), 25, 100, 1, '{value}%', (value) => {
+			localStorage.bgBrightness = percentageToDecimal(value);
+			changeBGColor({ colorName: localStorage.bgColor, brightness: parseFloat(localStorage.bgBrightness) });
+			setSuboption(selectedOption, selectedSuboption, getLocaleStr('menu.preferences.bgBrightness.title'), getLocaleTempStr('menu.preferences.bgBrightness.desc', 'enUS', { value: decimalStrToPercentage(localStorage.bgBrightness) }));
+		});
+	}, 'wrench');
 	createSuboption(prefTab, getLocaleStr('menu.preferences.toggleOpenUi.title'),
 		localStorage.openUI === 'true' ? getLocaleStr('menu.preferences.toggleOpenUi.enabledDesc') : getLocaleStr('menu.preferences.toggleOpenUi.disabledDesc'),
 		() => {
@@ -445,13 +452,6 @@ function initUI() {
 		});
 		document.body.appendChild(importbtn);
 		importbtn.click();
-	}, 'wrench');
-	createSuboption(prefTab, getLocaleStr('menu.preferences.bgBrightness.title'), getLocaleTempStr('menu.preferences.bgBrightness.desc', 'enUS', { value: decimalStrToPercentage(localStorage.bgBrightness) }), () => {
-		inputDialog(getLocaleStr('menu.preferences.bgBrightness.dialogTitle'), getLocaleStr('menu.preferences.bgBrightness.dialogSubtitle'), decimalStrToPercentage(localStorage.bgBrightness), 25, 100, 1, '{value}%', (value) => {
-			localStorage.bgBrightness = percentageToDecimal(value);
-			changeBGColor({ colorName: localStorage.bgColor, brightness: parseFloat(localStorage.bgBrightness) });
-			setSuboption(selectedOption, selectedSuboption, getLocaleStr('menu.preferences.bgBrightness.title'), getLocaleTempStr('menu.preferences.bgBrightness.desc', 'enUS', { value: decimalStrToPercentage(localStorage.bgBrightness) }));
-		});
 	}, 'wrench');
 	createSuboption(prefTab, getLocaleStr('menu.preferences.resetPreferences.title'), getLocaleStr('menu.preferences.resetPreferences.desc'),
 		() => {
