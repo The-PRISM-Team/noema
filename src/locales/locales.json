@@ -1,0 +1,317 @@
+[
+    {
+        "code": "ar",
+        "english": "Arabic",
+        "native": "العربية"
+    },
+    {
+        "code": "arEG",
+        "english": "Arabic (Egypt)",
+        "native": "العربية (مصر)"
+    },
+    {
+        "code": "arSA",
+        "english": "Arabic (Saudi Arabia)",
+        "native": "العربية (السعودية)"
+    },
+    {
+        "code": "arAE",
+        "english": "Arabic (UAE)",
+        "native": "العربية (الإمارات)"
+    },
+    {
+        "code": "bn",
+        "english": "Bengali",
+        "native": "বাংলা"
+    },
+    {
+        "code": "bnBD",
+        "english": "Bengali (Bangladesh)",
+        "native": "বাংলা (বাংলাদেশ)"
+    },
+    {
+        "code": "zh",
+        "english": "Chinese",
+        "native": "中文"
+    },
+    {
+        "code": "zhCN",
+        "english": "Chinese (China)",
+        "native": "简体中文（中国）"
+    },
+    {
+        "code": "zhHK",
+        "english": "Chinese (Hong Kong)",
+        "native": "繁體中文（香港）"
+    },
+    {
+        "code": "zhTW",
+        "english": "Chinese (Taiwan)",
+        "native": "繁體中文（台灣）"
+    },
+    {
+        "code": "nl",
+        "english": "Dutch",
+        "native": "Nederlands"
+    },
+    {
+        "code": "nlBE",
+        "english": "Dutch (Belgium)",
+        "native": "Nederlands (België)"
+    },
+    {
+        "code": "nlNL",
+        "english": "Dutch (Netherlands)",
+        "native": "Nederlands (Nederland)"
+    },
+    {
+        "code": "en",
+        "english": "English",
+        "native": "English"
+    },
+    {
+        "code": "enAU",
+        "english": "English (Australia)",
+        "native": "English (Australia)"
+    },
+    {
+        "code": "enCA",
+        "english": "English (Canada)",
+        "native": "English (Canada)"
+    },
+    {
+        "code": "enGB",
+        "english": "English (United Kingdom)",
+        "native": "English (United Kingdom)"
+    },
+    {
+        "code": "enUS",
+        "english": "English (United States)",
+        "native": "English (United States)"
+    },
+    {
+        "code": "fr",
+        "english": "French",
+        "native": "Français"
+    },
+    {
+        "code": "frBE",
+        "english": "French (Belgium)",
+        "native": "Français (Belgique)"
+    },
+    {
+        "code": "frCA",
+        "english": "French (Canada)",
+        "native": "Français (Canada)"
+    },
+    {
+        "code": "frFR",
+        "english": "French (France)",
+        "native": "Français (France)"
+    },
+    {
+        "code": "frCH",
+        "english": "French (Switzerland)",
+        "native": "Français (Suisse)"
+    },
+    {
+        "code": "de",
+        "english": "German",
+        "native": "Deutsch"
+    },
+    {
+        "code": "deAT",
+        "english": "German (Austria)",
+        "native": "Deutsch (Österreich)"
+    },
+    {
+        "code": "deDE",
+        "english": "German (Germany)",
+        "native": "Deutsch (Deutschland)"
+    },
+    {
+        "code": "deCH",
+        "english": "German (Switzerland)",
+        "native": "Deutsch (Schweiz)"
+    },
+    {
+        "code": "he",
+        "english": "Hebrew",
+        "native": "עברית"
+    },
+    {
+        "code": "hi",
+        "english": "Hindi",
+        "native": "हिन्दी"
+    },
+    {
+        "code": "hiIN",
+        "english": "Hindi (India)",
+        "native": "हिन्दी (भारत)"
+    },
+    {
+        "code": "id",
+        "english": "Indonesian",
+        "native": "Bahasa Indonesia"
+    },
+    {
+        "code": "it",
+        "english": "Italian",
+        "native": "Italiano"
+    },
+    {
+        "code": "itIT",
+        "english": "Italian (Italy)",
+        "native": "Italiano (Italia)"
+    },
+    {
+        "code": "ja",
+        "english": "Japanese",
+        "native": "日本語"
+    },
+    {
+        "code": "jaJP",
+        "english": "Japanese (Japan)",
+        "native": "日本語（日本）"
+    },
+    {
+        "code": "ko",
+        "english": "Korean",
+        "native": "한국어"
+    },
+    {
+        "code": "koKR",
+        "english": "Korean (South Korea)",
+        "native": "한국어 (대한민국)"
+    },
+    {
+        "code": "ms",
+        "english": "Malay",
+        "native": "Bahasa Melayu"
+    },
+    {
+        "code": "fa",
+        "english": "Persian",
+        "native": "فارسی"
+    },
+    {
+        "code": "pl",
+        "english": "Polish",
+        "native": "Polski"
+    },
+    {
+        "code": "plPL",
+        "english": "Polish (Poland)",
+        "native": "Polski (Polska)"
+    },
+    {
+        "code": "pt",
+        "english": "Portuguese",
+        "native": "Português"
+    },
+    {
+        "code": "ptAO",
+        "english": "Portuguese (Angola)",
+        "native": "Português (Angola)"
+    },
+    {
+        "code": "ptBR",
+        "english": "Portuguese (Brazil)",
+        "native": "Português (Brasil)"
+    },
+    {
+        "code": "ptMZ",
+        "english": "Portuguese (Mozambique)",
+        "native": "Português (Moçambique)"
+    },
+    {
+        "code": "ptPT",
+        "english": "Portuguese (Portugal)",
+        "native": "Português (Portugal)"
+    },
+    {
+        "code": "ru",
+        "english": "Russian",
+        "native": "Русский"
+    },
+    {
+        "code": "ruRU",
+        "english": "Russian (Russia)",
+        "native": "Русский (Россия)"
+    },
+    {
+        "code": "es",
+        "english": "Spanish",
+        "native": "Español"
+    },
+    {
+        "code": "esAR",
+        "english": "Spanish (Argentina)",
+        "native": "Español (Argentina)"
+    },
+    {
+        "code": "esCL",
+        "english": "Spanish (Chile)",
+        "native": "Español (Chile)"
+    },
+    {
+        "code": "esCO",
+        "english": "Spanish (Colombia)",
+        "native": "Español (Colombia)"
+    },
+    {
+        "code": "esMX",
+        "english": "Spanish (Mexico)",
+        "native": "Español (México)"
+    },
+    {
+        "code": "esPE",
+        "english": "Spanish (Peru)",
+        "native": "Español (Perú)"
+    },
+    {
+        "code": "esES",
+        "english": "Spanish (Spain)",
+        "native": "Español (España)"
+    },
+    {
+        "code": "sv",
+        "english": "Swedish",
+        "native": "Svenska"
+    },
+    {
+        "code": "svSE",
+        "english": "Swedish (Sweden)",
+        "native": "Svenska (Sverige)"
+    },
+    {
+        "code": "th",
+        "english": "Thai",
+        "native": "ไทย"
+    },
+    {
+        "code": "tr",
+        "english": "Turkish",
+        "native": "Türkçe"
+    },
+    {
+        "code": "trTR",
+        "english": "Turkish (Turkey)",
+        "native": "Türkçe (Türkiye)"
+    },
+    {
+        "code": "uk",
+        "english": "Ukrainian",
+        "native": "Українська"
+    },
+    {
+        "code": "ukUA",
+        "english": "Ukrainian (Ukraine)",
+        "native": "Українська (Україна)"
+    },
+    {
+        "code": "vi",
+        "english": "Vietnamese",
+        "native": "Tiếng Việt"
+    }
+]
