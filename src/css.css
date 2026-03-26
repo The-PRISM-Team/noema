@@ -204,6 +204,16 @@ body {
 	pointer-events: none;
 }
 
+.credits-bubbles {
+	display: flex;
+	flex-direction: column;
+	gap: 5px;
+
+	position: fixed;
+	bottom: 5px;
+	right: 5px;
+}
+
 #fps {
 	color: #fff;
 	position: fixed;
