@@ -402,6 +402,8 @@ html[dir='rtl'] .notif-div {
 	overflow: visible;
 	transition: left .2s linear;
 	z-index: 110;
+	direction: ltr;
+	unicode-bidi: bidi-override;
 }
 
 .ui-option {
