@@ -269,7 +269,7 @@ function initUI() {
 	// innit misc UI locale
 	document.title = getLocaleStr('pageTitle');
 	document.getElementById('bubble-credits').textContent = getLocaleStr('debug.credits');
-	document.getElementById('errors').textContent = `${getLocaleStr('debug.errors')} ${errors}`;
+	document.getElementById('error-s').textContent = `${getLocaleStr('debug.errors')} ${errors}`;
 	// init default options
 	const powerTab = createOption(getLocaleStr('menu.power.option.title'));
 	const prefTab = createOption(getLocaleStr('menu.preferences.option.title'));
@@ -286,6 +286,7 @@ function initUI() {
 	}
 
 	// init suboptions
+	// power
 	createSuboption(powerTab, getLocaleStr('menu.power.powerOff.title'), getLocaleStr('menu.power.powerOff.desc'), () => {
 		confirmDialog(shutdown);
 	}, 'power', 'power');
@@ -297,6 +298,7 @@ function initUI() {
 	}, 'power', 'power');
 	selectedSuboptions[0] = 1;
 
+	// preferences
 	createSuboption(prefTab, getLocaleStr('menu.preferences.setUsername.title'), getLocaleTempStr('menu.preferences.setUsername.desc', 'enUS', { username }), () => {
 		promptDialog((name) => {
 			if (!isDefined(name)) name = _defaultUsername;
@@ -365,7 +367,6 @@ function initUI() {
 		},
 		'wrench'
 	);
-
 	createSuboption(prefTab, getLocaleStr('menu.preferences.savePreferences.title'), getLocaleStr('menu.preferences.savePreferences.desc'), () => {
 		confirmDialog(() => {
 			downloadFileWithContent(
@@ -469,7 +470,8 @@ function initUI() {
 		'bin'
 	);
 
-	for (const [locale, def] of Object.entries(locales)) {
+	// language
+	for (const [i, [locale, def]] of Object.entries(locales).entries()) {
 		createSuboption(langTab,
 			def.langTitle,
 			def['menu.lang.setLang.desc'].replace('{lang}', def.langTitle),
@@ -497,8 +499,13 @@ function initUI() {
 			},
 			'wrench'
 		);
+	
+		if (locale === localStorage.locale) {
+			selectedSuboptions[2] = i;
+		}
 	}
 
+	// audio
 	createSuboption(audioTab, getLocaleStr('menu.audio.togglePauseOnUnfocus.title'),
 		localStorage.pauseMusic === 'true' ? getLocaleStr('menu.audio.togglePauseOnUnfocus.enabledDesc') : getLocaleStr('menu.audio.togglePauseOnUnfocus.disabledDesc'),
 		() => {
@@ -532,6 +539,7 @@ function initUI() {
 		});
 	}, 'wrench');
 
+	// graphics
 	createSuboption(graphTab, getLocaleStr('menu.graphics.toggleEffects.title'),
 		localStorage.noShaders === 'true' ? getLocaleStr('menu.graphics.toggleEffects.disabledDesc') : getLocaleStr('menu.graphics.toggleEffects.enabledDesc'),
 		() => {
@@ -571,6 +579,7 @@ function initUI() {
 		'wrench'
 	);
 
+	// themes
 	Object.keys(bgColors).forEach((color, i) => {
 		createSuboption(themeTab, color.toTitleCase(), getLocaleTempStr('menu.theme.color.description', 'enUS', { color: color.toTitleCase() }), () => {
 			changeBGColor({ colorName: color });
@@ -578,6 +587,7 @@ function initUI() {
 		if (color === localStorage.bgColor) selectedSuboptions[themeTab] = i;
 	});
 
+	// wave amount
 	for (const [label, data] of Object.entries(densities)) {
 		createSuboption(
 			waveTab,
@@ -590,6 +600,7 @@ function initUI() {
 		);
 	}
 
+	// help
 	createSuboption(helpTab, getLocaleStr('menu.help.convertSaveFile.title'), null, () => {
 		const width = window.innerWidth / 2;
 		const height = window.innerHeight / 2;
@@ -611,6 +622,7 @@ function initUI() {
 		window.open('https://github.com/The-PRISM-Team/noema/issues/new', '_blank');
 	}, 'open-external');
 
+	// debug
 	createSuboption(debugTab, getLocaleStr('menu.debug.toggleUi.title'), localStorage.debugUI === 'true' ? getLocaleStr('menu.debug.toggleUi.enabledDesc') : getLocaleStr('menu.debug.toggleUi.disabledDesc'), () => {
 		localStorage.debugUI = localStorage.debugUI === 'true' ? 'false' : 'true';
 		if (localStorage.debugUI === 'true') {
