@@ -305,7 +305,7 @@ function initUI() {
 			setUsername(name);
 			updateLabel();
 			setSuboption(selectedOption, selectedSuboption, null, getLocaleTempStr('menu.preferences.setUsername.desc', 'enUS', { username }));
-		}, getLocaleStr('menu.preferences.setUsername.promptTitle'), getLocaleTempStr('menu.preferences.setUsername.placeholder', 'enUS', { username: _defaultUsername }));
+		}, getLocaleStr('menu.preferences.setUsername.promptTitle'), getLocaleTempStr('menu.preferences.setUsername.placeholder', 'enUS', { defaultUsername: _defaultUsername }));
 	}, 'user');
 	createSuboption(prefTab, getLocaleStr('menu.preferences.toggleMonochromeFavicon.title'),
 		localStorage.coloredFavicon === 'true'
