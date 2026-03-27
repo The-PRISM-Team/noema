@@ -121,10 +121,10 @@ window.addEventListener('load', async () => {
 	setCursor('default');
 	const isMobile = navigator.userAgentData?.mobile === true || /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
 	const supportChecks = [
-		/*{
+		{
 			trigger: isMobile,
 			warning: getLocaleStr('startup.mobileUnsupported', 'enUS', "Mobile is not supported. Please use a Desktop or Laptop computer.")
-		},*/
+		},
 		{
 			trigger: document.documentMode,
 			warning: getLocaleStr('startup.ieUnsupported', 'enUS', "Internet Explorer is not supported. Please use another browser like Chrome or Firefox.")
