@@ -652,9 +652,12 @@ function initUI() {
 
 	selectUIOption(1);
 }
+function getOptions() {
+	return document.querySelectorAll('.ui-option');
+}
 function getOption(optionId) {
 	return {
-		label: document.getElementById(`ui-option${optionId}`).textContent,
+		label: document.getElementById(`ui-option${optionId}`)?.textContent,
 		element: document.getElementById(`ui-option${optionId}`),
 		content: document.getElementById(`ui-content${optionId}`),
 		suboptions: document.querySelectorAll(`#ui-content${optionId} .ui-suboption`)
@@ -668,6 +671,17 @@ function getSuboption(optionId, suboptionId) {
 		icon: suboption.querySelector('.ui-suboption-icon').src.trimEnd('.png'),
 		element: suboption
 	};
+}
+function mapUI() {
+    const map = new Map();
+    for (let i = 0; i < getOptions().length; i++) {
+        const option = getOption(i);
+        map.set(option, []);
+        for (const suboption of option.suboptions) {
+            map.get(option).push(suboption);
+        }
+    }
+    return map;
 }
 
 function bandDialog(title = '', subtitle = '', setupFunc, confirmFunc, usesEnterKey = true) {
