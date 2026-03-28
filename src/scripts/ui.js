@@ -655,7 +655,9 @@ function initUI() {
 function getOption(optionId) {
 	return {
 		label: document.getElementById(`ui-option${optionId}`).textContent,
-		element: document.getElementById(`ui-option${optionId}`)
+		element: document.getElementById(`ui-option${optionId}`),
+		content: document.getElementById(`ui-content${optionId}`),
+		suboptions: document.querySelectorAll(`#ui-content${optionId} .ui-suboption`)
 	};
 }
 function getSuboption(optionId, suboptionId) {
