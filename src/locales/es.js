@@ -119,5 +119,5 @@ globalThis.localesArray.push({
     "menu.wave.high.desc": "Detalle Alto, recomendado para computadoras con un CPU bueno (or GPU, if supported).\nNo es recomendado para dispositivos lentos, porque podría dar lag y sobrecalentar el dispositivo.",
     "startup.batteryTestFailed": "Hubo un fallo en la revisión de la batería!!\nAsegúrate que la vida de tu batería esté bien antes de usar Noema.",
     "lang": "es",
-    "langTitle": "Spanish - Español [es]"
+    "langTitle": "Español"
 });
