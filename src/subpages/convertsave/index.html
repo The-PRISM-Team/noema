@@ -3,15 +3,25 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Template Page</title>
+	<title>NSF Converter</title>
 	<link rel="stylesheet" href="./css.css" />
 	<script>if (!location.href.endsWith('/')) location.href += '/';</script>
 </head>
 <body>
-	<a href="/">← Back to Noema</a>
-	<a href="../">← Back to subpage list</a>
-	<p id='status'></p>
-	<h1>Template Page</h1>
+	<a id='status'></a>
+	<h1>Noema Save File Converter</h1>
+	<h2 class="underline">Select a save file...</h2>
+	<input type="file" id="file" accept=".nsf"/>
+	<div id='convert' style="display: none;">
+		<br>
+		<br>
+		<h2 class="underline">Select a format to convert to...</h2>
+		<br>
+		<select id='convert-to'></select>
+		<br>
+		<br>
+		<button id='convert-btn'>Convert!</button>
+	</div>
 	<script src="./js.js"></script>
 </body>
 </html>
