@@ -95,7 +95,6 @@
                     numInput.type = 'number';
                     numInput.value = value;
                     numInput.placeholder = localeBaseObj[key];
-                    
                     break;
 
                 // skip list
