@@ -63,13 +63,11 @@
         const localeObject = Object.fromEntries(localeKVs) ?? baseLocale;
         // recover missing values
         if (!recursing) {
-            console.log(localeObject)
             for (const [key, value] of Object.entries(baseLocale)) {
                 if (!(key in localeObject)) {
-                    //console.log(key)
                     localeObject[key] = value;
-                };
-            };
+                }
+            }
         }
 
         return localeObject;
