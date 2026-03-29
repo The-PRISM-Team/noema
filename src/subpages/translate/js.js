@@ -172,6 +172,7 @@
         const generatedFile = generateLocaleFile(translated);
         downloadFileWithContent(generatedFile.filename, generatedFile.content);
     });
+
     if (location.hash && location.hash.substring(1) === locale.code) {
         localeDropdown.value = option.value;
         const change = new Event('change');
