@@ -149,4 +149,4 @@
         const generatedFile = generateLocaleFile(translated);
         downloadFileWithContent(generatedFile.filename, generatedFile.content);
     })
-})()
+})();
