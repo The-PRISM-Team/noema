@@ -158,7 +158,7 @@
         for (const [selector, valueProp] of Object.entries(validElements)) {
             const translatedSubset = Object.fromEntries(
                 [...document.querySelectorAll(`#string-div ${selector}`)]
-                .map(v => [el.id, el[valueProp]])
+                .map(el => [el.id, el[valueProp]])
             );
 
             for (const [key, value] of Object.entries(translatedSubset)) translated[key] = value;
