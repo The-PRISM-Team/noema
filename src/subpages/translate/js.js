@@ -84,8 +84,7 @@
                 case 'boolean':
                     const boolInput = document.createElement('input');
                     boolInput.type = 'checkbox';
-                    boolInput.value = value;
-                    boolInput.placeholder = localeBaseObj[key];
+                    boolInput.checked = value;
                     boolInput.id = key;
                     
                     stringDiv.appendChild(boolInput);
