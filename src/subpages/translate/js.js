@@ -1,9 +1,9 @@
 (async () => {
     // get locale stuffs
-    const locales = globalThis['locales'] = await (await fetch('https://prism-noema.vercel.app/locales/locales.json')).json();
-    const localeBaseObj = globalThis['localeBaseObj'] = await (await fetch('https://prism-noema.vercel.app/locales/translationBase.json')).json();
-    const localeBaseFile = globalThis['localeBaseFile'] = await (await fetch('https://prism-noema.vercel.app/locales/translationBase.js')).text();
-    const localeUrlTemplate = globalThis['localeUrlTemplate'] = "https://prism-noema.vercel.app/locales/{shortBCP}.js"
+    const locales = await (await fetch('https://prism-noema.vercel.app/locales/locales.json')).json();
+    const localeBaseObj = await (await fetch('https://prism-noema.vercel.app/locales/translationBase.json')).json();
+    const localeBaseFile = await (await fetch('https://prism-noema.vercel.app/locales/translationBase.js')).text();
+    const localeUrlTemplate = "https://prism-noema.vercel.app/locales/{shortBCP}.js"
 
     // utils
     function downloadFileWithContent(filename = `Untitled file [${Date.now()}]`, content = '') {
@@ -35,14 +35,14 @@
     }
 
     // elements
-    const localeDropdown = globalThis['localeDropdown'] = document.getElementById('lang-select');
-    const translationDiv = globalThis['translationDiv'] = document.getElementById('translation-div');
-    const stringDiv = globalThis['stringDiv'] = document.getElementById('string-div');
-    const exportBtn = globalThis['exportBtn'] = document.getElementById('export-file');
+    const localeDropdown = document.getElementById('lang-select');
+    const translationDiv = document.getElementById('translation-div');
+    const stringDiv = document.getElementById('string-div');
+    const exportBtn = document.getElementById('export-file');
     
     // init elements
     for (const [_, locale] of Object.entries(locales)) {
-        const option = globalThis['option'] = document.createElement('option');
+        const option = document.createElement('option');
         option.value = locale.code;
         if (locale.english === locale.native)
             option.textContent = `${locale.native} [${locale.code}]`;
@@ -110,42 +110,60 @@
     }
 
 
-    // element interacions
+    // element interactions
     localeDropdown.addEventListener('change', async ()=>{
-        const selectedLocale = globalThis['selectedLocale'] = locales.find(v => 
-            v.code === window['lang-select'].value
+        const selectedLocale = locales.find(v => 
+            v.code === document.getElementById('lang-select').value
         )?.code ?? 'unknown';
 
-        const kvRegex = globalThis['kvRegex'] = /\"(.+)\"[:]\s*(\".*\"|false|true|(?:\d+|\d*\.\d+)?e[+-]?\d+|\d+|null)/g;
-        const localeUrl = globalThis['localeUrl'] = localeUrlTemplate.replace('{shortBCP}', selectedLocale);
+        // helpers
+        const kvRegex = /\"(.+)\"[:]\s*(\".*\"|false|true|(?:\d+|\d*\.\d+)?e[+-]?\d+|\d+|null)/g;
+        const localeUrl = localeUrlTemplate.replace('{shortBCP}', selectedLocale);
         console.log('selected locale: ' + selectedLocale);
         console.log('locale url: ' + localeUrl);
         
-        // get locale object
+        // get locale file
         let localeFile;
         try {
-            localeFile = globalThis['localeFile'] = await(await fetch(localeUrl)).text();
+            localeFile = await(await fetch(localeUrl)).text();
         }
         catch {
-            localeFile = globalThis['localeFile'] = await(await fetch('https://prism-noema.vercel.app/locales/enUS.js')).text();
+            localeFile = await(await fetch('https://prism-noema.vercel.app/locales/enUS.js')).text();
         }
 
-        const localeKVs = globalThis['localeKVs'] = [...localeFile.matchAll(kvRegex)].map(v => {
+        // construct locale object from file
+        const localeKVs = [...localeFile.matchAll(kvRegex)].map(v => {
             v.shift();
             v[1] = JSON.parse(v[1]);
             return v;
         });
-        const localeObject = globalThis['localeObject'] = Object.fromEntries(localeKVs) ?? localeBaseObj;
+        const localeObject = Object.fromEntries(localeKVs) ?? localeBaseObj;
         localeObject.lang = globalThis['localeObject'].lang = selectedLocale;
         localeObject.langTitle = globalThis['localeObject'].langTitle = locales.find(v => 
-            v.code === window['lang-select'].value
+            v.code === document.getElementById('lang-select').value
         )?.native ?? 'unknown';
 
         renderStrings(localeObject);
     });
 
     exportBtn.addEventListener('click', ()=>{
-        const translated = Object.fromEntries([...document.querySelectorAll('#string-div input')].map(el => [el.id, el.value]))
+        const translated = {};
+
+        // there might be a better way to do this
+        const validElements = {
+            'input:not([type="checkbox"])': 'value',
+            'textarea': 'value',
+            'input[type="checkbox"]': 'checked'
+        }
+        for (const [selector, valueProp] of Object.entries(validElements)) {
+            const translatedSubset = Object.fromEntries(
+                [...document.querySelectorAll(`#string-div ${selector}`)]
+                .map(v => [el.id, el[valueProp]])
+            );
+
+            for (const [key, value] of Object.entries(translatedSubset)) translated[key] = value;
+        }
+
         const generatedFile = generateLocaleFile(translated);
         downloadFileWithContent(generatedFile.filename, generatedFile.content);
     })
