@@ -167,8 +167,7 @@
             for (const [key, value] of Object.entries(translatedSubset)) translated[key] = value;
         }
         translated.lang = localeDropdown.value;
-        translated.langTitle =
-            [...localeDropdown.children].find(el => el.value === localeDropdown.value).textContent;
+        translated.langTitle = locales.find(v => v.code === localeDropdown.value).native;
         const generatedFile = generateLocaleFile(translated);
         downloadFileWithContent(generatedFile.filename, generatedFile.content);
     });
