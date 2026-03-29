@@ -173,8 +173,8 @@
         downloadFileWithContent(generatedFile.filename, generatedFile.content);
     });
 
-    if (location.hash && location.hash.substring(1) === locale.code) {
-        localeDropdown.value = option.value;
+    if (location.hash) {
+        localeDropdown.value = location.hash.substring(1);
         const change = new Event('change');
         localeDropdown.dispatchEvent(change);
     }
