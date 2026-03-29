@@ -58,15 +58,14 @@
         const baseLocale =
             recursing
             ? localeBaseObj
-            : constructLocaleObj('enUS', true);
+            : await constructLocaleObj('enUS', true);
 
         const localeObject = Object.fromEntries(localeKVs) ?? baseLocale;
         // recover missing values
         if (!recursing) {
             console.log(localeObject)
             for (const [key, value] of Object.entries(baseLocale)) {
-                localeObject
-                if (localeObject?.[key] ?? undefined === undefined) {
+                if (!(key in localeObject)!) {
                     //console.log(key)
                     localeObject[key] = value;
                 };
@@ -189,7 +188,7 @@
         }
         translated.lang = localeDropdown.value;
         translated.langTitle = locales.find(v => v.code === localeDropdown.value).native;
-        return getTranslated();
+        return translated;
     }
     exportBtn.addEventListener('click', ()=>{
         const translated = getTranslated();
