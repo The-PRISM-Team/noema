@@ -65,7 +65,7 @@
         if (!recursing) {
             console.log(localeObject)
             for (const [key, value] of Object.entries(baseLocale)) {
-                if (!(key in localeObject)!) {
+                if (!(key in localeObject)) {
                     //console.log(key)
                     localeObject[key] = value;
                 };
