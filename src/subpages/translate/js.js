@@ -91,6 +91,11 @@
                     break;
 
                 case 'number':
+                    const numInput = document.createElement('input');
+                    numInput.type = 'number';
+                    numInput.value = value;
+                    numInput.placeholder = localeBaseObj[key];
+                    
                     break;
 
                 // skip list
