@@ -49,6 +49,7 @@
         else
             option.textContent = `${locale.english} - ${locale.native} [${locale.code}]`;
         localeDropdown.appendChild(option);
+        if (location.hash && location.hash.substring(1) === option.value) localeDropdown.value = option.value;
     }
     function renderStrings(localeObject) {
         translationDiv.style.display = 'none';
