@@ -97,6 +97,13 @@ globalThis.localesArray.push({
     "error.listTitle": "Error(es):",
     "error.unknown": "Desconocido",
     "error.restartingIn": "Reiniciando en {time}",
+    "time.format.date": "{dd}/{MM}/{yyyy}",
+    "time.format.dateshort": "{dd}/{MM}/{yy}",
+    "time.format.timems": "{hh}:{mm}:{ss},{ms}",
+    "time.format.time": "{hh}:{mm}:{ss}",
+    "time.format.timeshort": "{hh}:{mm}",
+    "time.format.am": "a. m.",
+    "time.format.pm": "p. m.",
     "menu.preferences.toggleMonochromeFavicon.enabledDesc": "El Favicon está a color.\nSelecciona para cambiar a un favicon monocromo.",
     "menu.preferences.toggleMonochromeFavicon.disabledDesc": "El Favicon es monocromo.\nSelecciona para cambiar a un favicon a color.",
     "menu.preferences.toggleOpenUi.enabledDesc": "El UI está abierto.\nSelecciona para cerrarlo.",
@@ -118,6 +125,8 @@ globalThis.localesArray.push({
     "menu.debug.toggleUi.disabledDesc": "Depuración de la UI está apagado.\nSelecciona para encenderlo.",
     "menu.wave.high.desc": "Detalle Alto, recomendado para computadoras con un CPU bueno (or GPU, if supported).\nNo es recomendado para dispositivos lentos, porque podría dar lag y sobrecalentar el dispositivo.",
     "startup.batteryTestFailed": "Hubo un fallo en la revisión de la batería!!\nAsegúrate que la vida de tu batería esté bien antes de usar Noema.",
+    "langIsRTL": false,
+    "time.is24hr": true,
     "lang": "es",
     "langTitle": "Español"
 });
