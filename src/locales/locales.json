@@ -275,6 +275,11 @@
         "native": "Español (España)"
     },
     {
+        "code": "esVE",
+        "english": "Spanish (Venezuela)",
+        "native": "Español (Venezuela)"
+    },
+    {
         "code": "sv",
         "english": "Swedish",
         "native": "Svenska"
