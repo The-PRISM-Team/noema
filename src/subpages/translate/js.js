@@ -143,7 +143,10 @@
             v.code === document.getElementById('lang-select').value
         )?.native ?? 'unknown';
 
-        renderStrings(localeObject);
+        const renderedLocaleObj = structuredClone(localeObject);
+        delete renderedLocaleObj.lang;
+        delete renderedLocaleObj.langTitle;
+        renderStrings(renderedLocaleObj);
     });
 
     exportBtn.addEventListener('click', ()=>{
@@ -163,7 +166,9 @@
 
             for (const [key, value] of Object.entries(translatedSubset)) translated[key] = value;
         }
-
+        translated.lang = localeDropdown.value;
+        translated.langTitle =
+            [...localeDropdown.children].find(el => el.value === localeDropdown.value).textContent;
         const generatedFile = generateLocaleFile(translated);
         downloadFileWithContent(generatedFile.filename, generatedFile.content);
     })
