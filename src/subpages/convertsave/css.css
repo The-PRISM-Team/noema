@@ -36,6 +36,20 @@ body {
         sans-serif;
 }
 
+a[href] {
+    transition: color .1s ease;
+    color: #55f
+}
+a[href]:hover {
+    color: #88f
+}
+a[href]:visited {
+    color: #f5f
+}
+a[href]:visited:hover {
+    color: #f9f
+}
+
 input[type='file'] {
 	background-color: #0006;
 	backdrop-filter: blur(2px) saturate(2) brightness(1.35) opacity(.75);
