@@ -49,12 +49,8 @@
         else
             option.textContent = `${locale.english} - ${locale.native} [${locale.code}]`;
         localeDropdown.appendChild(option);
-        if (location.hash && location.hash.substring(1) === option.value) {
-            localeDropdown.value = option.value;
-            const change = new Event('change');
-            localeDropdown.dispatchEvent(change);
-        }
     }
+    
     function renderStrings(localeObject) {
         translationDiv.style.display = 'none';
         stringDiv.innerHTML = '';
@@ -113,7 +109,6 @@
         }
         translationDiv.style.display = 'revert';
     }
-
 
     // element interactions
     localeDropdown.addEventListener('change', async ()=>{
@@ -177,4 +172,9 @@
         const generatedFile = generateLocaleFile(translated);
         downloadFileWithContent(generatedFile.filename, generatedFile.content);
     });
+    if (location.hash && location.hash.substring(1) === locale.code) {
+        localeDropdown.value = option.value;
+        const change = new Event('change');
+        localeDropdown.dispatchEvent(change);
+    }
 })();
