@@ -138,8 +138,8 @@
             return v;
         });
         const localeObject = Object.fromEntries(localeKVs) ?? localeBaseObj;
-        localeObject.lang = globalThis['localeObject'].lang = selectedLocale;
-        localeObject.langTitle = globalThis['localeObject'].langTitle = locales.find(v => 
+        localeObject.lang = selectedLocale;
+        localeObject.langTitle = locales.find(v => 
             v.code === document.getElementById('lang-select').value
         )?.native ?? 'unknown';
 
