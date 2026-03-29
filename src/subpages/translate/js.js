@@ -172,5 +172,4 @@
         const generatedFile = generateLocaleFile(translated);
         downloadFileWithContent(generatedFile.filename, generatedFile.content);
     });
-    if (location.hash) localeDropdown.value = location.hash.substring(1);
 })();

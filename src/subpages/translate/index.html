@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Translate Project Noema</title>
     <link rel="stylesheet" href="./css.css">
-    <script>if (!location.href.endsWith('/')) location.href += '/';</script>
+	<script>if (!location.href.endsWith('/') && !location.hash && location.origin !== 'file://') location.href += '/';</script>
 </head>
 <body>
 	<a href="/">← Back to Noema</a>
