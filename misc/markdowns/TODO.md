@@ -7,6 +7,7 @@ Tasks are listed in priority order (highest priority first).
 * Update README and create CONTRIBUTING.md
 * Polish documentation files (AGENTS.md, CONTRIBUTING.md, README.md)
 * Differentiate between local and hosted (Vercel) modes
+* Move PRISM-specific code to separate organization repository
 
 ## In Progress
 
@@ -43,7 +44,7 @@ Tasks are listed in priority order (highest priority first).
 
 ### Platform Detection
 - Environment-specific features and warnings
-- Optimize for each deployment type
+- Optimize for each deployment type (Vercel and `file://` protocol)
 
 ### Dynamic Updates
 - Allow pointing to local Noema directory
@@ -63,7 +64,6 @@ Tasks are listed in priority order (highest priority first).
 ## Low Priority
 
 ### Code Organization
-- Move PRISM-specific code to separate organization repository
 - Modularize large files for better maintainability
 - Create proper module boundaries
 - Document internal APIs
