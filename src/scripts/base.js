@@ -98,6 +98,18 @@ if (isDefined(window?.matchMedia)) {
 	});
 }
 
+// resize logic
+function resize() {
+	canvas.width = innerWidth;
+	canvas.height = innerHeight;
+	drawSpaghettiFrame();
+	if (started) focusUIOption(selectedOption);
+}
+
+window.addEventListener("resize", resize);
+resize();
+
+// time runtime
 function startTimeRuntime() {
 	const date = new AdvDate();
 	const timeText = document.getElementById('time');

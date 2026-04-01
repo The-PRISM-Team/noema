@@ -89,16 +89,6 @@ function animSpaghetti() {
 	requestAnimationFrame(animSpaghetti);
 }
 
-// resize logic
-function resize() {
-	canvas.width = innerWidth;
-	canvas.height = innerHeight;
-	drawSpaghettiFrame();
-}
-
-window.addEventListener("resize", resize);
-resize();
-
 // background gradient
 const bgColors = {
 	"charcoal": {

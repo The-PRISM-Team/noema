@@ -415,7 +415,7 @@ html[dir='rtl'] .notif-div {
 	padding-top: 20px;
 	margin-top: -20px;
 	overflow: visible;
-	transition: left .2s linear;
+	transition: left .75s cubic-bezier(0, 0.61, 0.46, 0.95);
 	z-index: 110;
 	direction: ltr;
 	unicode-bidi: bidi-override;
