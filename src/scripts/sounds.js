@@ -45,13 +45,7 @@ async function playSound(sound, volume, properties = {}) {
 		for (const [property, value] of Object.entries(properties)) {
 			snd[property] = value;
 		}
-		soundQueue.push(snd);
-		for (const sounds of soundQueue) {
-			
-		}
-		if (soundQueue.length > 1 && soundQueue[0] !== snd) {
-			await snd.play();
-		}
+		await snd.play();
 		return snd;
 	} else {
 		throw new ReferenceError(`The sound "${sound}" doesn't exist/isn't registered.`);
