@@ -9,7 +9,8 @@
 
 /* for electron  */
 html,
-body {
+body,
+#global-overlay {
 	width: 100vw;
 	height: 100vh;
 	margin: 0;
