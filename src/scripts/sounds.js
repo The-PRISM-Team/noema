@@ -34,7 +34,7 @@ function setMasterVolume(volume = 1) {
 	return masterVolume;
 }
 setMasterVolume(localStorage.masterVolume);
-function playSound(sound, volume, properties = {}) {
+async function playSound(sound, volume, properties = {}) {
 	const targetSoundIndex = soundIndexByName[sound];
 	if (typeof targetSoundIndex === 'number') {
 		const snd = new Audio(getAbsPath(`./assets/sounds/menu/${sounds[targetSoundIndex]}`));
@@ -45,7 +45,13 @@ function playSound(sound, volume, properties = {}) {
 		for (const [property, value] of Object.entries(properties)) {
 			snd[property] = value;
 		}
-		snd.play();
+		soundQueue.push(snd);
+		for (const sounds of soundQueue) {
+			
+		}
+		if (soundQueue.length > 1 && soundQueue[0] !== snd) {
+			await snd.play();
+		}
 		return snd;
 	} else {
 		throw new ReferenceError(`The sound "${sound}" doesn't exist/isn't registered.`);

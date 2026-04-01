@@ -396,6 +396,16 @@ html[dir='rtl'] .notif-div {
 		width 1.25s ease,
 		height 1.25s ease;
 	opacity: 15%;
+	z-index: calc(-infinity);
+}
+
+.ui.overtop, .ui.inactive.overtop {
+	--padding: 25;
+	width: calc((100 - var(--padding))*1vw);
+	height: calc((100 -  var(--padding))*1vh);
+	padding: calc(var(--padding)*1vh) calc(var(--padding)*1vw);
+	background-color: #000b;
+	z-index: calc(infinity);
 }
 
 #icon {
@@ -465,7 +475,7 @@ html[dir='rtl'] .notif-div {
 	overflow: visible;
 	opacity: 0%;
 	height: 90%;
-	top: 80px;
+	top: 20%;
 	margin-top: -40px;
 	opacity: 0%;
 	mask-image: linear-gradient(to bottom,
