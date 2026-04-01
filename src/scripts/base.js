@@ -244,13 +244,14 @@ const batteryDiv = document.getElementById('battery-div');
 const batteryBar = document.getElementById('battery-bar');
 const batteryText = document.getElementById('battery-text');
 async function updateBattery() {
-	if (!('getBattery' in navigator)) {
+	if (navigator?.battery == null) {
 		battery = {};
-		return battery;
 	}
 
 	if (!batteryInitialized) {
-		battery = await navigator.getBattery();
+		if (navigator?.battery != null) battery = await navigator.getBattery();
+		else battery = {};
+
 		battery.lowBatteryThresh = 0.25;
 		battery.addEventListener('chargingchange', function () {
 			if (!battery.charging && battery.level <= battery.lowBatteryThresh) {
@@ -264,7 +265,8 @@ async function updateBattery() {
 		battery.level === 1 &&
 		battery.charging === true &&
 		battery.dischargingTime === Infinity ||
-		!('onlevelchange' in battery)
+		!('onlevelchange' in battery) ||
+		navigator?.battery != null
 	);
 
 	// hide battery indicator if device likely has no battery
