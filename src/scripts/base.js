@@ -103,7 +103,6 @@ function resize() {
 	canvas.width = innerWidth;
 	canvas.height = innerHeight;
 	drawSpaghettiFrame();
-	if (started) focusUIOption(selectedOption);
 }
 
 window.addEventListener("resize", resize);
@@ -299,6 +298,8 @@ const darkenOverlay = document.getElementById('darken');
 async function updateLoop(timestamp) {
 	const now = Date.now();
 	const inactivityMs = now - lastActivity;
+
+	if (started) focusUIOption(selectedOption);
 
 	if (inactivityMs > 60e3 * 1.5) {
 		ui.classList.add('inactive');
