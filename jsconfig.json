@@ -9,10 +9,9 @@
         "checkJs": false,
         "allowJs": true,
         "module": "commonjs",
-        "baseUrl": ".",
         "paths": {
             "*": [
-                "*"
+                "./**/*"
             ]
         }
     },

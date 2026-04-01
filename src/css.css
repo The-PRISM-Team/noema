@@ -26,6 +26,7 @@ body {
 	overflow: hidden;
 	transition: filter .5s ease;
 	user-select: none;
+	transform: rotate(180deg);
 }
 
 .spaghetti {
