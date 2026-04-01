@@ -26,7 +26,7 @@ function focusUIOption(id = selectedOption) {
 		const targetCenter = targetRect.left + targetRect.width / 2;
 		const desiredCenter = uiRect.left + uiRect.width / 2;
 
-		const delta = (desiredCenter - targetCenter) / 2;
+		const delta = desiredCenter - targetCenter;
 
 		optionDiv.style.left = `${optionDiv.offsetLeft + delta}px`;
 
