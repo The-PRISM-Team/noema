@@ -107,7 +107,7 @@
                         textInput.id = key;
                         textInput.style.width = '25vw';
                         textInput.style.height = '150px';
-                        
+
                         stringDiv.appendChild(textInput);
                     } else {
                         const textInput = document.createElement('input');
@@ -116,7 +116,7 @@
                         textInput.placeholder = localeBaseObj[key];
                         textInput.id = key;
                         textInput.size = '50';
-                        
+
                         stringDiv.appendChild(textInput);
                     }
                 break;
@@ -126,7 +126,7 @@
                     boolInput.type = 'checkbox';
                     boolInput.checked = value;
                     boolInput.id = key;
-                    
+
                     stringDiv.appendChild(boolInput);
                     break;
 
@@ -151,13 +151,13 @@
 
     // element interactions
     localeDropdown.addEventListener('change', async ()=>{
-        const selectedLocale = locales.find(v => 
+        const selectedLocale = locales.find(v =>
             v.code === document.getElementById('lang-select').value
         )?.code ?? 'unknown';
 
         const localeObject = await constructLocaleObj(selectedLocale);
         localeObject.lang = selectedLocale;
-        localeObject.langTitle = locales.find(v => 
+        localeObject.langTitle = locales.find(v =>
             v.code === document.getElementById('lang-select').value
         )?.native ?? 'unknown';
         const renderedLocaleObj = structuredClone(localeObject);

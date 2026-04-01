@@ -53,7 +53,7 @@ function setStatus(statusText, clearAfterMs = 3e3) {
 	statusElement.textContent = statusText;
 	statusElement.style.display = 'revert';
 	if (clearAfterMs === Infinity) return; // don't clear status
-	
+
 	// hide status
 	const timeout = setTimeout(() => {
 		clearTimeouts(); // just in case

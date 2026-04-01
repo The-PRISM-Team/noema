@@ -499,7 +499,7 @@ function initUI() {
 			},
 			'wrench'
 		);
-	
+
 		if (locale === localStorage.locale) {
 			selectedSuboptions[2] = i;
 		}

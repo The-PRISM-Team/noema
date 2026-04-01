@@ -10,7 +10,7 @@ globalThis.localesArray.push({
     "tasm.long": "تاب وقايمة الاختيار",
     "tasm.acro": "تاسم",
     "time.is24hr": true,
-    "time.format.date": "{dd}/{MM}/{yyyy}", 
+    "time.format.date": "{dd}/{MM}/{yyyy}",
     "time.format.dateshort": "{dd/{MM/{yy}",
     "time.format.timems": "{hh}:{mm}:{ss}.{ms}",
     "time.format.time": "{hh}:{mm}:{ss}",
