@@ -10,6 +10,13 @@
         "jsconfig.json",
         "vs.code-workspace"
     ],
+    ".github": {
+        "workflows": {
+            "files": [
+                "lint.yml"
+            ]
+        }
+    },
     "misc": {
         "files": [
             "filesystem.json"
