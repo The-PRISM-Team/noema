@@ -48,6 +48,15 @@
             "lint_src.js"
         ]
     },
+    "app": {
+        "api": {
+            "update-translation": {
+                "files": [
+                    "route.ts"
+                ]
+            }
+        }
+    },
     "src": {
         "files": [
             "css.css",
@@ -111,11 +120,29 @@
             }
         },
         "subpages": {
+            "files": [
+                "css.css",
+                "index.html"
+            ],
+            "translate": {
+                "files": [
+                    "css.css",
+                    "index.html",
+                    "js.js"
+                ]
+            },
             "convertsave": {
                 "files": [
                     "css.css",
                     "index.html",
-                    "main.js"
+                    "js.js"
+                ]
+            },
+            "template": {
+                "files": [
+                    "css.css",
+                    "index.html",
+                    "js.js"
                 ]
             }
         },
@@ -128,6 +155,7 @@
                 "error.js",
                 "game.js",
                 "info.js",
+                "lang.js",
                 "loadGame.js",
                 "power.js",
                 "preinit.js",
@@ -153,6 +181,21 @@
                     "version.js"
                 ]
             }
+        },
+        "locales": {
+            "files": [
+                "arEG.js",
+                "deDE.js",
+                "enUS.js",
+                "es.js",
+                "esVE.json",
+                "jaJP.js",
+                "locales.json",
+                "ptBR.js",
+                "translationBase.js",
+                "translationBase.json",
+                "\ud83d\ude00\ud83d\ude00.js"
+            ]
         }
     },
     "vscode-extension": {
