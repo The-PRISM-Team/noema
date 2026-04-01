@@ -15,14 +15,14 @@ async function transition() {
 
 function focusUIOption(id) {
 	const optionDiv = document.getElementById('ui-options');
+	const target = document.getElementById(`ui-option${id}`);
+	const targetRect = target.getBoundingClientRect();
 
-	requestAnimationFrame(() => {
+	const uiRect = document.getElementById('ui').getBoundingClientRect();
+
+    let lastLeft = parseInt(getComputedStyle(optionDiv).left);
+	const cb = () => {
 		// alignment
-		const target = document.getElementById(`ui-option${id}`);
-		const targetRect = target.getBoundingClientRect();
-
-		const uiRect = document.getElementById('ui').getBoundingClientRect();
-
 		const targetCenter = targetRect.left + targetRect.width / 2;
 		const desiredCenter = uiRect.left + uiRect.width / 2;
 
@@ -45,7 +45,13 @@ function focusUIOption(id) {
 			rightArrow.style.opacity = "100%";
 		else
 			rightArrow.style.opacity = "0%";
-	});
+
+        const curLeft = parseInt(getComputedStyle(optionDiv).left);
+        if (lastLeft === curLeft) return;
+        lastLeft = curLeft;
+        requestAnimationFrame(cb);
+	};
+	requestAnimationFrame(cb);
 }
 
 let selectedOption = 0,
@@ -112,6 +118,7 @@ function selectUIOption(id) {
 
 	selectedOption = id;
 	selectUISuboption(selectedSuboptions[id]);
+	focusUIOption(id);
 }
 function selectUISuboption(id) {
 	requestAnimationFrame(() => {

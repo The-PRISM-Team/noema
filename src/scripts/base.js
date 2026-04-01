@@ -316,10 +316,6 @@ async function updateLoop(timestamp) {
 		darkenOverlay.style.opacity = '90%';
 	}
 
-	if (started) {
-		focusUIOption(selectedOption);
-	}
-
 	if (battery?.level <= battery?.lowBatteryThresh && !batteryWarned) {
 		batteryWarned = true;
 		if (!battery.charging) {
