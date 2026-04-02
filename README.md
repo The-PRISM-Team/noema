@@ -20,9 +20,9 @@ Future releases will continue to follow the versioning rules laid out in [`/misc
 ## Quick Start
 
 ### Running Locally
-1. Clone this repository
-2. Open `/src/index.html` in a modern web browser
-3. The console will start automatically
+1. Click [this link](https://download-directory.github.io/?url=https://github.com/The-PRISM-Team/noema/tree/main/src) to download the source code
+2. Unzip the file
+3. Open `index.html`
 
 No installation, no build process, no npm packages needed. It just works.
 
@@ -93,7 +93,7 @@ No installation, no build process, no npm packages needed. It just works.
 
 #### Adding a Theme
 1. Add to `bgColors` object in [`/src/scripts/bg.js`](/src/scripts/bg.js):
-```javascript
+```json
 "mytheme": {
     "top": "#color1",
     "bottom": "#color2",
@@ -162,7 +162,6 @@ Current priorities (see [`/misc/markdowns/TODO.md`](/misc/markdowns/TODO.md) for
 - Dynamic local updates via GitHub integration
 
 **Future Considerations:**
-- PRISM-specific features (separate organization repository)
 - Expanded game library management
 - Multiplayer/networking features
 
@@ -172,7 +171,7 @@ Current priorities (see [`/misc/markdowns/TODO.md`](/misc/markdowns/TODO.md) for
 
 ### Version 0.16.0 Goals
 - Add basic NGP support (decompression, loading)
-- Implement local game storage (localStorage, web links)
+- Implement local game storage (`localStorage`, web links)
 - Create APIs for game-related functions
 - Build UI for game selection
 
@@ -183,7 +182,7 @@ Current priorities (see [`/misc/markdowns/TODO.md`](/misc/markdowns/TODO.md) for
 ### NGP Architecture Notes (Proposed)
 - Package format: ZIP-based
 - Structure: `/assets` for resources, `/scripts` for code
-- Entry point: `start.js` at package root
+- Entry point: `index.html` at package root (loaded via `<iframe>`)
 
 These are design notes from earlier discussions and may not reflect current implementation.
 
@@ -232,7 +231,7 @@ By contributing to this project, you agree that your contributions will be licen
 
 ## Acknowledgments
 
-Project Noema is developed by the PRISM team with contributions from the open-source community.
+Project Noema is developed by [the PRISM team](https://github.com/The-PRISM-Team) with [contributions from the open-source community](https://prism-hub.vercel.app/#credits).
 
 Special thanks to all contributors who have helped improve the project through code, documentation, bug reports, and feedback.
 

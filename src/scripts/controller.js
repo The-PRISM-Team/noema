@@ -1,8 +1,8 @@
 let controllerConnected = false;
 let lastInput = 'keyboard';
-gameControl.on('connect', (gamepad) => {
-	controllerConnected = true;
-	const mapping = {
+let gamepads = [];
+const controllerMaps = {
+	"ui": {
 		'button0': 'Enter',
 		'button1': 'Escape',
 		'button3': 'Shift',
@@ -16,8 +16,18 @@ gameControl.on('connect', (gamepad) => {
 		'down0': 'ArrowDown',
 		'button4': 'q',
 		'button5': 'e',
-	};
+	}
+}
+let currentControllerMapping = 'default';
+function changeControllerMapping(mapping) {
+	if (!(mapping in controllerMaps)) throw new Error(`The controller mapping "${mapping}" does not exist.`);
+
+}
+gameControl.on('connect', gamepad => {
+	gamepads = navigator.getGamepads().filter(g=>g);
+	controllerConnected = true;
 	const pressed = {};
+	const mapping = controllerMap[currentControllerMap];
 	JSON.iterate(mapping, (button, key)=>{
 		pressed[button] = false;
 		console.log(button);
@@ -25,7 +35,6 @@ gameControl.on('connect', (gamepad) => {
 		let lastRepeat = 0;
 		gamepad
 		.on(button, () => {
-			if (button === 'button3') return;
 			if (Date.now() - pressedOn < .5e3) return;
 			if (Date.now() - lastRepeat < 100) return;
 			lastRepeat = Date.now();
@@ -41,7 +50,6 @@ gameControl.on('connect', (gamepad) => {
 			console.log(button, 'pressed');
 			pressed[button] = true;
 
-			if (button === 'button3') return;
 			document.dispatchEvent(new KeyboardEvent('keydown', {
 				repeat: false,
 				shiftKey: pressed.button3,
@@ -55,7 +63,6 @@ gameControl.on('connect', (gamepad) => {
 			pressed[button] = false;
 			console.log(button, 'released');
 
-			if (button === 'button3') return;
 			document.dispatchEvent(new KeyboardEvent('keyup', {
 				key: key,
 				bubbles: true
@@ -65,5 +72,6 @@ gameControl.on('connect', (gamepad) => {
 	});
 });
 gameControl.on('disconnect', ()=>{
+	gamepads = navigator.getGamepads().filter(g=>g);
 	if (navigator.getGamepads().length < 1) controllerConnected = false;
 });
