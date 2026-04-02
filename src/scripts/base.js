@@ -244,13 +244,10 @@ const batteryDiv = document.getElementById('battery-div');
 const batteryBar = document.getElementById('battery-bar');
 const batteryText = document.getElementById('battery-text');
 async function updateBattery() {
-	if (navigator?.battery == null) {
-		battery = {};
-	}
+	battery = {};
 
 	if (!batteryInitialized) {
-		if (navigator?.battery != null) battery = await navigator.getBattery();
-		else battery = {};
+		if (navigator?.getBattery != null) battery = await navigator.getBattery();
 
 		battery.lowBatteryThresh = 0.25;
 		battery.addEventListener('chargingchange', function () {
