@@ -1,6 +1,6 @@
 let controllerConnected = false;
 let lastInput = 'keyboard';
-let gamepads = [];
+let connectedGamepads = [];
 const controllerMaps = {
 	"ui": {
 		'button0': 'Enter',
@@ -24,7 +24,7 @@ function changeControllerMapping(mapping) {
 
 }
 gameControl.on('connect', gamepad => {
-	gamepads = navigator.getGamepads().filter(g=>g);
+	connectedGamepads = navigator.getGamepads().filter(g=>g);
 	controllerConnected = true;
 	const pressed = {};
 	const mapping = controllerMap[currentControllerMap];
@@ -72,6 +72,6 @@ gameControl.on('connect', gamepad => {
 	});
 });
 gameControl.on('disconnect', ()=>{
-	gamepads = navigator.getGamepads().filter(g=>g);
+	connectedGamepads = navigator.getGamepads().filter(g=>g);
 	if (navigator.getGamepads().length < 1) controllerConnected = false;
 });

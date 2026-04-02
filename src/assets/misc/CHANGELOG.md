@@ -42,7 +42,6 @@
 
 
 ## UI Changes
-
 - Added `⋮ Fast Reboot` to the `⋮ Power` tab to skip startup animation once on the next boot
 
 - Added `⋮ Fast boot by default` to the `⋮ Preferences` tab so startup animation only plays on normal reboot
