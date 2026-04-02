@@ -1,11 +1,11 @@
 const version = {
 	major: 0,
-	minor: 1,
-	patch: 4,
+	minor: 16,
+	patch: 0,
 	more: 'open dev beta'.split(' ')
 };
 function formatVersion(versionObj = version, separator = '.', startChar = 'v', moreJoiner = '-') {
-	return `${startChar}${[versionObj.major, versionObj.minor.toString().padStart(2, '0'), versionObj.patch.toString().padStart(2, '0')].join(separator)}${versionObj.more ? `${moreJoiner}${versionObj.more.join(separator)}` : ""}`;
+	return `${startChar}${[versionObj.major, versionObj.minor, versionObj.patch].join(separator)}${versionObj.more ? `${moreJoiner}${versionObj.more.join(separator)}` : ""}`;
 }
 document.getElementById('version-number').textContent = formatVersion();
 
