@@ -3,6 +3,7 @@
 
 *(Note: minor internal changes, cleanups and insignificant details aren't (and won't be) included in changelogs.)*
 
+---
 
 *Symbols used:*
 ---
@@ -36,9 +37,12 @@
 
 
 # Milestone: Games!
+
 - todo!
 
+
 ## UI Changes
+
 - Added `⋮ Fast Reboot` to the `⋮ Power` tab to skip startup animation once on the next boot
 
 - Added `⋮ Fast boot by default` to the `⋮ Preferences` tab so startup animation only plays on normal reboot
@@ -86,6 +90,7 @@
 
 
 ## Bugfixes
+
 - Added click/enter fallbacks when startup or background audio autoplay is blocked by the browser
 
 - Fixed startup flow edge-cases around refresh/reboot state handling
