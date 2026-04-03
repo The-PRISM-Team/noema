@@ -18,10 +18,10 @@ const controllerMaps = {
 		'button5': 'e',
 	}
 }
-let currentControllerMapping = 'default';
+let currentControllerMapping = 'ui';
 function changeControllerMapping(mapping) {
 	if (!(mapping in controllerMaps)) throw new Error(`The controller mapping "${mapping}" does not exist.`);
-	
+
 }
 gameControl.on('connect', gamepad => {
 	connectedGamepads = navigator.getGamepads().filter(g=>g);
