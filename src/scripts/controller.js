@@ -21,13 +21,13 @@ const controllerMaps = {
 let currentControllerMapping = 'default';
 function changeControllerMapping(mapping) {
 	if (!(mapping in controllerMaps)) throw new Error(`The controller mapping "${mapping}" does not exist.`);
-
+	
 }
 gameControl.on('connect', gamepad => {
 	connectedGamepads = navigator.getGamepads().filter(g=>g);
 	controllerConnected = true;
 	const pressed = {};
-	const mapping = controllerMap[currentControllerMap];
+	const mapping = controllerMaps[currentControllerMap];
 	JSON.iterate(mapping, (button, key)=>{
 		pressed[button] = false;
 		console.log(button);
