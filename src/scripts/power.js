@@ -47,6 +47,8 @@ function test(mode = 0) {
 
 		if (errored) throw new Error('Test failed');
 		return 'Success!';
+	} else if (mode === 1) {
+		return 'Success!';
 	}
 }
 
