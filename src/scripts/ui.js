@@ -402,14 +402,14 @@ function initUI() {
 					if (formats.includes(content?.format)) {
 						if (content.format === 'NSF1.0') {
 							notify(
-								getLocaleStr('menu.pref.load.unsafe-save.title'),
-								getLocaleStr('menu.pref.load.unsafe-save.description'),
+								getLocaleStr('menu.preferences.load.unsafe.title'),
+								getLocaleStr('menu.preferences.load.unsafe.desc'),
 								'warning'
 							);
 							setTimeout(() => {
 								notify(
-									getLocaleStr('menu.pref.load.recover.title'),
-									getLocaleStr('menu.pref.load.recover.description')
+									getLocaleStr('menu.preferences.load.recover.title'),
+									getLocaleStr('menu.preferences.load.recover.desc')
 								);
 							}, 2.5e3);
 							return;
@@ -436,9 +436,9 @@ function initUI() {
 
 							localStorage.lastChangelogHash = '0';
 						}
-						notify(getLocaleStr('menu.pref.load.success.title'));
+						notify(getLocaleStr('menu.preferences.load.success.title'));
 						setTimeout(() => {
-							notify(getLocaleStr('menu.pref.load.reboot.title'), getLocaleStr('menu.pref.load.reboot.description'));
+							notify(getLocaleStr('menu.preferences.load.reboot.title'), getLocaleStr('menu.preferences.load.reboot.desc'));
 							setTimeout(() => {
 								fastReboot();
 							}, 3e3);

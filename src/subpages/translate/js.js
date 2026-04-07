@@ -160,7 +160,9 @@
         localeObject.langTitle = locales.find(v =>
             v.code === document.getElementById('lang-select').value
         )?.native ?? 'unknown';
-        const renderedLocaleObj = structuredClone(localeObject);
+
+        const reorder = (obj, keys) => return Object.fromEntries(keys.map(key => [key, obj[key]]));
+        const renderedLocaleObj = reorder(structuredClone(localeObject), constructLocaleObj('enUS'));
         delete renderedLocaleObj.lang;
         delete renderedLocaleObj.langTitle;
         renderStrings(renderedLocaleObj);
