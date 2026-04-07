@@ -70,6 +70,8 @@
   - Added `⋮ Language` tab
   - Added Right-to-Left UI support
 
+- Revamped subpages
+
 
 ## API Changes
 - Added `𝑓 startsWithAmount` and `𝑓 endsWithAmount` to `𝘰 String.prototype`
