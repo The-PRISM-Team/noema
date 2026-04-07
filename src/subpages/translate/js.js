@@ -187,6 +187,7 @@
                         progress[localeObject.lang][key] = numInput.value;
                         localStorage.savedProgress = JSON.stringify(progress);
                     });
+                    stringDiv.appendChild(numInput);
                     break;
 
                 // skip list
