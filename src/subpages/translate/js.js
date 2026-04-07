@@ -72,6 +72,7 @@
 
         return localeObject;
     }
+    globalThis.constructLocaleObj = constructLocaleObj;
 
     // elements
     const localeDropdown = document.getElementById('lang-select');
@@ -90,7 +91,7 @@
         localeDropdown.appendChild(option);
     }
 
-    function renderStrings(localeObject) {
+    async function renderStrings(localeObject) {
         translationDiv.style.display = 'none';
         stringDiv.innerHTML = '';
         for (const [key, value] of Object.entries(localeObject)) {
@@ -162,12 +163,13 @@
         )?.native ?? 'unknown';
 
         const reorder = (obj, keys) => Object.fromEntries(keys.map(key => [key, obj[key]]));
-        const renderedLocaleObj = reorder(structuredClone(localeObject), Object.keys(constructLocaleObj('enUS')));
+        const renderedLocaleObj = reorder(structuredClone(localeObject), Object.keys(await constructLocaleObj('enUS')));
         delete renderedLocaleObj.lang;
         delete renderedLocaleObj.langTitle;
         renderStrings(renderedLocaleObj);
 
         console.log('selected locale: ' + selectedLocale);
+        console.log(renderedLocaleObj);
     });
 
     function getTranslated() {
