@@ -161,7 +161,7 @@
             v.code === document.getElementById('lang-select').value
         )?.native ?? 'unknown';
 
-        const reorder = (obj, keys) => return Object.fromEntries(keys.map(key => [key, obj[key]]));
+        const reorder = (obj, keys) => Object.fromEntries(keys.map(key => [key, obj[key]]));
         const renderedLocaleObj = reorder(structuredClone(localeObject), constructLocaleObj('enUS'));
         delete renderedLocaleObj.lang;
         delete renderedLocaleObj.langTitle;
