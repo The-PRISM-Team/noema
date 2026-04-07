@@ -77,6 +77,7 @@
     // elements
     const localeDropdown = document.getElementById('lang-select');
     const translationDiv = document.getElementById('translation-div');
+    const eraseProgressBtn = document.getElementById('reset-all-progress');
     const stringDiv = document.getElementById('string-div');
     const exportBtn = document.getElementById('export-file');
 
@@ -91,10 +92,44 @@
         localeDropdown.appendChild(option);
     }
 
+    eraseProgressBtn.addEventListener('click', ()=>{
+        const accepted =
+            confirm('Are you sure you want to reset ALL your progress?\nThis action CANNOT be undone!!\n\nYour progress on EVERY translation will be deleted.')
+        
+        if (accepted) {
+            const isSure = confirm('Are you ABSOLUTELY sure?\nAfter you accept, there\'s no going back!');
+            if (isSure) {
+                localStorage.savedProgress = '{}'
+                location.reload();
+            };
+        };
+    })
+
     async function renderStrings(localeObject) {
         translationDiv.style.display = 'none';
         stringDiv.innerHTML = '';
+
+        const progress = JSON.parse(localStorage?.savedProgress ?? '{}');
+        if (progress?.[localeObject.lang] == null)
+            progress[localeObject.lang] = {};
+
+        const resetProgressBtn = document.createElement('button');
+        resetProgressBtn.textContent = 'Reset translation progress';
+        resetProgressBtn.addEventListener('click', ()=>{
+            const accepted =
+                confirm('Are you sure you want to reset your progress in this translation?\nThis action CANNOT be undone!!')
+            
+            if (accepted) {
+                progress[localeObject.lang] = {};
+                localStorage.savedProgress = JSON.stringify(progress);
+                renderStrings(localeObject);
+                return;
+            };
+        })
+        stringDiv.appendChild(resetProgressBtn);
+
         for (const [key, value] of Object.entries(localeObject)) {
+            if (key === 'lang' || key === 'langTitle') continue;
             const p = document.createElement('p');
             p.textContent = key;
             stringDiv.appendChild(p);
@@ -103,20 +138,28 @@
                 default: case 'string':
                     if (value.includes('\n')) {
                         const textInput = document.createElement('textarea');
-                        textInput.value = value;
+                        textInput.value = (progress?.[localeObject.lang] ?? {})?.[key] ?? value;
                         textInput.placeholder = localeBaseObj[key];
                         textInput.id = key;
                         textInput.style.width = '25vw';
                         textInput.style.height = '150px';
+                        textInput.addEventListener('input', ()=>{
+                            progress[localeObject.lang][key] = textInput.value;
+                            localStorage.savedProgress = JSON.stringify(progress);
+                        });
 
                         stringDiv.appendChild(textInput);
                     } else {
                         const textInput = document.createElement('input');
                         textInput.type = 'text';
-                        textInput.value = value;
+                        textInput.value = (progress?.[localeObject.lang] ?? {})?.[key] ?? value;
                         textInput.placeholder = localeBaseObj[key];
                         textInput.id = key;
                         textInput.size = '50';
+                        textInput.addEventListener('input', ()=>{
+                            progress[localeObject.lang][key] = textInput.value;
+                            localStorage.savedProgress = JSON.stringify(progress);
+                        });
 
                         stringDiv.appendChild(textInput);
                     }
@@ -125,8 +168,12 @@
                 case 'boolean':
                     const boolInput = document.createElement('input');
                     boolInput.type = 'checkbox';
-                    boolInput.checked = value;
+                    boolInput.checked = (progress?.[localeObject.lang] ?? {})?.[key] ?? value;
                     boolInput.id = key;
+                    boolInput.addEventListener('input', ()=>{
+                        progress[localeObject.lang][key] = boolInput.checked;
+                        localStorage.savedProgress = JSON.stringify(progress);
+                    });
 
                     stringDiv.appendChild(boolInput);
                     break;
@@ -134,14 +181,18 @@
                 case 'number':
                     const numInput = document.createElement('input');
                     numInput.type = 'number';
-                    numInput.value = value;
+                    numInput.value = (progress?.[localeObject.lang] ?? {})?.[key] ?? value;
                     numInput.placeholder = localeBaseObj[key];
+                    numInput.addEventListener('input', ()=>{
+                        progress[localeObject.lang][key] = numInput.value;
+                        localStorage.savedProgress = JSON.stringify(progress);
+                    });
                     break;
 
                 // skip list
                 case 'object': case 'undefined':
                     const a = document.createElement('a'); // inline
-                    a.textContent = '[unchangeable]';
+                    a.textContent = '[unchangeable/unhandled]';
                     stringDiv.appendChild(a);
                     break;
             }
@@ -164,8 +215,6 @@
 
         const reorder = (obj, keys) => Object.fromEntries(keys.map(key => [key, obj[key]]));
         const renderedLocaleObj = reorder(structuredClone(localeObject), Object.keys(await constructLocaleObj('enUS')));
-        delete renderedLocaleObj.lang;
-        delete renderedLocaleObj.langTitle;
         renderStrings(renderedLocaleObj);
 
         console.log('selected locale: ' + selectedLocale);
@@ -192,6 +241,7 @@
         translated.langTitle = locales.find(v => v.code === localeDropdown.value).native;
         return translated;
     }
+    globalThis.getTranslated = getTranslated;
     exportBtn.addEventListener('click', ()=>{
         const translated = getTranslated();
         const generatedFile = generateLocaleFile(translated);
@@ -200,7 +250,7 @@
 
     if (location.hash) {
         localeDropdown.value = location.hash.substring(1);
-        const change = new Event('change');
-        localeDropdown.dispatchEvent(change);
-    }
+        renderStrings(await constructLocaleObj(localeDropdown.value));
+    } else
+        localeDropdown.value = 'enUS';
 })();

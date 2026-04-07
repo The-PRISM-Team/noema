@@ -12,6 +12,7 @@ body {
     align-items: center;
     text-align: center;
     flex: 0 0 auto;
+    gap: 3px;
 
     /* style */
     background: linear-gradient(175deg, #113 0%, #313 100%);
@@ -47,4 +48,16 @@ a[href]:visited {
 }
 a[href]:visited:hover {
     color: #f9f
+}
+
+input[type='file'] {
+	background-color: #0006;
+	backdrop-filter: blur(2px) saturate(2) brightness(1.35) opacity(.75);
+	padding: 8px;
+	border-radius: 16px
+}
+
+
+textarea {
+    font-family: inherit;
 }

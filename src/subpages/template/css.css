@@ -12,7 +12,7 @@ body {
     align-items: center;
     text-align: center;
     flex: 0 0 auto;
-	overflow-x: hidden;
+    gap: 3px;
 
     /* style */
     background: linear-gradient(175deg, #113 0%, #313 100%);
@@ -21,7 +21,7 @@ body {
     accent-color: #84c;
 
     color: #fff;
-	font-size: 18px;
+    font-size: 18px;
     font-family:
         system-ui,
         -apple-system,
@@ -55,4 +55,9 @@ input[type='file'] {
 	backdrop-filter: blur(2px) saturate(2) brightness(1.35) opacity(.75);
 	padding: 8px;
 	border-radius: 16px
+}
+
+
+textarea {
+    font-family: inherit;
 }

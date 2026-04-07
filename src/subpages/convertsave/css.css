@@ -12,7 +12,7 @@ body {
     align-items: center;
     text-align: center;
     flex: 0 0 auto;
-	overflow-x: hidden;
+    gap: 3px;
 
     /* style */
     background: linear-gradient(175deg, #113 0%, #313 100%);
@@ -21,7 +21,7 @@ body {
     accent-color: #84c;
 
     color: #fff;
-	font-size: 18px;
+    font-size: 18px;
     font-family:
         system-ui,
         -apple-system,
@@ -57,19 +57,7 @@ input[type='file'] {
 	border-radius: 16px
 }
 
-.underline {
-	text-decoration: underline;
-	text-decoration-color: #fff;
-}
 
-#status {
-	background-color: #0006;
-	backdrop-filter: blur(2px) saturate(2) brightness(1.35) opacity(.75);
-	display: none;
-	position: fixed;
-    white-space: pre-wrap;
-	top: 0px;
-	left: 0px;
-	padding: 4px;
-	border-radius: 0px 0px 8px 0px;
+textarea {
+    font-family: inherit;
 }
