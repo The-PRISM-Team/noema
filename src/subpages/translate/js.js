@@ -162,7 +162,7 @@
         )?.native ?? 'unknown';
 
         const reorder = (obj, keys) => Object.fromEntries(keys.map(key => [key, obj[key]]));
-        const renderedLocaleObj = reorder(structuredClone(localeObject), constructLocaleObj('enUS'));
+        const renderedLocaleObj = reorder(structuredClone(localeObject), Object.keys(constructLocaleObj('enUS')));
         delete renderedLocaleObj.lang;
         delete renderedLocaleObj.langTitle;
         renderStrings(renderedLocaleObj);
