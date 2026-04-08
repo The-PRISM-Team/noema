@@ -136,7 +136,7 @@
 
             switch (typeof value) {
                 default: case 'string':
-                    if (value.includes('\n')) {
+                    if (((progress?.[localeObject.lang] ?? {})?.[key] ?? value).includes('\n')) {
                         const textInput = document.createElement('textarea');
                         textInput.value = (progress?.[localeObject.lang] ?? {})?.[key] ?? value;
                         textInput.placeholder = localeBaseObj[key];
@@ -236,7 +236,10 @@
                 .map(el => [el.id, el[valueProp]])
             );
 
-            for (const [key, value] of Object.entries(translatedSubset)) translated[key] = value;
+            for (const [key, value] of Object.entries(translatedSubset)) {
+                const newlineRegex = /(\\*)(\\n)/g;
+                translated[key] = value.replace(newlineRegex, (match, backslashes) => backslashes.length % 2 ? match : backslashes + '\n');
+            };
         }
         translated.lang = localeDropdown.value;
         translated.langTitle = locales.find(v => v.code === localeDropdown.value).native;
