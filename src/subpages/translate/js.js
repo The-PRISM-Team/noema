@@ -136,7 +136,7 @@
 
             switch (typeof value) {
                 default: case 'string':
-                    if (((progress?.[localeObject.lang] ?? {})?.[key] ?? value).includes('\n')) {
+                    if ((progress[localeObject.lang]?.[key] ?? value).includes('\n')) {
                         const textInput = document.createElement('textarea');
                         textInput.value = (progress?.[localeObject.lang] ?? {})?.[key] ?? value;
                         textInput.placeholder = localeBaseObj[key];
