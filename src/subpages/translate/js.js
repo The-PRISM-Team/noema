@@ -237,8 +237,15 @@
             );
 
             for (const [key, value] of Object.entries(translatedSubset)) {
-                const newlineRegex = /(\\*)(\\n)/g;
-                translated[key] = value.replace(newlineRegex, (match, backslashes) => backslashes.length % 2 ? match : backslashes + '\n');
+                if (typeof value === 'string') {
+                    const newlineRegex = /(\\*)(\\n)/g;
+                    translated[key] =
+                        value.replace(
+                            newlineRegex,
+                            (match, backslashes) =>
+                                backslashes.length % 2 ? match : backslashes + '\n'
+                        );
+                } else translated[key] = value;
             };
         }
         translated.lang = localeDropdown.value;
