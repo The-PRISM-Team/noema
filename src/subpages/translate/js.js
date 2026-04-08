@@ -26,7 +26,8 @@
             .replace(
                 /\/\*[\t ]*.*[\t ]*\*\//,
                 JSON.stringify(localeObject, null, 4)
-            );
+            )
+            .trim() + '\n';
 
         return {
             filename: localeObject.lang + '.js',
