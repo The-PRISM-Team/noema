@@ -14,9 +14,10 @@ async function loadScripts(cb = ()=>{}, cacheBusting = true) {
 
 	const scripts = [
 		// locale
-		{ src: './locales/en.js' },
 		{ src: './locales/arEG.js' },
 		{ src: './locales/deDE.js' },
+		{ src: './locales/en.js' },
+		{ src: './locales/enGB.js' },
 		{ src: './locales/es.js' },
 		{ src: './locales/jaJP.js' },
 		{ src: './locales/ptBR.js' },
