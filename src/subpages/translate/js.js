@@ -58,7 +58,7 @@
         const baseLocale =
             recursing
             ? localeBaseObj
-            : await constructLocaleObj('enUS', true);
+            : await constructLocaleObj('en', true);
 
         const localeObject = Object.fromEntries(localeKVs) ?? baseLocale;
         // recover missing values
@@ -215,7 +215,7 @@
         )?.native ?? 'unknown';
 
         const reorder = (obj, keys) => Object.fromEntries(keys.map(key => [key, obj[key]]));
-        const renderedLocaleObj = reorder(structuredClone(localeObject), Object.keys(await constructLocaleObj('enUS')));
+        const renderedLocaleObj = reorder(structuredClone(localeObject), Object.keys(await constructLocaleObj('en')));
         renderStrings(renderedLocaleObj);
 
         console.log('selected locale: ' + selectedLocale);
