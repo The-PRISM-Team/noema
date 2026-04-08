@@ -26,8 +26,8 @@ function getBCPType(bcpCode) {
 
 // locale utils
 const locales = Object.fromEntries(globalThis.localesArray.map(v => [v.lang, v]));
-const getLocaleStr = (key, fallbackLocale = 'enUS', fallbackStr) => locale[key] ?? locales[fallbackLocale]?.[key] ?? (fallbackStr || `Missing locale entry (k:${key};l:${localStorage.locale};f:${fallbackLocale})! This is a bug, please report it!`);
-const getLocaleTempStr = (key, fallbackLocale = 'enUS', vars = {}, fallbackStr) => {
+const getLocaleStr = (key, fallbackLocale = 'en', fallbackStr) => locale[key] ?? locales[fallbackLocale]?.[key] ?? (fallbackStr || `Missing locale entry (k:${key};l:${localStorage.locale};f:${fallbackLocale})! This is a bug, please report it!`);
+const getLocaleTempStr = (key, fallbackLocale = 'en', vars = {}, fallbackStr) => {
 	let str = getLocaleStr(key, fallbackLocale, fallbackStr);
 	Object.entries(vars).forEach(([name, value]) => {
 		str = str.replaceAll(`{${name}}`, value);
@@ -42,7 +42,7 @@ function getLocaleTimeStr(type) {
             am: getLocaleStr('time.format.am'),
             pm: getLocaleStr('time.format.pm'),
         });
-        return getLocaleTempStr(localeStr, 'enUS', {
+        return getLocaleTempStr(localeStr, 'en', {
             // date
             yy: date.year().toString().slice(-2),
             yyyy: date.year(),
@@ -73,6 +73,6 @@ if (!isDefined(localStorage.locale))
     localStorage.locale =
         Object.keys(locales).includes(shortenBCP(navigator.language))
         ? shortenBCP(navigator.language)
-        : 'enUS';
+        : 'en';
 
-let locale = locales[localStorage.locale] ?? locales['enUS'] ?? {};
+let locale = locales[localStorage.locale] ?? locales['en'] ?? {};

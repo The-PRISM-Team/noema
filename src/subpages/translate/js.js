@@ -45,7 +45,7 @@
             .then(async r => localeFile = await r.text())
             .catch(async ()=>{
                 localeFile = await(
-                    await fetch('https://prism-noema.vercel.app/locales/enUS.js')
+                    await fetch('https://prism-noema.vercel.app/locales/en.js')
                 ).text();
             });
 
@@ -263,5 +263,5 @@
         localeDropdown.value = location.hash.substring(1);
         renderStrings(await constructLocaleObj(localeDropdown.value));
     } else
-        localeDropdown.value = 'enUS';
+        localeDropdown.value = 'en';
 })();

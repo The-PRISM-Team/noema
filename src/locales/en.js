@@ -146,6 +146,6 @@ globalThis.localesArray.push({
     "startup.batteryTestFailed": "battery test failed!!\ncheck up on your battery health before using Noema.",
     "langIsRTL": false,
     "time.is24hr": false,
-    "lang": "enUS",
-    "langTitle": "English (United States)"
+    "lang": "en",
+    "langTitle": "English"
 });

@@ -88,7 +88,7 @@ window.addEventListener("error", (event) => {
 					let time = 5;
 					setInterval(() => {
 
-						warning.textContent = `${getLocaleTempStr('error.restartingIn', 'enUS', { time })}${('.').repeat(time)}`;
+						warning.textContent = `${getLocaleTempStr('error.restartingIn', 'en', { time })}${('.').repeat(time)}`;
 						if (time <= 0)
 							window.location.reload();
 						time--;
