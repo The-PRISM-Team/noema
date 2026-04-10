@@ -73,6 +73,8 @@
 
 - Optimized UI
 
+- Added haptic feedback to UI
+
 
 ## API Changes
 - Moved UI properties to `𝘰 selected` object

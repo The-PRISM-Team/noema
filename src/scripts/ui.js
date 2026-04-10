@@ -115,6 +115,7 @@ function selectUIOption(id) {
 	});
 
 	selected.option = id;
+	if (lastInput === 'gamepad') hapticFeedback(.25,45);
 	selectUISuboption(selected.suboptions[id]);
 }
 function selectUISuboption(id) {
@@ -141,6 +142,7 @@ function selectUISuboption(id) {
 					el.classList.remove('selected');
 			});
 		});
+		if (lastInput === 'gamepad') hapticFeedback(.25,45);
 	});
 }
 function executeUISuboption() {
@@ -152,6 +154,7 @@ function executeUISuboption() {
 			playSound(suboption.dataset.sound);
 		else
 			playSound('confirm');
+		if (lastInput === 'gamepad') hapticFeedback(1,50);
 	}
 }
 function forceUIOptionAlign(time = 1e3) {
@@ -1022,7 +1025,7 @@ function handleInput(event) {
 			}
 		});
 		document.activeElement.blur();
-		return;
+		if (lastInput === 'gamepad') hapticFeedback(.1,50);
 	}
 
 
