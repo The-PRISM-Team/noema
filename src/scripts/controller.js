@@ -48,7 +48,6 @@ gameControl.on('connect', gamepad => {
 		let pressedOn = 0;
 		let lastRepeat = 0;
 		pressed[button] = false;
-		console.log(button);
 		gamepad
 		.on(button, () => {
 			// repeat
