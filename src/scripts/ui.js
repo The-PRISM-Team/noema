@@ -266,12 +266,13 @@ function clearUI() {
 		delete uiSuboptionActions[key];
 	});
 }
-function initUI() {
+function initUI(resetState = true) {
 	if (getLocaleStr('langIsRTL')) document.documentElement.dir = 'rtl';
 	// else document.documentElement.dir = 'ltr'; // idk if i need to use this
 	clearUI();
+	let lastState = structuredClone(selected);
 
-	// innit misc UI locale
+	// init misc UI locale
 	document.title = getLocaleStr('pageTitle');
 	document.getElementById('bubble-credits').textContent = getLocaleStr('debug.credits');
 	document.getElementById('errors').textContent = `${getLocaleStr('debug.errors')} ${errors}`;
@@ -483,7 +484,7 @@ function initUI() {
 			async () => {
 				localStorage.locale = localeCode;
 				locale = locales[localStorage.locale] ?? locales['en'] ?? {};
-				initUI();
+				initUI(false);
 				resize();
 			},
 			'wrench'
@@ -639,7 +640,12 @@ function initUI() {
 		}, getLocaleStr('menu.debug.loadScript.promptTitle'));
 	}, 'star');
 
-	selectUIOption(1);
+	if (resetState) selectUIOption(1);
+	else {
+		selectUIOption(lastState.option);
+		selectUISuboption(lastState.suboption);
+		selected.suboptions = lastState.suboptions;
+	}
 }
 function getOptions() {
 	return document.querySelectorAll('.ui-option');
