@@ -360,6 +360,27 @@ function initUI(resetState = true) {
 		},
 		'wrench'
 	);
+	createSuboption(prefTab, getLocaleStr('menu.preferences.hapticFeedbackStrength.title'),
+		getLocaleStr('menu.preferences.hapticFeedbackStrength.desc'),
+		()=>{
+			inputDialog(
+				'Set haptic feedback strength',
+				`
+This applies to every game and UI function that uses the native haptic feedback API.
+Your controller will vibrate with full strength briefly to give you a sense of how strong the vibration is.
+`.trim(),
+				100,
+				0, 100,
+				1,
+				'{value}%',
+				value=>{
+					localStorage.hapticStrength = value / 100;
+					hapticFeedback(1*value/100,75)
+				}
+			);
+		},
+		'wrench'
+	);
 	createSuboption(prefTab, getLocaleStr('menu.preferences.toggleStartupAnimation.title'),
 		localStorage.startup === 'true' ? getLocaleStr('menu.preferences.toggleStartupAnimation.enabledDesc') : getLocaleStr('menu.preferences.toggleStartupAnimation.disabledDesc'),
 		() => {
@@ -1056,6 +1077,7 @@ function handleInput(event) {
 					document.activeElement.dispatchEvent(evtn);
 					const evtn2 = new Event('change', { bubbles: true });
 					document.activeElement.dispatchEvent(evtn2);
+					if (lastInput === 'controller') hapticFeedback(.05, 25);
 				}
 			}
 		}
@@ -1069,6 +1091,7 @@ function handleInput(event) {
 					document.activeElement.dispatchEvent(evtn);
 					const evtn2 = new Event('change', { bubbles: true });
 					document.activeElement.dispatchEvent(evtn2);
+					if (lastInput === 'controller') hapticFeedback(.05, 25);
 				}
 			}
 		}
@@ -1082,6 +1105,7 @@ function handleInput(event) {
 					document.activeElement.dispatchEvent(evtn);
 					const evtn2 = new Event('change', { bubbles: true });
 					document.activeElement.dispatchEvent(evtn2);
+					if (lastInput === 'controller') hapticFeedback(.05, 25);
 				}
 			}
 		}
@@ -1095,6 +1119,7 @@ function handleInput(event) {
 					document.activeElement.dispatchEvent(evtn);
 					const evtn2 = new Event('change', { bubbles: true });
 					document.activeElement.dispatchEvent(evtn2);
+					if (lastInput === 'controller') hapticFeedback(.05, 25);
 				}
 			}
 		}
@@ -1102,6 +1127,12 @@ function handleInput(event) {
 			if (document.activeElement.tagName === 'INPUT' && document.activeElement?.type === 'checkbox') {
 				event.preventDefault();
 				document.activeElement.checked = !document.activeElement.checked;
+				if (lastInput === 'controller')
+				if (document.activeElement.checked) {
+					hapticFeedback(.2, 40);
+				} else {
+					hapticFeedback(.1, 40);
+				}
 
 				const evtn = new Event('input', { bubbles: true });
 				document.activeElement.dispatchEvent(evtn);

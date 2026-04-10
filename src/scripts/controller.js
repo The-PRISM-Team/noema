@@ -80,14 +80,15 @@ gameControl.on('disconnect', ()=>{
 
 // APIs
 function hapticFeedback(strength = 1, duration = 100) {
+	let strengthModifier = parseFloat(localStorage.hapticStrength);
 	const gamepads = navigator.getGamepads();
 	for (let gp of gamepads) {
 		if (gp && gp.vibrationActuator) {
 			gp.vibrationActuator.playEffect('dual-rumble', {
 				startDelay: 0,
 				duration: duration,
-				weakMagnitude: strength,
-				strongMagnitude: strength
+				weakMagnitude: strength*strengthModifier,
+				strongMagnitude: strength*strengthModifier
 			});
 		}
 	}
