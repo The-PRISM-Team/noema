@@ -361,15 +361,14 @@ function initUI(resetState = true) {
 		'wrench'
 	);
 	createSuboption(prefTab, getLocaleStr('menu.preferences.hapticFeedbackStrength.title'),
-		getLocaleStr('menu.preferences.hapticFeedbackStrength.desc'),
+		getLocaleTempStr('menu.preferences.hapticFeedbackStrength.desc', 'en', {
+			value: decimalStrToPercentage(localStorage.hapticStrength)
+		}),
 		()=>{
 			inputDialog(
-				'Set haptic feedback strength',
-				`
-This applies to every game and UI function that uses the native haptic feedback API.
-Your controller will vibrate with full strength briefly to give you a sense of how strong the vibration is.
-`.trim(),
-				100,
+				getLocaleStr('menu.preferences.hapticFeedbackStrength.dialogTitle'),
+				getLocaleStr('menu.preferences.hapticFeedbackStrength.dialogSubtitle'),
+				parseFloat(localStorage.hapticStrength) * 100,
 				0, 100,
 				1,
 				'{value}%',
@@ -377,6 +376,14 @@ Your controller will vibrate with full strength briefly to give you a sense of h
 					localStorage.hapticStrength = value / 100;
 					hapticFeedback(1*value/100,75)
 				}
+			);
+			setSuboption(
+				selected.option,
+				selected.suboption,
+				getLocaleStr('menu.preferences.hapticFeedbackStrength.title'),
+				getLocaleTempStr('menu.preferences.hapticFeedbackStrength.desc', 'en', {
+					value: decimalStrToPercentage(localStorage.hapticStrength)
+				})
 			);
 		},
 		'wrench'
