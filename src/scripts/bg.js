@@ -36,7 +36,7 @@ if (!isDefined(localStorage.spaghettiDensity)) {
 }
 
 // spaghetti positioning
-let sP = Math.PI, // (p)hase
+let sP = 1e-4, // (p)hase
 	sV = sP, // (v)ertical displacement
 	sH = sP; // (h)orizontal displacement
 
