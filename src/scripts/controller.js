@@ -42,12 +42,12 @@ gameControl.on('connect', gamepad => {
 	connectedGamepads = navigator.getGamepads().filter(g=>g);
 	controllerConnected = true;
 	const pressed = {};
-	pressed[button] = false;
 	let pressedOn = 0;
 	let lastRepeat = 0;
 	for (let i = 0; i <= 16; i++) {
 		// register buttons
 		const button = 'button' + i;
+		pressed[button] = false;
 		gamepad
 		.on(button, () => {
 			// repeat
