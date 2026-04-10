@@ -481,26 +481,10 @@ function initUI() {
 			def.langTitle,
 			def['menu.lang.setLang.desc'].replace('{lang}', def.langTitle),
 			async () => {
-				localStorage.locale = locale;
-				notify(
-					getLocaleTempStr('error.restartingIn', 'en', {
-						time: '3...'
-					}, 'Restarting in 3...')
-				);
-				await delay(1e3);
-				notify(
-					getLocaleTempStr('error.restartingIn', 'en', {
-						time: '2...'
-					}, 'Restarting in 2...')
-				);
-				await delay(1e3);
-				notify(
-					getLocaleTempStr('error.restartingIn', 'en', {
-						time: '1...'
-					}, 'Restarting in 1...')
-				);
-				await delay(1e3);
-				fastReboot();
+				localStorage.locale = 'ptBR';
+				locale = locales[localStorage.locale] ?? locales['en'] ?? {};
+				initUI();
+				resize();
 			},
 			'wrench'
 		);
