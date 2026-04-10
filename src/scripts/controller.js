@@ -18,60 +18,80 @@ const controllerMaps = {
 		'down0': 'ArrowDown',
 		'button4': 'q',
 		'button5': 'e',
+	},
+	"default": {
+		'button0': ' ',
+		'button1': 'Escape',
+		'left0': 'ArrowLeft',
+		'right0': 'ArrowRight',
+		'up0': 'ArrowUp',
+		'down0': 'ArrowDown',
+		'button14': 'ArrowLeft',
+		'button15': 'ArrowRight',
+		'button12': 'ArrowUp',
+		'button13': 'ArrowDown'
 	}
 }
 let currentControllerMapping = 'ui';
 function changeControllerMapping(mapping) {
 	if (!(mapping in controllerMaps)) throw new Error(`The controller mapping "${mapping}" does not exist.`);
+	currentControllerMapping = mapping;
 }
 // input handling
 gameControl.on('connect', gamepad => {
 	connectedGamepads = navigator.getGamepads().filter(g=>g);
 	controllerConnected = true;
 	const pressed = {};
-	const mapping = controllerMaps[currentControllerMapping];
-	JSON.iterate(mapping, (button, key)=>{
-		pressed[button] = false;
-		console.log(button);
-		let pressedOn = 0;
-		let lastRepeat = 0;
+	pressed[button] = false;
+	let pressedOn = 0;
+	let lastRepeat = 0;
+	for (let i = 0; i <= 16; i++) {
+		// register buttons
+		const button = 'button' + i;
 		gamepad
 		.on(button, () => {
+			// repeat
 			if (Date.now() - pressedOn < .5e3) return;
 			if (Date.now() - lastRepeat < 100) return;
+			const mapping = controllerMaps[currentControllerMapping];
+			if (!mapping[button]) return;
 			lastRepeat = Date.now();
 			document.dispatchEvent(new KeyboardEvent('keydown', {
 				repeat: true,
 				shiftKey: pressed.button3,
-				key: key,
+				key: mapping[button],
 				bubbles: true
 			}));
 			lastInput = 'gamepad';
 		})
 		.before(button, () => {
-			console.log(button, 'pressed');
+			// pressed
+			const mapping = controllerMaps[currentControllerMapping];
+			if (!mapping[button]) return;
 			pressed[button] = true;
 
 			document.dispatchEvent(new KeyboardEvent('keydown', {
 				repeat: false,
 				shiftKey: pressed.button3,
-				key: key,
+				key: mapping[button],
 				bubbles: true
 			}));
 			lastInput = 'gamepad';
 			pressedOn = Date.now();
 		})
 		.after(button, () => {
+			// released
+			const mapping = controllerMaps[currentControllerMapping];
+			if (!mapping[button]) return;
 			pressed[button] = false;
-			console.log(button, 'released');
 
 			document.dispatchEvent(new KeyboardEvent('keyup', {
-				key: key,
+				key: mapping[button],
 				bubbles: true
 			}));
 			lastInput = 'gamepad';
 		});
-	});
+	}
 });
 gameControl.on('disconnect', ()=>{
 	connectedGamepads = navigator.getGamepads().filter(g=>g);
