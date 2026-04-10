@@ -11,14 +11,6 @@ Tasks are listed in priority order (highest priority first).
 
 ## In Progress
 
-### Game Loading System
-- Basic loader implemented in [`/src/scripts/loadGame.js`](/src/scripts/loadGame.js)
-- Needs improvements:
-  - Better sandboxing for security
-  - NGP format decompression
-  - Error handling and fallbacks
-  - Loading progress indicators
-
 ### Performance Optimization
 - Profile application to find bottlenecks
 - Optimize spaghetti wave rendering
@@ -27,6 +19,14 @@ Tasks are listed in priority order (highest priority first).
 - Investigate frame drops on lower-end devices
 
 ## High Priority
+
+### Game Loading System
+- Basic loader implemented in [`/src/scripts/loadGame.js`](/src/scripts/loadGame.js)
+- Needs improvements:
+  - Better sandboxing for security
+  - NGP format decompression
+  - Error handling and fallbacks
+  - Loading progress indicators
 
 ### User Profiles
 - Save/load user profile system
