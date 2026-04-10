@@ -494,6 +494,7 @@ function initUI(resetState = true) {
 			async () => {
 				localStorage.locale = localeCode;
 				locale = locales[localStorage.locale] ?? locales['en'] ?? {};
+				explodeSpaghetti();
 				initUI(false);
 				resize();
 			},
