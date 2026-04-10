@@ -71,6 +71,8 @@
 
 - Revamped subpages
 
+- Optimized UI
+
 
 ## API Changes
 - Moved UI properties to `𝘰 selected` object
