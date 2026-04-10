@@ -6,7 +6,7 @@ const sounds =
 		'notif.flac',
 		'power.flac',
 		'select.flac',
-		'../fatal-error.flac', // this path is valid btw
+		'../fatal-error.flac', // relative paths are allowed
 		'../coldboot.flac',
 		'../menu_music.flac'
 	];
