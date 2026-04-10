@@ -87,6 +87,9 @@ function animSpaghetti() {
 	sH += .025 * 60/avgfps;
 	requestAnimationFrame(animSpaghetti);
 }
+function explodeSpaghetti() {
+	sP = 1e-4;
+}
 
 // background gradient
 const bgColors = {

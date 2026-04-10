@@ -90,7 +90,9 @@
 
 - Renamed `𝑓 drawSpaghetti` to `𝑓 animSpaghetti`
 
-- Added `𝑓 drawSpaghettiFrame` API
+- Added `𝑓 drawSpaghettiFrame` function
+
+- Added `𝑓 explodeSpaghetti` function
 
 
 ## Bugfixes
