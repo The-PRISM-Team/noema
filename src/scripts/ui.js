@@ -269,8 +269,8 @@ function clearUI() {
 function initUI(resetState = true) {
 	if (getLocaleStr('langIsRTL')) document.documentElement.dir = 'rtl';
 	// else document.documentElement.dir = 'ltr'; // idk if i need to use this
-	clearUI();
 	let lastState = structuredClone(selected);
+	clearUI();
 
 	// init misc UI locale
 	document.title = getLocaleStr('pageTitle');
