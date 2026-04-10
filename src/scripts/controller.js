@@ -52,7 +52,6 @@ gameControl.on('connect', gamepad => {
 		gamepad
 		.on(button, () => {
 			// repeat
-			console.log(button, 'repeat')
 			if (Date.now() - pressedOn < .5e3) return;
 			if (Date.now() - lastRepeat < 100) return;
 			const mapping = controllerMaps[currentControllerMapping];
@@ -68,7 +67,6 @@ gameControl.on('connect', gamepad => {
 		})
 		.before(button, () => {
 			// pressed
-			console.log(button, 'pressed')
 			const mapping = controllerMaps[currentControllerMapping];
 			if (!mapping[button]) return;
 			pressed[button] = true;
@@ -84,7 +82,6 @@ gameControl.on('connect', gamepad => {
 		})
 		.after(button, () => {
 			// released
-			console.log(button, 'released')
 			const mapping = controllerMaps[currentControllerMapping];
 			if (!mapping[button]) return;
 			pressed[button] = false;
