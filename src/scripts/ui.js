@@ -1076,7 +1076,7 @@ function handleInput(event) {
 	if (outOfMenu) {
 		if ((
 			(key === 'a' && document.documentElement.dir === 'ltr') ||
-			(key === 'd' && document.documentElement.dir === 'rtl')
+			(key === 'd' && document.documentElement.dir === 'rtl') ||
 			(key === 'arrowleft' && document.documentElement.dir === 'ltr') ||
 			(key === 'arrowright' && document.documentElement.dir === 'rtl')
 		) && !keyup) {
@@ -1095,7 +1095,7 @@ function handleInput(event) {
 		}
 		if ((
 			(key === 'd' && document.documentElement.dir === 'ltr') ||
-			(key === 'a' && document.documentElement.dir === 'rtl')
+			(key === 'a' && document.documentElement.dir === 'rtl') ||
 			(key === 'arrowright' && document.documentElement.dir === 'ltr') ||
 			(key === 'arrowleft' && document.documentElement.dir === 'rtl')
 		) && !keyup) {
