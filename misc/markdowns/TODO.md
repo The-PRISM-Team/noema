@@ -91,6 +91,7 @@ Tasks are listed in priority order (highest priority first).
 - High contrast modes
 - Keyboard-only navigation improvements
 - Customizable controls
+- Mouse controls
 
 ## Notes
 
