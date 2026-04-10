@@ -103,6 +103,10 @@ function resize() {
 	canvas.width = innerWidth;
 	canvas.height = innerHeight;
 	drawSpaghettiFrame();
+	let startAlign = Date.now();
+	do {
+		focusUIOption();
+	} while (Date.now() - startAlign <= 1.5e3);
 }
 
 window.addEventListener("resize", resize);
@@ -298,12 +302,10 @@ async function updateLoop(timestamp) {
 	const now = Date.now();
 	const inactivityMs = now - lastActivity;
 
-	if (started) focusUIOption(selectedOption);
-
 	if (inactivityMs > 60e3 * 1.5) {
 		ui.classList.add('inactive');
 	} else {
-		const suboptions = document.getElementById(`ui-content${selectedOption}`).querySelectorAll('.ui-suboption');
+		const suboptions = document.getElementById(`ui-content${selected.option}`).querySelectorAll('.ui-suboption');
 		if (inactivityMs > 9e3) {
 			suboptions.forEach(suboption => {
 				suboption.classList.add('inactive');
