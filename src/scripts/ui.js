@@ -1074,7 +1074,12 @@ function handleInput(event) {
 		.some(dialog => window.getComputedStyle(dialog).opacity !== '0');
 
 	if (outOfMenu) {
-		if ((key === 'a' || key === 'arrowleft') && !keyup) {
+		if ((
+			(key === 'a' && document.documentElement.dir === 'ltr') ||
+			(key === 'd' && document.documentElement.dir === 'rtl')
+			(key === 'arrowleft' && document.documentElement.dir === 'ltr') ||
+			(key === 'arrowright' && document.documentElement.dir === 'rtl')
+		) && !keyup) {
 			if (document.activeElement.tagName === 'INPUT' && document.activeElement?.type === 'range') {
 				event.preventDefault();
 				if (parseFloat(document.activeElement.value) > parseFloat(document.activeElement.min)) {
@@ -1088,7 +1093,12 @@ function handleInput(event) {
 				}
 			}
 		}
-		if ((key === 'd' || key === 'arrowright') && !keyup) {
+		if ((
+			(key === 'd' && document.documentElement.dir === 'ltr') ||
+			(key === 'a' && document.documentElement.dir === 'rtl')
+			(key === 'arrowright' && document.documentElement.dir === 'ltr') ||
+			(key === 'arrowleft' && document.documentElement.dir === 'rtl')
+		) && !keyup) {
 			if (document.activeElement.tagName === 'INPUT' && document.activeElement?.type === 'range') {
 				event.preventDefault();
 				if (parseFloat(document.activeElement.value) < parseFloat(document.activeElement.max)) {
@@ -1116,7 +1126,7 @@ function handleInput(event) {
 				}
 			}
 		}
-		if ((key === 'a' || key === 'arrowleft') && !keyup) {
+		if ((key === 's' || key === 'arrowdown') && !keyup) {
 			if (document.activeElement.tagName === 'INPUT' && document.activeElement?.type === 'number') {
 				event.preventDefault();
 				if (parseFloat(document.activeElement.value) > parseFloat(document.activeElement.min)) {
