@@ -54,7 +54,7 @@ window.addEventListener("error", (event) => {
 				const warning = document.createElement('a');
 				warning.style.cssText = `
 					z-index: calc(infinity);
-					opacity: 0%;
+					opacity: 100%;
 
 					display: flex;
 					width: 100vw;
