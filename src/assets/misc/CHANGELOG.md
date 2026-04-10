@@ -37,7 +37,6 @@
 
 
 # Milestone: Games!
-
 - todo!
 
 
@@ -64,7 +63,7 @@
 
 - Changelog is now hash-based, meaning that if the changelog updates without a version number change, the changelog now appears
 
-- Remapped Ctrl and Alt to Q and E, respectively, due to input conflicts
+- Remapped Ctrl and Alt to Q and E respectively, due to input conflicts
 
 - Added UI localization
   - Added `⋮ Language` tab
@@ -74,6 +73,8 @@
 
 
 ## API Changes
+- Moved UI properties to `𝘰 selected` object
+
 - Added `𝑓 startsWithAmount` and `𝑓 endsWithAmount` to `𝘰 String.prototype`
 
 - Added `𝑓 last` to `𝘰 HTMLCollection.prototype` and `𝘰 String.prototype`
@@ -91,7 +92,6 @@
 
 
 ## Bugfixes
-
 - Added click/enter fallbacks when startup or background audio autoplay is blocked by the browser
 
 - Fixed startup flow edge-cases around refresh/reboot state handling
