@@ -103,7 +103,6 @@ function resize() {
 	canvas.width = innerWidth;
 	canvas.height = innerHeight;
 	drawSpaghettiFrame();
-	let startAlign = Date.now();
 	forceUIOptionAlign();
 }
 
