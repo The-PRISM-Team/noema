@@ -476,12 +476,12 @@ function initUI() {
 	);
 
 	// language
-	for (const [i, [locale, def]] of Object.entries(locales).entries()) {
+	for (const [i, [localeCode, def]] of Object.entries(locales).entries()) {
 		createSuboption(langTab,
 			def.langTitle,
 			def['menu.lang.setLang.desc'].replace('{lang}', def.langTitle),
 			async () => {
-				localStorage.locale = 'ptBR';
+				localStorage.locale = localeCode;
 				locale = locales[localStorage.locale] ?? locales['en'] ?? {};
 				initUI();
 				resize();
@@ -489,8 +489,8 @@ function initUI() {
 			'wrench'
 		);
 
-		if (locale === localStorage.locale) {
-			selected.suboptions[2] = i;
+		if (localeCode === localStorage.locale) {
+			selectUISuboption(i);
 		}
 	}
 
