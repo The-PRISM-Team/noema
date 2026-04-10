@@ -1,6 +1,8 @@
+// helpers
 let controllerConnected = false;
 let lastInput = 'keyboard';
 let connectedGamepads = [];
+// controller maps
 const controllerMaps = {
 	"ui": {
 		'button0': 'Enter',
@@ -21,13 +23,13 @@ const controllerMaps = {
 let currentControllerMapping = 'ui';
 function changeControllerMapping(mapping) {
 	if (!(mapping in controllerMaps)) throw new Error(`The controller mapping "${mapping}" does not exist.`);
-
 }
+// input handling
 gameControl.on('connect', gamepad => {
 	connectedGamepads = navigator.getGamepads().filter(g=>g);
 	controllerConnected = true;
 	const pressed = {};
-	const mapping = controllerMaps[currentControllerMap];
+	const mapping = controllerMaps[currentControllerMapping];
 	JSON.iterate(mapping, (button, key)=>{
 		pressed[button] = false;
 		console.log(button);
@@ -75,3 +77,18 @@ gameControl.on('disconnect', ()=>{
 	connectedGamepads = navigator.getGamepads().filter(g=>g);
 	if (navigator.getGamepads().length < 1) controllerConnected = false;
 });
+
+// APIs
+function hapticFeedback(strength = 1, duration = 100) {
+	const gamepads = navigator.getGamepads();
+	for (let gp of gamepads) {
+		if (gp && gp.vibrationActuator) {
+			gp.vibrationActuator.playEffect('dual-rumble', {
+				startDelay: 0,
+				duration: duration,
+				weakMagnitude: strength,
+				strongMagnitude: strength
+			});
+		}
+	}
+}

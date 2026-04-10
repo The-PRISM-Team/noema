@@ -94,6 +94,8 @@
 
 - Added `𝑓 explodeSpaghetti` function
 
+- Added `𝑓 hapticFeedback` API
+
 
 ## Bugfixes
 - Added click/enter fallbacks when startup or background audio autoplay is blocked by the browser
