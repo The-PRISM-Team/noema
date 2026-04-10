@@ -106,10 +106,11 @@ function resize() {
 	let startAlign = Date.now();
 	let alignThresh = 1.5e3;
 	const cb = ()=>{
-		if (Date.now() - startAlign <= alignThresh) return;
+		if (Date.now() - startAlign >= alignThresh) return;
 		focusUIOption(selected.option);
 		requestAnimationFrame(cb);
 	}
+	cb();
 }
 
 window.addEventListener("resize", resize);
