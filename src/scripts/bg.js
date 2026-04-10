@@ -1,11 +1,6 @@
 const canvas = document.getElementById("bg");
 const ctx = canvas.getContext("2d");
 
-// spaghetti values
-let t = Math.PI, // spaghetti phase
-	t2 = t, // spaghetti up/down shift
-	t3 = t; // spaghetti left/right shift
-
 const densities = {
 	none: {
 		value: 0,
@@ -28,7 +23,6 @@ const densities = {
 		memFunc: (mem) => mem >= 24
 	}
 }
-// const densityArray = Object.entries(densities).map(v => v[1].value);
 
 if (!isDefined(localStorage.spaghettiDensity)) {
 	const mem = navigator.deviceMemory;
@@ -40,6 +34,11 @@ if (!isDefined(localStorage.spaghettiDensity)) {
 		}
 	}
 }
+
+// spaghetti values
+let t = Math.PI, // phase
+	t2 = t, // vertical displacement
+	t3 = t; // horizontal displacement
 
 let density = parseInt(localStorage.spaghettiDensity); // how many sines are drawn
 let spaghettiColor = "#0000";
