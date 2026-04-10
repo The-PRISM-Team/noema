@@ -44,9 +44,9 @@ let density = parseInt(localStorage.spaghettiDensity); // how many sines are dra
 let spaghettiColor = "#0000";
 let calcY = function (x, canvasHeight, wave) {
 	return canvasHeight / 2 - wave +
-		Math.sin(x / 200 + t + wave / (density * t) + ((Math.cos(t) + -Math.cos(sH))) * .75) * 40 +
-		Math.cos(wave + t) * 40
-		+ (Math.cos(t) + -Math.cos(sV)) * 30;
+		Math.sin(x / 200 + sP + wave / (density * sP) + ((Math.cos(sP) + -Math.cos(sH))) * .75) * 40 +
+		Math.cos(wave + sP) * 40
+		+ (Math.cos(sP) + -Math.cos(sV)) * 30;
 };
 function drawSpaghettiFrame() {
 	ctx.clearRect(0, 0, canvas.width, canvas.height);
