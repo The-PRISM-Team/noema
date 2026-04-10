@@ -154,9 +154,9 @@ function executeUISuboption() {
 			playSound('confirm');
 	}
 }
-function forceUIOptionAlign(time = 1.5e3) {
+function forceUIOptionAlign(time = 1e3) {
 	let startAlign = Date.now();
-	let alignThresh = 1.5e3;
+	let alignThresh = time;
 	const cb = ()=>{
 		if (Date.now() - startAlign >= alignThresh) return;
 		focusUIOption(selected.option);
@@ -958,7 +958,7 @@ function handleInput(event) {
 		if (selected.option <= 0) {
 			if (event.repeat) return;
 			selected.option = optionCount - 1;
-			forceUIOptionAlign();
+			forceUIOptionAlign(.25e3);
 		}
 		else
 			selected.option--;
@@ -971,7 +971,7 @@ function handleInput(event) {
 		if (selected.option >= optionCount - 1) {
 			if (event.repeat) return;
 			selected.option = 0;
-			forceUIOptionAlign();
+			forceUIOptionAlign(.25e3);
 		}
 		else
 			selected.option++;
