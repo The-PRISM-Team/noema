@@ -641,8 +641,7 @@ function initUI(resetState = true) {
 
 		const newWindow = window.open(
 			'./subpages/convertsave/index.html',
-			'convert',
-			`width=${width},height=${height},left=${left},top=${top}`
+			'convert'
 		);
 
 		if (isDefined(newWindow.focus)) newWindow.focus();
