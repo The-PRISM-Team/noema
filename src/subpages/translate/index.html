@@ -5,7 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Translate Project Noema</title>
     <link rel="stylesheet" href="./css.css">
-	<script>if (!location.href.endsWith('/') && !location.hash && location.origin !== 'file://') location.href += '/';</script>
+	<script>
+	if (!location.href.endsWith('/') && !location.hash && location.origin !== 'file://') location.href += '/';
+	else if (location.pathname.endsWith('/index.html/')) location.href = /(.+)\/index\.html\/?/.exec(location.href)[1]; 
+	</script>
 </head>
 <body>
 	<a href="/">← Back to Noema</a>
