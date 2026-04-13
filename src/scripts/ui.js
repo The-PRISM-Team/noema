@@ -791,20 +791,17 @@ function bandDialog(title = '', subtitle = '', setupFunc, confirmFunc, usesEnter
 				}
 			});
 		}
-		if ((key === 'enter' || (key === 'space' && !hasInput)) && usesEnterKey) {
+		if ((key === 'enter' || (key === ' ' && !hasInput)) && usesEnterKey) {
 			if (usesEnterKey) {
 				confirmFunc();
 				playSound('confirm');
 			}
-			blur();
-			document.getElementById('custom-dialog').style.opacity = '0';
-			document.removeEventListener('keyup', handler);
 		} else if (key === 'escape') {
 			playSound('back');
-			blur();
-			document.getElementById('custom-dialog').style.opacity = '0';
-			document.removeEventListener('keyup', handler);
 		}
+		blur();
+		document.getElementById('custom-dialog').style.opacity = '0';
+		document.removeEventListener('keyup', handler);
 	};
 	document.getElementById('custom-dialog').style.opacity = '100%';
 	document.addEventListener('keyup', handler);
