@@ -533,7 +533,7 @@ function initUI(resetState = true) {
 		);
 
 		if (localeCode === localStorage.locale) {
-			selectUISuboption(i);
+			selected.suboptions[langTab] = i;
 		}
 	}
 
