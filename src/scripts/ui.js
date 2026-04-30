@@ -796,11 +796,10 @@ function bandDialog(title = '', subtitle = '', setupFunc, confirmFunc, usesEnter
 				confirmFunc();
 				playSound('confirm');
 			}
-			blur();
 		} else if (key === 'escape') {
 			playSound('back');
-			blur();
-		}
+		} else return;
+		blur();
 		document.getElementById('custom-dialog').style.opacity = '0';
 		document.removeEventListener('keyup', handler);
 	};
