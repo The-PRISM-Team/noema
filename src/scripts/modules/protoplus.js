@@ -569,5 +569,6 @@ const protoplus = {
 }
 
 globalThis.protoplus = protoplus;
+protoplus.expand();
 
 console.log(`proto+ v${protoplus.version} loaded!`);
