@@ -61,8 +61,12 @@ window.addEventListener('load', async () => {
 	console.log(`Resources loaded in ${(performance.now() - dependStart).toFixed(2)}ms.`);
 	document.getElementById('loading-progress').style.width = '50%';
 
+	// expand prototypes
+	console.log('Expanding prototypes...');
+	protoplus.expand();
+
 	// load sounds
-	console.log('Loading sounds...')
+	console.log('Loading sounds...');
 	document.getElementById('clicktostart').textContent = getLocaleStr('startup.loadingSounds', 'en', 'loading sounds, please wait');
 
 	soundStart = performance.now();
