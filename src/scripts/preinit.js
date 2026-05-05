@@ -116,7 +116,7 @@ window.addEventListener('load', async () => {
 	Object.defineProperty(globalThis, "commitId", {
 		value: (
 			await fetchJson('https://api.github.com/repos/The-PRISM-Team/noema/commits?per_page=1&sha=main')
-		)[0].sha,
+		)[0]?.sha,
 		writable: false,
 		configurable: false,
 	});
