@@ -34,8 +34,8 @@ window.addEventListener("error", (event) => {
 			return;
 		}
 		isFatalErroring = true;
-		const errorSound = new Audio(new URL('./assets/sounds/menu/fatal-error.flac', location.href).href);
-		const errorSound2 = new Audio(new URL('./assets/sounds/menu/fatal-error.flac', location.href).href);
+		const errorSound = new Audio(new URL('./assets/sounds/menu/fatal-error.mp3', location.href).href);
+		const errorSound2 = new Audio(new URL('./assets/sounds/menu/fatal-error.mp3', location.href).href);
 		errorSound.preload = true;
 		errorSound2.preload = true;
 		let bgint1 =
@@ -109,7 +109,7 @@ window.addEventListener("error", (event) => {
 			},1e3);
 		},2e3);
 	} else {
-		new Audio(new URL('./assets/sounds/menu/error.flac', location.href).href).play();
+		new Audio(new URL('./assets/sounds/menu/error.mp3', location.href).href).play();
 	}
 	if (started) errors++;
 	document.getElementById('errors').style.transition = '';

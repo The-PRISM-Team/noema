@@ -1,14 +1,14 @@
 const sounds =
 	[
-		'back.flac',
-		'confirm.flac',
-		'error.flac',
-		'notif.flac',
-		'power.flac',
-		'select.flac',
-		'../fatal-error.flac', // relative paths are allowed
-		'../coldboot.flac',
-		'../menu_music.flac'
+		'back.mp3',
+		'confirm.mp3',
+		'error.mp3',
+		'notif.mp3',
+		'power.mp3',
+		'select.mp3',
+		'../fatal-error.mp3', // relative paths are allowed
+		'../coldboot.mp3',
+		'../menu_music.mp3'
 	];
 const soundIndexByName = {};
 for (let i = 0; i < sounds.length; i++) {
@@ -20,16 +20,14 @@ for (let i = 0; i < sounds.length; i++) {
 let masterVolume = 1;
 function setMasterVolume(volume = 1) {
 	const parsedVolume = parseFloat(volume);
-	if (isNaN(parsedVolume)) {
+	if (isNaN(parsedVolume))
 		throw new TypeError('Master volume must be a valid number.');
-	}
 
 	masterVolume = parsedVolume.clamp(0, 1);
 	localStorage.masterVolume = masterVolume.toString();
 
-	if (isDefined(bgMusic)) {
+	if (isDefined(bgMusic))
 		bgMusic.volume = parseFloat(localStorage.musicVolume).clamp(0, 1) * masterVolume;
-	}
 
 	return masterVolume;
 }
