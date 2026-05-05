@@ -1,5 +1,6 @@
 let errors = 0;
 const errorList = [];
+let isFatalErroring = false;
 window.addEventListener("error", (event) => {
 	if (event.target && event.target.tagName === "SCRIPT") {
 		errorList.push(`Failed to load script: ${event.target.src}`);
@@ -23,6 +24,16 @@ window.addEventListener("error", (event) => {
 		}
 	});
 	if (!started) {
+		if (isFatalErroring) {
+			const warning = document.getElementById('fatal-error-content');
+			if (errorList.length > 0) {
+				warning.textContent = `${getLocaleStr('error.listTitle')}\n${errorList.join('\n')}`;
+			} else {
+				warning.textContent = `${getLocaleStr('error.listTitle')}\n${getLocaleStr('error.unknown')}`;
+			}
+			return;
+		}
+		isFatalErroring = true;
 		const errorSound = new Audio(new URL('./assets/sounds/menu/fatal-error.flac', location.href).href);
 		const errorSound2 = new Audio(new URL('./assets/sounds/menu/fatal-error.flac', location.href).href);
 		errorSound.preload = true;
@@ -52,6 +63,7 @@ window.addEventListener("error", (event) => {
 			setTimeout(() => {
 				document.body.style.background = "#800";
 				const warning = document.createElement('a');
+				warning.id = 'fatal-error-content';
 				warning.style.cssText = `
 					z-index: calc(infinity);
 					opacity: 100%;
