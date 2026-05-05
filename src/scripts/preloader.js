@@ -114,6 +114,7 @@ async function loadScripts(cb = ()=>{}, cacheBusting = true) {
 				resolve();
 			};
 			script.onerror = reject;
+			script.crossorigin = 'anonymous'; // i hate CORS
 			for (let [property, value] of Object.entries(scriptObj)) {
 				if (cacheBusting && property === 'src') {
 					const src = new URL(getAbsPath(value));

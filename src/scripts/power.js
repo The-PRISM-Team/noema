@@ -92,18 +92,7 @@ function startup() {
 
 			const continueBoot = () => {
 				document.onclick = document.onkeydown = null;
-				try {
-					init();
-				} catch (err) {
-					const inspect = document.createElement('p');
-					inspect.style.cssText = `
-						position: fixed;
-						top: 0;
-						left: 0;
-					`;
-					inspect.textContent = err.message;
-					document.body.appendChild(inspect);
-				}
+				init();
 				setCursor('none');
 			};
 			document.onclick = continueBoot;
