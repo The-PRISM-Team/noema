@@ -50,6 +50,10 @@ document.addEventListener('DOMContentLoaded', async () => {
 
 	console.log(`Scripts loaded in ${(performance.now() - scriptStart).toFixed(2)}ms.`);
 
+	// expand prototypes
+	console.log('Expanding prototypes...');
+	protoplus.expand();
+
 	// load resources
 	dependStart = performance.now();
 	console.log('Loading resources...');
@@ -60,10 +64,6 @@ document.addEventListener('DOMContentLoaded', async () => {
 window.addEventListener('load', async () => {
 	console.log(`Resources loaded in ${(performance.now() - dependStart).toFixed(2)}ms.`);
 	document.getElementById('loading-progress').style.width = '50%';
-
-	// expand prototypes
-	console.log('Expanding prototypes...');
-	protoplus.expand();
 
 	// load sounds
 	console.log('Loading sounds...');
