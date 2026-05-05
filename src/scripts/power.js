@@ -88,12 +88,23 @@ function startup() {
 			const clickToStart = document.getElementById('clicktostart');
 			clickToStart.style.display = 'revert';
 			clickToStart.style.opacity = '10%';
-			clickToStart.innerHTML = localStorage.startup === 'true' ? 'click or press enter to start' : 'click or press enter to go to menu';
+			clickToStart.innerHTML = localStorage.startup === 'true' ? getLocaleStr('startup.clickToStart') : getLocaleStr('startup.clickToMenu');
 
 			const continueBoot = () => {
 				document.onclick = document.onkeydown = null;
+				try {
+					init();
+				} catch (err) {
+					const inspect = document.createElement('p');
+					inspect.style.cssText = `
+						position: fixed;
+						top: 0;
+						left: 0;
+					`;
+					inspect.textContent = err.message;
+					document.body.appendChild(inspect);
+				}
 				setCursor('none');
-				init();
 			};
 			document.onclick = continueBoot;
 			document.onkeydown = (event) => {
