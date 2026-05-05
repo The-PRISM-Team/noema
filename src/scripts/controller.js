@@ -38,68 +38,71 @@ function changeControllerMapping(mapping) {
 	currentControllerMapping = mapping;
 }
 // input handling
-gameControl.on('connect', gamepad => {
-	connectedGamepads = navigator.getGamepads().filter(g=>g);
-	controllerConnected = true;
-	const pressed = {};
-	for (let i = 0; i <= 16; i++) {
-		// register buttons
-		const button = 'button' + i;
-		let pressedOn = 0;
-		let lastRepeat = 0;
-		pressed[button] = false;
-		gamepad
-		.on(button, () => {
-			// repeat
-			if (Date.now() - pressedOn < .5e3) return;
-			if (Date.now() - lastRepeat < 100) return;
-			const mapping = controllerMaps[currentControllerMapping];
-			if (!mapping[button]) return;
-			lastRepeat = Date.now();
-			document.dispatchEvent(new KeyboardEvent('keydown', {
-				repeat: true,
-				shiftKey: pressed.button3,
-				key: mapping[button],
-				bubbles: true
-			}));
-			lastInput = 'gamepad';
-		})
-		.before(button, () => {
-			// pressed
-			const mapping = controllerMaps[currentControllerMapping];
-			if (!mapping[button]) return;
-			pressed[button] = true;
-
-			document.dispatchEvent(new KeyboardEvent('keydown', {
-				repeat: false,
-				shiftKey: pressed.button3,
-				key: mapping[button],
-				bubbles: true
-			}));
-			lastInput = 'gamepad';
-			pressedOn = Date.now();
-		})
-		.after(button, () => {
-			// released
-			const mapping = controllerMaps[currentControllerMapping];
-			if (!mapping[button]) return;
+if (globalThis?.gameControl != null) {
+	gameControl.on('connect', gamepad => {
+		connectedGamepads = navigator.getGamepads().filter(g=>g);
+		controllerConnected = true;
+		const pressed = {};
+		for (let i = 0; i <= 16; i++) {
+			// register buttons
+			const button = 'button' + i;
+			let pressedOn = 0;
+			let lastRepeat = 0;
 			pressed[button] = false;
+			gamepad
+			.on(button, () => {
+				// repeat
+				if (Date.now() - pressedOn < .5e3) return;
+				if (Date.now() - lastRepeat < 100) return;
+				const mapping = controllerMaps[currentControllerMapping];
+				if (!mapping[button]) return;
+				lastRepeat = Date.now();
+				document.dispatchEvent(new KeyboardEvent('keydown', {
+					repeat: true,
+					shiftKey: pressed.button3,
+					key: mapping[button],
+					bubbles: true
+				}));
+				lastInput = 'gamepad';
+			})
+			.before(button, () => {
+				// pressed
+				const mapping = controllerMaps[currentControllerMapping];
+				if (!mapping[button]) return;
+				pressed[button] = true;
 
-			document.dispatchEvent(new KeyboardEvent('keyup', {
-				key: mapping[button],
-				bubbles: true
-			}));
-			lastInput = 'gamepad';
-		});
-	}
-});
-gameControl.on('disconnect', ()=>{
-	connectedGamepads = navigator.getGamepads().filter(g=>g);
-	if (navigator.getGamepads().length < 1) controllerConnected = false;
-});
+				document.dispatchEvent(new KeyboardEvent('keydown', {
+					repeat: false,
+					shiftKey: pressed.button3,
+					key: mapping[button],
+					bubbles: true
+				}));
+				lastInput = 'gamepad';
+				pressedOn = Date.now();
+			})
+			.after(button, () => {
+				// released
+				const mapping = controllerMaps[currentControllerMapping];
+				if (!mapping[button]) return;
+				pressed[button] = false;
+
+				document.dispatchEvent(new KeyboardEvent('keyup', {
+					key: mapping[button],
+					bubbles: true
+				}));
+				lastInput = 'gamepad';
+			});
+		}
+	});
+	gameControl.on('disconnect', ()=>{
+		connectedGamepads = navigator.getGamepads().filter(g=>g);
+		if (navigator.getGamepads().length < 1) controllerConnected = false;
+	});
+}
 
 // APIs
 function hapticFeedback(strength = 1, duration = 100) {
+	if (globalThis?.gameControl == null) return;
 	let strengthModifier = parseFloat(localStorage.hapticStrength);
 	const gamepads = navigator.getGamepads();
 	for (let gp of gamepads) {
