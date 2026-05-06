@@ -20,6 +20,7 @@ if (!isDefined(localStorage.skipChargingTests)) localStorage.skipChargingTests =
 if (!isDefined(localStorage.masterVolume)) localStorage.masterVolume = '1';
 if (!isDefined(localStorage.musicVolume)) localStorage.musicVolume = '0.10';
 if (!isDefined(localStorage.uiSoundVolume)) localStorage.uiSoundVolume = '0.5';
+if (!isDefined(localStorage.hapticStrength)) localStorage.hapticStrength = '1';
 if (!isDefined(localStorage.bgBrightness)) localStorage.bgBrightness = '1';
 if (!isDefined(localStorage.noShaders) && navigator.deviceMemory < 4) localStorage.noShaders = 'true';
 if (!isDefined(localStorage.noTransitions) && navigator.deviceMemory < 2) localStorage.noTransitions = 'true';
@@ -45,14 +46,17 @@ document.addEventListener('DOMContentLoaded', async () => {
 	scriptStart = performance.now();
 	await loadScripts((done, total)=>{
 		document.getElementById('loading-progress').style.width = `${Math.max(1, 1 + Math.round(((done / total) * 100) / 2) - 2)}%`;
-	});
+	}, !isLocal);
 
 	console.log(`Scripts loaded in ${(performance.now() - scriptStart).toFixed(2)}ms.`);
+
+	// expand prototypes
+	console.log('Expanding prototypes...');
 
 	// load resources
 	dependStart = performance.now();
 	console.log('Loading resources...');
-	document.getElementById('clicktostart').textContent = getLocaleStr('startup.loadingResources', 'enUS', 'loading page resources, please wait');
+	document.getElementById('clicktostart').textContent = getLocaleStr('startup.loadingResources', 'en', 'loading page resources, please wait');
 	bgMusic = new Audio(getAbsPath('./assets/sounds/menu_music.flac'));
 	bgMusic.preload = true;
 });
@@ -61,8 +65,8 @@ window.addEventListener('load', async () => {
 	document.getElementById('loading-progress').style.width = '50%';
 
 	// load sounds
-	console.log('Loading sounds...')
-	document.getElementById('clicktostart').textContent = getLocaleStr('startup.loadingSounds', 'enUS', 'loading sounds, please wait');
+	console.log('Loading sounds...');
+	document.getElementById('clicktostart').textContent = getLocaleStr('startup.loadingSounds', 'en', 'loading sounds, please wait');
 
 	soundStart = performance.now();
 	await soundWarmup((done, total) => {
@@ -72,7 +76,7 @@ window.addEventListener('load', async () => {
 
 	// done
 	setCursor('default');
-	document.getElementById('clicktostart').textContent = getLocaleStr('startup.finishedLoading', 'enUS', 'finished loading!');
+	document.getElementById('clicktostart').textContent = getLocaleStr('startup.finishedLoading', 'en', 'finished loading!');
 	console.log(`Finished loading in ${(performance.now() - pageStart).toFixed(2)}ms!`);
 	await delay(750);
 	document.getElementById('loading-bar').style.opacity = '0%';
@@ -82,12 +86,12 @@ window.addEventListener('load', async () => {
 	setCursor('wait');
 	if (typeof test !== 'undefined') {
 		console.log('Testing system...');
-		document.getElementById('clicktostart').textContent = getLocaleStr('startup.testingSystem', 'enUS', 'testing system...');
+		document.getElementById('clicktostart').textContent = getLocaleStr('startup.testingSystem', 'en', 'testing system...');
 		try {
 			test();
 		} catch {
 			console.log('%cSystem test failed!!', 'background-color: #b00; border-radius: 5px 5px 5px 0px; padding: 2px; font-size: 15px;');
-			document.getElementById('clicktostart').textContent = getLocaleStr('startup.systemTestFailed', 'enUS', 'system test failed!!\nthe page will refresh very soon.');
+			document.getElementById('clicktostart').textContent = getLocaleStr('startup.systemTestFailed', 'en', 'system test failed!!\nthe page will refresh very soon.');
 			await delay(3000);
 			location.reload();
 			return;
@@ -97,12 +101,12 @@ window.addEventListener('load', async () => {
 	// test battery
 	if (localStorage.skipChargingTests !== 'true' && !(await navigator.getBattery())?.charging) {
 		console.log('Testing battery...');
-		document.getElementById('clicktostart').textContent = getLocaleStr('startup.testingBattery', 'enUS', 'testing battery...');
+		document.getElementById('clicktostart').textContent = getLocaleStr('startup.testingBattery', 'en', 'testing battery...');
 
 		const dischargingRate = await dischargingTest(5);
 		if (dischargingRate > 0) {
 			console.log('%cBattery test failed!!', 'background-color: #b00; border-radius: 5px 5px 5px 0px; padding: 2px; font-size: 15px;');
-			document.getElementById('clicktostart').textContent = getLocaleStr('startup.batteryTestFailed', 'enUS', 'battery test failed!!\ncheck up on your battery health before using Noema.');
+			document.getElementById('clicktostart').textContent = getLocaleStr('startup.batteryTestFailed', 'en', 'battery test failed!!\ncheck up on your battery health before using Noema.');
 			return;
 		};
 		console.log('Battery test succeeded!');
@@ -112,7 +116,7 @@ window.addEventListener('load', async () => {
 	Object.defineProperty(globalThis, "commitId", {
 		value: (
 			await fetchJson('https://api.github.com/repos/The-PRISM-Team/noema/commits?per_page=1&sha=main')
-		)[0].sha,
+		)[0]?.sha,
 		writable: false,
 		configurable: false,
 	});
@@ -123,11 +127,11 @@ window.addEventListener('load', async () => {
 	const supportChecks = [
 		{
 			trigger: isMobile,
-			warning: getLocaleStr('startup.mobileUnsupported', 'enUS', "Mobile is not supported. Please use a Desktop or Laptop computer.")
+			warning: getLocaleStr('startup.mobileUnsupported', 'en', "Mobile is not supported. Please use a Desktop or Laptop computer.")
 		},
 		{
 			trigger: document.documentMode,
-			warning: getLocaleStr('startup.ieUnsupported', 'enUS', "Internet Explorer is not supported. Please use another browser like Chrome or Firefox.")
+			warning: getLocaleStr('startup.ieUnsupported', 'en', "Internet Explorer is not supported. Please use another browser like Chrome or Firefox.")
 		}
 	];
 	for (let i = 0; i < supportChecks.length; i++) {
@@ -148,22 +152,22 @@ window.addEventListener('load', async () => {
 	if (fromRebootBoot || fromRefreshBoot) {
 		animSpaghetti();
 		if (shouldPlayStartup) {
-			document.getElementById('clicktostart').innerHTML = getLocaleStr('startup.starting', 'enUS', 'starting...');
+			document.getElementById('clicktostart').innerHTML = getLocaleStr('startup.starting', 'en', 'starting...');
 			if (typeof startup !== 'undefined')
 				startup();
 			else
 				init();
 		} else {
-			document.getElementById('clicktostart').innerHTML = getLocaleStr('startup.goingToMenu', 'enUS', 'going to menu...');
+			document.getElementById('clicktostart').innerHTML = getLocaleStr('startup.goingToMenu', 'en', 'going to menu...');
 			document.getElementById('clicktostart').style.opacity = '0%';
 			init();
 		}
 	} else {
 		setCursor('pointer');
 		if (shouldPlayStartup)
-			document.getElementById('clicktostart').innerHTML = getLocaleStr('startup.clickToStart', 'enUS', 'click or press enter to start');
+			document.getElementById('clicktostart').innerHTML = getLocaleStr('startup.clickToStart', 'en', 'click or press enter to start');
 		else
-			document.getElementById('clicktostart').innerHTML = getLocaleStr('startup.clickToMenu', 'enUS', 'click or press enter to go to menu');
+			document.getElementById('clicktostart').innerHTML = getLocaleStr('startup.clickToMenu', 'en', 'click or press enter to go to menu');
 
 		const start = async () => {
 			setCursor('none');

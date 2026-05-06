@@ -7,8 +7,18 @@ Tasks are listed in priority order (highest priority first).
 * Update README and create CONTRIBUTING.md
 * Polish documentation files (AGENTS.md, CONTRIBUTING.md, README.md)
 * Differentiate between local and hosted (Vercel) modes
+* Move PRISM-specific code to separate organization repository
+* Optimize spaghetti wave rendering
+* Investigate frame drops on lower-end devices
 
 ## In Progress
+
+### Performance Optimization
+- Profile application to find bottlenecks
+- Reduce DOM queries in hot paths
+- Consider caching for frequently accessed elements
+
+## High Priority
 
 ### Game Loading System
 - Basic loader implemented in [`/src/scripts/loadGame.js`](/src/scripts/loadGame.js)
@@ -17,15 +27,6 @@ Tasks are listed in priority order (highest priority first).
   - NGP format decompression
   - Error handling and fallbacks
   - Loading progress indicators
-
-### Performance Optimization
-- Profile application to find bottlenecks
-- Optimize spaghetti wave rendering
-- Reduce DOM queries in hot paths
-- Consider caching for frequently accessed elements
-- Investigate frame drops on lower-end devices
-
-## High Priority
 
 ### User Profiles
 - Save/load user profile system
@@ -43,7 +44,7 @@ Tasks are listed in priority order (highest priority first).
 
 ### Platform Detection
 - Environment-specific features and warnings
-- Optimize for each deployment type
+- Optimize for each deployment type (Vercel and `file://` protocol)
 
 ### Dynamic Updates
 - Allow pointing to local Noema directory
@@ -56,14 +57,16 @@ Tasks are listed in priority order (highest priority first).
 - Search and filtering
 - Favorites/collections
 
-## General Bugs
+### High Quality Assets
+- Create SVGs and HQ renders of UI icons
+
+### General Bugs
 - Fix shift key multiplier issue with fast key repeat rates
 
 
 ## Low Priority
 
 ### Code Organization
-- Move PRISM-specific code to separate organization repository
 - Modularize large files for better maintainability
 - Create proper module boundaries
 - Document internal APIs
@@ -77,7 +80,7 @@ Tasks are listed in priority order (highest priority first).
 ## Future Considerations
 
 ### Multiplayer Support
-- Peer-to-peer networking
+- Peer-to-peer networking API
 - Lobby system
 - Matchmaking
 
@@ -91,6 +94,7 @@ Tasks are listed in priority order (highest priority first).
 - High contrast modes
 - Keyboard-only navigation improvements
 - Customizable controls
+- Mouse controls
 
 ## Notes
 

@@ -13,7 +13,8 @@ async function transition() {
 	}, 1.5e3);
 }
 
-function focusUIOption(id) {
+function focusUIOption(id = selected.option) {
+	if (selected.option == null) return;
 	const optionDiv = document.getElementById('ui-options');
 
 	requestAnimationFrame(() => {
@@ -48,10 +49,13 @@ function focusUIOption(id) {
 	});
 }
 
-let selectedOption = 0,
-	selectedSuboption = 0,
-	selectedSuboptions = {},
-	uiSuboptionActions = {};
+const selected = {
+	option: null,
+	suboption: null,
+	suboptions: null,
+	suboptionActions: null
+};
+const uiSuboptionActions = {};
 
 function normalizeActionId(value = '') {
 	return value
@@ -102,22 +106,23 @@ function selectUIOption(id) {
 			document.getElementById(`ui-content${id}`).classList.add('selected');
 		});
 		document.getElementById(`ui-option${id}`).classList.add('selected');
-		if (isNaN(selectedSuboptions[id]) || !selectedSuboptions[id]) {
-			selectedSuboptions[id] = 0;
+		if (isNaN(selected.suboptions[id]) || !selected.suboptions[id]) {
+			selected.suboptions[id] = 0;
 		}
 		focusUIOption(id);
 		if (prismflakesStarted) {
 		}
 	});
 
-	selectedOption = id;
-	selectUISuboption(selectedSuboptions[id]);
+	selected.option = id;
+	if (lastInput === 'gamepad') hapticFeedback(.25,45);
+	selectUISuboption(selected.suboptions[id]);
 }
 function selectUISuboption(id) {
 	requestAnimationFrame(() => {
-		selectedSuboption = id;
-		let suboptions = document.body.querySelectorAll(`#ui-content${selectedOption} .ui-suboption`);
-		selectedSuboptions[selectedOption] = id;
+		selected.suboption = id;
+		let suboptions = document.body.querySelectorAll(`#ui-content${selected.option} .ui-suboption`);
+		selected.suboptions[selected.option] = id;
 		suboptions.forEach((suboption, i) => {
 			suboption.style.top = `${20 + (-31 * (id - 3))}px`;
 			const icon = suboption.querySelector('.ui-suboption-icon');
@@ -137,10 +142,11 @@ function selectUISuboption(id) {
 					el.classList.remove('selected');
 			});
 		});
+		if (lastInput === 'gamepad') hapticFeedback(.25,45);
 	});
 }
 function executeUISuboption() {
-	const suboption = document.body.querySelector(`#ui-content${selectedOption} #ui-suboption${selectedSuboption}`);
+	const suboption = document.body.querySelector(`#ui-content${selected.option} #ui-suboption${selected.suboption}`);
 	const actionId = suboption.dataset.action;
 	if (isDefined(actionId) && isDefined(uiSuboptionActions[actionId])) {
 		uiSuboptionActions[actionId]();
@@ -148,11 +154,21 @@ function executeUISuboption() {
 			playSound(suboption.dataset.sound);
 		else
 			playSound('confirm');
+		if (lastInput === 'gamepad') hapticFeedback(1,50);
 	}
+}
+function forceUIOptionAlign(time = 1e3) {
+	let startAlign = Date.now();
+	let alignThresh = time;
+	const cb = ()=>{
+		if (Date.now() - startAlign >= alignThresh) return;
+		focusUIOption(selected.option);
+		requestAnimationFrame(cb);
+	}
+	cb();
 }
 
 
-// mommy pls fix
 function createOption(name) {
 	const uiOptions = document.getElementById('ui-options');
 	const uiSuboptions = document.getElementById('ui-contents');
@@ -183,7 +199,7 @@ function createSuboption(optionId, title, desc = '', exec = null, icon, sound = 
 		suboption.dataset.action = actionId;
 	}
 	if (isDefined(sound)) suboption.dataset.sound = sound;
-	suboption.style.top = `${20 + (-31 * (selectedSuboptions[optionId] - 3))}px`;
+	suboption.style.top = `${20 + (-31 * (selected.suboptions[optionId] - 3))}px`;
 
 	const suboptionTitle = document.createElement('a');
 	suboptionTitle.className = 'ui-suboption-title';
@@ -233,9 +249,11 @@ function removeSuboption(optionId, suboptionId) {
 }
 
 function setOption(optionId, text) {
+	if (optionId == null) return null;
 	document.getElementById(`ui-option${optionId}`).textContent = text;
 }
 function setSuboption(optionId, suboptionId, title, desc, icon, exec, sound) {
+	if (optionId == null || suboptionId == null) return;
 	const suboption = document.querySelector(`#ui-content${optionId} #ui-suboption${suboptionId}`);
 	if (isDefined(title)) suboption.querySelector('.ui-suboption-title').textContent = title;
 	if (isDefined(desc)) suboption.querySelector('.ui-suboption-text').textContent = desc;
@@ -253,20 +271,21 @@ function clearUI() {
 	if (isDefined(uiOptions)) uiOptions.innerHTML = '';
 	if (isDefined(uiContents)) uiContents.innerHTML = '';
 
-	selectedOption = 0;
-	selectedSuboption = 0;
-	selectedSuboptions = {};
+	selected.option = null;
+	selected.suboption = null;
+	selected.suboptions = {};
 
 	Object.keys(uiSuboptionActions).forEach((key) => {
 		delete uiSuboptionActions[key];
 	});
 }
-function initUI() {
+function initUI(resetState = true) {
 	if (getLocaleStr('langIsRTL')) document.documentElement.dir = 'rtl';
-	// else document.documentElement.dir = 'ltr'; // idk if i need to use this
+	else document.documentElement.dir = 'ltr';
+	let lastState = structuredClone(selected);
 	clearUI();
 
-	// innit misc UI locale
+	// init misc UI locale
 	document.title = getLocaleStr('pageTitle');
 	document.getElementById('bubble-credits').textContent = getLocaleStr('debug.credits');
 	document.getElementById('errors').textContent = `${getLocaleStr('debug.errors')} ${errors}`;
@@ -282,7 +301,7 @@ function initUI() {
 	const debugTab = createOption(getLocaleStr('menu.debug.option.title'));
 	const uiOptionCount = document.getElementById('ui-options').querySelectorAll('a').length;
 	for (let i = 0; i < uiOptionCount; i++) {
-		selectedSuboptions[i] = 0;
+		selected.suboptions[i] = 0;
 	}
 
 	// init suboptions
@@ -296,16 +315,16 @@ function initUI() {
 	createSuboption(powerTab, getLocaleStr('menu.power.fastReboot.title'), getLocaleStr('menu.power.fastReboot.desc'), () => {
 		confirmDialog(fastReboot);
 	}, 'power', 'power');
-	selectedSuboptions[0] = 1;
+	selected.suboptions[0] = 1;
 
 	// preferences
-	createSuboption(prefTab, getLocaleStr('menu.preferences.setUsername.title'), getLocaleTempStr('menu.preferences.setUsername.desc', 'enUS', { username }), () => {
+	createSuboption(prefTab, getLocaleStr('menu.preferences.setUsername.title'), getLocaleTempStr('menu.preferences.setUsername.desc', 'en', { username }), () => {
 		promptDialog((name) => {
 			if (!isDefined(name)) name = _defaultUsername;
 			setUsername(name);
 			updateLabel();
-			setSuboption(selectedOption, selectedSuboption, null, getLocaleTempStr('menu.preferences.setUsername.desc', 'enUS', { username }));
-		}, getLocaleStr('menu.preferences.setUsername.promptTitle'), getLocaleTempStr('menu.preferences.setUsername.placeholder', 'enUS', { defaultUsername: _defaultUsername }));
+			setSuboption(selected.option, selected.suboption, null, getLocaleTempStr('menu.preferences.setUsername.desc', 'en', { username }));
+		}, getLocaleStr('menu.preferences.setUsername.promptTitle'), getLocaleTempStr('menu.preferences.setUsername.placeholder', 'en', { defaultUsername: _defaultUsername }));
 	}, 'user');
 	createSuboption(prefTab, getLocaleStr('menu.preferences.toggleMonochromeFavicon.title'),
 		localStorage.coloredFavicon === 'true'
@@ -315,16 +334,16 @@ function initUI() {
 			localStorage.coloredFavicon = localStorage.coloredFavicon === 'true' ? 'false' : 'true';
 			icon();
 			if (localStorage.coloredFavicon === 'true') {
-				setSuboption(selectedOption, selectedSuboption, getLocaleStr('menu.preferences.toggleMonochromeFavicon.title'), getLocaleStr('menu.preferences.toggleMonochromeFavicon.enabledDesc'));
+				setSuboption(selected.option, selected.suboption, getLocaleStr('menu.preferences.toggleMonochromeFavicon.title'), getLocaleStr('menu.preferences.toggleMonochromeFavicon.enabledDesc'));
 			} else {
-				setSuboption(selectedOption, selectedSuboption, getLocaleStr('menu.preferences.toggleMonochromeFavicon.title'), getLocaleStr('menu.preferences.toggleMonochromeFavicon.disabledDesc'));
+				setSuboption(selected.option, selected.suboption, getLocaleStr('menu.preferences.toggleMonochromeFavicon.title'), getLocaleStr('menu.preferences.toggleMonochromeFavicon.disabledDesc'));
 			}
 		}, 'image');
-	createSuboption(prefTab, getLocaleStr('menu.preferences.bgBrightness.title'), getLocaleTempStr('menu.preferences.bgBrightness.desc', 'enUS', { value: decimalStrToPercentage(localStorage.bgBrightness) }), () => {
+	createSuboption(prefTab, getLocaleStr('menu.preferences.bgBrightness.title'), getLocaleTempStr('menu.preferences.bgBrightness.desc', 'en', { value: decimalStrToPercentage(localStorage.bgBrightness) }), () => {
 		inputDialog(getLocaleStr('menu.preferences.bgBrightness.dialogTitle'), getLocaleStr('menu.preferences.bgBrightness.dialogSubtitle'), decimalStrToPercentage(localStorage.bgBrightness), 25, 100, 1, '{value}%', (value) => {
 			localStorage.bgBrightness = percentageToDecimal(value);
 			changeBGColor({ colorName: localStorage.bgColor, brightness: parseFloat(localStorage.bgBrightness) });
-			setSuboption(selectedOption, selectedSuboption, getLocaleStr('menu.preferences.bgBrightness.title'), getLocaleTempStr('menu.preferences.bgBrightness.desc', 'enUS', { value: decimalStrToPercentage(localStorage.bgBrightness) }));
+			setSuboption(selected.option, selected.suboption, getLocaleStr('menu.preferences.bgBrightness.title'), getLocaleTempStr('menu.preferences.bgBrightness.desc', 'en', { value: decimalStrToPercentage(localStorage.bgBrightness) }));
 		});
 	}, 'wrench');
 	createSuboption(prefTab, getLocaleStr('menu.preferences.toggleOpenUi.title'),
@@ -333,11 +352,39 @@ function initUI() {
 			localStorage.openUI = localStorage.openUI === 'true' ? 'false' : 'true';
 			if (localStorage.openUI === 'true') {
 				ui.classList.add('open');
-				setSuboption(selectedOption, selectedSuboption, getLocaleStr('menu.preferences.toggleOpenUi.title'), getLocaleStr('menu.preferences.toggleOpenUi.enabledDesc'));
+				setSuboption(selected.option, selected.suboption, getLocaleStr('menu.preferences.toggleOpenUi.title'), getLocaleStr('menu.preferences.toggleOpenUi.enabledDesc'));
 			} else {
 				ui.classList.remove('open');
-				setSuboption(selectedOption, selectedSuboption, getLocaleStr('menu.preferences.toggleOpenUi.title'), getLocaleStr('menu.preferences.toggleOpenUi.disabledDesc'));
+				setSuboption(selected.option, selected.suboption, getLocaleStr('menu.preferences.toggleOpenUi.title'), getLocaleStr('menu.preferences.toggleOpenUi.disabledDesc'));
 			}
+		},
+		'wrench'
+	);
+	createSuboption(prefTab, getLocaleStr('menu.preferences.hapticFeedbackStrength.title'),
+		getLocaleTempStr('menu.preferences.hapticFeedbackStrength.desc', 'en', {
+			value: decimalStrToPercentage(localStorage.hapticStrength)
+		}),
+		()=>{
+			inputDialog(
+				getLocaleStr('menu.preferences.hapticFeedbackStrength.dialogTitle'),
+				getLocaleStr('menu.preferences.hapticFeedbackStrength.dialogSubtitle'),
+				parseFloat(localStorage.hapticStrength) * 100,
+				0, 100,
+				1,
+				'{value}%',
+				value=>{
+					localStorage.hapticStrength = value / 100;
+					hapticFeedback(1*value/100,75)
+				}
+			);
+			setSuboption(
+				selected.option,
+				selected.suboption,
+				getLocaleStr('menu.preferences.hapticFeedbackStrength.title'),
+				getLocaleTempStr('menu.preferences.hapticFeedbackStrength.desc', 'en', {
+					value: decimalStrToPercentage(localStorage.hapticStrength)
+				})
+			);
 		},
 		'wrench'
 	);
@@ -346,9 +393,9 @@ function initUI() {
 		() => {
 			localStorage.startup = localStorage.startup === 'true' ? 'false' : 'true';
 			if (localStorage.startup === 'true') {
-				setSuboption(selectedOption, selectedSuboption, getLocaleStr('menu.preferences.toggleStartupAnimation.title'), getLocaleStr('menu.preferences.toggleStartupAnimation.enabledDesc'));
+				setSuboption(selected.option, selected.suboption, getLocaleStr('menu.preferences.toggleStartupAnimation.title'), getLocaleStr('menu.preferences.toggleStartupAnimation.enabledDesc'));
 			} else {
-				setSuboption(selectedOption, selectedSuboption, getLocaleStr('menu.preferences.toggleStartupAnimation.title'), getLocaleStr('menu.preferences.toggleStartupAnimation.disabledDesc'));
+				setSuboption(selected.option, selected.suboption, getLocaleStr('menu.preferences.toggleStartupAnimation.title'), getLocaleStr('menu.preferences.toggleStartupAnimation.disabledDesc'));
 			}
 		},
 		'wrench'
@@ -360,9 +407,9 @@ function initUI() {
 		() => {
 			localStorage.fastBootDefault = localStorage.fastBootDefault === 'true' ? 'false' : 'true';
 			if (localStorage.fastBootDefault === 'true') {
-				setSuboption(selectedOption, selectedSuboption, getLocaleStr('menu.preferences.fastBootDefault.title'), getLocaleStr('menu.preferences.fastBootDefault.enabledDesc'));
+				setSuboption(selected.option, selected.suboption, getLocaleStr('menu.preferences.fastBootDefault.title'), getLocaleStr('menu.preferences.fastBootDefault.enabledDesc'));
 			} else {
-				setSuboption(selectedOption, selectedSuboption, getLocaleStr('menu.preferences.fastBootDefault.title'), getLocaleStr('menu.preferences.fastBootDefault.disabledDesc'));
+				setSuboption(selected.option, selected.suboption, getLocaleStr('menu.preferences.fastBootDefault.title'), getLocaleStr('menu.preferences.fastBootDefault.disabledDesc'));
 			}
 		},
 		'wrench'
@@ -402,14 +449,14 @@ function initUI() {
 					if (formats.includes(content?.format)) {
 						if (content.format === 'NSF1.0') {
 							notify(
-								getLocaleStr('menu.pref.load.unsafe-save.title'),
-								getLocaleStr('menu.pref.load.unsafe-save.description'),
+								getLocaleStr('menu.preferences.load.unsafe.title'),
+								getLocaleStr('menu.preferences.load.unsafe.desc'),
 								'warning'
 							);
 							setTimeout(() => {
 								notify(
-									getLocaleStr('menu.pref.load.recover.title'),
-									getLocaleStr('menu.pref.load.recover.description')
+									getLocaleStr('menu.preferences.load.recover.title'),
+									getLocaleStr('menu.preferences.load.recover.desc')
 								);
 							}, 2.5e3);
 							return;
@@ -436,9 +483,9 @@ function initUI() {
 
 							localStorage.lastChangelogHash = '0';
 						}
-						notify(getLocaleStr('menu.pref.load.success.title'));
+						notify(getLocaleStr('menu.preferences.load.success.title'));
 						setTimeout(() => {
-							notify(getLocaleStr('menu.pref.load.reboot.title'), getLocaleStr('menu.pref.load.reboot.description'));
+							notify(getLocaleStr('menu.preferences.load.reboot.title'), getLocaleStr('menu.preferences.load.reboot.desc'));
 							setTimeout(() => {
 								fastReboot();
 							}, 3e3);
@@ -471,37 +518,22 @@ function initUI() {
 	);
 
 	// language
-	for (const [i, [locale, def]] of Object.entries(locales).entries()) {
+	for (const [i, [localeCode, def]] of Object.entries(locales).entries()) {
 		createSuboption(langTab,
 			def.langTitle,
 			def['menu.lang.setLang.desc'].replace('{lang}', def.langTitle),
 			async () => {
-				localStorage.locale = locale;
-				notify(
-					getLocaleTempStr('error.restartingIn', 'enUS', {
-						time: '3...'
-					}, 'Restarting in 3...')
-				);
-				await delay(1e3);
-				notify(
-					getLocaleTempStr('error.restartingIn', 'enUS', {
-						time: '2...'
-					}, 'Restarting in 2...')
-				);
-				await delay(1e3);
-				notify(
-					getLocaleTempStr('error.restartingIn', 'enUS', {
-						time: '1...'
-					}, 'Restarting in 1...')
-				);
-				await delay(1e3);
-				fastReboot();
+				localStorage.locale = localeCode;
+				locale = locales[localStorage.locale] ?? locales['en'] ?? {};
+				explodeSpaghetti();
+				initUI(false);
+				resize();
 			},
 			'wrench'
 		);
-	
-		if (locale === localStorage.locale) {
-			selectedSuboptions[2] = i;
+
+		if (localeCode === localStorage.locale) {
+			selected.suboptions[langTab] = i;
 		}
 	}
 
@@ -511,31 +543,31 @@ function initUI() {
 		() => {
 			localStorage.pauseMusic = localStorage.pauseMusic === 'true' ? 'false' : 'true';
 			if (localStorage.pauseMusic === 'true') {
-				setSuboption(selectedOption, selectedSuboption, getLocaleStr('menu.audio.togglePauseOnUnfocus.title'), getLocaleStr('menu.audio.togglePauseOnUnfocus.enabledDesc'));
+				setSuboption(selected.option, selected.suboption, getLocaleStr('menu.audio.togglePauseOnUnfocus.title'), getLocaleStr('menu.audio.togglePauseOnUnfocus.enabledDesc'));
 			} else {
 				bgMusic.play();
-				setSuboption(selectedOption, selectedSuboption, 'Toggle pausing background music on unfocus', 'Background music currently doesn\\\'t get muted on unfocus.\nSelect to enable that.');
+				setSuboption(selected.option, selected.suboption, 'Toggle pausing background music on unfocus', 'Background music currently doesn\\\'t get muted on unfocus.\nSelect to enable that.');
 			}
 		},
 		'wrench'
 	);
-	createSuboption(audioTab, getLocaleStr('menu.audio.setMasterVolume.title'), getLocaleTempStr('menu.audio.setMasterVolume.desc', 'enUS', { value: decimalStrToPercentage(localStorage.masterVolume) }), () => {
+	createSuboption(audioTab, getLocaleStr('menu.audio.setMasterVolume.title'), getLocaleTempStr('menu.audio.setMasterVolume.desc', 'en', { value: decimalStrToPercentage(localStorage.masterVolume) }), () => {
 		inputDialog(getLocaleStr('menu.audio.setMasterVolume.title'), null, decimalStrToPercentage(localStorage.masterVolume), 0, 100, 1, '{value}%', (volume) => {
 			setMasterVolume(percentageToDecimal(volume));
-			setSuboption(selectedOption, selectedSuboption, getLocaleStr('menu.audio.setMasterVolume.title'), getLocaleTempStr('menu.audio.setMasterVolume.desc', 'enUS', { value: decimalStrToPercentage(localStorage.masterVolume) }));
+			setSuboption(selected.option, selected.suboption, getLocaleStr('menu.audio.setMasterVolume.title'), getLocaleTempStr('menu.audio.setMasterVolume.desc', 'en', { value: decimalStrToPercentage(localStorage.masterVolume) }));
 		});
 	}, 'wrench');
-	createSuboption(audioTab, getLocaleStr('menu.audio.setBackgroundMusicVolume.title'), getLocaleTempStr('menu.audio.setBackgroundMusicVolume.desc', 'enUS', { value: decimalStrToPercentage(localStorage.musicVolume) }), () => {
+	createSuboption(audioTab, getLocaleStr('menu.audio.setBackgroundMusicVolume.title'), getLocaleTempStr('menu.audio.setBackgroundMusicVolume.desc', 'en', { value: decimalStrToPercentage(localStorage.musicVolume) }), () => {
 		inputDialog(getLocaleStr('menu.audio.setBackgroundMusicVolume.title'), null, decimalStrToPercentage(localStorage.musicVolume), 0, 100, 1, '{value}%', (volume) => {
 			localStorage.musicVolume = percentageToDecimal(volume);
 			bgMusic.volume = parseFloat(localStorage.musicVolume).clamp(0, 1) * masterVolume;
-			setSuboption(selectedOption, selectedSuboption, getLocaleStr('menu.audio.setBackgroundMusicVolume.title'), getLocaleTempStr('menu.audio.setBackgroundMusicVolume.desc', 'enUS', { value: decimalStrToPercentage(localStorage.musicVolume) }));
+			setSuboption(selected.option, selected.suboption, getLocaleStr('menu.audio.setBackgroundMusicVolume.title'), getLocaleTempStr('menu.audio.setBackgroundMusicVolume.desc', 'en', { value: decimalStrToPercentage(localStorage.musicVolume) }));
 		});
 	}, 'wrench');
-	createSuboption(audioTab, getLocaleStr('menu.audio.setUiSoundVolume.title'), getLocaleTempStr('menu.audio.setUiSoundVolume.desc', 'enUS', { value: decimalStrToPercentage(localStorage.uiSoundVolume) }), () => {
+	createSuboption(audioTab, getLocaleStr('menu.audio.setUiSoundVolume.title'), getLocaleTempStr('menu.audio.setUiSoundVolume.desc', 'en', { value: decimalStrToPercentage(localStorage.uiSoundVolume) }), () => {
 		inputDialog(getLocaleStr('menu.audio.setUiSoundVolume.title'), null, decimalStrToPercentage(localStorage.uiSoundVolume), 0, 100, 1, '{value}%', (volume) => {
 			localStorage.uiSoundVolume = percentageToDecimal(volume);
-			setSuboption(selectedOption, selectedSuboption, getLocaleStr('menu.audio.setUiSoundVolume.title'), getLocaleTempStr('menu.audio.setUiSoundVolume.desc', 'enUS', { value: decimalStrToPercentage(localStorage.uiSoundVolume) }));
+			setSuboption(selected.option, selected.suboption, getLocaleStr('menu.audio.setUiSoundVolume.title'), getLocaleTempStr('menu.audio.setUiSoundVolume.desc', 'en', { value: decimalStrToPercentage(localStorage.uiSoundVolume) }));
 		});
 	}, 'wrench');
 
@@ -545,12 +577,12 @@ function initUI() {
 		() => {
 			localStorage.noShaders = localStorage.noShaders === 'true' ? 'false' : 'true';
 			if (localStorage.noShaders === 'true') {
-				setSuboption(selectedOption, selectedSuboption, getLocaleStr('menu.graphics.toggleEffects.title'), getLocaleStr('menu.graphics.toggleEffects.disabledDesc'));
+				setSuboption(selected.option, selected.suboption, getLocaleStr('menu.graphics.toggleEffects.title'), getLocaleStr('menu.graphics.toggleEffects.disabledDesc'));
 				traverseDOM(document.body, (element) => {
 					element.style.backdropFilter = 'none';
 				});
 			} else {
-				setSuboption(selectedOption, selectedSuboption, getLocaleStr('menu.graphics.toggleEffects.title'), getLocaleStr('menu.graphics.toggleEffects.enabledDesc'));
+				setSuboption(selected.option, selected.suboption, getLocaleStr('menu.graphics.toggleEffects.title'), getLocaleStr('menu.graphics.toggleEffects.enabledDesc'));
 				traverseDOM(document.body, (element) => {
 					element.style.backdropFilter = '';
 				});
@@ -563,13 +595,13 @@ function initUI() {
 		() => {
 			localStorage.noTransitions = localStorage.noTransitions === 'true' ? 'false' : 'true';
 			if (localStorage.noTransitions === 'true') {
-				setSuboption(selectedOption, selectedSuboption, getLocaleStr('menu.graphics.toggleAnimations.title'), getLocaleStr('menu.graphics.toggleAnimations.disabledDesc'));
+				setSuboption(selected.option, selected.suboption, getLocaleStr('menu.graphics.toggleAnimations.title'), getLocaleStr('menu.graphics.toggleAnimations.disabledDesc'));
 				traverseDOM(document.body, (element) => {
 					element.style.transition = 'none';
 					element.style.animation = 'none';
 				});
 			} else {
-				setSuboption(selectedOption, selectedSuboption, getLocaleStr('menu.graphics.toggleAnimations.title'), getLocaleStr('menu.graphics.toggleAnimations.enabledDesc'));
+				setSuboption(selected.option, selected.suboption, getLocaleStr('menu.graphics.toggleAnimations.title'), getLocaleStr('menu.graphics.toggleAnimations.enabledDesc'));
 				traverseDOM(document.body, (element) => {
 					element.style.transition = '';
 					element.style.animation = '';
@@ -581,10 +613,10 @@ function initUI() {
 
 	// themes
 	Object.keys(bgColors).forEach((color, i) => {
-		createSuboption(themeTab, color.toTitleCase(), getLocaleTempStr('menu.theme.color.description', 'enUS', { color: color.toTitleCase() }), () => {
+		createSuboption(themeTab, color.toTitleCase(), getLocaleTempStr('menu.theme.color.description', 'en', { color: color.toTitleCase() }), () => {
 			changeBGColor({ colorName: color });
 		}, 'image');
-		if (color === localStorage.bgColor) selectedSuboptions[themeTab] = i;
+		if (color === localStorage.bgColor) selected.suboptions[themeTab] = i;
 	});
 
 	// wave amount
@@ -609,8 +641,7 @@ function initUI() {
 
 		const newWindow = window.open(
 			'./subpages/convertsave/index.html',
-			'convert',
-			`width=${width},height=${height},left=${left},top=${top}`
+			'convert'
 		);
 
 		if (isDefined(newWindow.focus)) newWindow.focus();
@@ -627,10 +658,10 @@ function initUI() {
 		localStorage.debugUI = localStorage.debugUI === 'true' ? 'false' : 'true';
 		if (localStorage.debugUI === 'true') {
 			document.getElementById('debug-ui').style.display = 'block';
-			setSuboption(selectedOption, selectedSuboption, getLocaleStr('menu.debug.toggleUi.title'), getLocaleStr('menu.debug.toggleUi.enabledDesc'));
+			setSuboption(selected.option, selected.suboption, getLocaleStr('menu.debug.toggleUi.title'), getLocaleStr('menu.debug.toggleUi.enabledDesc'));
 		} else {
 			document.getElementById('debug-ui').style.display = 'none';
-			setSuboption(selectedOption, selectedSuboption, getLocaleStr('menu.debug.toggleUi.title'), getLocaleStr('menu.debug.toggleUi.disabledDesc'));
+			setSuboption(selected.option, selected.suboption, getLocaleStr('menu.debug.toggleUi.title'), getLocaleStr('menu.debug.toggleUi.disabledDesc'));
 		}
 	}, 'star');
 	createSuboption(debugTab, getLocaleStr('menu.debug.clearErrors.title'), null, () => {
@@ -650,12 +681,18 @@ function initUI() {
 		}, getLocaleStr('menu.debug.loadScript.promptTitle'));
 	}, 'star');
 
-	selectUIOption(1);
+	if (resetState) selectUIOption(1);
+	else {
+		selectUIOption(lastState.option);
+		selectUISuboption(lastState.suboption);
+		selected.suboptions = lastState.suboptions;
+	}
 }
 function getOptions() {
 	return document.querySelectorAll('.ui-option');
 }
 function getOption(optionId) {
+	if (optionId == null) return null;
 	return {
 		label: document.getElementById(`ui-option${optionId}`)?.textContent,
 		element: document.getElementById(`ui-option${optionId}`),
@@ -664,6 +701,7 @@ function getOption(optionId) {
 	};
 }
 function getSuboption(optionId, suboptionId) {
+	if (optionId == null || suboptionId) return null;
 	const suboption = document.getElementById(`ui-content${optionId}`).querySelector(`#ui-suboption${suboptionId}`);
 	return {
 		title: suboption.querySelector('.ui-suboption-title').textContent,
@@ -753,20 +791,17 @@ function bandDialog(title = '', subtitle = '', setupFunc, confirmFunc, usesEnter
 				}
 			});
 		}
-		if ((key === 'enter' || (key === 'space' && !hasInput)) && usesEnterKey) {
+		if ((key === 'enter' || (key === ' ' && !hasInput)) && usesEnterKey) {
 			if (usesEnterKey) {
 				confirmFunc();
 				playSound('confirm');
 			}
-			blur();
-			document.getElementById('custom-dialog').style.opacity = '0';
-			document.removeEventListener('keyup', handler);
 		} else if (key === 'escape') {
 			playSound('back');
-			blur();
-			document.getElementById('custom-dialog').style.opacity = '0';
-			document.removeEventListener('keyup', handler);
-		}
+		} else return;
+		blur();
+		document.getElementById('custom-dialog').style.opacity = '0';
+		document.removeEventListener('keyup', handler);
 	};
 	document.getElementById('custom-dialog').style.opacity = '100%';
 	document.addEventListener('keyup', handler);
@@ -942,37 +977,39 @@ function handleInput(event) {
 	lastActivity = Date.now();
 	const uiOptions = document.getElementById('ui-options');
 	const optionCount = uiOptions.querySelectorAll('.ui-option').length;
-	const selectedContent = document.getElementById(`ui-content${selectedOption}`);
+	const selectedContent = document.getElementById(`ui-content${selected.option}`);
 	const suboptionCount = selectedContent?.querySelectorAll('.ui-suboption').length ?? 0;
 
 	function left() {
 		if (optionCount < 2) return;
 		if (keyup) return;
-		if (selectedOption <= 0) {
+		if (selected.option <= 0) {
 			if (event.repeat) return;
-			selectedOption = optionCount - 1;
+			selected.option = optionCount - 1;
+			forceUIOptionAlign(.25e3);
 		}
 		else
-			selectedOption--;
-		selectUIOption(selectedOption);
+			selected.option--;
+		selectUIOption(selected.option);
 		playSound('select');
 	}
 	function right() {
 		if (optionCount < 2) return;
 		if (keyup) return;
-		if (selectedOption >= optionCount - 1) {
+		if (selected.option >= optionCount - 1) {
 			if (event.repeat) return;
-			selectedOption = 0;
+			selected.option = 0;
+			forceUIOptionAlign(.25e3);
 		}
 		else
-			selectedOption++;
-		selectUIOption(selectedOption);
+			selected.option++;
+		selectUIOption(selected.option);
 		playSound('select');
 	}
 	function up() {
 		if (suboptionCount < 2) return;
 		if (keyup) return;
-		if (selectedSuboption <= 0) {
+		if (selected.suboption <= 0) {
 			if (event.repeat) return;
 			else
 				selectUISuboption(suboptionCount - 1);
@@ -981,14 +1018,14 @@ function handleInput(event) {
 			return;
 		}
 
-		selectedSuboption--;
-		selectUISuboption(selectedSuboption);
+		selected.suboption--;
+		selectUISuboption(selected.suboption);
 		playSound('select');
 	}
 	function down() {
 		if (suboptionCount < 2) return;
 		if (keyup) return;
-		if (selectedSuboption >= suboptionCount - 1) {
+		if (selected.suboption >= suboptionCount - 1) {
 			if (event.repeat) return;
 			else
 				selectUISuboption(0);
@@ -997,8 +1034,8 @@ function handleInput(event) {
 			return;
 		}
 
-		selectedSuboption++;
-		selectUISuboption(selectedSuboption);
+		selected.suboption++;
+		selectUISuboption(selected.suboption);
 		playSound('select');
 	}
 	function back() {
@@ -1012,7 +1049,7 @@ function handleInput(event) {
 			}
 		});
 		document.activeElement.blur();
-		return;
+		if (lastInput === 'gamepad') hapticFeedback(.1,50);
 	}
 
 
@@ -1033,7 +1070,12 @@ function handleInput(event) {
 		.some(dialog => window.getComputedStyle(dialog).opacity !== '0');
 
 	if (outOfMenu) {
-		if ((key === 'a' || key === 'arrowleft') && !keyup) {
+		if ((
+			(key === 'a' && document.documentElement.dir === 'ltr') ||
+			(key === 'd' && document.documentElement.dir === 'rtl') ||
+			(key === 'arrowleft' && document.documentElement.dir === 'ltr') ||
+			(key === 'arrowright' && document.documentElement.dir === 'rtl')
+		) && !keyup) {
 			if (document.activeElement.tagName === 'INPUT' && document.activeElement?.type === 'range') {
 				event.preventDefault();
 				if (parseFloat(document.activeElement.value) > parseFloat(document.activeElement.min)) {
@@ -1043,10 +1085,16 @@ function handleInput(event) {
 					document.activeElement.dispatchEvent(evtn);
 					const evtn2 = new Event('change', { bubbles: true });
 					document.activeElement.dispatchEvent(evtn2);
+					if (lastInput === 'controller') hapticFeedback(.05, 25);
 				}
 			}
 		}
-		if ((key === 'd' || key === 'arrowright') && !keyup) {
+		if ((
+			(key === 'd' && document.documentElement.dir === 'ltr') ||
+			(key === 'a' && document.documentElement.dir === 'rtl') ||
+			(key === 'arrowright' && document.documentElement.dir === 'ltr') ||
+			(key === 'arrowleft' && document.documentElement.dir === 'rtl')
+		) && !keyup) {
 			if (document.activeElement.tagName === 'INPUT' && document.activeElement?.type === 'range') {
 				event.preventDefault();
 				if (parseFloat(document.activeElement.value) < parseFloat(document.activeElement.max)) {
@@ -1056,6 +1104,7 @@ function handleInput(event) {
 					document.activeElement.dispatchEvent(evtn);
 					const evtn2 = new Event('change', { bubbles: true });
 					document.activeElement.dispatchEvent(evtn2);
+					if (lastInput === 'controller') hapticFeedback(.05, 25);
 				}
 			}
 		}
@@ -1069,10 +1118,11 @@ function handleInput(event) {
 					document.activeElement.dispatchEvent(evtn);
 					const evtn2 = new Event('change', { bubbles: true });
 					document.activeElement.dispatchEvent(evtn2);
+					if (lastInput === 'controller') hapticFeedback(.05, 25);
 				}
 			}
 		}
-		if ((key === 'a' || key === 'arrowleft') && !keyup) {
+		if ((key === 's' || key === 'arrowdown') && !keyup) {
 			if (document.activeElement.tagName === 'INPUT' && document.activeElement?.type === 'number') {
 				event.preventDefault();
 				if (parseFloat(document.activeElement.value) > parseFloat(document.activeElement.min)) {
@@ -1082,6 +1132,7 @@ function handleInput(event) {
 					document.activeElement.dispatchEvent(evtn);
 					const evtn2 = new Event('change', { bubbles: true });
 					document.activeElement.dispatchEvent(evtn2);
+					if (lastInput === 'controller') hapticFeedback(.05, 25);
 				}
 			}
 		}
@@ -1089,6 +1140,12 @@ function handleInput(event) {
 			if (document.activeElement.tagName === 'INPUT' && document.activeElement?.type === 'checkbox') {
 				event.preventDefault();
 				document.activeElement.checked = !document.activeElement.checked;
+				if (lastInput === 'controller')
+				if (document.activeElement.checked) {
+					hapticFeedback(.2, 40);
+				} else {
+					hapticFeedback(.1, 40);
+				}
 
 				const evtn = new Event('input', { bubbles: true });
 				document.activeElement.dispatchEvent(evtn);
@@ -1114,13 +1171,13 @@ function handleInput(event) {
 				executeUISuboption();
 		}
 		if (key === 'q') {
-			if (!keyup && selectedOption !== 0) {
+			if (!keyup && selected.option !== 0) {
 				selectUIOption(0);
 				playSound('select');
 			}
 		}
 		if (key === 'e') {
-			if (!keyup && selectedOption !== optionCount - 1) {
+			if (!keyup && selected.option !== optionCount - 1) {
 				selectUIOption(optionCount - 1);
 				playSound('select');
 			}

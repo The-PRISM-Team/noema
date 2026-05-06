@@ -9,7 +9,8 @@
 
 /* for electron  */
 html,
-body {
+body,
+#global-overlay {
 	width: 100vw;
 	height: 100vh;
 	margin: 0;
@@ -42,7 +43,7 @@ body {
 	position: fixed;
 	left: 50%;
 	bottom: 64px;
-	transform: translateX(-100%);
+	transform: scale(50%) translateX(-100%);
 
 	width: 75%;
 	height: 64px;
@@ -52,7 +53,6 @@ body {
 
 	pointer-events: none;
 	z-index: calc(infinity);
-	scale: 0.5;
 	opacity: 50%;
 	transition: opacity .5s ease-out;
 }
@@ -82,7 +82,7 @@ body {
 #startup-text {
 	text-shadow: 0px 0px 15px #000;
 	color: #fff;
-	font-family: 'Manrope', monospace;
+	font-family: 'Manrope', Arial, Helvetica, sans-serif;
 	font-weight: bolder;
 	position: fixed;
 	top: 50%;
@@ -115,7 +115,7 @@ body {
 /* --- outer ui --- */
 .time {
 	color: #fff;
-	font-family: 'Manrope', monospace;
+	font-family: 'Manrope', Arial, Helvetica, sans-serif;
 	font-size: 20px;
 }
 
@@ -188,7 +188,8 @@ body {
 	color: #fff;
 	font-weight: bold;
 	font-family: monospace;
-	font-size: .95em
+	font-size: .95em;
+	z-index: 0;
 }
 
 .bubble-text {
@@ -327,12 +328,12 @@ html[dir='rtl'] .notif-div {
 	color: #fff;
 	font-size: 1.5em;
 	font-weight: bolder;
-	font-family: 'Manrope', monospace;
+	font-family: 'Manrope', Arial, Helvetica, sans-serif;
 }
 
 .notif-text {
 	color: #fff;
-	font-family: 'Manrope', monospace;
+	font-family: 'Manrope', Arial, Helvetica, sans-serif;
 }
 
 .notif-icon {
@@ -395,6 +396,16 @@ html[dir='rtl'] .notif-div {
 		width 1.25s ease,
 		height 1.25s ease;
 	opacity: 15%;
+	z-index: calc(-infinity);
+}
+
+.ui.overtop, .ui.inactive.overtop {
+	--padding: 25;
+	width: calc((100 - var(--padding))*1vw);
+	height: calc((100 -  var(--padding))*1vh);
+	padding: calc(var(--padding)*1vh) calc(var(--padding)*1vw);
+	background-color: #000b;
+	z-index: calc(infinity);
 }
 
 #icon {
@@ -415,14 +426,14 @@ html[dir='rtl'] .notif-div {
 	padding-top: 20px;
 	margin-top: -20px;
 	overflow: visible;
-	transition: left .2s linear;
+	transition: left .75s cubic-bezier(0, 0.61, 0.46, 0.95);
 	z-index: 110;
 	direction: ltr;
 	unicode-bidi: bidi-override;
 }
 
 .ui-option {
-	font-family: 'Manrope', monospace;
+	font-family: 'Manrope', Arial, Helvetica, sans-serif;
 	background-color: #0000;
 	color: #fff;
 	font-size: 30px;
@@ -464,7 +475,7 @@ html[dir='rtl'] .notif-div {
 	overflow: visible;
 	opacity: 0%;
 	height: 90%;
-	top: 80px;
+	top: 20%;
 	margin-top: -40px;
 	opacity: 0%;
 	mask-image: linear-gradient(to bottom,
@@ -592,13 +603,13 @@ html[dir='rtl'] .ui-suboption.selected {
 }
 
 .ui-suboption-title {
-	font-family: 'Manrope', monospace;
+	font-family: 'Manrope', Arial, Helvetica, sans-serif;
 	font-weight: bold;
 	font-size: 20px;
 }
 
 .ui-suboption-text {
-	font-family: 'Manrope', monospace;
+	font-family: 'Manrope', Arial, Helvetica, sans-serif;
 	font-weight: light;
 	font-size: 12px;
 }
@@ -686,7 +697,7 @@ button {
 	border: 1px solid #000;
 	border-radius: 15px;
 	background-color: #fff;
-	font-family: 'Manrope', monospace;
+	font-family: 'Manrope', Arial, Helvetica, sans-serif;
 }
 
 .darken {

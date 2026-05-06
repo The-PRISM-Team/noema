@@ -4,7 +4,7 @@
         {
             "label": "Open startup tabs",
             "type": "shell",
-            "command": "code -r src/index.html src/css.css src/assets/scripts/base.js misc/markdowns/AGENTS.md misc/markdowns/TODO.md src/assets/misc/CHANGELOG.md",
+            "command": "code --command workbench.action.closeAllEditors && code -r src/index.html src/css.css src/scripts/base.js misc/markdowns/AGENTS.md misc/markdowns/TODO.md src/assets/misc/CHANGELOG.md",
             "presentation": {
                 "reveal": "never"
             },

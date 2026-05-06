@@ -47,6 +47,8 @@ function test(mode = 0) {
 
 		if (errored) throw new Error('Test failed');
 		return 'Success!';
+	} else if (mode === 1) {
+		return 'Success!';
 	}
 }
 
@@ -86,12 +88,12 @@ function startup() {
 			const clickToStart = document.getElementById('clicktostart');
 			clickToStart.style.display = 'revert';
 			clickToStart.style.opacity = '10%';
-			clickToStart.innerHTML = localStorage.startup === 'true' ? 'click or press enter to start' : 'click or press enter to go to menu';
+			clickToStart.innerHTML = localStorage.startup === 'true' ? getLocaleStr('startup.clickToStart') : getLocaleStr('startup.clickToMenu');
 
 			const continueBoot = () => {
 				document.onclick = document.onkeydown = null;
-				setCursor('none');
 				init();
+				setCursor('none');
 			};
 			document.onclick = continueBoot;
 			document.onkeydown = (event) => {
@@ -111,7 +113,7 @@ function startup() {
 				topColor: "#aaa",
 				bottomColor: "#aaa"
 			});
-			document.getElementById('startup-text').textContent = getLocaleStr('appTitle', 'enUS', 'Noema');
+			document.getElementById('startup-text').textContent = getLocaleStr('appTitle', 'en', 'Noema');
 			document.getElementById('startup-logo').src = getAbsPath('./assets/logos/noema/color.png');
 			setTimeout(() => {
 				document.getElementById('startup-logo').style.opacity = '100%';

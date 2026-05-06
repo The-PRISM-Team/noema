@@ -1,5 +1,6 @@
 let errors = 0;
 const errorList = [];
+let isFatalErroring = false;
 window.addEventListener("error", (event) => {
 	if (event.target && event.target.tagName === "SCRIPT") {
 		errorList.push(`Failed to load script: ${event.target.src}`);
@@ -23,8 +24,18 @@ window.addEventListener("error", (event) => {
 		}
 	});
 	if (!started) {
-		const errorSound = new Audio(new URL('./assets/sounds/menu/fatal-error.flac', location.href).href);
-		const errorSound2 = new Audio(new URL('./assets/sounds/menu/fatal-error.flac', location.href).href);
+		if (isFatalErroring) {
+			const warning = document.getElementById('fatal-error-content');
+			if (errorList.length > 0) {
+				warning.textContent = `${getLocaleStr('error.listTitle')}\n${errorList.join('\n')}`;
+			} else {
+				warning.textContent = `${getLocaleStr('error.listTitle')}\n${getLocaleStr('error.unknown')}`;
+			}
+			return;
+		}
+		isFatalErroring = true;
+		const errorSound = new Audio(new URL('./assets/sounds/menu/fatal-error.mp3', location.href).href);
+		const errorSound2 = new Audio(new URL('./assets/sounds/menu/fatal-error.mp3', location.href).href);
 		errorSound.preload = true;
 		errorSound2.preload = true;
 		let bgint1 =
@@ -52,9 +63,10 @@ window.addEventListener("error", (event) => {
 			setTimeout(() => {
 				document.body.style.background = "#800";
 				const warning = document.createElement('a');
+				warning.id = 'fatal-error-content';
 				warning.style.cssText = `
 					z-index: calc(infinity);
-					opacity: 0%;
+					opacity: 100%;
 
 					display: flex;
 					width: 100vw;
@@ -87,8 +99,8 @@ window.addEventListener("error", (event) => {
 				setTimeout(()=>{
 					let time = 5;
 					setInterval(() => {
-						
-						warning.textContent = `${getLocaleTempStr('error.restartingIn', 'enUS', { time })}${('.').repeat(time)}`;
+
+						warning.textContent = `${getLocaleTempStr('error.restartingIn', 'en', { time })}${('.').repeat(time)}`;
 						if (time <= 0)
 							window.location.reload();
 						time--;
@@ -97,7 +109,7 @@ window.addEventListener("error", (event) => {
 			},1e3);
 		},2e3);
 	} else {
-		new Audio(new URL('./assets/sounds/menu/error.flac', location.href).href).play();
+		new Audio(new URL('./assets/sounds/menu/error.mp3', location.href).href).play();
 	}
 	if (started) errors++;
 	document.getElementById('errors').style.transition = '';

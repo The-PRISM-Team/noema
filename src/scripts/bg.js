@@ -1,11 +1,6 @@
 const canvas = document.getElementById("bg");
 const ctx = canvas.getContext("2d");
 
-// spaghetti values
-let t = Math.PI, // spaghetti phase
-	t2 = t, // spaghetti up/down shift
-	t3 = t; // spaghetti left/right shift
-
 const densities = {
 	none: {
 		value: 0,
@@ -28,7 +23,6 @@ const densities = {
 		memFunc: (mem) => mem >= 24
 	}
 }
-// const densityArray = Object.entries(densities).map(v => v[1].value);
 
 if (!isDefined(localStorage.spaghettiDensity)) {
 	const mem = navigator.deviceMemory;
@@ -41,13 +35,18 @@ if (!isDefined(localStorage.spaghettiDensity)) {
 	}
 }
 
+// spaghetti positioning
+let sP = 1e-4, // (p)hase
+	sV = sP, // (v)ertical displacement
+	sH = sP; // (h)orizontal displacement
+
 let density = parseInt(localStorage.spaghettiDensity); // how many sines are drawn
 let spaghettiColor = "#0000";
 let calcY = function (x, canvasHeight, wave) {
 	return canvasHeight / 2 - wave +
-		Math.sin(x / 200 + t + wave / (density * t) + ((Math.cos(t) + -Math.cos(t3))) * .75) * 40 +
-		Math.cos(wave + t) * 40
-		+ (Math.cos(t) + -Math.cos(t2)) * 30;
+		Math.sin(x / 200 + sP + wave / (density * sP) + ((Math.cos(sP) + -Math.cos(sH))) * .75) * 40 +
+		Math.cos(wave + sP) * 40
+		+ (Math.cos(sP) + -Math.cos(sV)) * 30;
 };
 function drawSpaghettiFrame() {
 	ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -83,21 +82,14 @@ function animSpaghetti() {
 	}
 
 	drawSpaghettiFrame();
-	t += .01 * 60/avgfps;
-	t2 += .015 * 60/avgfps;
-	t3 += .025 * 60/avgfps;
+	sP += .01 * 60/avgfps;
+	sV += .015 * 60/avgfps;
+	sH += .025 * 60/avgfps;
 	requestAnimationFrame(animSpaghetti);
 }
-
-// resize logic
-function resize() {
-	canvas.width = innerWidth;
-	canvas.height = innerHeight;
-	drawSpaghettiFrame();
+function explodeSpaghetti() {
+	sP = 1e-4;
 }
-
-window.addEventListener("resize", resize);
-resize();
 
 // background gradient
 const bgColors = {

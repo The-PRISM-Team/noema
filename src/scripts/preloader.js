@@ -14,9 +14,11 @@ async function loadScripts(cb = ()=>{}, cacheBusting = true) {
 
 	const scripts = [
 		// locale
-		{ src: './locales/enUS.js' },
-		{ src: './locales/arES.js' },
+		{ src: './locales/arEG.js' },
 		{ src: './locales/deDE.js' },
+		{ src: './locales/en.js' },
+		{ src: './locales/enGB.js' },
+		{ src: './locales/es.js' },
 		{ src: './locales/jaJP.js' },
 		{ src: './locales/ptBR.js' },
 		{ src: './locales/😀😀.js' },
@@ -112,6 +114,7 @@ async function loadScripts(cb = ()=>{}, cacheBusting = true) {
 				resolve();
 			};
 			script.onerror = reject;
+			script.crossorigin = 'anonymous'; // i hate CORS
 			for (let [property, value] of Object.entries(scriptObj)) {
 				if (cacheBusting && property === 'src') {
 					const src = new URL(getAbsPath(value));

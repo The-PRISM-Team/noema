@@ -98,6 +98,18 @@ if (isDefined(window?.matchMedia)) {
 	});
 }
 
+// resize logic
+function resize() {
+	canvas.width = innerWidth;
+	canvas.height = innerHeight;
+	drawSpaghettiFrame();
+	forceUIOptionAlign();
+}
+
+window.addEventListener("resize", resize);
+resize();
+
+// time runtime
 function startTimeRuntime() {
 	const date = new AdvDate();
 	const timeText = document.getElementById('time');
@@ -233,13 +245,11 @@ const batteryDiv = document.getElementById('battery-div');
 const batteryBar = document.getElementById('battery-bar');
 const batteryText = document.getElementById('battery-text');
 async function updateBattery() {
-	if (!('getBattery' in navigator)) {
-		battery = {};
-		return battery;
-	}
+	battery = {};
 
 	if (!batteryInitialized) {
-		battery = await navigator.getBattery();
+		if (navigator?.getBattery != null) battery = await navigator.getBattery();
+
 		battery.lowBatteryThresh = 0.25;
 		battery.addEventListener('chargingchange', function () {
 			if (!battery.charging && battery.level <= battery.lowBatteryThresh) {
@@ -253,7 +263,8 @@ async function updateBattery() {
 		battery.level === 1 &&
 		battery.charging === true &&
 		battery.dischargingTime === Infinity ||
-		!('onlevelchange' in battery)
+		!('onlevelchange' in battery) ||
+		navigator?.battery != null
 	);
 
 	// hide battery indicator if device likely has no battery
@@ -291,7 +302,7 @@ async function updateLoop(timestamp) {
 	if (inactivityMs > 60e3 * 1.5) {
 		ui.classList.add('inactive');
 	} else {
-		const suboptions = document.getElementById(`ui-content${selectedOption}`).querySelectorAll('.ui-suboption');
+		const suboptions = document.getElementById(`ui-content${selected.option}`).querySelectorAll('.ui-suboption');
 		if (inactivityMs > 9e3) {
 			suboptions.forEach(suboption => {
 				suboption.classList.add('inactive');
@@ -314,10 +325,6 @@ async function updateLoop(timestamp) {
 	} else {
 		if (spaghettiDensity > 30) density = 30;
 		darkenOverlay.style.opacity = '90%';
-	}
-
-	if (started) {
-		focusUIOption(selectedOption);
 	}
 
 	if (battery?.level <= battery?.lowBatteryThresh && !batteryWarned) {

@@ -1,2 +1,2 @@
 globalThis.localesArray = globalThis.localesArray ?? [];
-globalThis.localesArray.push(/* select this comment and paste the locale JSON here */);
+globalThis.localesArray.push(/* insert locale object here */);

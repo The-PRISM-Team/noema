@@ -3,7 +3,6 @@
 
 *(Note: minor internal changes, cleanups and insignificant details aren't (and won't be) included in changelogs.)*
 
----
 
 *Symbols used:*
 ---
@@ -39,7 +38,6 @@
 # Milestone: Games!
 - todo!
 
-
 ## UI Changes
 - Added `⋮ Fast Reboot` to the `⋮ Power` tab to skip startup animation once on the next boot
 
@@ -63,22 +61,14 @@
 
 - Changelog is now hash-based, meaning that if the changelog updates without a version number change, the changelog now appears
 
-- Remapped Ctrl and Alt to Q and E respectively, due to input conflicts
+- Remapped Ctrl and Alt to Q and E, respectively, due to input conflicts
 
 - Added UI localization
   - Added `⋮ Language` tab
   - Added Right-to-Left UI support
 
-- Revamped subpages
-
-- Optimized UI
-
-- Added haptic feedback to UI
-
 
 ## API Changes
-- Moved UI properties to `𝘰 selected` object
-
 - Added `𝑓 startsWithAmount` and `𝑓 endsWithAmount` to `𝘰 String.prototype`
 
 - Added `𝑓 last` to `𝘰 HTMLCollection.prototype` and `𝘰 String.prototype`
@@ -92,11 +82,7 @@
 
 - Renamed `𝑓 drawSpaghetti` to `𝑓 animSpaghetti`
 
-- Added `𝑓 drawSpaghettiFrame` function
-
-- Added `𝑓 explodeSpaghetti` function
-
-- Added `𝑓 hapticFeedback` API
+- Added `𝑓 drawSpaghettiFrame` API
 
 
 ## Bugfixes
