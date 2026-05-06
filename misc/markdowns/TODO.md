@@ -8,15 +8,15 @@ Tasks are listed in priority order (highest priority first).
 * Polish documentation files (AGENTS.md, CONTRIBUTING.md, README.md)
 * Differentiate between local and hosted (Vercel) modes
 * Move PRISM-specific code to separate organization repository
+* Optimize spaghetti wave rendering
+* Investigate frame drops on lower-end devices
 
 ## In Progress
 
 ### Performance Optimization
 - Profile application to find bottlenecks
-- Optimize spaghetti wave rendering
 - Reduce DOM queries in hot paths
 - Consider caching for frequently accessed elements
-- Investigate frame drops on lower-end devices
 
 ## High Priority
 
@@ -57,7 +57,10 @@ Tasks are listed in priority order (highest priority first).
 - Search and filtering
 - Favorites/collections
 
-## General Bugs
+### High Quality Assets
+- Create SVGs and HQ renders of UI icons
+
+### General Bugs
 - Fix shift key multiplier issue with fast key repeat rates
 
 
@@ -77,7 +80,7 @@ Tasks are listed in priority order (highest priority first).
 ## Future Considerations
 
 ### Multiplayer Support
-- Peer-to-peer networking
+- Peer-to-peer networking API
 - Lobby system
 - Matchmaking
 
