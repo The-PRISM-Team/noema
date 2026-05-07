@@ -401,6 +401,7 @@ html[dir='rtl'] .notif-div {
 
 .ui.overtop, .ui.inactive.overtop {
 	--padding: 25;
+	opacity: 100%;
 	width: calc((100 - var(--padding))*1vw);
 	height: calc((100 -  var(--padding))*1vh);
 	padding: calc(var(--padding)*1vh) calc(var(--padding)*1vw);
