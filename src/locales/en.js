@@ -30,6 +30,7 @@ globalThis.localesArray.push({
     "debug.estfps": "FPS:",
     "debug.avgfps": "Avg. FPS:",
     "menu.power.option.title": "Power Options",
+    "menu.games.option.title": "Games",
     "menu.preferences.option.title": "Preferences",
     "menu.audio.option.title": "Audio",
     "menu.graphics.option.title": "Graphics",

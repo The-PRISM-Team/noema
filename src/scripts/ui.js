@@ -291,6 +291,7 @@ function initUI(resetState = true) {
 	document.getElementById('errors').textContent = `${getLocaleStr('debug.errors')} ${errors}`;
 	// init default options
 	const powerTab = createOption(getLocaleStr('menu.power.option.title'));
+	const gameTab = createOption(getLocaleStr('menu.games.option.title'));
 	const prefTab = createOption(getLocaleStr('menu.preferences.option.title'));
 	const langTab = createOption(getLocaleStr('menu.lang.option.title'));
 	const audioTab = createOption(getLocaleStr('menu.audio.option.title'));
