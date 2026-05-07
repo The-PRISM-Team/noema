@@ -52,7 +52,7 @@ body {
 	padding: 4px;
 
 	pointer-events: none;
-	z-index: calc(infinity);
+	z-index: 1000000;
 	opacity: 50%;
 	transition: opacity .5s ease-out;
 }
@@ -217,7 +217,7 @@ body {
 	position: fixed;
 	bottom: 5px;
 	right: 5px;
-	z-index: calc(infinity);
+	z-index: 1000000;
 }
 
 #fps {
@@ -405,7 +405,7 @@ html[dir='rtl'] .notif-div {
 	height: calc((100 -  var(--padding))*1vh);
 	padding: calc(var(--padding)*1vh) calc(var(--padding)*1vw);
 	background-color: #000b;
-	z-index: calc(infinity);
+	z-index: 100000000;
 }
 
 #icon {
