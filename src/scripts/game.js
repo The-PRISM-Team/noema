@@ -1,4 +1,8 @@
 let loadedGame;
+const game = {
+	screen: document.getElementById('game-screen'),
+	document: gameScreen.contentDocument
+}
 const loadedModules = {};
 function loadLibrary(url, ...attrib) {
 	if (!isDefined(url)) throw new Error('The URL parameter is empty. Please provide a URL.');
