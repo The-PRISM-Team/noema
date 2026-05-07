@@ -650,6 +650,8 @@ html[dir='rtl'] .ui-suboption.selected {
 	z-index: 10000000;
 	opacity: 0%;
 	pointer-events: none;
+	border: none;
+	background-color: #fff;
 }
 
 
