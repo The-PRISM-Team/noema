@@ -1,3 +1,4 @@
+let loadedGame;
 const loadedModules = {};
 function loadLibrary(url, ...attrib) {
 	if (!isDefined(url)) throw new Error('The URL parameter is empty. Please provide a URL.');
@@ -26,4 +27,10 @@ function unloadLibrary(url) {
 		throw new Error("This module hasn't been loaded.");
 	document.body.removeChild(loadedModules[name]);
 	delete loadedModules[name];
+}
+
+async function loadPackage(arrayBuf) {
+    const package = await JSZip.loadAsync(arrayBuf);
+	loadedGame = package;
+    return package;
 }

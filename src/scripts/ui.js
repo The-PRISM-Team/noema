@@ -318,6 +318,26 @@ function initUI(resetState = true) {
 	}, 'power', 'power');
 	selected.suboptions[0] = 1;
 
+	// games
+	createSuboption(gameTab, getLocaleStr('menu.games.loadGameFromFile.title'), getLocaleStr('menu.games.loadGameFromFile.desc'), () => {
+		const input = document.createElement("input");
+        input.type = 'file';
+        input.addEventListener("change", event => {
+            const file = event.target.files[0];
+
+            if (file != null) {
+                const reader = new FileReader();
+
+                reader.onload = function (e) {
+                    let content = e.target.result;
+                    loadPackage(content);
+					notify('Sorry..!', "This menu option is under construction.\nCheck back later!")
+                };
+                reader.readAsArrayBuffer(file);
+            }
+        });
+        input.click();
+	});
 	// preferences
 	createSuboption(prefTab, getLocaleStr('menu.preferences.setUsername.title'), getLocaleTempStr('menu.preferences.setUsername.desc', 'en', { username }), () => {
 		promptDialog((name) => {

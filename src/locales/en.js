@@ -46,6 +46,8 @@ globalThis.localesArray.push({
     "menu.power.reboot.desc": "Restarts the system with the latest version of the system files.",
     "menu.power.fastReboot.title": "Fast reboot",
     "menu.power.fastReboot.desc": "Restarts and skips startup animation once on the next boot.",
+    "menu.games.loadGameFromFile.title": "Load game from file",
+    "menu.games.loadGameFromFile.desc": "Loads a game from a Noema Game Package (NGP).",
     "menu.preferences.setUsername.title": "Set username",
     "menu.preferences.setUsername.desc": "Username currently set to \"{username}\".",
     "menu.preferences.setUsername.promptTitle": "Enter a username...",
