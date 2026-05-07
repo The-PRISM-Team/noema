@@ -1,7 +1,7 @@
 let loadedGame;
 const game = {
 	screen: document.getElementById('game-screen'),
-	document: gameScreen.contentDocument
+	document: document.getElementById('game-screen').contentDocument
 }
 const loadedModules = {};
 function loadLibrary(url, ...attrib) {
