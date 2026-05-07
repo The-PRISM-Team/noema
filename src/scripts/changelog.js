@@ -16,7 +16,7 @@ async function loadChangelogMarkdown() {
 }
 
 async function showChangelog() {
-	// skip rendering changelog if run locally; cors doesn't allow fetching files using the file:// protocol
+	// skip rendering changelog if running locally; CORS doesn't allow fetching files using the file:// protocol
 	if (isLocal) return;
 
 	const changelog = await loadChangelogMarkdown();
