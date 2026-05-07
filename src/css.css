@@ -363,6 +363,7 @@ html[dir='rtl'] .notif-div {
 		top 1s ease,
 		background-color 1s ease-out,
 		outline 1.25s ease,
+		opacity .5s ease,
 		border-radius 1s ease,
 		width 1.25s ease,
 		height 1.25s ease-out,
