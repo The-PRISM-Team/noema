@@ -227,24 +227,24 @@ function randomFloatFromRange(min, max) {
 
 function getFolders(jszip) {
     const dirs = [];
-    jszip.forEach((name, folder)=>{
+    jszip.forEach((relativePath, folder)=>{
         if (!folder.dir) return;
-        dirs.push([name, folder])
+        dirs.push([relativePath, folder])
     });
     return Object.fromEntries(dirs);
 }
 function getFiles(jszip) {
     const files = [];
-    jszip.forEach((name, file)=>{
+    jszip.forEach((relativePath, file)=>{
         if (file.dir) return;
-        files.push([name, file])
+        files.push([relativePath, file])
     });
     return Object.fromEntries(files);
 }
 function getItems(jszip) {
     const items = [];
-    jszip.forEach((name, item)=>{
-        items.push([name, item])
+    jszip.forEach((relativePath, item)=>{
+        items.push([relativePath, item])
     });
     return Object.fromEntries(items);
 }
