@@ -331,7 +331,8 @@ function initUI(resetState = true) {
                 reader.onload = function (e) {
                     let content = e.target.result;
                     loadPackage(content);
-					notify('Sorry..!', "This menu option is under construction.\nCheck back later!")
+					notify('Sorry..!', "This menu option is under construction.\nCheck back later!");
+					input.remove();
                 };
                 reader.readAsArrayBuffer(file);
             }
