@@ -1,0 +1,18 @@
+{
+  "name": "noema",
+  "version": "0.16.0",
+  "description": "Project Noema - A web-based game console running in your browser",
+  "type": "module",
+  "scripts": {
+    "dev": "npx serve src",
+    "build": "echo 'No build required for this project'",
+    "lint": "echo 'No linter configured yet'",
+    "test": "echo 'No tests configured yet'"
+  },
+  "keywords": ["game", "console", "browser", "gaming"],
+  "author": "The PRISM Team",
+  "license": "MIT",
+  "dependencies": {
+    "@vercel/analytics": "^1.4.1"
+  }
+}
