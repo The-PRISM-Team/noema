@@ -96,7 +96,7 @@
     eraseProgressBtn.addEventListener('click', ()=>{
         const accepted =
             confirm('Are you sure you want to reset ALL your progress?\nThis action CANNOT be undone!!\n\nYour progress on EVERY translation will be deleted.')
-        
+
         if (accepted) {
             const isSure = confirm('Are you ABSOLUTELY sure?\nAfter you accept, there\'s no going back!');
             if (isSure) {
@@ -119,7 +119,7 @@
         resetProgressBtn.addEventListener('click', ()=>{
             const accepted =
                 confirm('Are you sure you want to reset your progress in this translation?\nThis action CANNOT be undone!!')
-            
+
             if (accepted) {
                 progress[localeObject.lang] = {};
                 localStorage.savedProgress = JSON.stringify(progress);
