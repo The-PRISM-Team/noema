@@ -322,7 +322,7 @@ function initUI(resetState = true) {
 	createSuboption(gameTab, getLocaleStr('menu.games.loadGameFromFile.title'), getLocaleStr('menu.games.loadGameFromFile.desc'), () => {
 		const input = document.createElement("input");
         input.type = 'file';
-		input.accept = 'zip,ngp';
+		input.accept = '.zip,.ngp';
 		input.multiple = 'false';
 		input.style.display = 'none';
         input.addEventListener("change", event => {
@@ -460,7 +460,7 @@ function initUI(resetState = true) {
 		importbtn.type = 'file';
 		importbtn.multiple = 'false';
 		importbtn.style.display = 'none';
-		importbtn.accept = 'nsf,json,jsonc';
+		importbtn.accept = '.nsf,.json,.jsonc';
 		importbtn.addEventListener('change', (event) => {
 			const file = event.target.files[0];
 
