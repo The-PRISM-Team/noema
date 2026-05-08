@@ -323,8 +323,8 @@ function initUI(resetState = true) {
 		const input = document.createElement("input");
         input.type = 'file';
 		input.accept = 'zip,ngp';
-		importbtn.multiple = 'false';
-		importbtn.style.display = 'none';
+		input.multiple = 'false';
+		input.style.display = 'none';
         input.addEventListener("change", event => {
             const file = event.target.files[0];
 
