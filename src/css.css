@@ -36,20 +36,36 @@ body {
 }
 
 /* --- loading ui --- */
-#loading-bar {
-	--color: #777;
-	display: block;
-
+.loading {
+	display: flex;
+	flex-direction: column;
+	opacity: 100%;
 	position: fixed;
+	bottom: 15vh;
 	left: 50%;
-	bottom: 15%;
-	transform: scale(50%) translateX(-100%);
+	width: fit-content;
+	height: fit-content;
+	transform: translateX(-50%);
+	--color: #bbb;
+}
 
-	width: 75%;
+#loading-logo {
+	position: absolute;
+	width: 25vmin;
+	top: 25vh;
+	left: 50vw;
+	transform: translateX(-50%);
+	transition: top .5s ease, transform .5s ease, width .5s ease;
+}
+
+#loading-bar {
+	transform: scale(50%);
+
+	width: 75vw;
 	height: 64px;
 
 	border: solid 8px var(--color);
-	padding: 4px;
+	padding: 8px;
 
 	pointer-events: none;
 	z-index: 1000000;
@@ -66,13 +82,9 @@ body {
 }
 
 #clicktostart {
-	color: #3b3b3b;
-	position: fixed;
-	bottom: 50%;
-	left: 50%;
+	color: var(--color);
 	text-align: center;
-	transform: translate(-50%, 50%);
-	font-size: 5vmax;
+	font-size: 24px;
 	font-family: monospace;
 	transition: opacity .5s ease;
 	white-space: pre-wrap;
