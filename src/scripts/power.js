@@ -114,7 +114,8 @@ function startup() {
 			loadingLogo.style.top = '50vh';
 			loadingLogo.style.left = '50vw';
 			loadingLogo.style.height = '50vh';
-			loadingLogo.style.transform = 'translate(-50%, -50%)'
+			loadingLogo.style.transform = 'translate(-50%, -50%)';
+			loadingLogo.style.opacity = '100%';
 
 			changeBGColor({
 				colorName: null,
@@ -126,6 +127,7 @@ function startup() {
 			startupText.textContent = getLocaleStr('appTitle', 'en', 'Noema');
 			startupLogo.src = getAbsPath('./assets/logos/noema/color.png');
 			setTimeout(() => {
+				loadingLogo.style.opacity = '0%';
 				startupLogo.style.opacity = '100%';
 				setTimeout(() => {
 					changeBGColor({
