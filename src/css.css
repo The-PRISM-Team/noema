@@ -73,6 +73,12 @@ body {
 		transform .5s ease-out,
 		opacity .5s ease,
 		width .5s ease;
+
+	top: 50vh;
+	left: 50vw;
+	height: 35vh;
+	transform: translate(-50%, -50%);
+	opacity: 100%;
 }
 
 
