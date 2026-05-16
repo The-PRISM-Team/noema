@@ -39,10 +39,9 @@ console.log('Loading page...');
 // load animation
 const loadingRing = document.getElementById('loading-ring');
 let ringDirection = 0;
-function spinRing(deg, offset = 45) {
-    ring.style.transform = `translate(-50%, -50%) rotate(${deg + offset}deg)`;
-    ringDirection = deg;
-    return deg;
+function spinRing(deg) {
+    loadingRing.style.transform = `translate(-50%, -50%) rotate(${deg}deg)`;
+    return ringDirection = deg;
 }
 let loadingRingSpinStopped = false;
 
