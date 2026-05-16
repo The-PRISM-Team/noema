@@ -46,7 +46,10 @@ body {
 	width: fit-content;
 	height: fit-content;
 	transform: translateX(-50%);
-	transition: transform .5s ease;
+	transition: 
+		opacity .5s ease,
+		top .5s ease,
+		transform .5s ease;
 	--color: #bbb;
 }
 
@@ -56,10 +59,6 @@ body {
 	top: 25vh;
 	left: 50vw;
 	transform: translateX(-50%);
-	transition:
-		opacity .5s ease,
-		top .5s ease,
-		width .5s ease;
 }
 #loading-ring {
 	opacity: 0%;
