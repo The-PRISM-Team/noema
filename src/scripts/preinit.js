@@ -39,6 +39,9 @@ console.log('Loading page...');
 let bgMusic;
 let loadingRingSpinStopped = false;
 document.addEventListener('DOMContentLoaded', async () => {
+	document.getElementById('loading-progress').style.width = '1%';
+	console.log(`Page loaded in ${(performance.now() - pageStart).toFixed(2)}ms.`);
+
 	// load animation
 	const loadingRing = document.getElementById('loading-ring');
 	let ringDirection = 0;
@@ -47,11 +50,11 @@ document.addEventListener('DOMContentLoaded', async () => {
 		return ringDirection = deg;
 	}
 
-	const animateLoadingRing = () => {
-		let easing = 6;
-		let rotationSpeed = 5;
-		let rotationVel = 0;
+	let easing = 6;
+	let rotationSpeed = 5;
+	let rotationVel = 0;
 
+	const animateLoadingRing = () => {
 		spinRing(ringDirection + rotationVel);
 		if (ringDirection >= 90) ringDirection %= 90;
 
@@ -62,11 +65,10 @@ document.addEventListener('DOMContentLoaded', async () => {
 
 		requestAnimationFrame(animateLoadingRing); // delta time later pls pls pls
 	}
+	globalThis.animateLoadingRing = animateLoadingRing;
+
 	loadingRing.style.opacity = '100%';
 	animateLoadingRing();
-
-	document.getElementById('loading-progress').style.width = '1%';
-	console.log(`Page loaded in ${(performance.now() - pageStart).toFixed(2)}ms.`);
 
 	// load scripts
 	console.log('Loading scripts...');
