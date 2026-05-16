@@ -110,13 +110,15 @@ function startup() {
 		const runStartupSequence = () => {
 			const startupText = document.getElementById('startup-text');
 			const startupLogo = document.getElementById('startup-logo');
+			const loadingRing = document.getElementById('loading-ring');
+			const loadingN = document.getElementById('loading-N');
 
 			function setLoadingLogoStyle(property, value) {
-				const loadingRing = document.getElementById('loading-ring');
-				const loadingN = document.getElementById('loading-N');
 				loadingN.style[property] = value;
 				loadingRing.style[property] = value;
 			}
+			loadingN.classList.add('booting');
+			loadingRing.classList.add('booting');
 			setLoadingLogoStyle('top', '50vh');
 			setLoadingLogoStyle('left', '50vw');
 			setLoadingLogoStyle('height', '35vh');
@@ -137,6 +139,9 @@ function startup() {
 				startupLogo.style.opacity = '100%';
 
 				setTimeout(() => {
+					loadingN.classList.remove('booting');
+					loadingRing.classList.remove('booting');
+					
 					changeBGColor({
 						colorName: null,
 						easing: .1,
