@@ -114,12 +114,12 @@ function startup() {
 			function setLoadingLogoStyle(property, value) {
 				const loadingRing = document.getElementById('loading-ring');
 				const loadingN = document.getElementById('loading-N');
-				loadingN[property] = value;
-				loadingRing[property] = value;
+				loadingN.style[property] = value;
+				loadingRing.style[property] = value;
 			}
 			setLoadingLogoStyle('top', '50vh');
-			setLoadingLogoStyle('left', '50vh');
-			setLoadingLogoStyle('height', '50vh');
+			setLoadingLogoStyle('left', '50vw');
+			setLoadingLogoStyle('height', '35vh');
 			setLoadingLogoStyle('transform', 'translate(-50%, -50%)');
 			setLoadingLogoStyle('opacity', '100%');
 
