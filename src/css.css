@@ -58,6 +58,8 @@ body {
 	transition:
 		opacity .5s ease,
 		top .5s ease,
+		left .5s ease,
+		height .5s ease,
 		width .5s ease;
 }
 #loading-ring {
