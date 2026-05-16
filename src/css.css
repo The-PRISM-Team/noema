@@ -46,6 +46,7 @@ body {
 	width: fit-content;
 	height: fit-content;
 	transform: translateX(-50%);
+	transition: transform .5s ease;
 	--color: #bbb;
 }
 
@@ -58,7 +59,6 @@ body {
 	transition:
 		opacity .5s ease,
 		top .5s ease,
-		transform .5s ease,
 		width .5s ease;
 }
 #loading-ring {
