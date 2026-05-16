@@ -49,21 +49,17 @@ body {
 	--color: #bbb;
 }
 
-#loading-logo {
-	top: 25vh;
-	left: 50vw;
-	height: 25vmin;
-	translate: translateX(-50%);
-	transition:
-		translate .5s ease,
-		opacity .5s ease;
-}
 #loading-N, #loading-ring {
 	position: absolute;
-	height: inherit;
-	top: inherit;
-	left: inherit;
-	transform: inherit;
+	height: 25vmin;
+	top: 25vh;
+	left: 50vw;
+	transform: translateX(-50%);
+	transition:
+		opacity .5s ease,
+		top .5s ease,
+		transform .5s ease,
+		width .5s ease;
 }
 #loading-ring {
 	opacity: 0%;
