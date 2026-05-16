@@ -81,6 +81,7 @@ window.addEventListener('load', async () => {
 	await delay(750);
 	document.getElementById('loading-bar').style.opacity = '0%';
 	document.getElementById('loading-progress').style.width = '0%';
+	document.getElementById('loading-icon').style.opacity = '0%';
 
 	// test system
 	setCursor('wait');
@@ -98,7 +99,7 @@ window.addEventListener('load', async () => {
 		}
 		console.log('System test succeeded!');
 	}
-	// test battery
+	// test battery (maybe move to background process?)
 	if (localStorage.skipChargingTests !== 'true' && !(await navigator.getBattery())?.charging) {
 		console.log('Testing battery...');
 		document.getElementById('clicktostart').textContent = getLocaleStr('startup.testingBattery', 'en', 'testing battery...');
@@ -126,7 +127,7 @@ window.addEventListener('load', async () => {
 	const isMobile = navigator.userAgentData?.mobile === true || /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
 	const supportChecks = [
 		{
-			trigger: isMobile,
+			trigger: isMobile, // support later!!
 			warning: getLocaleStr('startup.mobileUnsupported', 'en', "Mobile is not supported. Please use a Desktop or Laptop computer.")
 		},
 		{

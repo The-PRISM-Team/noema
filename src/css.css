@@ -55,7 +55,11 @@ body {
 	top: 25vh;
 	left: 50vw;
 	transform: translateX(-50%);
-	transition: top .5s ease, transform .5s ease, width .5s ease;
+	transition:
+		opacity .5s ease,
+		top .5s ease,
+		transform .5s ease,
+		width .5s ease;
 }
 
 #loading-bar {
