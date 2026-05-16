@@ -88,6 +88,7 @@ function startup() {
 			const clickToStart = document.getElementById('clicktostart');
 			clickToStart.style.display = 'revert';
 			clickToStart.style.opacity = '100%';
+			document.getElementById('loading-logo').style.opacity = '100%';
 			clickToStart.innerHTML = localStorage.startup === 'true' ? getLocaleStr('startup.clickToStart') : getLocaleStr('startup.clickToMenu');
 
 			const continueBoot = () => {

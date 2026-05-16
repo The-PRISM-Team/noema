@@ -189,6 +189,7 @@ async function init() {
 			setCursor('pointer');
 			clickToStart.style.display = 'revert';
 			clickToStart.style.opacity = '100%';
+			document.getElementById('loading-logo').style.opacity = '100%';
 			clickToStart.innerHTML = localStorage.startup === 'true' ? 'click or press enter to start' : 'click or press enter to go to menu';
 
 			const continueBoot = async () => {

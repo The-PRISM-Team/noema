@@ -35,6 +35,33 @@ let dependStart = null,
 // load page
 document.body.style.cursor = 'wait';
 console.log('Loading page...');
+
+// load animation
+const loadingRing = document.getElementById('loading-ring');
+let ringDirection = 0;
+function spinRing(deg, offset = 45) {
+    ring.style.transform = `translate(-50%, -50%) rotate(${deg + offset}deg)`;
+    ringDirection = deg;
+    return deg;
+}
+let loadingRingSpinStopped = false;
+
+const animateLoadingRing = () => {
+	let easing = 6;
+	let rotationSpeed = 5;
+	let rotationVel = 0;
+
+    spinSquare(ringDirection + rotationVel);
+    if (ringDirection >= 90) ringDirection %= 90;
+
+    if (spinStopped) {
+        rotationVel = (90 - ringDirection) / easing;
+        if (rotationVel < 0.01) return;
+    } else rotationVel += (rotationSpeed - rotationVel) / easing;
+
+	requestAnimationFrame(animateLoadingRing); // delta time later pls pls pls
+}
+
 let bgMusic;
 document.addEventListener('DOMContentLoaded', async () => {
 	document.getElementById('loading-progress').style.width = '1%';
@@ -75,6 +102,7 @@ window.addEventListener('load', async () => {
 	console.log(`Initialized sounds in ${(performance.now() - soundStart).toFixed(2)}ms.`);
 
 	// done
+	loadingRingSpinStopped = true;
 	setCursor('default');
 	document.getElementById('clicktostart').textContent = getLocaleStr('startup.finishedLoading', 'en', 'finished loading!');
 	console.log(`Finished loading in ${(performance.now() - pageStart).toFixed(2)}ms!`);
@@ -84,6 +112,8 @@ window.addEventListener('load', async () => {
 	document.getElementById('loading-icon').style.opacity = '0%';
 
 	// test system
+	loadingRingSpinStopped = false;
+	animateLoadingRing();
 	setCursor('wait');
 	if (typeof test !== 'undefined') {
 		console.log('Testing system...');
@@ -112,6 +142,7 @@ window.addEventListener('load', async () => {
 		};
 		console.log('Battery test succeeded!');
 	}
+	loadingRingSpinStopped = true;
 
 	// get commit ID
 	Object.defineProperty(globalThis, "commitId", {
@@ -161,6 +192,7 @@ window.addEventListener('load', async () => {
 		} else {
 			document.getElementById('clicktostart').innerHTML = getLocaleStr('startup.goingToMenu', 'en', 'going to menu...');
 			document.getElementById('clicktostart').style.opacity = '0%';
+			document.getElementById('loading-logo').style.opacity = '0%';
 			init();
 		}
 	} else {
@@ -186,6 +218,7 @@ window.addEventListener('load', async () => {
 
 			else {
 				document.getElementById('clicktostart').style.opacity = '0%';
+				document.getElementById('loading-logo').style.opacity = '0%';
 				setTimeout(() => {
 					init();
 				}, 1e3);

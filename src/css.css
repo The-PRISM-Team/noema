@@ -49,9 +49,9 @@ body {
 	--color: #bbb;
 }
 
-#loading-logo {
+#loading-N, #loading-ring {
 	position: absolute;
-	width: 25vmin;
+	height: 25vmin;
 	top: 25vh;
 	left: 50vw;
 	transform: translateX(-50%);
