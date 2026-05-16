@@ -55,7 +55,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 		spinRing(ringDirection + rotationVel);
 		if (ringDirection >= 90) ringDirection %= 90;
 
-		if (spinStopped) {
+		if (loadingRingSpinStopped) {
 			rotationVel = (90 - ringDirection) / easing;
 			if (rotationVel < 0.01) return;
 		} else rotationVel += (rotationSpeed - rotationVel) / easing;
