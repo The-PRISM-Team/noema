@@ -55,7 +55,6 @@ document.addEventListener('DOMContentLoaded', async () => {
 	let rotationVel = 0;
 
 	const animateLoadingRing = () => {
-		console.log(easing, rotationSpeed, rotationVel, loadingRingSpinStopped);
 		if (rotationVel < 0.01 && loadingRingSpinStopped) return;
 
 		spinRing(ringDirection + rotationVel);
