@@ -87,7 +87,7 @@ function startup() {
 			setCursor('pointer');
 			const clickToStart = document.getElementById('clicktostart');
 			clickToStart.style.display = 'revert';
-			clickToStart.style.opacity = '10%';
+			clickToStart.style.opacity = '100%';
 			clickToStart.innerHTML = localStorage.startup === 'true' ? getLocaleStr('startup.clickToStart') : getLocaleStr('startup.clickToMenu');
 
 			const continueBoot = () => {

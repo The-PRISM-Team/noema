@@ -42,7 +42,7 @@ body {
 
 	position: fixed;
 	left: 50%;
-	bottom: 64px;
+	bottom: 15%;
 	transform: scale(50%) translateX(-100%);
 
 	width: 75%;
@@ -66,13 +66,13 @@ body {
 }
 
 #clicktostart {
-	color: #fff;
-	opacity: 10%;
+	color: #3b3b3b;
 	position: fixed;
-	top: 50%;
+	bottom: 50%;
 	left: 50%;
-	transform: translate(-50%, -50%);
-	font-size: 5vw;
+	text-align: center;
+	transform: translate(-50%, 50%);
+	font-size: 5vmax;
 	font-family: monospace;
 	transition: opacity .5s ease;
 	white-space: pre-wrap;
