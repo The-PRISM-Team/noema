@@ -51,7 +51,7 @@ const animateLoadingRing = () => {
 	let rotationSpeed = 5;
 	let rotationVel = 0;
 
-    spinSquare(ringDirection + rotationVel);
+    spinRing(ringDirection + rotationVel);
     if (ringDirection >= 90) ringDirection %= 90;
 
     if (spinStopped) {
