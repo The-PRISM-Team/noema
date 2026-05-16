@@ -46,19 +46,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 	const loadingRing = document.getElementById('loading-ring');
 	let ringDirection = 0;
 	function spinRing(deg) {
-		// reset transition
-		const defaultTransition = getComputedStyle(loadingRing).transition;
-		loadingRing.style.transition = 'none';
-
-		// reset transform
-		loadingRing.style.transform = '';
-		const defaultTransform = getComputedStyle(loadingRing).transform;
-
-		// apply rotation
-		loadingRing.style.transition = defaultTransition;
-		loadingRing.style.transform = `${defaultTransform} rotate(${deg}deg)`;
-
-		// store rotation
+		loadingRing.style.transform = `translateX(-50%) rotate(${deg}deg)`;
 		return ringDirection = deg;
 	}
 
