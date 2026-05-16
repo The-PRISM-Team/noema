@@ -119,10 +119,10 @@ function startup() {
 			}
 			loadingN.classList.add('booting');
 			loadingRing.classList.add('booting');
-			setLoadingLogoStyle('top', '50vh');
-			setLoadingLogoStyle('left', '50vw');
-			setLoadingLogoStyle('height', '35vh');
 			setLoadingLogoStyle('transform', 'translate(-50%, -50%)');
+			setLoadingLogoStyle('top', '50%');
+			setLoadingLogoStyle('left', '50%');
+			setLoadingLogoStyle('height', '35vh');
 			setLoadingLogoStyle('opacity', '100%');
 
 			changeBGColor({
