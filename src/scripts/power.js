@@ -108,36 +108,67 @@ function startup() {
 		};
 
 		const runStartupSequence = () => {
+			const startupText = document.getElementById('startup-text');
+			const startupLogo = document.getElementById('startup-logo');
+			const loadingLogo = document.getElementById('loading-logo');
+			loadingLogo.style.top = '50vh';
+			loadingLogo.style.left = '50vw';
+			loadingLogo.style.height = '50vh';
+			loadingLogo.style.transform = 'translate(-50%, -50%)'
+
 			changeBGColor({
 				colorName: null,
 				easing: .1,
 				topColor: "#aaa",
 				bottomColor: "#aaa"
 			});
-			document.getElementById('startup-text').textContent = getLocaleStr('appTitle', 'en', 'Noema');
-			document.getElementById('startup-logo').src = getAbsPath('./assets/logos/noema/color.png');
+
+			startupText.textContent = getLocaleStr('appTitle', 'en', 'Noema');
+			startupLogo.src = getAbsPath('./assets/logos/noema/color.png');
 			setTimeout(() => {
-				document.getElementById('startup-logo').style.opacity = '100%';
+				startupLogo.style.opacity = '100%';
 				setTimeout(() => {
-					changeBGColor({ colorName: null, easing: .1, topColor: "#00f", bottomColor: "#000"});
+					changeBGColor({
+						colorName: null,
+						easing: .1,
+						topColor: "#00f",
+						bottomColor: "#000"
+					});
 					fadeSpaghettiIn();
-					document.getElementById('startup-logo').style.transform = "translate(-50%, -50%)";
-					document.getElementById('startup-logo').style.transition = 'opacity 1s ease, height 1s ease, transform 1s ease';
-					document.getElementById('startup-logo').style.height = "25vh";
+
+					startupLogo.style.transform = "translate(-50%, -50%)";
+					startupLogo.style.transition = 'opacity 1s ease, height 1s ease, transform 1s ease';
+					startupLogo.style.height = "25vh";
 					favicon.href = getAbsPath('./assets/logos/noema/black.png');
+
 					setTimeout(() => {
-						changeBGColor({ colorName: null, easing: .1, topColor: "#000", bottomColor: "#f0f"});
-						document.getElementById('startup-text').style.textShadow = "0px 0px 15px #000";
-						document.getElementById('startup-text').style.opacity = "100%";
+						changeBGColor({
+							colorName: null,
+							easing: .1,
+							topColor: "#000",
+							bottomColor: "#f0f"
+						});
+
+						startupText.style.textShadow = "0px 0px 15px #000";
+						startupText.style.opacity = "100%";
 						favicon.href = getAbsPath('./assets/logos/noema/white.png');
+
 						setTimeout(() => {
-							document.getElementById('startup-text').style.top = "65vh";
-							document.getElementById('startup-text').style.textShadow = "0px 0px 50px #fff";
-							changeBGColor({ colorName: null, easing: .1, topColor: "#00f", bottomColor: "#f0f"});
+							startupText.style.top = "65vh";
+							startupText.style.textShadow = "0px 0px 50px #fff";
+						
+							changeBGColor({
+								colorName: null,
+								easing: .1,
+								topColor: "#00f",
+								bottomColor: "#f0f"
+							});
+						
 							favicon.href = getAbsPath('./assets/logos/noema/color.png');
+						
 							setTimeout(() => {
-								document.getElementById('startup-logo').style.opacity = "0%";
-								document.getElementById('startup-text').style.opacity = "0%";
+								startupLogo.style.opacity = "0%";
+								startupText.style.opacity = "0%";
 								starting = false;
 								init();
 								console.log(`Boot animation finished in ${Date.now() - startTime}ms.`);

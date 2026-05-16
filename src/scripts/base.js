@@ -179,6 +179,8 @@ async function init() {
 	delete localStorage.fromRefresh;
 	delete localStorage.fastBoot;
 	const clickToStart = document.getElementById('clicktostart');
+	document.getElementById('clicktostart').style.opacity = '0%';
+	document.getElementById('loading-logo').style.opacity = '0%';
 	bgMusic.loop = true;
 	bgMusic.volume = 0;
 	try {

@@ -195,8 +195,6 @@ window.addEventListener('load', async () => {
 				init();
 		} else {
 			document.getElementById('clicktostart').innerHTML = getLocaleStr('startup.goingToMenu', 'en', 'going to menu...');
-			document.getElementById('clicktostart').style.opacity = '0%';
-			document.getElementById('loading-logo').style.opacity = '0%';
 			init();
 		}
 	} else {
@@ -221,15 +219,11 @@ window.addEventListener('load', async () => {
 			}
 
 			else {
-				document.getElementById('clicktostart').style.opacity = '0%';
-				document.getElementById('loading-logo').style.opacity = '0%';
-				setTimeout(() => {
-					init();
-				}, 1e3);
+				setTimeout(init, 1e3);
 			}
 		};
 		document.onclick = start;
-		document.onkeydown = (event) => {
+		document.onkeydown = event => {
 			if (event.key.toLowerCase() === "enter") {
 				start();
 			}
