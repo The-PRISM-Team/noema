@@ -57,9 +57,10 @@ body {
 	transform: translateX(-50%);
 	transition:
 		opacity .5s ease,
-		top .5s ease,
-		left .5s ease,
-		height .5s ease,
+		top .5s ease-out,
+		left .5s ease-out,
+		height .5s ease-out,
+		transform .5s ease-out,
 		width .5s ease;
 }
 #loading-ring {
