@@ -133,8 +133,9 @@ function startup() {
 			startupText.textContent = getLocaleStr('appTitle', 'en', 'Noema');
 			startupLogo.src = getAbsPath('./assets/logos/noema/color.png');
 			setTimeout(() => {
-				loadingLogo.style.opacity = '0%';
+				setLoadingLogoStyle('opacity', '0%');
 				startupLogo.style.opacity = '100%';
+
 				setTimeout(() => {
 					changeBGColor({
 						colorName: null,
