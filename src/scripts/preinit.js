@@ -61,6 +61,7 @@ const animateLoadingRing = () => {
 
 	requestAnimationFrame(animateLoadingRing); // delta time later pls pls pls
 }
+animateLoadingRing();
 
 let bgMusic;
 document.addEventListener('DOMContentLoaded', async () => {
@@ -109,7 +110,6 @@ window.addEventListener('load', async () => {
 	await delay(750);
 	document.getElementById('loading-bar').style.opacity = '0%';
 	document.getElementById('loading-progress').style.width = '0%';
-	document.getElementById('loading-icon').style.opacity = '0%';
 
 	// test system
 	loadingRingSpinStopped = false;
