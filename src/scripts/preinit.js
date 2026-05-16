@@ -36,34 +36,35 @@ let dependStart = null,
 document.body.style.cursor = 'wait';
 console.log('Loading page...');
 
-// load animation
-const loadingRing = document.getElementById('loading-ring');
-let ringDirection = 0;
-function spinRing(deg) {
-    loadingRing.style.transform = `translate(-50%, -50%) rotate(${deg}deg)`;
-    return ringDirection = deg;
-}
-let loadingRingSpinStopped = false;
-
-const animateLoadingRing = () => {
-	let easing = 6;
-	let rotationSpeed = 5;
-	let rotationVel = 0;
-
-    spinRing(ringDirection + rotationVel);
-    if (ringDirection >= 90) ringDirection %= 90;
-
-    if (spinStopped) {
-        rotationVel = (90 - ringDirection) / easing;
-        if (rotationVel < 0.01) return;
-    } else rotationVel += (rotationSpeed - rotationVel) / easing;
-
-	requestAnimationFrame(animateLoadingRing); // delta time later pls pls pls
-}
-animateLoadingRing();
-
 let bgMusic;
+let loadingRingSpinStopped = false;
 document.addEventListener('DOMContentLoaded', async () => {
+	// load animation
+	const loadingRing = document.getElementById('loading-ring');
+	let ringDirection = 0;
+	function spinRing(deg) {
+		loadingRing.style.transform = `translate(-50%, -50%) rotate(${deg}deg)`;
+		return ringDirection = deg;
+	}
+
+	const animateLoadingRing = () => {
+		let easing = 6;
+		let rotationSpeed = 5;
+		let rotationVel = 0;
+
+		spinRing(ringDirection + rotationVel);
+		if (ringDirection >= 90) ringDirection %= 90;
+
+		if (spinStopped) {
+			rotationVel = (90 - ringDirection) / easing;
+			if (rotationVel < 0.01) return;
+		} else rotationVel += (rotationSpeed - rotationVel) / easing;
+
+		requestAnimationFrame(animateLoadingRing); // delta time later pls pls pls
+	}
+	loadingRing.style.opacity = '100%';
+	animateLoadingRing();
+
 	document.getElementById('loading-progress').style.width = '1%';
 	console.log(`Page loaded in ${(performance.now() - pageStart).toFixed(2)}ms.`);
 
