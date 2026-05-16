@@ -46,9 +46,19 @@ document.addEventListener('DOMContentLoaded', async () => {
 	const loadingRing = document.getElementById('loading-ring');
 	let ringDirection = 0;
 	function spinRing(deg) {
+		// reset transition
+		const defaultTransition = getComputedStyle(loadingRing).transition;
+		loadingRing.style.transition = 'none';
+
+		// reset transform
 		loadingRing.style.transform = '';
 		const defaultTransform = getComputedStyle(loadingRing).transform;
+
+		// apply rotation
+		loadingRing.style.transition = defaultTransition;
 		loadingRing.style.transform = `${defaultTransform} rotate(${deg}deg)`;
+
+		// store rotation
 		return ringDirection = deg;
 	}
 
@@ -57,13 +67,15 @@ document.addEventListener('DOMContentLoaded', async () => {
 	let rotationVel = 0;
 
 	const animateLoadingRing = () => {
+		if (rotationVel < 0.01) return;
+
 		spinRing(ringDirection + rotationVel);
 		if (ringDirection >= 90) ringDirection %= 90;
 
-		if (loadingRingSpinStopped) {
+		if (loadingRingSpinStopped)
 			rotationVel = (90 - ringDirection) / easing;
-			if (rotationVel < 0.01) return;
-		} else rotationVel += (rotationSpeed - rotationVel) / easing;
+		else
+			rotationVel += (rotationSpeed - rotationVel) / easing;
 
 		requestAnimationFrame(animateLoadingRing); // delta time later pls pls pls
 	}
