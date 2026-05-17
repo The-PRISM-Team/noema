@@ -185,24 +185,36 @@ window.addEventListener('load', async () => {
 	const fastBoot = localStorage.fastBoot === 'true';
 	const fastBootDefault = localStorage.fastBootDefault === 'true';
 	const shouldPlayStartup = localStorage.startup === 'true' && (!fastBootDefault || fromRebootBoot) && !fastBoot;
+
+	const delay = ms =>new Promise(r=>setTimeout(r, ms));
+	const clicktostart = document.getElementById('clicktostart');
+
+	const animInit = async ()=>{
+		document.getElementById('loading-bar').style.opacity = '0';
+		document.getElementById('loading-logo').style.opacity = '0';
+		clicktostart.style.opacity = '0';
+		await delay(500);
+		init();
+	}
+
 	if (fromRebootBoot || fromRefreshBoot) {
 		animSpaghetti();
 		if (shouldPlayStartup) {
-			document.getElementById('clicktostart').innerHTML = getLocaleStr('startup.starting', 'en', 'starting...');
+			clicktostart.textContent = getLocaleStr('startup.starting', 'en', 'starting...');
 			if (typeof startup !== 'undefined')
 				startup();
 			else
-				init();
+				await animInit();
 		} else {
-			document.getElementById('clicktostart').innerHTML = getLocaleStr('startup.goingToMenu', 'en', 'going to menu...');
-			init();
+			clicktostart.textContent = getLocaleStr('startup.goingToMenu', 'en', 'going to menu...');
+			await animInit();
 		}
 	} else {
 		setCursor('pointer');
 		if (shouldPlayStartup)
-			document.getElementById('clicktostart').innerHTML = getLocaleStr('startup.clickToStart', 'en', 'click or press enter to start');
+			clicktostart.textContent = getLocaleStr('startup.clickToStart', 'en', 'click or press enter to start');
 		else
-			document.getElementById('clicktostart').innerHTML = getLocaleStr('startup.clickToMenu', 'en', 'click or press enter to go to menu');
+			clicktostart.textContent = getLocaleStr('startup.clickToMenu', 'en', 'click or press enter to go to menu');
 
 		const start = async () => {
 			setCursor('none');
@@ -214,7 +226,7 @@ window.addEventListener('load', async () => {
 				if (typeof startup !== 'undefined') {
 					startup();
 				} else {
-					init();
+					await animInit();
 				}
 			}
 
