@@ -193,7 +193,7 @@ window.addEventListener('load', async () => {
 		document.getElementById('loading-bar').style.opacity = '0';
 		document.getElementById('loading-logo').style.opacity = '0';
 		clicktostart.style.opacity = '0';
-		await delay(500);
+		await delay(750);
 		init();
 	}
 

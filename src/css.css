@@ -48,7 +48,9 @@ body {
 	transform: translateX(-50%);
 	--color: #bbb;
 }
-
+#loading-logo {
+	transition: opacity .75s ease;
+}
 #loading-N, #loading-ring {
 	position: absolute;
 	height: 25vh;
