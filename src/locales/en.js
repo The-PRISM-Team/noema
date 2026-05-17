@@ -115,6 +115,7 @@ globalThis.localesArray.push({
     "startup.loadingScripts": "loading scripts, please wait",
     "startup.loadingResources": "loading page resources, please wait",
     "startup.loadingSounds": "loading sounds, please wait",
+    "startup.loadingCommitData": "loading commit data, please wait",
     "startup.finishedLoading": "finished loading!",
     "startup.testingSystem": "testing system...",
     "startup.systemTestFailed": "system test failed!! the page will refresh very soon.",
