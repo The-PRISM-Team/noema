@@ -67,6 +67,9 @@ async function loadScripts(cb = ()=>{}, cacheBusting = true) {
 		{
 			src: './scripts/modules/jszip.min.js'
 		},
+		{
+			src: "https://rawcdn.githack.com/sophb-ccjt/protoplus/refs/heads/main/protoplus.js"
+		},
 		// scripts
 		{
 			src: './scripts/error.js'

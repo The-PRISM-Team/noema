@@ -85,6 +85,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
 	// expand prototypes
 	console.log('Expanding prototypes...');
+	protoplus.expand();
 
 	// load resources
 	dependStart = performance.now();
