@@ -151,12 +151,12 @@ function selectUISuboption(id) {
 	});
 }
 function executeUISuboption(option = selected.option, suboption = selected.suboption) {
-	const suboption = document.body.querySelector(`#ui-content${option} #ui-suboption${suboption}`);
-	const actionId = suboption.dataset.action;
+	const suboptionElement = document.body.querySelector(`#ui-content${option} #ui-suboption${suboption}`);
+	const actionId = suboptionElement.dataset.action;
 	if (isDefined(actionId) && isDefined(uiSuboptionActions[actionId])) {
 		uiSuboptionActions[actionId](option, suboption);
-		if (isDefined(suboption.dataset.sound))
-			playSound(suboption.dataset.sound);
+		if (isDefined(suboptionElement.dataset.sound))
+			playSound(suboptionElement.dataset.sound);
 		else
 			playSound('confirm');
 		if (lastInput === 'gamepad') hapticFeedback(1,50);
