@@ -103,7 +103,7 @@ window.addEventListener('load', async () => {
 
 	soundStart = performance.now();
 	await soundWarmup((done, total) => {
-		document.getElementById('loading-progress').style.width = `${50 + Math.min(0, Math.roundratioToPercentage(done, total) / 2 - 1)}%`;
+		document.getElementById('loading-progress').style.width = `${50 + Math.max(0, Math.round(ratioToPercentage(done, total) / 2) - 1)}%`;
 	});
 	console.log(`Initialized sounds in ${(performance.now() - soundStart).toFixed(2)}ms.`);
 
