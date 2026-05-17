@@ -106,6 +106,9 @@
 
 - Added `𝑓 hapticFeedback` API
 
+- `𝑓 executeUISuboption` now takes in 2 arguments: `? option` and `? suboption`
+  - Executed suboptions now run with 2 arguments: `𝑛 option` and `𝑛 suboption`
+
 ### Bugfixes
 
 - Added click/enter fallbacks when startup or background audio autoplay is blocked by the browser
