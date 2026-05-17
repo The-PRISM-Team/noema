@@ -50,7 +50,7 @@ async function loadScripts(cb = ()=>{}, cacheBusting = true) {
 			src: './scripts/modules/controller_input.js'
 		},
 		{
-			src: 'https://raw.githubusercontent.com/sophb-ccjt/protoplus/refs/heads/main/protoplus.js'
+			src: 'https://rawcdn.githack.com/sophb-ccjt/protoplus/refs/heads/main/protoplus.js'
 		},
 		{
 			src: './scripts/modules/bgFormat.js'
