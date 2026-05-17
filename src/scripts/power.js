@@ -225,5 +225,25 @@ function shutdown() {
 	bgMusic.pause();
 	setTimeout(()=>{
 		window.close();
+		if (!window.closed) {
+			const closeBlocked = document.createElement('p');
+			closeBlocked.style.cssText = `
+				font-family: monospace;
+				color: #fff;
+				font-size: 4vmin;
+				position: fixed;
+				top: 50%;
+				left: 50%;
+				transform: translate(-50%, -50%);
+				white-space: pre-wrap;
+			`;
+			document.body.appendChild(closeBlocked);
+
+			if (window.opener)
+				closeBlocked.textContent = "Noema couldn't close the window.\nPlease close it manually."
+			else
+				closeBlocked.textContent = "Noema couldn't close the tab.\nPlease close it manually."
+		}
+
 	}, 1e3 / 25);
 }

@@ -1,4 +1,5 @@
 # Changelog for Noema (toward v0.16.0)
+
 *(may have missing or inaccurate information)*
 
 *(Note: minor internal changes, cleanups and insignificant details aren't (and won't be) included in changelogs.)*
@@ -7,6 +8,7 @@
 
 *Symbols used:*
 ---
+
 **𝑛** — Number
 
 **𝑠** — String
@@ -35,12 +37,14 @@
 
 ---
 
+## Milestone: Games
 
-# Milestone: Games!
+- Added game loader
+
 - todo!
 
+### UI Changes
 
-## UI Changes
 - Added `⋮ Fast Reboot` to the `⋮ Power` tab to skip startup animation once on the next boot
 
 - Added `⋮ Fast boot by default` to the `⋮ Preferences` tab so startup animation only plays on normal reboot
@@ -75,8 +79,12 @@
 
 - Added haptic feedback to UI
 
+- Revamped boot screen
 
-## API Changes
+- Added fallback message when the tab cannot be closed on shutdown
+
+### API Changes
+
 - Moved UI properties to `𝘰 selected` object
 
 - Added `𝑓 startsWithAmount` and `𝑓 endsWithAmount` to `𝘰 String.prototype`
@@ -98,8 +106,8 @@
 
 - Added `𝑓 hapticFeedback` API
 
+### Bugfixes
 
-## Bugfixes
 - Added click/enter fallbacks when startup or background audio autoplay is blocked by the browser
 
 - Fixed startup flow edge-cases around refresh/reboot state handling
@@ -112,8 +120,8 @@
 
 - Fixed Battery API warning listener crash on browsers without `𝑓 navigator.getBattery`
 
+### Misc
 
-## Misc.
 - Added startup state flags used by fast-boot and reboot flows (`𝑏 fromRefresh`, `𝑏 fastBoot`, and `𝑏 fastBootDefault`)
 
 - Added `⋮ Noema` theme (will change if Noema's logo changes)
