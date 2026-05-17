@@ -30,7 +30,8 @@ if (!isDefined(localStorage.noTransitions) && navigator.deviceMemory < 2) localS
 const pageStart = performance.now()
 let dependStart = null,
 	scriptStart = null,
-	soundStart = null;
+	soundStart = null,
+	commitStart = null;
 
 // load page
 document.body.style.cursor = 'wait';
@@ -106,11 +107,26 @@ window.addEventListener('load', async () => {
 	});
 	console.log(`Initialized sounds in ${(performance.now() - soundStart).toFixed(2)}ms.`);
 
+	// get commit ID
+	console.log('loading commit data...');
+	document.getElementById('clicktostart').textContent = getLocaleStr('startup.loadingCommitData', 'en', 'loading commit data...');
+
+	commitStart = performance.now();
+	Object.defineProperty(globalThis, "commitId", {
+		value: (
+			await fetchJson('https://api.github.com/repos/The-PRISM-Team/noema/commits?per_page=1&sha=main')
+		)[0]?.sha,
+		writable: false,
+		configurable: false,
+	});
+	console.log(`Loaded latest commit in ${(performance.now() - commitStart).toFixed(2)}ms.`);
+
 	// done
 	loadingRingSpinStopped = true;
 	setCursor('default');
 	document.getElementById('clicktostart').textContent = getLocaleStr('startup.finishedLoading', 'en', 'finished loading!');
 	console.log(`Finished loading in ${(performance.now() - pageStart).toFixed(2)}ms!`);
+
 	await delay(750);
 	document.getElementById('loading-bar').style.opacity = '0%';
 	document.getElementById('loading-progress').style.width = '0%';
@@ -147,17 +163,6 @@ window.addEventListener('load', async () => {
 		console.log('Battery test succeeded!');
 	}
 	loadingRingSpinStopped = true;
-
-	// get commit ID
-	console.log('loading commit data...');
-	document.getElementById('clicktostart').textContent = getLocaleStr('startup.loadingCommitData', 'en', 'loading commit data...');
-	Object.defineProperty(globalThis, "commitId", {
-		value: (
-			await fetchJson('https://api.github.com/repos/The-PRISM-Team/noema/commits?per_page=1&sha=main')
-		)[0]?.sha,
-		writable: false,
-		configurable: false,
-	});
 
 	// platform checks
 	setCursor('default');
