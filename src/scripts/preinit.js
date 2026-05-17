@@ -110,7 +110,7 @@ window.addEventListener('load', async () => {
 
 	// get commit ID
 	console.log('loading commit data...');
-	document.getElementById('clicktostart').textContent = getLocaleStr('startup.loadingCommitData', 'en', 'loading commit data...');
+	document.getElementById('clicktostart').textContent = getLocaleStr('startup.loadingCommitData', 'en', 'loading commit data, please wait');
 
 	commitStart = performance.now();
 	Object.defineProperty(globalThis, "commitId", {
