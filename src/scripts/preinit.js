@@ -186,7 +186,6 @@ window.addEventListener('load', async () => {
 	const fastBootDefault = localStorage.fastBootDefault === 'true';
 	const shouldPlayStartup = localStorage.startup === 'true' && (!fastBootDefault || fromRebootBoot) && !fastBoot;
 
-	const delay = ms =>new Promise(r=>setTimeout(r, ms));
 	const clicktostart = document.getElementById('clicktostart');
 
 	const animInit = async ()=>{
