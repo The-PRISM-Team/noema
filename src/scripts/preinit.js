@@ -149,6 +149,8 @@ window.addEventListener('load', async () => {
 	loadingRingSpinStopped = true;
 
 	// get commit ID
+	console.log('loading commit data...');
+	document.getElementById('clicktostart').textContent = getLocaleStr('startup.loadingCommitData', 'en', 'loading commit data...');
 	Object.defineProperty(globalThis, "commitId", {
 		value: (
 			await fetchJson('https://api.github.com/repos/The-PRISM-Team/noema/commits?per_page=1&sha=main')
@@ -201,7 +203,7 @@ window.addEventListener('load', async () => {
 		if (shouldPlayStartup) {
 			clicktostart.textContent = getLocaleStr('startup.starting', 'en', 'starting...');
 			if (typeof startup !== 'undefined') {
-				await delay(bootdelay);
+				await delay(100);
 				startup();
 			}
 			else
@@ -243,4 +245,3 @@ window.addEventListener('load', async () => {
 		};
 	}
 });
-let bootdelay = 150;
