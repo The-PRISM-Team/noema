@@ -78,7 +78,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 	document.getElementById('clicktostart').textContent = 'loading scripts, please wait';
 	scriptStart = performance.now();
 	await loadScripts((done, total)=>{
-		document.getElementById('loading-progress').style.width = `${Math.max(1, 1 + Math.round(((done / total) * 100) / 2) - 2)}%`;
+		document.getElementById('loading-progress').style.width = `${Math.max(1, 1 + ((done / total) * 100) / 2 - 2)}%`;
 	}, !isLocal);
 
 	console.log(`Scripts loaded in ${(performance.now() - scriptStart).toFixed(2)}ms.`);
@@ -103,7 +103,7 @@ window.addEventListener('load', async () => {
 
 	soundStart = performance.now();
 	await soundWarmup((done, total) => {
-		document.getElementById('loading-progress').style.width = `${50 + Math.max(0, Math.round(ratioToPercentage(done, total) / 2) - 1)}%`;
+		document.getElementById('loading-progress').style.width = `${50 + Math.max(0, ratioToPercentage(done, total) / 2 - 1)}%`;
 	});
 	console.log(`Initialized sounds in ${(performance.now() - soundStart).toFixed(2)}ms.`);
 
