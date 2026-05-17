@@ -32,20 +32,25 @@ function focusUIOption(id = selected.option) {
 		optionDiv.style.left = `${optionDiv.offsetLeft + delta}px`;
 
 		// more-arrow shit
-		const optionDivRect = optionDiv.getBoundingClientRect();
+		const moreArrowCallback = () => {
+			const optionDivRect = optionDiv.getBoundingClientRect();
 
-		const leftArrow = document.getElementById('more-left');
-		const rightArrow = document.getElementById('more-right');
+			const leftArrow = document.getElementById('more-left');
+			const rightArrow = document.getElementById('more-right');
 
-		if (optionDivRect.left < uiRect.left)
-			leftArrow.style.opacity = "100%";
-		else
-			leftArrow.style.opacity = "0%";
+			if (optionDivRect.left < uiRect.left)
+				leftArrow.style.opacity = "100%";
+			else
+				leftArrow.style.opacity = "0%";
 
-		if (optionDivRect.right > uiRect.right)
-			rightArrow.style.opacity = "100%";
-		else
-			rightArrow.style.opacity = "0%";
+			if (optionDivRect.right > uiRect.right)
+				rightArrow.style.opacity = "100%";
+			else
+				rightArrow.style.opacity = "0%";
+
+			optionDiv.removeEventListener('transitionend', moreArrowCallback);
+		}
+		optionDiv.addEventListener('transitionend', moreArrowCallback);
 	});
 }
 
