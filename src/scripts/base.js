@@ -11,7 +11,7 @@ document.getElementById('version-number').textContent = formatVersion();
 
 const fpsCounter = document.getElementById('fps');
 
-let fps = 60, // assume 60 fps before check since that's a safe FPS
+let fps = 60, // assume 60 fps before check since that's a safe framerate
 	avgfps = fps,
 	deltaTime = 1 / fps;
 let _lastTime = performance.now();
