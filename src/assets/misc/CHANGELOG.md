@@ -55,7 +55,7 @@
 
 - Code blocks now work properly in the changelog dialog
 
-- The startup logo and favicon now use Noema's new (conceptual) logo
+- The startup logo and favicon now use Noema's new logo
 
 - Made closed UI background darker and more blurry
 
