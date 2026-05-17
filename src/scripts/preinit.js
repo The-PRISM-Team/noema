@@ -103,7 +103,7 @@ window.addEventListener('load', async () => {
 
 	soundStart = performance.now();
 	await soundWarmup((done, total) => {
-		document.getElementById('loading-progress').style.width = `${50 + (Math.round(ratioToPercentage(done, total)) / 2)}%`;
+		document.getElementById('loading-progress').style.width = `${50 + Math.min(0, Math.roundratioToPercentage(done, total) / 2 - 1)}%`;
 	});
 	console.log(`Initialized sounds in ${(performance.now() - soundStart).toFixed(2)}ms.`);
 
@@ -119,6 +119,7 @@ window.addEventListener('load', async () => {
 		writable: false,
 		configurable: false,
 	});
+	document.getElementById('loading-progress').style.width = '100%';
 	console.log(`Loaded latest commit in ${(performance.now() - commitStart).toFixed(2)}ms.`);
 
 	// done
