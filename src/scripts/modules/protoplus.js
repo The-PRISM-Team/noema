@@ -647,6 +647,7 @@
             console.log(`contracted methods in ${endTime - startTime}ms`)
         }
     }
+    protoplus.expand();
 
     globalThis.protoplus = protoplus;
 
