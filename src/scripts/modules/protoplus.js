@@ -1,4 +1,11 @@
-(async ()=>{
+(async ({
+    preexpand = false,
+    silent = false,
+    forceErase = false,
+    skipProtos = false,
+    skipGlobals = false,
+    skipClasses = false
+} = {}) => {
     const innards = {
         now: typeof globalThis.performance?.now === "function"
             ? ()=>Math.trunc(performance.now()) // use performance.now when available
@@ -579,7 +586,7 @@
                 globalThis[className] = classDef
             }
             const endTime = innards.now()
-            console.log(`expanded methods in ${endTime - startTime}ms`)
+            if (!silent) console.log(`expanded methods in ${endTime - startTime}ms`)
         },
         contract: ({forceErase = false, skipProtos = false, skipGlobals = false, skipClasses = false} = {}) => {
             const globals = protoplus.global
@@ -644,14 +651,22 @@
                 delete globalThis[className]
             }
             const endTime = innards.now()
-            console.log(`contracted methods in ${endTime - startTime}ms`)
+            if (!silent) console.log(`contracted methods in ${endTime - startTime}ms`)
         }
     }
-    protoplus.expand();
+    if (preexpand) protoplus.expand({
+        forceErase,
+        skipProtos,
+        skipGlobals,
+        skipClasses
+    });
 
     globalThis.protoplus = protoplus;
 
-    console.log(`proto+ v${innards.version} loaded!`);
+    if (!silent) console.log(`proto+ v${innards.version} loaded!`);
 
     return innards;
-})();
+})({
+    preexpand: true,
+    silent: true
+});
