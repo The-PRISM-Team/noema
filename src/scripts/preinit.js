@@ -230,7 +230,7 @@ window.addEventListener('load', async () => {
 			}
 
 			else {
-				setTimeout(init, 1e3);
+				setTimeout(async()=>await animInit(), 1e3);
 			}
 		};
 		document.onclick = start;
