@@ -201,7 +201,7 @@ window.addEventListener('load', async () => {
 		if (shouldPlayStartup) {
 			clicktostart.textContent = getLocaleStr('startup.starting', 'en', 'starting...');
 			if (typeof startup !== 'undefined') {
-				await delay(50);
+				await delay(bootdelay);
 				startup();
 			}
 			else
@@ -243,3 +243,4 @@ window.addEventListener('load', async () => {
 		};
 	}
 });
+let bootdelay = 150;
