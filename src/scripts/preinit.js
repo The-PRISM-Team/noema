@@ -200,8 +200,10 @@ window.addEventListener('load', async () => {
 		animSpaghetti();
 		if (shouldPlayStartup) {
 			clicktostart.textContent = getLocaleStr('startup.starting', 'en', 'starting...');
-			if (typeof startup !== 'undefined')
+			if (typeof startup !== 'undefined') {
+				await delay(50);
 				startup();
+			}
 			else
 				await animInit();
 		} else {
