@@ -209,7 +209,7 @@ window.addEventListener('load', async () => {
 		if (shouldPlayStartup) {
 			clicktostart.textContent = getLocaleStr('startup.starting', 'en', 'starting...');
 			if (typeof startup !== 'undefined') {
-				await delay(100);
+				await delay(250);
 				startup();
 			}
 			else
