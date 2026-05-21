@@ -1,7 +1,7 @@
-let loadedGame;
 const game = {
 	screen: document.getElementById('game-screen'),
-	document: document.getElementById('game-screen').contentDocument
+	document: document.getElementById('game-screen').contentDocument,
+	loaded: undefined
 }
 const loadedModules = {};
 function loadLibrary(url, ...attrib) {
@@ -35,6 +35,9 @@ function unloadLibrary(url) {
 
 async function loadPackage(arrayBuf) {
     const package = await JSZip.loadAsync(arrayBuf);
-	loadedGame = package;
+	
+	const relPathRegex = /^(?:[\.~]?\/)?(?:\.\.\/)*(?:(?:\w+\.?)*\w+\/)*[\w,\s-]*\.[A-Za-z]+$/;
+	game.loaded = package;
+	game.document.documentElement.innerHTML = await package.file('index.html').async('string');
     return package;
 }
