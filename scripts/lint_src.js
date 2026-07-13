@@ -1,11 +1,14 @@
 #!/usr/bin/env node
 // Lint/fix rules for files under /src:
-//  * indentation must use tabs or spaces in multiples of 4
-//  * no mixed tabs and spaces at line start
-//  * trailing whitespace is forbidden
+//  - indentation must use tabs or spaces in multiples of 4
+//  - no mixed tabs and spaces at line start
+//  - trailing whitespace is forbidden
 // When run with "--fix" the script will remove trailing spaces and
 // convert leading groups of 4 spaces into tabs; fixed files are staged.
 // Third-party code in any "modules" directory is ignored.
+
+console.log('The linter is currently out of use.');
+process.exit(403);
 
 const fs = require('fs');
 const path = require('path');

@@ -33,10 +33,17 @@ function unloadLibrary(url) {
 	delete loadedModules[name];
 }
 
+function resolveRelativePaths(content) {
+	if (typeof content !== 'string')
+		throw new TypeError('Content must be a string.');
+	const relPathRegex = /nm-rel:\/\/((?:\/|(?:\.\.?\/)*)?(?:[^\/\0.]+\/)*[^\/\0.]*\.[a-zA-Z0-9]+)/;
+	const matches = [...content.matchAll(relPathRegex)];
+	let resolvedContent = '';
+	// TODO, s̶t̶e̶a̶l borrow code from mppserver
+	return resolved
+}
 async function loadPackage(arrayBuf) {
-    const package = await JSZip.loadAsync(arrayBuf);
-	
-	const relPathRegex = /^(?:[\.~]?\/)?(?:\.\.\/)*(?:(?:\w+\.?)*\w+\/)*[\w,\s-]*\.[A-Za-z]+$/;
+    const package = await JSZip.loadAsync(arrayBuf);	
 	game.loaded = package;
 	game.document.documentElement.innerHTML = await package.file('index.html').async('string');
     return package;

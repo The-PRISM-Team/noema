@@ -13,12 +13,14 @@ Tasks are listed in priority order (highest priority first).
 
 ## In Progress
 
+## High Priority
+
 ### Performance Optimization
 - Profile application to find bottlenecks
 - Reduce DOM queries in hot paths
 - Consider caching for frequently accessed elements
+- Optimize for ultra-low-end devices (Android TV boxes, console browsers, TV browsers, etc.)
 
-## High Priority
 
 ### Game Loading System
 - Basic loader implemented in [`/src/scripts/loadGame.js`](/src/scripts/loadGame.js)
@@ -48,7 +50,7 @@ Tasks are listed in priority order (highest priority first).
 
 ### Dynamic Updates
 - Allow pointing to local Noema directory
-- GitHub-based update checking
+- Update checking
 - Optional auto-update for development builds
 
 ### Game Library UI
@@ -74,15 +76,15 @@ Tasks are listed in priority order (highest priority first).
 ### Additional Features
 - Screenshot capability
 - Video recording of gameplay
-- Social features (sharing, leaderboards)
-- Cloud save sync (optional)
 
 ## Future Considerations
 
 ### Multiplayer Support
 - Peer-to-peer networking API
-- Lobby system
-- Matchmaking
+
+## Online Features
+- Social features (sharing, leaderboards)
+- Cloud save sync (optional)
 
 ### Developer Tools
 - NGP creation toolkit

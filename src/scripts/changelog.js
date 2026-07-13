@@ -1,6 +1,6 @@
 const changelogMarkdownPath = getAbsPath('./assets/misc/CHANGELOG.md');
-const fallbackChangelog = `# Changelog for Noema v0.0.0
-- Failed to load \`${changelogMarkdownPath}\`.`;
+const fallbackChangelog = `# Changelog for Noema
+- Failed to load changelog (at \`${changelogMarkdownPath}\`).`;
 
 async function loadChangelogMarkdown() {
 	try {
@@ -16,7 +16,7 @@ async function loadChangelogMarkdown() {
 }
 
 async function showChangelog() {
-	// skip rendering changelog if running locally; CORS doesn't allow fetching files using the file:// protocol
+	// skip rendering changelog if running locally; CORS doesn't allow fetching files using the file:// protocol (I HATE CORS)
 	if (isLocal) return;
 
 	const changelog = await loadChangelogMarkdown();
