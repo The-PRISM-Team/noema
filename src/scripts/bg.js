@@ -76,15 +76,19 @@ function drawSpaghettiFrame() {
 	}
 }
 function animSpaghetti() {
+	const changeValues = ()=>{
+		sP += .01 * 60/avgfps;
+		sV += .015 * 60/avgfps;
+		sH += .025 * 60/avgfps;
+	}
 	if (!focused) {
+		changeValues();
 		requestAnimationFrame(animSpaghetti);
 		return;
 	}
 
 	drawSpaghettiFrame();
-	sP += .01 * 60/avgfps;
-	sV += .015 * 60/avgfps;
-	sH += .025 * 60/avgfps;
+	changeValues();
 	requestAnimationFrame(animSpaghetti);
 }
 function explodeSpaghetti() {

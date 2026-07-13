@@ -36,23 +36,59 @@ body {
 }
 
 /* --- loading ui --- */
-#loading-bar {
-	--color: #777;
-	display: block;
-
+.loading {
+	display: flex;
+	flex-direction: column;
+	opacity: 100%;
 	position: fixed;
+	bottom: 15vh;
 	left: 50%;
-	bottom: 64px;
-	transform: scale(50%) translateX(-100%);
+	width: fit-content;
+	height: fit-content;
+	transform: translateX(-50%);
+	--color: #bbb;
+}
+#loading-logo {
+	transition: opacity .75s ease;
+}
+#loading-N, #loading-ring {
+	position: absolute;
+	height: 25vh;
+	top: 25vh;
+	left: 50vw;
+	transform: translateX(-50%);
+	transition:
+		top .5s ease-out,
+		left .5s ease-out,
+		height .5s ease-out,
+		opacity .5s ease,
+		width .5s ease;
+}
+#loading-ring {
+	opacity: 0%;
+}
+#loading-N.booting, #loading-ring.booting {
+	transition:
+		top .5s ease-out,
+		left .5s ease-out,
+		height .5s ease-out,
+		transform .5s ease-out,
+		opacity .5s ease,
+		width .5s ease;
+}
 
-	width: 75%;
+
+#loading-bar {
+	transform: scale(50%);
+
+	width: 75vw;
 	height: 64px;
 
 	border: solid 8px var(--color);
-	padding: 4px;
+	padding: 8px;
 
 	pointer-events: none;
-	z-index: calc(infinity);
+	z-index: 1000000;
 	opacity: 50%;
 	transition: opacity .5s ease-out;
 }
@@ -66,13 +102,9 @@ body {
 }
 
 #clicktostart {
-	color: #fff;
-	opacity: 10%;
-	position: fixed;
-	top: 50%;
-	left: 50%;
-	transform: translate(-50%, -50%);
-	font-size: 5vw;
+	color: var(--color);
+	text-align: center;
+	font-size: 24px;
 	font-family: monospace;
 	transition: opacity .5s ease;
 	white-space: pre-wrap;
@@ -217,7 +249,7 @@ body {
 	position: fixed;
 	bottom: 5px;
 	right: 5px;
-	z-index: calc(infinity);
+	z-index: 1000000;
 }
 
 #fps {
@@ -401,11 +433,18 @@ html[dir='rtl'] .notif-div {
 
 .ui.overtop, .ui.inactive.overtop {
 	--padding: 25;
+	transition:
+		background-color 1s ease-out,
+		outline 1.25s ease,
+		border-radius 1s ease,
+		transform 1.25s ease,
+		backdrop-filter 1.25s ease;
+	opacity: 100%;
 	width: calc((100 - var(--padding))*1vw);
 	height: calc((100 -  var(--padding))*1vh);
 	padding: calc(var(--padding)*1vh) calc(var(--padding)*1vw);
 	background-color: #000b;
-	z-index: calc(infinity);
+	z-index: 100000000;
 }
 
 #icon {
@@ -426,7 +465,7 @@ html[dir='rtl'] .notif-div {
 	padding-top: 20px;
 	margin-top: -20px;
 	overflow: visible;
-	transition: left .75s cubic-bezier(0, 0.61, 0.46, 0.95);
+	transition: left .75s cubic-bezier(0.14, 0.55, 0.32, 1.05);
 	z-index: 110;
 	direction: ltr;
 	unicode-bidi: bidi-override;
@@ -650,6 +689,8 @@ html[dir='rtl'] .ui-suboption.selected {
 	z-index: 10000000;
 	opacity: 0%;
 	pointer-events: none;
+	border: none;
+	background-color: #fff;
 }
 
 

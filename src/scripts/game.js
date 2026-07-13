@@ -1,3 +1,8 @@
+const game = {
+	screen: document.getElementById('game-screen'),
+	document: document.getElementById('game-screen').contentDocument,
+	loaded: undefined
+}
 const loadedModules = {};
 function loadLibrary(url, ...attrib) {
 	if (!isDefined(url)) throw new Error('The URL parameter is empty. Please provide a URL.');
@@ -26,4 +31,13 @@ function unloadLibrary(url) {
 		throw new Error("This module hasn't been loaded.");
 	document.body.removeChild(loadedModules[name]);
 	delete loadedModules[name];
+}
+
+async function loadPackage(arrayBuf) {
+    const package = await JSZip.loadAsync(arrayBuf);
+	
+	const relPathRegex = /^(?:[\.~]?\/)?(?:\.\.\/)*(?:(?:\w+\.?)*\w+\/)*[\w,\s-]*\.[A-Za-z]+$/;
+	game.loaded = package;
+	game.document.documentElement.innerHTML = await package.file('index.html').async('string');
+    return package;
 }

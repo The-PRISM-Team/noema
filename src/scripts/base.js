@@ -11,7 +11,7 @@ document.getElementById('version-number').textContent = formatVersion();
 
 const fpsCounter = document.getElementById('fps');
 
-let fps = 60, // assume 60 fps before check since that's a safe FPS
+let fps = 60, // assume 60 fps before check since that's a safe framerate
 	avgfps = fps,
 	deltaTime = 1 / fps;
 let _lastTime = performance.now();
@@ -179,6 +179,8 @@ async function init() {
 	delete localStorage.fromRefresh;
 	delete localStorage.fastBoot;
 	const clickToStart = document.getElementById('clicktostart');
+	document.getElementById('clicktostart').style.opacity = '0%';
+	document.getElementById('loading-logo').style.opacity = '0%';
 	bgMusic.loop = true;
 	bgMusic.volume = 0;
 	try {
@@ -189,6 +191,7 @@ async function init() {
 			setCursor('pointer');
 			clickToStart.style.display = 'revert';
 			clickToStart.style.opacity = '100%';
+			document.getElementById('loading-logo').style.opacity = '100%';
 			clickToStart.innerHTML = localStorage.startup === 'true' ? 'click or press enter to start' : 'click or press enter to go to menu';
 
 			const continueBoot = async () => {

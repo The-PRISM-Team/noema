@@ -64,6 +64,9 @@ async function loadScripts(cb = ()=>{}, cacheBusting = true) {
 		{
 			src: './scripts/modules/version.js'
 		},
+		{
+			src: './scripts/modules/jszip.min.js'
+		},
 		// scripts
 		{
 			src: './scripts/error.js'

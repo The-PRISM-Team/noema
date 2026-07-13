@@ -20,7 +20,7 @@ Future releases will continue to follow the versioning rules laid out in [`/misc
 ## Quick Start
 
 ### Running Locally
-1. Click [this link](https://download-directory.github.io/?url=https://github.com/The-PRISM-Team/noema/tree/main/src) to download the source code
+1. Click [this link](https://download-directory.github.io/?url=https://github.com/The-PRISM-Team/noema/tree/main/src&filename=PRISM%20-%20Project%20Noema) to download the source code
 2. Unzip the file
 3. Open `index.html`
 

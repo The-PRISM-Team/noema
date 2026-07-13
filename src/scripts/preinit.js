@@ -30,28 +30,62 @@ if (!isDefined(localStorage.noTransitions) && navigator.deviceMemory < 2) localS
 const pageStart = performance.now()
 let dependStart = null,
 	scriptStart = null,
-	soundStart = null;
+	soundStart = null,
+	commitStart = null;
 
 // load page
 document.body.style.cursor = 'wait';
 console.log('Loading page...');
+
 let bgMusic;
+let loadingRingSpinStopped = false;
 document.addEventListener('DOMContentLoaded', async () => {
 	document.getElementById('loading-progress').style.width = '1%';
 	console.log(`Page loaded in ${(performance.now() - pageStart).toFixed(2)}ms.`);
+
+	// load animation
+	const loadingRing = document.getElementById('loading-ring');
+	let ringDirection = 0;
+	function spinRing(deg) {
+		loadingRing.style.transform = `translateX(-50%) rotate(${deg}deg)`;
+		return ringDirection = deg;
+	}
+
+	let easing = 6;
+	let rotationSpeed = 5;
+	let rotationVel = 0;
+
+	const animateLoadingRing = () => {
+		if (rotationVel < 0.01 && loadingRingSpinStopped) return;
+
+		spinRing(ringDirection + rotationVel);
+		if (ringDirection >= 90) ringDirection %= 90;
+
+		if (loadingRingSpinStopped)
+			rotationVel = (90 - ringDirection) / easing;
+		else
+			rotationVel += (rotationSpeed - rotationVel) / easing;
+
+		requestAnimationFrame(animateLoadingRing); // delta time later pls pls pls
+	}
+	globalThis.animateLoadingRing = animateLoadingRing;
+
+	loadingRing.style.opacity = '100%';
+	animateLoadingRing();
 
 	// load scripts
 	console.log('Loading scripts...');
 	document.getElementById('clicktostart').textContent = 'loading scripts, please wait';
 	scriptStart = performance.now();
 	await loadScripts((done, total)=>{
-		document.getElementById('loading-progress').style.width = `${Math.max(1, 1 + Math.round(((done / total) * 100) / 2) - 2)}%`;
+		document.getElementById('loading-progress').style.width = `${Math.max(1, 1 + ((done / total) * 100) / 2 - 2)}%`;
 	}, !isLocal);
 
 	console.log(`Scripts loaded in ${(performance.now() - scriptStart).toFixed(2)}ms.`);
 
 	// expand prototypes
 	console.log('Expanding prototypes...');
+	await protoplus.expand();
 
 	// load resources
 	dependStart = performance.now();
@@ -70,19 +104,38 @@ window.addEventListener('load', async () => {
 
 	soundStart = performance.now();
 	await soundWarmup((done, total) => {
-		document.getElementById('loading-progress').style.width = `${50 + (Math.round(ratioToPercentage(done, total)) / 2)}%`;
+		document.getElementById('loading-progress').style.width = `${50 + Math.max(0, ratioToPercentage(done, total) / 2 - 1)}%`;
 	});
 	console.log(`Initialized sounds in ${(performance.now() - soundStart).toFixed(2)}ms.`);
 
+	// get commit ID
+	console.log('loading commit data...');
+	document.getElementById('clicktostart').textContent = getLocaleStr('startup.loadingCommitData', 'en', 'loading commit data, please wait');
+
+	commitStart = performance.now();
+	Object.defineProperty(globalThis, "commitId", {
+		value: (
+			await fetchJson('https://api.github.com/repos/The-PRISM-Team/noema/commits?per_page=1&sha=main')
+		)[0]?.sha,
+		writable: false,
+		configurable: false,
+	});
+	document.getElementById('loading-progress').style.width = '100%';
+	console.log(`Loaded latest commit in ${(performance.now() - commitStart).toFixed(2)}ms.`);
+
 	// done
+	loadingRingSpinStopped = true;
 	setCursor('default');
 	document.getElementById('clicktostart').textContent = getLocaleStr('startup.finishedLoading', 'en', 'finished loading!');
 	console.log(`Finished loading in ${(performance.now() - pageStart).toFixed(2)}ms!`);
+
 	await delay(750);
 	document.getElementById('loading-bar').style.opacity = '0%';
 	document.getElementById('loading-progress').style.width = '0%';
 
 	// test system
+	loadingRingSpinStopped = false;
+	animateLoadingRing();
 	setCursor('wait');
 	if (typeof test !== 'undefined') {
 		console.log('Testing system...');
@@ -98,7 +151,7 @@ window.addEventListener('load', async () => {
 		}
 		console.log('System test succeeded!');
 	}
-	// test battery
+	// test battery (maybe move to background process?)
 	if (localStorage.skipChargingTests !== 'true' && !(await navigator.getBattery())?.charging) {
 		console.log('Testing battery...');
 		document.getElementById('clicktostart').textContent = getLocaleStr('startup.testingBattery', 'en', 'testing battery...');
@@ -111,22 +164,14 @@ window.addEventListener('load', async () => {
 		};
 		console.log('Battery test succeeded!');
 	}
-
-	// get commit ID
-	Object.defineProperty(globalThis, "commitId", {
-		value: (
-			await fetchJson('https://api.github.com/repos/The-PRISM-Team/noema/commits?per_page=1&sha=main')
-		)[0]?.sha,
-		writable: false,
-		configurable: false,
-	});
+	loadingRingSpinStopped = true;
 
 	// platform checks
 	setCursor('default');
 	const isMobile = navigator.userAgentData?.mobile === true || /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
 	const supportChecks = [
 		{
-			trigger: isMobile,
+			trigger: isMobile, // support later!!
 			warning: getLocaleStr('startup.mobileUnsupported', 'en', "Mobile is not supported. Please use a Desktop or Laptop computer.")
 		},
 		{
@@ -149,25 +194,37 @@ window.addEventListener('load', async () => {
 	const fastBoot = localStorage.fastBoot === 'true';
 	const fastBootDefault = localStorage.fastBootDefault === 'true';
 	const shouldPlayStartup = localStorage.startup === 'true' && (!fastBootDefault || fromRebootBoot) && !fastBoot;
+
+	const clicktostart = document.getElementById('clicktostart');
+
+	const animInit = async ()=>{
+		document.getElementById('loading-bar').style.opacity = '0';
+		document.getElementById('loading-logo').style.opacity = '0';
+		clicktostart.style.opacity = '0';
+		await delay(750);
+		init();
+	}
+
 	if (fromRebootBoot || fromRefreshBoot) {
 		animSpaghetti();
 		if (shouldPlayStartup) {
-			document.getElementById('clicktostart').innerHTML = getLocaleStr('startup.starting', 'en', 'starting...');
-			if (typeof startup !== 'undefined')
+			clicktostart.textContent = getLocaleStr('startup.starting', 'en', 'starting...');
+			if (typeof startup !== 'undefined') {
+				await delay(250);
 				startup();
+			}
 			else
-				init();
+				await animInit();
 		} else {
-			document.getElementById('clicktostart').innerHTML = getLocaleStr('startup.goingToMenu', 'en', 'going to menu...');
-			document.getElementById('clicktostart').style.opacity = '0%';
-			init();
+			clicktostart.textContent = getLocaleStr('startup.goingToMenu', 'en', 'going to menu...');
+			await animInit();
 		}
 	} else {
 		setCursor('pointer');
 		if (shouldPlayStartup)
-			document.getElementById('clicktostart').innerHTML = getLocaleStr('startup.clickToStart', 'en', 'click or press enter to start');
+			clicktostart.textContent = getLocaleStr('startup.clickToStart', 'en', 'click or press enter to start');
 		else
-			document.getElementById('clicktostart').innerHTML = getLocaleStr('startup.clickToMenu', 'en', 'click or press enter to go to menu');
+			clicktostart.textContent = getLocaleStr('startup.clickToMenu', 'en', 'click or press enter to go to menu');
 
 		const start = async () => {
 			setCursor('none');
@@ -179,19 +236,16 @@ window.addEventListener('load', async () => {
 				if (typeof startup !== 'undefined') {
 					startup();
 				} else {
-					init();
+					await animInit();
 				}
 			}
 
 			else {
-				document.getElementById('clicktostart').style.opacity = '0%';
-				setTimeout(() => {
-					init();
-				}, 1e3);
+				setTimeout(async()=>await animInit(), 1e3);
 			}
 		};
 		document.onclick = start;
-		document.onkeydown = (event) => {
+		document.onkeydown = event => {
 			if (event.key.toLowerCase() === "enter") {
 				start();
 			}
