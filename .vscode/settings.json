@@ -2,6 +2,7 @@
     "json.schemas": [],
     "json.schemaDownload.enable": false,
     "githubPullRequests.ignoredPullRequestBranches": [
+        "main",
         "main"
     ]
 }
