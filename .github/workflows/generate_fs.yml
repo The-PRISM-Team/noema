@@ -7,7 +7,7 @@ on:
     branches: [ main ]
 
 jobs:
-  lint:
+  generate:
     runs-on: ubuntu-latest
 
     steps:
@@ -19,5 +19,5 @@ jobs:
       with:
         node-version: '18'
 
-    - name: Run Generator
+    - name: Generate FileSystem structures
       run: node scripts/generate_fs.js
