@@ -150,6 +150,6 @@ globalThis.localesArray.push({
     "startup.batteryTestFailed": "Batterietest fehlgeschlagen!!\nÜberprüfen Sie den Zustand Ihrer Batterie, bevor Sie Noema verwenden.",
     "langIsRTL": false,
     "time.is24hr": false,
-    "lang": "deDE",
-    "langTitle": "Deutsch (Deutschland)"
+    "lang": "de",
+    "langTitle": "Deutsch"
 });

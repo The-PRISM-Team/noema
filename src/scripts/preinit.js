@@ -172,7 +172,8 @@ window.addEventListener('load', async () => {
 	const supportChecks = [
 		{
 			trigger: isMobile, // support later!!
-			warning: getLocaleStr('startup.mobileUnsupported', 'en', "Mobile is not supported. Please use a Desktop or Laptop computer.")
+			warning: getLocaleStr('startup.mobileUnsupported', 'en', "Mobile support is unstable.\nPlease use a Desktop or Laptop computer for maximum stability.\n\nTap to continue anyway."),
+			onlyWarn: true
 		},
 		{
 			trigger: document.documentMode,
@@ -184,7 +185,10 @@ window.addEventListener('load', async () => {
 
 		if (check.trigger) {
 			document.getElementById('clicktostart').innerHTML = check.warning;
-			return;
+			await new Promise(r => {
+				document.addEventListener('click', r, { once: true });
+			});
+			if (!check.onlyWarn) return;
 		}
 	}
 

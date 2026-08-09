@@ -150,6 +150,6 @@ globalThis.localesArray.push({
     "startup.batteryTestFailed": "バッテリーテストに失敗しました!!\nNoemaを使用する前に、バッテリーの状態を確認してください。",
     "langIsRTL": false,
     "time.is24hr": false,
-    "lang": "jaJP",
-    "langTitle": "日本語（日本）"
+    "lang": "ja",
+    "langTitle": "日本語"
 });

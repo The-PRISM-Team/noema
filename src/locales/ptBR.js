@@ -120,7 +120,7 @@ globalThis.localesArray.push({
     "startup.goingToMenu": "Indo para o menu...",
     "startup.clickToStart": "Clique ou pressione enter para iniciar",
     "startup.clickToMenu": "Clique ou pressione enter para ir ao menu",
-    "startup.mobileUnsupported": "Dispositivos móveis não são suportados. Por favor use um computador Desktop ou Laptop.",
+    "startup.mobileUnsupported": "Suporte para dispositivos móveis é instavel.\nPor favor use um computador Desktop ou Laptop para estabilidade máxima.\n\nToque a tela para continuar mesmo assim.",
     "startup.ieUnsupported": "O Internet Explorer não é suportado. Por favor use um outro navegador como Chrome ou Firefox.",
     "error.startupFailed": "INÍCIO FALHADO",
     "error.listTitle": "Erro(s):",
