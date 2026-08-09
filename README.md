@@ -119,7 +119,7 @@ No installation, no build process, no npm packages needed. It just works.
 
 #### Adding UI Sounds
 
-1. Place `.flac` file in [`/src/assets/sounds/menu`](/src/assets/sounds/menu)
+1. Place `.mp3` file in [`/src/assets/sounds/menu`](/src/assets/sounds/menu)
 2. Add filename to `sounds` array in [`/src/scripts/sounds.js`](/src/scripts/sounds.js)
 3. Use `playSound('soundname')` to play
 
