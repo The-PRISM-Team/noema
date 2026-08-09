@@ -45,6 +45,11 @@ function prettifyFile(path) {
 }
 
 function prettifyFiles() {
+	const formattedTestContent = prettier.format("console.log('hey')", {
+		filepath: "./.prettierrc.json",
+	});
+	console.log(formattedTestContent);
+	return;
 	// get file paths (recursively, ignoring directories)
 	const filepaths = fs
 		.readdirSync(".", { recursive: true, withFileTypes: true })
