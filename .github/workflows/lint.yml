@@ -9,7 +9,7 @@ permissions:
     contents: write
 
 jobs:
-    construct:
+    lint:
         if: github.actor != 'github-actions[bot]'
         runs-on: ubuntu-latest
         steps:
@@ -26,7 +26,6 @@ jobs:
 
             - name: Install dependencies and run build
               run: |
-                npm ci
                 npm i prettier @prettier/sync && node ../scripts/lint_src.js
 
             - name: Commit and push changes
