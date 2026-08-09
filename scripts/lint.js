@@ -1,28 +1,24 @@
 #!/usr/bin/env node
 
-/* TBD
 const fs = require("fs");
-const synchronizedPrettier = require("@prettier/sync");
-const path = require("path");
-
-// format code (using Prettier)
-const prettierRules = JSON.parse(
-	fs.readFileSync(
-		path.join(__dirname, "../scripts/.prettierrc.json"),
-		"utf8",
-	),
-);
-const prettyFile = synchronizedPrettier.format("// code", {
-	parser: "babel",
-	...prettierRules,
-});
-*/
-const fs = require("fs");
+const prettier = require("@prettier/sync");
 const path = require("path");
 
 function lintFile(path) {
 	const content = fs.readFileSync(path, { encoding: "utf-8" });
-	console.log(content);
+
+	try {
+		const formattedContent = prettier.format(content, {
+			filepath: "./.prettierrc.json",
+		});
+		fs.writeFileSync(path, formattedContent);
+	} catch (error) {
+		if (error.message.includes("No parser could be inferred")) {
+			console.log("Skipping unsupported file.");
+		} else {
+			throw error; // throw on actual syntax or config errors
+		}
+	}
 }
 
 function lintFiles() {
