@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "@prettier/sync": "^0.6.1",
+    "prettier": "^3.9.6"
+  }
+}
