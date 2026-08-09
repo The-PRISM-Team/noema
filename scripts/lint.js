@@ -5,6 +5,8 @@ const prettier = require("@prettier/sync");
 const path = require("path");
 
 function canBePrettified(path) {
+	return path.endsWith('.js') || path.endsWith('.ts');
+	
 	try {
 		const fileInfo = prettier.getFileInfo(path, {
 			resolveConfig: true,
