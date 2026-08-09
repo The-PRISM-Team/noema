@@ -26,7 +26,7 @@ jobs:
 
             - name: Install dependencies and run build
               run: |
-                npm i prettier @prettier/sync && node ../scripts/lint_src.js
+                npm i prettier @prettier/sync && node ../scripts/lint.js
 
             - name: Commit and push changes
               run: |
