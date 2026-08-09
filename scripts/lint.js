@@ -12,12 +12,8 @@ function lintFile(path) {
 			filepath: "./.prettierrc.json",
 		});
 		fs.writeFileSync(path, formattedContent);
-	} catch (error) {
-		if (error.message.includes("No parser could be inferred")) {
-			console.log("Skipping unsupported file.");
-		} else {
-			throw error; // throw on actual syntax or config errors
-		}
+	} catch {
+		console.log("Skipping invalid file.");
 	}
 }
 
