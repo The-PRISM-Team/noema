@@ -47,6 +47,7 @@ function prettifyFile(path) {
 function prettifyFiles() {
 	const formattedTestContent = prettier.format("console.log('hey')", {
 		filepath: "./.prettierrc.json",
+		parser: "babel",
 	});
 	console.log(formattedTestContent);
 	return;
