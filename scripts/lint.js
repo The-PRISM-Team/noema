@@ -6,7 +6,7 @@ const path = require("path");
 
 function canBePrettified(path) {
 	try {
-		const fileInfo = synchronizedPrettier.getFileInfo(filePath, {
+		const fileInfo = prettier.getFileInfo(filePath, {
 			resolveConfig: true,
 			withNodeModules: false,
 		});
