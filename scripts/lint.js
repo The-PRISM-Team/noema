@@ -12,8 +12,9 @@ function lintFile(path) {
 			filepath: "./.prettierrc.json",
 		});
 		fs.writeFileSync(path, formattedContent);
-	} catch {
+	} catch (error) {
 		console.log(`Skipping invalid file (${path}).`);
+		console.error("Error:", error);
 	}
 }
 
