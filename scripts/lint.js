@@ -13,7 +13,7 @@ function lintFile(path) {
 		});
 		fs.writeFileSync(path, formattedContent);
 	} catch {
-		console.log("Skipping invalid file.");
+		console.log(`Skipping invalid file (${path}).`);
 	}
 }
 
