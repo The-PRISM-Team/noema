@@ -5,6 +5,7 @@
 This is the **Open Developer Beta** (currently version `v0.16.0`), actively developed and evolving toward feature-complete releases. The project works both locally and when hosted, requiring no build tools or compilation.
 
 **Key Features:**
+
 - PS3-inspired UI with smooth animations and visual effects
 - Customizable themes and color palettes (18+ built-in themes)
 - Full keyboard and gamepad support
@@ -20,6 +21,7 @@ Future releases will continue to follow the versioning rules laid out in [`/misc
 ## Quick Start
 
 ### Running Locally
+
 1. Click [this link](https://download-directory.github.io/?url=https://github.com/The-PRISM-Team/noema/tree/main/src&filename=PRISM%20-%20Project%20Noema) to download the source code
 2. Unzip the file
 3. Open `index.html`
@@ -27,6 +29,7 @@ Future releases will continue to follow the versioning rules laid out in [`/misc
 No installation, no build process, no npm packages needed. It just works.
 
 ### For Development
+
 1. Clone the repository and open it in VS Code
 2. Edit files under [`/src/scripts`](/src/scripts) or [`/src/css.css`](/src/css.css)
 3. Refresh the browser to see changes
@@ -72,18 +75,19 @@ No installation, no build process, no npm packages needed. It just works.
 
 ### Key Directories
 
-* **[`/src/scripts`](/src/scripts)** - Core JavaScript codebase. Modules are loaded dynamically via `preinit.js`.
-* **[`/src/scripts/modules`](/src/scripts/modules)** - Reusable utility modules and third-party libraries.
-* **[`/src/assets`](/src/assets)** - Fonts, icons, sounds, and other static resources.
-* **[`/src/subpages`](/src/subpages)** - Standalone mini-apps that integrate with the console.
-* **[`/misc/markdowns`](/misc/markdowns)** - Project documentation, TODOs, and specifications.
-* **[`/vscode-extension`](/vscode-extension)** - Custom VS Code color themes based on Noema palettes.
+- **[`/src/scripts`](/src/scripts)** - Core JavaScript codebase. Modules are loaded dynamically via `preinit.js`.
+- **[`/src/scripts/modules`](/src/scripts/modules)** - Reusable utility modules and third-party libraries.
+- **[`/src/assets`](/src/assets)** - Fonts, icons, sounds, and other static resources.
+- **[`/src/subpages`](/src/subpages)** - Standalone mini-apps that integrate with the console.
+- **[`/misc/markdowns`](/misc/markdowns)** - Project documentation, TODOs, and specifications.
+- **[`/vscode-extension`](/vscode-extension)** - Custom VS Code color themes based on Noema palettes.
 
 ---
 
 ## Development Guide
 
 ### Code Style
+
 - **No build tools** - Write ES6+ JavaScript that runs directly in browsers
 - **Tabs for indentation** - The linter auto-fixes formatting on commit
 - **camelCase naming** - For variables and functions
@@ -92,7 +96,9 @@ No installation, no build process, no npm packages needed. It just works.
 ### Common Tasks
 
 #### Adding a Theme
-1. Add to `bgColors` object in [`/src/scripts/bg.js`](/src/scripts/bg.js):
+
+1. Add to `bgColors` object in [`/src/scripts/bg.js`](/src/scripts/bg.js)
+
 ```json
 "mytheme": {
     "top": "#color1",
@@ -100,22 +106,27 @@ No installation, no build process, no npm packages needed. It just works.
     "accentColor": "#color3"
 }
 ```
+
 2. Add UI option in [`/src/scripts/ui.js`](/src/scripts/ui.js) (`themeTab` section)
 3. Optional: Create matching VS Code theme in [`/vscode-extension/themes`](/vscode-extension/themes)
 
 #### Adding a Preference
+
 1. Set default in [`/src/scripts/preinit.js`](/src/scripts/preinit.js)
 2. Create UI option in [`/src/scripts/ui.js`](/src/scripts/ui.js)
 3. Store value in `localStorage`
 4. Apply setting where needed
 
 #### Adding UI Sounds
-1. Place `.flac` file in [`/src/assets/sounds/menu`](/src/assets/sounds/menu)
+
+1. Place `.mp3` file in [`/src/assets/sounds/menu`](/src/assets/sounds/menu)
 2. Add filename to `sounds` array in [`/src/scripts/sounds.js`](/src/scripts/sounds.js)
 3. Use `playSound('soundname')` to play
 
 ### Testing
+
 Manual testing is required. Check:
+
 - Keyboard navigation (WASD/Arrows)
 - Gamepad support (if available)
 - Settings persistence (Fast Reboot using UI selection)
@@ -128,6 +139,7 @@ Manual testing is required. Check:
 ## Contributing
 
 We welcome contributions! Please see [`/CONTRIBUTING.md`](/CONTRIBUTING.md) for detailed guidelines on:
+
 - Code style and conventions
 - Development workflow
 - Pull request process
@@ -137,6 +149,7 @@ We welcome contributions! Please see [`/CONTRIBUTING.md`](/CONTRIBUTING.md) for 
 For architectural discussions and team workflows, see [`/COLLABORATION.md`](/COLLABORATION.md).
 
 ### Quick Contribution Guide
+
 1. Fork the repository
 2. Create a feature branch
 3. Make your changes
@@ -147,50 +160,30 @@ Small, focused PRs are reviewed faster. Open an issue first for major features.
 
 ---
 
-## Feature Roadmap
-
-Current priorities (see [`/misc/markdowns/TODO.md`](/misc/markdowns/TODO.md) for details):
-
-**In Progress:**
-- Game loading improvements (better sandboxing, NGP format support)
-- Performance profiling and optimization
-
-**Planned:**
-- Profile management (save/load user profiles)
-- Drag & drop support for save files
-- Enhanced local vs hosted mode distinction
-- Dynamic local updates via GitHub integration
-
-**Future Considerations:**
-- Expanded game library management
-- Multiplayer/networking features
-
----
-
-## Archived Roadmap
+## Roadmap
 
 ### Version 0.16.0 Goals
+
 - Add basic NGP support (decompression, loading)
 - Implement local game storage (`localStorage`, web links)
 - Create APIs for game-related functions
 - Build UI for game selection
 
 ### Version 0.17.0 Goals
+
 - Polish game APIs
 - Complete NGP format implementation
 
 ### NGP Architecture Notes (Proposed)
+
 - Package format: ZIP-based
 - Structure: `/assets` for resources, `/scripts` for code
 - Entry point: `index.html` at package root (loaded via `<iframe>`)
 
-These are design notes from earlier discussions and may not reflect current implementation.
-
----
-
 ## VS Code Themes
 
 The repository includes 18+ custom VS Code themes based on Noema's color palettes, including:
+
 - **Cherry** - Pink/magenta dark theme
 - **Frogleaf** - Green-based dark theme
 - **Watermelon Sugar** - Pink and green gradient
@@ -198,6 +191,7 @@ The repository includes 18+ custom VS Code themes based on Noema's color palette
 - And many more!
 
 ### Installation
+
 1. Open [`/vscode-extension`](/vscode-extension) in VS Code
 2. Press `F1` > `Developer: Reload Window`
 3. Open Command Palette and select "Color Theme"
@@ -209,13 +203,13 @@ Or package and install: `vsce package` then install the `.vsix` file.
 
 ## Resources
 
-* [Contributing Guide](/CONTRIBUTING.md)
-* [Collaboration Guidelines](/COLLABORATION.md)
-* [TODO List](/misc/markdowns/TODO.md)
-* [Versioning Specification](/misc/markdowns/VERSIONING.md)
-* [Agent Instructions](/misc/markdowns/AGENTS.md)
-* [Useful Commands](/misc/markdowns/CMDS.md)
-* [Changelog](/src/assets/misc/CHANGELOG.md)
+- [Contributing Guide](/CONTRIBUTING.md)
+- [Collaboration Guidelines](/COLLABORATION.md)
+- [TODO List](/misc/markdowns/TODO.md)
+- [Versioning Specification](/misc/markdowns/VERSIONING.md)
+- [Agent Instructions](/misc/markdowns/AGENTS.md)
+- [Useful Commands](/misc/markdowns/CMDS.md)
+- [Changelog](/src/assets/misc/CHANGELOG.md)
 
 ---
 

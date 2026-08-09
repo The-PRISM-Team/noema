@@ -146,7 +146,8 @@ Adds a new color theme "Ocean Breeze"
 3. Optionally create VS Code theme in [`/vscode-extension/themes/`](/vscode-extension/themes/)
 
 ### Adding UI Sounds
-1. Place `.flac` file in [`/src/assets/sounds/menu/`](/src/assets/sounds/menu/)
+
+1. Place `.mp3` file in [`/src/assets/sounds/menu/`](/src/assets/sounds/menu/)
 2. Add filename to `sounds` array in [`/src/scripts/sounds.js`](/src/scripts/sounds.js)
 3. Use `playSound('name')` to play
 

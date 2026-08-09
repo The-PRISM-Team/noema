@@ -1,23 +1,42 @@
-name: Lint Source Code
+name: Lint Source
 
 on:
-  push:
-    branches: [ main ]
-  pull_request:
-    branches: [ main ]
+    push:
+        branches:
+            - main
+
+permissions:
+    contents: write
 
 jobs:
-  lint:
-    runs-on: ubuntu-latest
+    construct:
+        if: github.actor != 'github-actions[bot]'
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v4
+              with:
+                  persist-credentials: true
+                  fetch-depth: 0
 
-    steps:
-    - name: Checkout code
-      uses: actions/checkout@v4
+            - name: Setup Node
+              uses: actions/setup-node@v4
+              with:
+                  node-version: "18"
 
-    - name: Setup Node.js
-      uses: actions/setup-node@v4
-      with:
-        node-version: '18'
+            - name: Install dependencies and run build
+              run: |
+                npm ci
+                npm i prettier @prettier/sync && node ../scripts/lint_src.js
 
-    - name: Run Linter
-      run: node scripts/lint_src.js
+            - name: Commit and push changes
+              run: |
+                  git config user.name "github-actions[bot]"
+                  git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+                  git add -A
+                  if git diff --cached --quiet; then
+                    echo "No changes to commit"
+                    exit 0
+                  fi
+                  git commit -m "chore: lint source (automated)"
+                  git push
