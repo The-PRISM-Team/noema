@@ -13,7 +13,7 @@ function canBePrettified(path) {
 
 		return !fileInfo.ignored && fileInfo.inferredParser !== null;
 	} catch (error) {
-		console.error(`Error checking file ${filePath}:`, error.message);
+		console.error(`Error checking file ${path}:`, error.message);
 		return false;
 	}
 }
