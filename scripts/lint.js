@@ -37,6 +37,7 @@ function prettifyFile(path) {
 	// get formatted content
 	const formattedContent = prettier.format(contentWithoutShebang, {
 		filepath: "./.prettierrc.json",
+		parser: "babel",
 	});
 	// write formatted content to file path being formatted
 	fs.writeFileSync(path, formattedContent);
@@ -45,12 +46,6 @@ function prettifyFile(path) {
 }
 
 function prettifyFiles() {
-	const formattedTestContent = prettier.format("console.log('hey')", {
-		filepath: "./.prettierrc.json",
-		parser: "babel",
-	});
-	console.log(formattedTestContent);
-	return;
 	// get file paths (recursively, ignoring directories)
 	const filepaths = fs
 		.readdirSync(".", { recursive: true, withFileTypes: true })
