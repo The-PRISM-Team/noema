@@ -4,18 +4,31 @@ const fs = require("fs");
 const prettier = require("@prettier/sync");
 const path = require("path");
 
+function canBePrettified(path) {
+	try {
+		const fileInfo = synchronizedPrettier.getFileInfo(filePath, {
+			resolveConfig: true,
+			withNodeModules: false,
+		});
+
+		return !fileInfo.ignored && fileInfo.inferredParser !== null;
+	} catch (error) {
+		console.error(`Error checking file ${filePath}:`, error.message);
+		return false;
+	}
+}
 function lintFile(path) {
 	const content = fs.readFileSync(path, { encoding: "utf-8" });
 
-	try {
-		const formattedContent = prettier.format(content, {
-			filepath: "./.prettierrc.json",
-		});
-		fs.writeFileSync(path, formattedContent);
-	} catch (error) {
-		console.log(`Skipping invalid file (${path}).`);
-		console.error("Error:", error);
+	if (!canBePrettified(path)) {
+		console.log(`Skipping unprettifiable file (${path}).`);
+		return;
 	}
+	const formattedContent = prettier.format(content, {
+		filepath: "./.prettierrc.json",
+	});
+	fs.writeFileSync(path, formattedContent);
+	return formattedContent;
 }
 
 function lintFiles() {
