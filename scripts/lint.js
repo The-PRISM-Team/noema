@@ -11,7 +11,7 @@ function canBePrettified(path) {
 			withNodeModules: false,
 		});
 
-		return !fileInfo.ignored && fileInfo.inferredParser !== null;
+		return !fileInfo.ignored && fileInfo.inferredParser !== "babel";
 	} catch (error) {
 		console.error(`Error checking file ${path}:`, error.message);
 		return false;
