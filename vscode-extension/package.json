@@ -1,107 +1,105 @@
 {
-    "name": "noema-themes",
-    "displayName": "Noema Themes",
-    "description": "Collection of VSCode color themes based on all Noema palettes (Cherry, Frogleaf, Watermelon Sugar)",
-    "version": "0.3.0",
-    "publisher": "sophb-ccjt",
-    "engines": {
-        "vscode": "^1.50.0"
-    },
-    "categories": [
-        "Themes"
-    ],
-    "contributes": {
-        "themes": [
-            {
-                "label": "Noema - Cherry",
-                "uiTheme": "vs-dark",
-                "path": "./themes/cherry-color-theme.json"
-            },
-            {
-                "label": "Noema - Frogleaf",
-                "uiTheme": "vs-dark",
-                "path": "./themes/frogleaf-color-theme.json"
-            },
-            {
-                "label": "Noema - Watermelon Sugar",
-                "uiTheme": "vs-dark",
-                "path": "./themes/watermelon-sugar-color-theme.json"
-            },
-            {
-                "label": "Noema - Prism",
-                "uiTheme": "vs-dark",
-                "path": "./themes/PRISM-color-theme.json"
-            },
-            {
-                "label": "Noema - Amethyst",
-                "uiTheme": "vs-dark",
-                "path": "./themes/amethyst-color-theme.json"
-            },
-            {
-                "label": "Noema - Ash",
-                "uiTheme": "vs-dark",
-                "path": "./themes/ash-color-theme.json"
-            },
-            {
-                "label": "Noema - Bisexual Flag",
-                "uiTheme": "vs-dark",
-                "path": "./themes/bisexual-flag-color-theme.json"
-            },
-            {
-                "label": "Noema - Charcoal",
-                "uiTheme": "vs-dark",
-                "path": "./themes/charcoal-color-theme.json"
-            },
-            {
-                "label": "Noema - Cobalt",
-                "uiTheme": "vs-dark",
-                "path": "./themes/cobalt-color-theme.json"
-            },
-            {
-                "label": "Noema - Ember",
-                "uiTheme": "vs-dark",
-                "path": "./themes/ember-color-theme.json"
-            },
-            {
-                "label": "Noema - Gay Flag",
-                "uiTheme": "vs-dark",
-                "path": "./themes/gay-flag-color-theme.json"
-            },
-            {
-                "label": "Noema - Lesbian Flag",
-                "uiTheme": "vs-dark",
-                "path": "./themes/lesbian-flag-color-theme.json"
-            },
-            {
-                "label": "Noema - Meadow",
-                "uiTheme": "vs-dark",
-                "path": "./themes/meadow-color-theme.json"
-            },
-            {
-                "label": "Noema - Neonflux",
-                "uiTheme": "vs-dark",
-                "path": "./themes/neonflux-color-theme.json"
-            },
-            {
-                "label": "Noema - Noema",
-                "uiTheme": "vs-dark",
-                "path": "./themes/noema-color-theme.json"
-            },
-            {
-                "label": "Noema - Shore",
-                "uiTheme": "vs-dark",
-                "path": "./themes/shore-color-theme.json"
-            },
-            {
-                "label": "Noema - Sprite",
-                "uiTheme": "vs-dark",
-                "path": "./themes/sprite-color-theme.json"
-            },
-            {
-                "label": "Noema - Trans Flag",
-                "uiTheme": "vs-dark",
-                "path": "./themes/trans-flag-color-theme.json"
-            }
-        ]
-    }
+  "name": "noema-themes",
+  "displayName": "Noema Themes",
+  "description": "Collection of VSCode color themes based on all Noema palettes (Cherry, Frogleaf, Watermelon Sugar)",
+  "version": "0.3.0",
+  "publisher": "sophb-ccjt",
+  "engines": {
+    "vscode": "^1.50.0"
+  },
+  "categories": ["Themes"],
+  "contributes": {
+    "themes": [
+      {
+        "label": "Noema - Cherry",
+        "uiTheme": "vs-dark",
+        "path": "./themes/cherry-color-theme.json"
+      },
+      {
+        "label": "Noema - Frogleaf",
+        "uiTheme": "vs-dark",
+        "path": "./themes/frogleaf-color-theme.json"
+      },
+      {
+        "label": "Noema - Watermelon Sugar",
+        "uiTheme": "vs-dark",
+        "path": "./themes/watermelon-sugar-color-theme.json"
+      },
+      {
+        "label": "Noema - Prism",
+        "uiTheme": "vs-dark",
+        "path": "./themes/PRISM-color-theme.json"
+      },
+      {
+        "label": "Noema - Amethyst",
+        "uiTheme": "vs-dark",
+        "path": "./themes/amethyst-color-theme.json"
+      },
+      {
+        "label": "Noema - Ash",
+        "uiTheme": "vs-dark",
+        "path": "./themes/ash-color-theme.json"
+      },
+      {
+        "label": "Noema - Bisexual Flag",
+        "uiTheme": "vs-dark",
+        "path": "./themes/bisexual-flag-color-theme.json"
+      },
+      {
+        "label": "Noema - Charcoal",
+        "uiTheme": "vs-dark",
+        "path": "./themes/charcoal-color-theme.json"
+      },
+      {
+        "label": "Noema - Cobalt",
+        "uiTheme": "vs-dark",
+        "path": "./themes/cobalt-color-theme.json"
+      },
+      {
+        "label": "Noema - Ember",
+        "uiTheme": "vs-dark",
+        "path": "./themes/ember-color-theme.json"
+      },
+      {
+        "label": "Noema - Gay Flag",
+        "uiTheme": "vs-dark",
+        "path": "./themes/gay-flag-color-theme.json"
+      },
+      {
+        "label": "Noema - Lesbian Flag",
+        "uiTheme": "vs-dark",
+        "path": "./themes/lesbian-flag-color-theme.json"
+      },
+      {
+        "label": "Noema - Meadow",
+        "uiTheme": "vs-dark",
+        "path": "./themes/meadow-color-theme.json"
+      },
+      {
+        "label": "Noema - Neonflux",
+        "uiTheme": "vs-dark",
+        "path": "./themes/neonflux-color-theme.json"
+      },
+      {
+        "label": "Noema - Noema",
+        "uiTheme": "vs-dark",
+        "path": "./themes/noema-color-theme.json"
+      },
+      {
+        "label": "Noema - Shore",
+        "uiTheme": "vs-dark",
+        "path": "./themes/shore-color-theme.json"
+      },
+      {
+        "label": "Noema - Sprite",
+        "uiTheme": "vs-dark",
+        "path": "./themes/sprite-color-theme.json"
+      },
+      {
+        "label": "Noema - Trans Flag",
+        "uiTheme": "vs-dark",
+        "path": "./themes/trans-flag-color-theme.json"
+      }
+    ]
+  }
 }
