@@ -79,7 +79,7 @@ function startup() {
 			topColor: "#000",
 			bottomColor: "#000"
 		});
-		const snd = new Audio(getAbsPath('./assets/sounds/coldboot.flac'));
+		const snd = new Audio(getAbsPath('./assets/sounds/coldboot.mp3'));
 		snd.volume = .65;
 
 		const showStartupAudioFallback = () => {
@@ -141,7 +141,7 @@ function startup() {
 				setTimeout(() => {
 					loadingN.classList.remove('booting');
 					loadingRing.classList.remove('booting');
-					
+
 					changeBGColor({
 						colorName: null,
 						easing: .1,
@@ -170,16 +170,16 @@ function startup() {
 						setTimeout(() => {
 							startupText.style.top = "65vh";
 							startupText.style.textShadow = "0px 0px 50px #fff";
-						
+
 							changeBGColor({
 								colorName: null,
 								easing: .1,
 								topColor: "#00f",
 								bottomColor: "#f0f"
 							});
-						
+
 							favicon.href = getAbsPath('./assets/logos/noema/color.png');
-						
+
 							setTimeout(() => {
 								startupLogo.style.opacity = "0%";
 								startupText.style.opacity = "0%";

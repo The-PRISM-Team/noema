@@ -65,18 +65,18 @@
         "assets": {
             "sounds": {
                 "files": [
-                    "coldboot.flac",
-                    "fatal-error.flac",
-                    "menu_music.flac"
+                    "coldboot.mp3",
+                    "fatal-error.mp3",
+                    "menu_music.mp3"
                 ],
                 "menu": {
                     "files": [
-                        "back.flac",
-                        "confirm.flac",
-                        "error.flac",
-                        "notif.flac",
-                        "power.flac",
-                        "select.flac"
+                        "back.mp3",
+                        "confirm.mp3",
+                        "error.mp3",
+                        "notif.mp3",
+                        "power.mp3",
+                        "select.mp3"
                     ]
                 }
             },
