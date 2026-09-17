@@ -81,7 +81,13 @@
 				<span id="loading-progress"></span>
 			</div>
 			<a id="clicktostart">
-				loading page, please wait
+				<noscript>
+					Project Noema needs a TON of JavaScript to work.<br>
+					However, you have JavaScript disabled. Please enable it before using Noema.
+				</noscript>
+				<script>
+					document.getElementById("clicktostart").innerHTML = "loading page, please wait...";
+				</script>
 			</a>
 		</div>
 
