@@ -1,5 +1,3 @@
-/HealthCheck
-/HealthCheck/**/*
 .env
 /.vscode
 vs.code-workspace
