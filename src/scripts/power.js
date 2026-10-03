@@ -169,6 +169,9 @@ function startup() {
 						);
 
 						setTimeout(() => {
+							startupText.style.top = "65vh";
+							startupText.style.textShadow = "0px 0px 50px #fff";
+
 							changeBGColor({
 								colorName: null,
 								easing: 0.1,

@@ -1,14 +1,16 @@
-const sounds = [
-	'back.mp3',
-	'confirm.mp3',
-	'error.mp3',
-	'notif.mp3',
-	'power.mp3',
-	'select.mp3',
-	'../fatal-error.mp3', // relative paths are allowed
-	'../coldboot.mp3',
-	'../menu_music.mp3',
-];
+const sounds =
+	[
+		// relative paths are allowed
+		'menu/back.mp3',
+		'menu/confirm.mp3',
+		'menu/error.mp3',
+		'menu/notif.mp3',
+		'menu/power.mp3',
+		'menu/select.mp3',
+		'fatal-error.mp3',
+		'coldboot.mp3',
+		'menu_music.mp3',
+	];
 const soundIndexByName = {};
 for (let i = 0; i < sounds.length; i++) {
 	const soundNameRegex = /(.{0,2}\/)*([\w-]+)\.(\w+)/g;
@@ -35,9 +37,7 @@ setMasterVolume(localStorage.masterVolume);
 async function playSound(sound, volume, properties = {}) {
 	const targetSoundIndex = soundIndexByName[sound];
 	if (typeof targetSoundIndex === 'number') {
-		const snd = new Audio(
-			getAbsPath(`./assets/sounds/menu/${sounds[targetSoundIndex]}`)
-		);
+		const snd = new Audio(getAbsPath(`./assets/sounds/${sounds[targetSoundIndex]}`));
 		if (!isDefined(volume))
 			volume =
 				parseFloat(localStorage.uiSoundVolume) *
@@ -62,7 +62,7 @@ async function soundWarmup(cb = () => {}) {
 	warmupSounds.length = 0; // clear warmup array
 	let done = 0;
 	for (const sound of sounds) {
-		const audio = new Audio(getAbsPath(`./assets/sounds/menu/${sound}`));
+		const audio = new Audio(getAbsPath(`./assets/sounds/${sound}`));
 		audio.volume = 0;
 		let failed = false;
 		const result = await audio.play().catch(() => {
