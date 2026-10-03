@@ -4,18 +4,13 @@ const fs = require("fs");
 const prettier = require("@prettier/sync");
 const path = require("path");
 
-function canBePrettified(path) {
-	try {
-		const fileInfo = prettier.getFileInfo(path, {
-			resolveConfig: true,
-			withNodeModules: false,
-		});
-
-		return !fileInfo.ignored && fileInfo.inferredParser !== "babel";
-	} catch (error) {
-		console.error(`Error checking file ${path}:`, error.message);
-		return false;
-	}
+function canBePrettified(filePath) {
+	const prettifiableExtensions = [
+		'.json',
+		'.js',
+	]
+	const extension = path.extname(filePath);
+	return prettifiableExtensions.includes(extension);
 }
 function prettifyFile(path) {
 	// read content
@@ -34,7 +29,7 @@ function prettifyFile(path) {
 
 	// get formatted content
 	const formattedContent = prettier.format(contentWithoutShebang, {
-		filepath: "./.prettierrc.json",
+		filepath: ".prettierrc.json",
 		parser: "babel",
 	});
 	// write formatted content to file path being formatted

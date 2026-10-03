@@ -1,5 +1,9 @@
 {
   "json.schemas": [],
   "json.schemaDownload.enable": false,
-  "githubPullRequests.ignoredPullRequestBranches": ["main", "main"]
+  "githubPullRequests.ignoredPullRequestBranches": [
+	"main",
+	"main",
+	"main"
+]
 }
