@@ -101,7 +101,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 		'en',
 		'loading page resources, please wait'
 	);
-	bgMusic = new Audio(getAbsPath('./assets/sounds/menu_music.flac'));
+	bgMusic = new Audio(getAbsPath('./assets/sounds/menu_music.mp3'));
 	bgMusic.preload = true;
 });
 window.addEventListener('load', async () => {

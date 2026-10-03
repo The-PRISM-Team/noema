@@ -129,7 +129,7 @@ function startMod() {
 				'reset bg music (vanilla)',
 				'sets the bg music to the vanilla menu music',
 				() => {
-					bgMusic.src = './menu_music.flac';
+					bgMusic.src = './menu_music.mp3';
 					changeBGColor({
 						colorName: null,
 						topColor: '#000',

@@ -82,7 +82,7 @@ function startup() {
 				topColor: '#000',
 				bottomColor: '#000',
 			});
-			const snd = new Audio(getAbsPath('./assets/sounds/coldboot.flac'));
+			const snd = new Audio(getAbsPath('./assets/sounds/coldboot.mp3'));
 			snd.volume = 0.65;
 
 			const showStartupAudioFallback = () => {
