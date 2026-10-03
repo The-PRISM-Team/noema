@@ -2,10 +2,15 @@ const version = {
 	major: 0,
 	minor: 16,
 	patch: 0,
-	more: 'open dev beta'.split(' ')
+	more: 'open dev beta'.split(' '),
 };
-function formatVersion(versionObj = version, separator = '.', startChar = 'v', moreJoiner = '-') {
-	return `${startChar}${[versionObj.major, versionObj.minor, versionObj.patch].join(separator)}${versionObj.more ? `${moreJoiner}${versionObj.more.join(separator)}` : ""}`;
+function formatVersion(
+	versionObj = version,
+	separator = '.',
+	startChar = 'v',
+	moreJoiner = '-'
+) {
+	return `${startChar}${[versionObj.major, versionObj.minor, versionObj.patch].join(separator)}${versionObj.more ? `${moreJoiner}${versionObj.more.join(separator)}` : ''}`;
 }
 document.getElementById('version-number').textContent = formatVersion();
 
@@ -25,11 +30,11 @@ function traverseDOM(element, callback = console.log) {
 }
 
 let focused = true;
-window.addEventListener('focus', () =>{
+window.addEventListener('focus', () => {
 	focused = true;
 	if (started) bgMusic.resume();
 });
-window.addEventListener('blur', () =>{
+window.addEventListener('blur', () => {
 	focused = false;
 	if (started && localStorage.pauseMusic === 'true') bgMusic.pause();
 });
@@ -42,7 +47,8 @@ function updateFps() {
 	fps = 1 / deltaTime;
 	fps = Math.floor(fps);
 
-	if (focused) { // fps can be VERY inaccurate when the tab is unfocused
+	if (focused) {
+		// fps can be VERY inaccurate when the tab is unfocused
 		if (fpses.length > 0) {
 			let fpsTotal = 0;
 			for (let i = 0; i < fpses.length; i++) {
@@ -66,19 +72,20 @@ updateFps();
 setInterval(() => {
 	fpsCounter.textContent = `${getLocaleStr('debug.estfps')} ${fps} | ${getLocaleStr('debug.avgfps')} ${avgfps}`;
 	if (fps >= 45) {
-		fpsCounter.style.color = "#fff";
+		fpsCounter.style.color = '#fff';
 	} else if (fps >= 30) {
-		fpsCounter.style.color = "#ffa";
+		fpsCounter.style.color = '#ffa';
 	} else if (fps >= 20) {
-		fpsCounter.style.color = "#ff4";
+		fpsCounter.style.color = '#ff4';
 	} else {
-		fpsCounter.style.color = "#f44";
+		fpsCounter.style.color = '#f44';
 	}
-}, .25e3);
-
+}, 0.25e3);
 
 function icon(
-	darkmode = isDefined(window?.matchMedia) ? window.matchMedia('(prefers-color-scheme: dark)')?.matches : null
+	darkmode = isDefined(window?.matchMedia)
+		? window.matchMedia('(prefers-color-scheme: dark)')?.matches
+		: null
 ) {
 	if (localStorage.coloredFavicon === 'true') {
 		favicon.href = getAbsPath('./assets/logos/noema/color.png');
@@ -106,7 +113,7 @@ function resize() {
 	forceUIOptionAlign();
 }
 
-window.addEventListener("resize", resize);
+window.addEventListener('resize', resize);
 resize();
 
 // time runtime
@@ -120,9 +127,9 @@ function startTimeRuntime() {
 	function updateTime() {
 		const time = getLocaleTimeStr('time') + ' ' + getLocaleTimeStr('date');
 		timeText.textContent = time;
-		hourHand.style.transform = `rotateZ(${360 * (date.hours() % 12) / 12}deg)`;
-		minHand.style.transform = `rotateZ(${360 * date.minutes() / 60}deg)`;
-		secHand.style.transform = `rotateZ(${360 * date.seconds() / 60}deg)`;
+		hourHand.style.transform = `rotateZ(${(360 * (date.hours() % 12)) / 12}deg)`;
+		minHand.style.transform = `rotateZ(${(360 * date.minutes()) / 60}deg)`;
+		secHand.style.transform = `rotateZ(${(360 * date.seconds()) / 60}deg)`;
 		secHandLine.setAttribute('stroke', accentColor);
 		requestAnimationFrame(updateTime);
 	}
@@ -143,12 +150,12 @@ function fadeInBackgroundMusic() {
 }
 function applyVisualPreferenceOverrides() {
 	if (localStorage.noShaders === 'true')
-		traverseDOM(document.body, (element) => {
+		traverseDOM(document.body, element => {
 			element.style.backdropFilter = 'none';
 		});
 
 	if (localStorage.noTransitions === 'true')
-		traverseDOM(document.body, (element) => {
+		traverseDOM(document.body, element => {
 			element.style.transition = 'none';
 			element.style.animation = 'none';
 		});
@@ -187,25 +194,31 @@ async function init() {
 		await bgMusic.play();
 	} catch (error) {
 		console.warn('Background music failed to play.', error);
-		await new Promise((resolve) => {
+		await new Promise(resolve => {
 			setCursor('pointer');
 			clickToStart.style.display = 'revert';
 			clickToStart.style.opacity = '100%';
 			document.getElementById('loading-logo').style.opacity = '100%';
-			clickToStart.innerHTML = localStorage.startup === 'true' ? 'click or press enter to start' : 'click or press enter to go to menu';
+			clickToStart.innerHTML =
+				localStorage.startup === 'true'
+					? 'click or press enter to start'
+					: 'click or press enter to go to menu';
 
 			const continueBoot = async () => {
 				document.onclick = document.onkeydown = null;
 				try {
 					await bgMusic.play();
 				} catch (playError) {
-					console.warn('Background music still failed after user interaction.', playError);
+					console.warn(
+						'Background music still failed after user interaction.',
+						playError
+					);
 				}
 				resolve();
 			};
 
 			document.onclick = continueBoot;
-			document.onkeydown = (event) => {
+			document.onkeydown = event => {
 				if (event.key.toLowerCase() === 'enter') continueBoot();
 			};
 		});
@@ -215,19 +228,22 @@ async function init() {
 
 	clickToStart.style.display = 'none';
 	spaghettiColor = `#fff8`;
-	ui.style.top = "50%";
-	if (localStorage.openUI === 'true')
-		ui.classList.add('open');
+	ui.style.top = '50%';
+	if (localStorage.openUI === 'true') ui.classList.add('open');
 
 	document.getElementById('outer-ui').style.display = 'block';
-	requestAnimationFrame(()=>document.body.querySelector('.time-bar').style.transform = 'translate(-50%, 0%)');
+	requestAnimationFrame(
+		() =>
+			(document.body.querySelector('.time-bar').style.transform =
+				'translate(-50%, 0%)')
+	);
 
 	if (localStorage.debugUI === 'true')
 		document.getElementById('debug-ui').style.display = 'inline';
 
 	changeBGColor({
 		colorName: localStorage.bgColor,
-		easing: .025
+		easing: 0.025,
 	});
 
 	icon();
@@ -242,7 +258,8 @@ async function init() {
 	runtimeModules.boot.start();
 }
 
-let battery, batteryWarned = false;
+let battery,
+	batteryWarned = false;
 let batteryInitialized = false;
 const batteryDiv = document.getElementById('battery-div');
 const batteryBar = document.getElementById('battery-bar');
@@ -251,21 +268,28 @@ async function updateBattery() {
 	battery = {};
 
 	if (!batteryInitialized) {
-		if (navigator?.getBattery != null) battery = await navigator.getBattery();
+		if (navigator?.getBattery != null)
+			battery = await navigator.getBattery();
 
 		battery.lowBatteryThresh = 0.25;
 		battery.addEventListener('chargingchange', function () {
-			if (!battery.charging && battery.level <= battery.lowBatteryThresh) {
-				notify('Battery low!', `Battery is at ${decimalToPercentage(battery.level)}%, please reconnect the charger!`);
+			if (
+				!battery.charging &&
+				battery.level <= battery.lowBatteryThresh
+			) {
+				notify(
+					'Battery low!',
+					`Battery is at ${decimalToPercentage(battery.level)}%, please reconnect the charger!`
+				);
 			}
 		});
 		batteryInitialized = true;
 	}
 
 	battery.hasBattery = !(
-		battery.level === 1 &&
-		battery.charging === true &&
-		battery.dischargingTime === Infinity ||
+		(battery.level === 1 &&
+			battery.charging === true &&
+			battery.dischargingTime === Infinity) ||
 		!('onlevelchange' in battery) ||
 		navigator?.battery != null
 	);
@@ -277,10 +301,8 @@ async function updateBattery() {
 	batteryBar.style.width = `${batteryPercent}%`;
 	batteryText.textContent = `${batteryPercent}%${battery.charging ? ' 🗲' : ''}`;
 
-	if (battery.level >= 0.75)
-		batteryBar.style.backgroundColor = '#0f0';
-	else if (battery.level > 0.5)
-		batteryBar.style.backgroundColor = '#8f0';
+	if (battery.level >= 0.75) batteryBar.style.backgroundColor = '#0f0';
+	else if (battery.level > 0.5) batteryBar.style.backgroundColor = '#8f0';
 	else if (battery.level > 0.5 - battery.lowBatteryThresh / 2)
 		batteryBar.style.backgroundColor = '#ff0';
 	else if (battery.level > battery.lowBatteryThresh)
@@ -288,8 +310,7 @@ async function updateBattery() {
 	else if (battery.level <= battery.lowBatteryThresh)
 		batteryBar.style.backgroundColor = '#f00';
 
-	if (battery.charging)
-		batteryBar.style.backgroundColor = '#2f2';
+	if (battery.charging) batteryBar.style.backgroundColor = '#2f2';
 
 	requestAnimationFrame(updateBattery);
 
@@ -305,7 +326,9 @@ async function updateLoop(timestamp) {
 	if (inactivityMs > 60e3 * 1.5) {
 		ui.classList.add('inactive');
 	} else {
-		const suboptions = document.getElementById(`ui-content${selected.option}`).querySelectorAll('.ui-suboption');
+		const suboptions = document
+			.getElementById(`ui-content${selected.option}`)
+			.querySelectorAll('.ui-suboption');
 		if (inactivityMs > 9e3) {
 			suboptions.forEach(suboption => {
 				suboption.classList.add('inactive');
@@ -333,7 +356,10 @@ async function updateLoop(timestamp) {
 	if (battery?.level <= battery?.lowBatteryThresh && !batteryWarned) {
 		batteryWarned = true;
 		if (!battery.charging) {
-			notify('Battery low!', `Battery level is at ${decimalToPercentage(battery.level)}%. Please charge your device.`);
+			notify(
+				'Battery low!',
+				`Battery level is at ${decimalToPercentage(battery.level)}%. Please charge your device.`
+			);
 		}
 	} else if (battery?.level > battery?.lowBatteryThresh && batteryWarned) {
 		batteryWarned = false;
@@ -349,7 +375,7 @@ const runtimeModules = {
 			if (this.started) return;
 			this.started = true;
 			startTimeRuntime();
-		}
+		},
 	},
 	battery: {
 		started: false,
@@ -357,7 +383,7 @@ const runtimeModules = {
 			if (this.started) return;
 			this.started = true;
 			updateBattery();
-		}
+		},
 	},
 	idle: {
 		started: false,
@@ -367,7 +393,7 @@ const runtimeModules = {
 			document.addEventListener('keydown', handleInput);
 			document.addEventListener('keyup', handleInput);
 			updateLoop();
-		}
+		},
 	},
 	boot: {
 		started: false,
@@ -375,7 +401,7 @@ const runtimeModules = {
 			if (this.started) return;
 			this.started = true;
 			startBootRuntime();
-		}
-	}
+		},
+	},
 };
 runtimeModules.battery.start();

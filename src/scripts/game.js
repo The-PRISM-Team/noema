@@ -1,11 +1,12 @@
 const game = {
 	screen: document.getElementById('game-screen'),
 	document: document.getElementById('game-screen').contentDocument,
-	loaded: undefined
-}
+	loaded: undefined,
+};
 const loadedModules = {};
 function loadLibrary(url, ...attrib) {
-	if (!isDefined(url)) throw new Error('The URL parameter is empty. Please provide a URL.');
+	if (!isDefined(url))
+		throw new Error('The URL parameter is empty. Please provide a URL.');
 	if (!isURL(url)) throw new Error('This URL is invalid.');
 	const script = document.createElement('script');
 	const name = getFilenameFromURL(url);
@@ -13,7 +14,7 @@ function loadLibrary(url, ...attrib) {
 	script.src = url;
 	script.id = `lib-${name}`;
 	if (isDefined(attrib)) {
-		attrib.forEach((item)=>{
+		attrib.forEach(item => {
 			if (isDefined(JSON.isJSON)) {
 				script[item.name] = item.name;
 			}
@@ -53,7 +54,8 @@ async function resolveRelativePaths(content, package) {
 	// match content
 	const matches = [...content.matchAll(relPathRegex)];
 	// use custon pkg:// format, otherwise parsing would be tricky
-	const relPathRegex = /pkg:\/\/((?:\/|(?:\.\.?\/)*)?(?:[^\/\0.]+\/)*[^\/\0.]*\.[a-zA-Z0-9]+)/;
+	const relPathRegex =
+		/pkg:\/\/((?:\/|(?:\.\.?\/)*)?(?:[^\/\0.]+\/)*[^\/\0.]*\.[a-zA-Z0-9]+)/;
 
 	// resolve content, .replace() and .replaceAll() are not enough
 	let resolvedContent = '';
@@ -61,34 +63,43 @@ async function resolveRelativePaths(content, package) {
 		if (index > 0)
 			resolvedContent += content.slice(
 				matches[index - 1].index + matches[index - 1][0].length,
-				match.index,
+				match.index
 			);
 		else resolvedContent += content.slice(0, match.index);
 
 		const targetFile = await package.file(relPath(match[1], ''));
 		const fullPath = targetFile.name;
-	    const lastSlashIndex = fullPath.lastIndexOf('/');
-		const fileRootPath = lastSlashIndex !== -1 ? fullPath.substring(0, lastSlashIndex + 1) : '';
-		const resolvedFile = await resolveRelativePaths(await targetFile.async('string'), fileRootPath);
+		const lastSlashIndex = fullPath.lastIndexOf('/');
+		const fileRootPath =
+			lastSlashIndex !== -1
+				? fullPath.substring(0, lastSlashIndex + 1)
+				: '';
+		const resolvedFile = await resolveRelativePaths(
+			await targetFile.async('string'),
+			fileRootPath
+		);
 		const resolvedFileContent = resolvedFileContent.resolvedContent;
-		const blob = new Blob([resolvedFileContent], { type: "text/plain" });
+		const blob = new Blob([resolvedFileContent], { type: 'text/plain' });
 		const blobURL = URL.createObjectURL(blob);
 		resources.push(blobURL);
 		resolvedContent += blobURL;
 
 		if (index === matches.length - 1)
-			resolvedContent += content.slice(match.index + match[0].length, content.length);
+			resolvedContent += content.slice(
+				match.index + match[0].length,
+				content.length
+			);
 	}
 	return {
-		resources, 
-		resolvedContent
+		resources,
+		resolvedContent,
 	};
 }
 async function loadPackage(arrayBuf) {
-    const package = await JSZip.loadAsync(arrayBuf);
+	const package = await JSZip.loadAsync(arrayBuf);
 	const indexHTML = await package.file('index.html').async('string');
 	const resolvedContent = await resolveRelativePaths(indexHTML, package);
 	game.loaded = package;
 	game.document.documentElement.innerHTML = indexHTML;
-    return package;
+	return package;
 }

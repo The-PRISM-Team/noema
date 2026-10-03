@@ -1,28 +1,28 @@
-const canvas = document.getElementById("bg");
-const ctx = canvas.getContext("2d");
+const canvas = document.getElementById('bg');
+const ctx = canvas.getContext('2d');
 
 const densities = {
 	none: {
 		value: 0,
-		memFunc: (mem) => mem < 2
+		memFunc: mem => mem < 2,
 	},
 	lowest: {
 		value: 15,
-		memFunc: (mem) => mem < 4
+		memFunc: mem => mem < 4,
 	},
 	low: {
 		value: 35,
-		memFunc: (mem) => mem < 16
+		memFunc: mem => mem < 16,
 	},
 	medium: {
 		value: 50,
-		memFunc: (mem) => mem < 24
+		memFunc: mem => mem < 24,
 	},
 	high: {
 		value: 75,
-		memFunc: (mem) => mem >= 24
-	}
-}
+		memFunc: mem => mem >= 24,
+	},
+};
 
 if (!isDefined(localStorage.spaghettiDensity)) {
 	const mem = navigator.deviceMemory;
@@ -41,12 +41,21 @@ let sP = 1e-4, // (p)hase
 	sH = sP; // (h)orizontal displacement
 
 let density = parseInt(localStorage.spaghettiDensity); // how many sines are drawn
-let spaghettiColor = "#0000";
+let spaghettiColor = '#0000';
 let calcY = function (x, canvasHeight, wave) {
-	return canvasHeight / 2 - wave +
-		Math.sin(x / 200 + sP + wave / (density * sP) + ((Math.cos(sP) + -Math.cos(sH))) * .75) * 40 +
-		Math.cos(wave + sP) * 40
-		+ (Math.cos(sP) + -Math.cos(sV)) * 30;
+	return (
+		canvasHeight / 2 -
+		wave +
+		Math.sin(
+			x / 200 +
+				sP +
+				wave / (density * sP) +
+				(Math.cos(sP) + -Math.cos(sH)) * 0.75
+		) *
+			40 +
+		Math.cos(wave + sP) * 40 +
+		(Math.cos(sP) + -Math.cos(sV)) * 30
+	);
 };
 function drawSpaghettiFrame() {
 	ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -76,11 +85,11 @@ function drawSpaghettiFrame() {
 	}
 }
 function animSpaghetti() {
-	const changeValues = ()=>{
-		sP += .01 * 60/avgfps;
-		sV += .015 * 60/avgfps;
-		sH += .025 * 60/avgfps;
-	}
+	const changeValues = () => {
+		sP += (0.01 * 60) / avgfps;
+		sV += (0.015 * 60) / avgfps;
+		sH += (0.025 * 60) / avgfps;
+	};
 	if (!focused) {
 		changeValues();
 		requestAnimationFrame(animSpaghetti);
@@ -97,101 +106,105 @@ function explodeSpaghetti() {
 
 // background gradient
 const bgColors = {
-	"charcoal": {
-		"top": "#222",
-		"bottom": "#888",
-		"accentColor": "#444"
+	charcoal: {
+		top: '#222',
+		bottom: '#888',
+		accentColor: '#444',
 	},
-	"ash": {
-		"top": "#ddd",
-		"bottom": "#888",
-		"accentColor": "#aaa"
+	ash: {
+		top: '#ddd',
+		bottom: '#888',
+		accentColor: '#aaa',
 	},
-	"amethyst": {
-		"top": "#a0c",
-		"bottom": "#c0c",
-		"accentColor": "#f0f"
+	amethyst: {
+		top: '#a0c',
+		bottom: '#c0c',
+		accentColor: '#f0f',
 	},
-	"ember": {
-		"top": "#f88",
-		"bottom": "#d00",
-		"accentColor": "#f00"
+	ember: {
+		top: '#f88',
+		bottom: '#d00',
+		accentColor: '#f00',
 	},
-	"cobalt": {
-		"top": "#00d",
-		"bottom": "#48d",
-		"accentColor": "#00f"
+	cobalt: {
+		top: '#00d',
+		bottom: '#48d',
+		accentColor: '#00f',
 	},
-	"frogleaf": {
-		"top": "#14881d",
-		"bottom": '#42ff2a',
-		"accentColor": "#52ff4c"
+	frogleaf: {
+		top: '#14881d',
+		bottom: '#42ff2a',
+		accentColor: '#52ff4c',
 	},
-	"neonflux": {
-		"top": "#f0f",
-		"bottom": "#fb0",
-		"accentColor": "#0ff"
+	neonflux: {
+		top: '#f0f',
+		bottom: '#fb0',
+		accentColor: '#0ff',
 	},
-	"meadow": {
-		"top": "#96D470",
-		"bottom": "#F2EE8F"
+	meadow: {
+		top: '#96D470',
+		bottom: '#F2EE8F',
 	},
-	"shore": {
-		"top": "#34AE9E",
-		"bottom": "#F2AC44",
-		"accentColor": "#f01a45"
+	shore: {
+		top: '#34AE9E',
+		bottom: '#F2AC44',
+		accentColor: '#f01a45',
 	},
-	"noema": {
-		"top": "#0000ff",
-		"bottom": "#ff00ff",
-		"accentColor": "#ff40ff"
+	noema: {
+		top: '#0000ff',
+		bottom: '#ff00ff',
+		accentColor: '#ff40ff',
 	},
-	"PRISM": {
-		"top": "#13aef9",
-		"bottom": "#17f842",
-		"accentColor": "#17f1de"
+	PRISM: {
+		top: '#13aef9',
+		bottom: '#17f842',
+		accentColor: '#17f1de',
 	},
-	"sprite": {
-		"top": "#204795",
-		"bottom": "#02A04C",
-		"accentColor": "#F7D704"
+	sprite: {
+		top: '#204795',
+		bottom: '#02A04C',
+		accentColor: '#F7D704',
 	},
-	"watermelon sugar": {
-		"top": "#ff0080",
-		"bottom": "#00ff80",
-		"accentColor": "#ff0080"
+	'watermelon sugar': {
+		top: '#ff0080',
+		bottom: '#00ff80',
+		accentColor: '#ff0080',
 	},
-	"cherry": {
-		"top": "#ff0080",
-		"bottom": "#ff80ff",
-		"accentColor": "#ff0080"
+	cherry: {
+		top: '#ff0080',
+		bottom: '#ff80ff',
+		accentColor: '#ff0080',
 	},
-	"bisexual flag": {
-		"top": "#D60270",
-		"bottom": "#0038A8",
-		"accentColor": "#9B4F96"
+	'bisexual flag': {
+		top: '#D60270',
+		bottom: '#0038A8',
+		accentColor: '#9B4F96',
 	},
-	"lesbian flag": {
-		"top": "#E95D27",
-		"bottom": "#CB4F9A",
-		"accentColor": "#C0162D"
+	'lesbian flag': {
+		top: '#E95D27',
+		bottom: '#CB4F9A',
+		accentColor: '#C0162D',
 	},
-	"gay flag": {
-		"top": "#4FD7B2",
-		"bottom": "#6476D6",
-		"accentColor": "#55BDBC"
+	'gay flag': {
+		top: '#4FD7B2',
+		bottom: '#6476D6',
+		accentColor: '#55BDBC',
 	},
-	"trans flag": {
-		"top": "#5BCEFA",
-		"bottom": "#F5A9B8",
-		"accentColor": "#AFBAD6"
-	}
+	'trans flag': {
+		top: '#5BCEFA',
+		bottom: '#F5A9B8',
+		accentColor: '#AFBAD6',
+	},
 };
-if (!isDefined(localStorage.bgColor) || !Object.keys(bgColors).includes(localStorage.bgColor)) localStorage.bgColor = 'noema';
+if (
+	!isDefined(localStorage.bgColor) ||
+	!Object.keys(bgColors).includes(localStorage.bgColor)
+)
+	localStorage.bgColor = 'noema';
 if (!isDefined(localStorage.bgBrightness)) localStorage.bgBrightness = '1';
 let currentColor = {
-	top: "#000",
-	bottom: "#000"
+	top: '#000',
+	bottom: '#000',
 };
 let accentColor = currentColor.accentColor ?? currentColor.bottom;
 document.body.style.accentColor = currentColor;
@@ -203,12 +216,12 @@ let changingBG = false;
 let queued;
 function changeBGColor({
 	colorName = null,
-	easing = .075,
+	easing = 0.075,
 	topColor = bgColors[colorName].top,
 	bottomColor = bgColors[colorName].bottom,
 	AccentColor = bgColors[colorName]?.accentColor ?? bottomColor,
-	waveColor = bgColors[colorName]?.waveColor ?? "#fff",
-	brightness = bgBrightness
+	waveColor = bgColors[colorName]?.waveColor ?? '#fff',
+	brightness = bgBrightness,
 } = {}) {
 	const paramsPassed = {
 		colorName,
@@ -217,12 +230,17 @@ function changeBGColor({
 		bottomColor,
 		AccentColor,
 		waveColor,
-		brightness
+		brightness,
 	};
 
 	let color = bgColors[colorName];
 
-	if (!isDefined(color) && topColor && bottomColor) color = { top: topColor, bottom: bottomColor, accentColor: AccentColor };
+	if (!isDefined(color) && topColor && bottomColor)
+		color = {
+			top: topColor,
+			bottom: bottomColor,
+			accentColor: AccentColor,
+		};
 	if (changingBG) {
 		queued = paramsPassed;
 		return;
@@ -245,9 +263,14 @@ function changeBGColor({
 	if (localStorage.noTransitions === 'true') {
 		const topFinal = applyBrightness(topColor, brightness);
 		const bottomFinal = applyBrightness(bottomColor, brightness);
-		document.body.style.background = formatBGGradient(bgTop, 100, topFinal, bottomFinal);
+		document.body.style.background = formatBGGradient(
+			bgTop,
+			100,
+			topFinal,
+			bottomFinal
+		);
 		document.body.style.accentColor = accentColor = AccentColor;
-		spaghettiColor = `rgba(255, 255, 255, ${0x88 / 255 * brightness})`;
+		spaghettiColor = `rgba(255, 255, 255, ${(0x88 / 255) * brightness})`;
 	} else {
 		changingBG = true;
 		let t = 0;
@@ -257,9 +280,14 @@ function changeBGColor({
 				changingBG = false;
 				const topFinal = applyBrightness(topColor, brightness);
 				const bottomFinal = applyBrightness(bottomColor, brightness);
-				document.body.style.background = formatBGGradient(bgTop, 100, topFinal, bottomFinal);
+				document.body.style.background = formatBGGradient(
+					bgTop,
+					100,
+					topFinal,
+					bottomFinal
+				);
 				document.body.style.accentColor = accentColor = AccentColor;
-				spaghettiColor = `rgba(255, 255, 255, ${0x88 / 255 * brightness})`;
+				spaghettiColor = `rgba(255, 255, 255, ${(0x88 / 255) * brightness})`;
 				if (queued) {
 					changeBGColor(queued);
 					queued = undefined;
@@ -279,14 +307,26 @@ function changeBGColor({
 			const accColor2 = new Color(AccentColor);
 			const accLerp = accColor1.range(accColor2);
 
-
 			t += easing;
-			const topHex = applyBrightness(topLerp(t).toString({ format: 'hex' }), brightness);
-			const botHex = applyBrightness(botLerp(t).toString({ format: 'hex' }), brightness);
-			document.body.style.background = formatBGGradient(bgTop, bgBottom, topHex, botHex);
-			document.body.style.accentColor = accentColor = accLerp(t).toString({ format: 'hex' }) ?? botLerp(t).toString({ format: 'hex' });
+			const topHex = applyBrightness(
+				topLerp(t).toString({ format: 'hex' }),
+				brightness
+			);
+			const botHex = applyBrightness(
+				botLerp(t).toString({ format: 'hex' }),
+				brightness
+			);
+			document.body.style.background = formatBGGradient(
+				bgTop,
+				bgBottom,
+				topHex,
+				botHex
+			);
+			document.body.style.accentColor = accentColor =
+				accLerp(t).toString({ format: 'hex' }) ??
+				botLerp(t).toString({ format: 'hex' });
 
-			spaghettiColor = `rgba(255, 255, 255, ${0x88 / 255 * (1 + t * (brightness - 1))})`;
+			spaghettiColor = `rgba(255, 255, 255, ${(0x88 / 255) * (1 + t * (brightness - 1))})`;
 
 			requestAnimationFrame(anim);
 		}
@@ -296,23 +336,26 @@ function changeBGColor({
 
 // prismflakes
 let prismflakeDiv = null,
-prismflakes = {},
-prismflakesStarted = false;
+	prismflakes = {},
+	prismflakesStarted = false;
 function addFlake() {
 	if (!prismflakesStarted) return;
 	const id = `flake${Math.random()}`;
-	const pos = prismflakes[id] = {
-		'x': 0,
-		'startingX': Math.floor(Math.random() * window.innerWidth),
-		'y': -64,
-		'r': 0,
-		'xvel': 0,
-		'yvel': Math.random() * 4 + 1,
-		'rvel': Math.random() * 90 - 45
-	};
+	const pos = (prismflakes[id] = {
+		x: 0,
+		startingX: Math.floor(Math.random() * window.innerWidth),
+		y: -64,
+		r: 0,
+		xvel: 0,
+		yvel: Math.random() * 4 + 1,
+		rvel: Math.random() * 90 - 45,
+	});
 	const flake = document.createElement('img');
 	flake.id = id;
-	flake.src = localStorage.coloredFavicon === 'true' ? '/assets/logos/prism/color.png' : '/assets/logos/prism/white.png';
+	flake.src =
+		localStorage.coloredFavicon === 'true'
+			? '/assets/logos/prism/color.png'
+			: '/assets/logos/prism/white.png';
 	flake.height = '32';
 	flake.style.position = 'fixed';
 	flake.style.left = `${pos.x}px`;
@@ -332,7 +375,7 @@ function updateFlakes() {
 		pos.r += pos.rvel;
 		pos.y += pos.yvel;
 		pos.x += pos.xvel;
-		pos.x = pos.startingX + (Math.sin(pos.y / 100) * (10 - pos.yvel) * 10);
+		pos.x = pos.startingX + Math.sin(pos.y / 100) * (10 - pos.yvel) * 10;
 		flake.style.left = `${pos.x}px`;
 		flake.style.top = `${pos.y}px`;
 		flake.style.transform = `rotate(${pos.r}deg)`;

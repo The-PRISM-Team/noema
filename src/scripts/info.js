@@ -1,8 +1,5 @@
 const infoLabel = document.getElementById('info');
-const labels = [
-	'Open Developer Beta. Expect bugs.',
-	'TASM UI v1.0'
-];
+const labels = ['Open Developer Beta. Expect bugs.', 'TASM UI v1.0'];
 
 let lastLabel;
 function updateLabel() {

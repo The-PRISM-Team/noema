@@ -73,49 +73,34 @@
   },
   "tokenColors": [
     {
-      "scope": [
-        "comment",
-        "punctuation.definition.comment"
-      ],
+      "scope": ["comment", "punctuation.definition.comment"],
       "settings": {
         "foreground": "#42ff2a",
         "fontStyle": "italic"
       }
     },
     {
-      "scope": [
-        "string"
-      ],
+      "scope": ["string"],
       "settings": {
         "foreground": "#ffff00"
       }
     },
     {
-      "scope": [
-        "keyword",
-        "storage"
-      ],
+      "scope": ["keyword", "storage"],
       "settings": {
         "foreground": "#52ff4c",
         "fontStyle": "bold"
       }
     },
     {
-      "scope": [
-        "entity.name.function",
-        "support.function",
-        "entity.name.type"
-      ],
+      "scope": ["entity.name.function", "support.function", "entity.name.type"],
       "settings": {
         "foreground": "#e0ffe0",
         "fontStyle": "bold"
       }
     },
     {
-      "scope": [
-        "variable",
-        "identifier"
-      ],
+      "scope": ["variable", "identifier"],
       "settings": {
         "foreground": "#e6e6e6"
       }

@@ -10,14 +10,14 @@ function parseSemver(value, fallback = '0.0.0') {
 		return {
 			major: Number(fallbackMatch[1]) || 0,
 			minor: Number(fallbackMatch[2]) || 0,
-			patch: Number(fallbackMatch[3]) || 0
+			patch: Number(fallbackMatch[3]) || 0,
 		};
 	}
 
 	return {
 		major: Number(match[1]) || 0,
 		minor: Number(match[2]) || 0,
-		patch: Number(match[3]) || 0
+		patch: Number(match[3]) || 0,
 	};
 }
 

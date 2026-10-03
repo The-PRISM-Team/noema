@@ -6,42 +6,42 @@ function test(mode = 0) {
 			$;
 		} catch {
 			errors++;
-			errorList.push("Essential Resource (jQuery) missing.");
+			errorList.push('Essential Resource (jQuery) missing.');
 			errored = true;
 		}
 		try {
 			Color;
 		} catch {
 			errors++;
-			errorList.push("Essential Resource (Color.js) missing.");
+			errorList.push('Essential Resource (Color.js) missing.');
 			errored = true;
 		}
 		try {
 			init;
 		} catch {
 			errors++;
-			errorList.push("Essential Resource (Initiator) missing.");
+			errorList.push('Essential Resource (Initiator) missing.');
 			errored = true;
 		}
 		try {
 			changeBGColor;
 		} catch {
 			errors++;
-			errorList.push("Essential Resource (Background handler) missing.");
+			errorList.push('Essential Resource (Background handler) missing.');
 			errored = true;
 		}
 		try {
 			handleInput;
 		} catch {
 			errors++;
-			errorList.push("Essential Resource (Input handler) missing.");
+			errorList.push('Essential Resource (Input handler) missing.');
 			errored = true;
 		}
 		try {
 			handleInput;
 		} catch {
 			errors++;
-			errorList.push("Essential Resource (Input handler) missing.");
+			errorList.push('Essential Resource (Input handler) missing.');
 			errored = true;
 		}
 
@@ -55,7 +55,9 @@ function test(mode = 0) {
 let started = false;
 let starting = false;
 function startup() {
-	const fastBoot = localStorage.fromreboot === 'true' || localStorage.fromRefresh === 'true';
+	const fastBoot =
+		localStorage.fromreboot === 'true' ||
+		localStorage.fromRefresh === 'true';
 	delete localStorage.fromreboot;
 	delete localStorage.fromRefresh;
 	delete localStorage.fastBoot;
@@ -67,105 +69,104 @@ function startup() {
 	document.getElementById('clicktostart').style.opacity = '0%';
 	let t = 0;
 	function fadeSpaghettiIn() {
-		if (t >= .5) return;
+		if (t >= 0.5) return;
 		spaghettiColor = `rgba(255, 255, 255, ${t})`;
 		t += 0.01;
 		requestAnimationFrame(fadeSpaghettiIn);
 	}
-	setTimeout(() => {
-		changeBGColor({
-			colorName: null,
-			easing: 1,
-			topColor: "#000",
-			bottomColor: "#000"
-		});
-		const snd = new Audio(getAbsPath('./assets/sounds/coldboot.mp3'));
-		snd.volume = .65;
-
-		const showStartupAudioFallback = () => {
-			starting = false;
-			setCursor('pointer');
-			const clickToStart = document.getElementById('clicktostart');
-			clickToStart.style.display = 'revert';
-			clickToStart.style.opacity = '100%';
-			document.getElementById('loading-logo').style.opacity = '100%';
-			clickToStart.innerHTML = localStorage.startup === 'true' ? getLocaleStr('startup.clickToStart') : getLocaleStr('startup.clickToMenu');
-
-			const continueBoot = () => {
-				document.onclick = document.onkeydown = null;
-				init();
-				setCursor('none');
-			};
-			document.onclick = continueBoot;
-			document.onkeydown = (event) => {
-				if (event.key.toLowerCase() === 'enter') continueBoot();
-			};
-		};
-
-		const failStartupAudio = (error) => {
-			console.warn('Coldboot sound failed to play.', error);
-			showStartupAudioFallback();
-		};
-
-		const runStartupSequence = () => {
-			const startupText = document.getElementById('startup-text');
-			const startupLogo = document.getElementById('startup-logo');
-			const loadingRing = document.getElementById('loading-ring');
-			const loadingN = document.getElementById('loading-N');
-
-			function setLoadingLogoStyle(property, value) {
-				loadingN.style[property] = value;
-				loadingRing.style[property] = value;
-			}
-			loadingN.classList.add('booting');
-			loadingRing.classList.add('booting');
-			setLoadingLogoStyle('transform', 'translate(-50%, -50%)');
-			setLoadingLogoStyle('top', '50%');
-			setLoadingLogoStyle('left', '50%');
-			setLoadingLogoStyle('height', '35vh');
-			setLoadingLogoStyle('opacity', '100%');
-
+	setTimeout(
+		() => {
 			changeBGColor({
 				colorName: null,
-				easing: .1,
-				topColor: "#aaa",
-				bottomColor: "#aaa"
+				easing: 1,
+				topColor: '#000',
+				bottomColor: '#000',
 			});
+			const snd = new Audio(getAbsPath('./assets/sounds/coldboot.mp3'));
+			snd.volume = 0.65;
 
-			startupText.textContent = getLocaleStr('appTitle', 'en', 'Noema');
-			startupLogo.src = getAbsPath('./assets/logos/noema/color.png');
-			setTimeout(() => {
-				setLoadingLogoStyle('opacity', '0%');
-				startupLogo.style.opacity = '100%';
+			const showStartupAudioFallback = () => {
+				starting = false;
+				setCursor('pointer');
+				const clickToStart = document.getElementById('clicktostart');
+				clickToStart.style.display = 'revert';
+				clickToStart.style.opacity = '100%';
+				document.getElementById('loading-logo').style.opacity = '100%';
+				clickToStart.innerHTML =
+					localStorage.startup === 'true'
+						? getLocaleStr('startup.clickToStart')
+						: getLocaleStr('startup.clickToMenu');
 
+				const continueBoot = () => {
+					document.onclick = document.onkeydown = null;
+					init();
+					setCursor('none');
+				};
+				document.onclick = continueBoot;
+				document.onkeydown = event => {
+					if (event.key.toLowerCase() === 'enter') continueBoot();
+				};
+			};
+
+			const failStartupAudio = error => {
+				console.warn('Coldboot sound failed to play.', error);
+				showStartupAudioFallback();
+			};
+
+			const runStartupSequence = () => {
+				const startupText = document.getElementById('startup-text');
+				const startupLogo = document.getElementById('startup-logo');
+				const loadingRing = document.getElementById('loading-ring');
+				const loadingN = document.getElementById('loading-N');
+
+				function setLoadingLogoStyle(property, value) {
+					loadingN.style[property] = value;
+					loadingRing.style[property] = value;
+				}
+				loadingN.classList.add('booting');
+				loadingRing.classList.add('booting');
+				setLoadingLogoStyle('transform', 'translate(-50%, -50%)');
+				setLoadingLogoStyle('top', '50%');
+				setLoadingLogoStyle('left', '50%');
+				setLoadingLogoStyle('height', '35vh');
+				setLoadingLogoStyle('opacity', '100%');
+
+				changeBGColor({
+					colorName: null,
+					easing: 0.1,
+					topColor: '#aaa',
+					bottomColor: '#aaa',
+				});
+
+				startupText.textContent = getLocaleStr(
+					'appTitle',
+					'en',
+					'Noema'
+				);
+				startupLogo.src = getAbsPath('./assets/logos/noema/color.png');
 				setTimeout(() => {
-					loadingN.classList.remove('booting');
-					loadingRing.classList.remove('booting');
-
-					changeBGColor({
-						colorName: null,
-						easing: .1,
-						topColor: "#00f",
-						bottomColor: "#000"
-					});
-					fadeSpaghettiIn();
-
-					startupLogo.style.transform = "translate(-50%, -50%)";
-					startupLogo.style.transition = 'opacity 1s ease, height 1s ease, transform 1s ease';
-					startupLogo.style.height = "25vh";
-					favicon.href = getAbsPath('./assets/logos/noema/black.png');
+					setLoadingLogoStyle('opacity', '0%');
+					startupLogo.style.opacity = '100%';
 
 					setTimeout(() => {
+						loadingN.classList.remove('booting');
+						loadingRing.classList.remove('booting');
+
 						changeBGColor({
 							colorName: null,
-							easing: .1,
-							topColor: "#000",
-							bottomColor: "#f0f"
+							easing: 0.1,
+							topColor: '#00f',
+							bottomColor: '#000',
 						});
+						fadeSpaghettiIn();
 
-						startupText.style.textShadow = "0px 0px 15px #000";
-						startupText.style.opacity = "100%";
-						favicon.href = getAbsPath('./assets/logos/noema/white.png');
+						startupLogo.style.transform = 'translate(-50%, -50%)';
+						startupLogo.style.transition =
+							'opacity 1s ease, height 1s ease, transform 1s ease';
+						startupLogo.style.height = '25vh';
+						favicon.href = getAbsPath(
+							'./assets/logos/noema/black.png'
+						);
 
 						setTimeout(() => {
 							startupText.style.top = "65vh";
@@ -173,29 +174,60 @@ function startup() {
 
 							changeBGColor({
 								colorName: null,
-								easing: .1,
-								topColor: "#00f",
-								bottomColor: "#f0f"
+								easing: 0.1,
+								topColor: '#000',
+								bottomColor: '#f0f',
 							});
 
-							favicon.href = getAbsPath('./assets/logos/noema/color.png');
+							startupText.style.textShadow = '0px 0px 15px #000';
+							startupText.style.opacity = '100%';
+							favicon.href = getAbsPath(
+								'./assets/logos/noema/white.png'
+							);
 
 							setTimeout(() => {
-								startupLogo.style.opacity = "0%";
-								startupText.style.opacity = "0%";
-								starting = false;
-								init();
-								console.log(`Boot animation finished in ${Date.now() - startTime}ms.`);
-							}, 3.25e3);
-						}, 1.75e3);
-					}, 1.75e3);
-				}, .5e3);
-			}, .25e3);
-		};
+								startupText.style.top = '65vh';
+								startupText.style.textShadow =
+									'0px 0px 50px #fff';
 
-		snd.addEventListener('error', () => failStartupAudio(new Error('Coldboot sound failed to load.')), { once: true });
-		snd.play().then(runStartupSequence).catch(failStartupAudio);
-	}, fastBoot ? .5e3 : 2e3);
+								changeBGColor({
+									colorName: null,
+									easing: 0.1,
+									topColor: '#00f',
+									bottomColor: '#f0f',
+								});
+
+								favicon.href = getAbsPath(
+									'./assets/logos/noema/color.png'
+								);
+
+								setTimeout(() => {
+									startupLogo.style.opacity = '0%';
+									startupText.style.opacity = '0%';
+									starting = false;
+									init();
+									console.log(
+										`Boot animation finished in ${Date.now() - startTime}ms.`
+									);
+								}, 3.25e3);
+							}, 1.75e3);
+						}, 1.75e3);
+					}, 0.5e3);
+				}, 0.25e3);
+			};
+
+			snd.addEventListener(
+				'error',
+				() =>
+					failStartupAudio(
+						new Error('Coldboot sound failed to load.')
+					),
+				{ once: true }
+			);
+			snd.play().then(runStartupSequence).catch(failStartupAudio);
+		},
+		fastBoot ? 0.5e3 : 2e3
+	);
 }
 
 function reboot() {
@@ -207,7 +239,7 @@ function reboot() {
 	document.body.style.background = '#000';
 	started = false;
 	bgMusic.pause();
-	setTimeout(()=>{
+	setTimeout(() => {
 		window.location.reload();
 	}, 1e3 / 25);
 }
@@ -223,7 +255,7 @@ function shutdown() {
 	document.body.style.background = '#000';
 	started = false;
 	bgMusic.pause();
-	setTimeout(()=>{
+	setTimeout(() => {
 		window.close();
 		if (!window.closed) {
 			const closeBlocked = document.createElement('p');
@@ -240,10 +272,11 @@ function shutdown() {
 			document.body.appendChild(closeBlocked);
 
 			if (window.opener)
-				closeBlocked.textContent = "Noema couldn't close the window.\nPlease close it manually."
+				closeBlocked.textContent =
+					"Noema couldn't close the window.\nPlease close it manually.";
 			else
-				closeBlocked.textContent = "Noema couldn't close the tab.\nPlease close it manually."
+				closeBlocked.textContent =
+					"Noema couldn't close the tab.\nPlease close it manually.";
 		}
-
 	}, 1e3 / 25);
 }

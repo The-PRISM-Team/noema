@@ -14,6 +14,7 @@ This document provides guidelines for AI coding agents working on Project Noema.
 ## Code Quality Standards
 
 ### JavaScript Style
+
 - Use tabs for indentation (project uses tabs, not spaces)
 - Follow existing naming conventions (camelCase for variables/functions)
 - Add comments only when logic is non-obvious
@@ -22,13 +23,16 @@ This document provides guidelines for AI coding agents working on Project Noema.
 - Use Regex when working with patterns
 
 ### File Organization
+
 - Keep files focused on single responsibilities
 - Use proper imports/exports between modules
-- Place utility functions/files in [`/src/scripts/modules/`](/src/scripts/modules/)
-- Main application logic goes in [`/src/scripts/`](/src/scripts/)
+- Workflow NodeJS programs go in [`/scripts`](/scripts)
+- Place utility functions/files in [`/src/scripts/modules`](/src/scripts/modules)
+- Main application logic goes in [`/src/scripts`](/src/scripts)
 - The code/page deployed via Vercel is in [`/src`](/src)
 
 ### Browser Compatibility
+
 - Code must work in modern browsers (ES6+)
 - Support for old or niche platforms like IE and older Opera versions should be disregarded completely (in fact, the page is blocked if IE is detected!)
 - No transpilation or build steps
@@ -38,6 +42,7 @@ This document provides guidelines for AI coding agents working on Project Noema.
 ## Common Tasks
 
 ### Adding New UI Options
+
 1. Use `createOption()` for menu tabs
 2. Use `createSuboption()` for tab items (a.k.a. selections)
 3. Register actions with proper error handling
@@ -45,13 +50,15 @@ This document provides guidelines for AI coding agents working on Project Noema.
 5. Test keyboard and gamepad navigation
 
 ### Modifying Preferences
-- Always provide defaults in preinit.js
+
+- Always provide defaults in [`preinit.js`](/src/scripts/preinit.js)
 - Validate user input before storing
 - Update UI immediately when settings change
 - Consider performance impact of visual changes
 
 ### Working with Sounds
-- Add sound files to [`/src/assets/sounds/`](/src/assets/sounds/)
+
+- Add sound files to [`/src/assets/sounds`](/src/assets/sounds)
 - Register relative path from [`/src/assets/sounds`](/src/assets/sounds) in sounds array if needed
 - Use `playSound()` API for sound playback
 - Respect user volume settings
@@ -59,13 +66,16 @@ This document provides guidelines for AI coding agents working on Project Noema.
 ## Git Workflow
 
 ### Committing Changes
+
 - Write clear, descriptive commit messages
 - Keep commits focused on single features/fixes
 - Stage related files together
 - Avoid committing debug code or console.logs
 
 ### Post-Implementation
+
 After completing a task:
+
 1. Review changes for quality and style
 2. Test functionality manually
 3. Commit with descriptive message
@@ -74,6 +84,7 @@ After completing a task:
 ## Testing Guidelines
 
 ### Manual Testing Checklist
+
 - Test with keyboard navigation
 - Test with gamepad if applicable
 - Verify localStorage persistence
@@ -83,6 +94,7 @@ After completing a task:
 - Test on different screen sizes
 
 ### Common Edge Cases
+
 - Fast key repeat rates
 - Rapid setting changes
 - Browser refresh during operation
@@ -107,8 +119,8 @@ After completing a task:
 
 ## Documentation
 
-- Update README.md for user-facing changes
-- Update CHANGELOG.md for all changes
+- Update [`README.md`](/README.md) for user-facing changes
+- Update [`CHANGELOG.md`](/misc/markdowns/CHANGELOG.md) for all changes
 - Add comments for complex algorithms
 - Document breaking changes clearly
 

@@ -1,4 +1,6 @@
-const urlRegex = new RegExp("([a-zA-Z0-9]+:)?//([a-zA-Z0-9_]+:[a-zA-Z0-9_]+@)?([a-zA-Z0-9.-]+\\.[A-Za-z]{2,4})(:[0-9]+)?([^ ])+");
+const urlRegex = new RegExp(
+	'([a-zA-Z0-9]+:)?//([a-zA-Z0-9_]+:[a-zA-Z0-9_]+@)?([a-zA-Z0-9.-]+\\.[A-Za-z]{2,4})(:[0-9]+)?([^ ])+'
+);
 const filenameRegex = /^[\\w\\s\\p{L}-]+\\.[A-Za-z0-9]{2,5}$/iu;
 
 function isURL(url) {

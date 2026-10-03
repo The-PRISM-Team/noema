@@ -1,4 +1,5 @@
-# PRISM Project Versioning System Documentation 
+# PRISM Project Versioning System Documentation
+
 - Written in January of 2026
 
 This is a spec document defining how PRISM Project's versioning should be formatted.
@@ -7,6 +8,7 @@ This is a spec document defining how PRISM Project's versioning should be format
 Since the spec will most likely change, this spec could become outdated in the future, so always make sure to switch to a newer versioning system when one is available.)*
 
 ## Keyword definitions
+
 "Project": An independent system with a (public) codename, e.g.: Project Noema.
 
 "MAJOR": An update that significantly changes how the Project looks, works or feels.
@@ -27,45 +29,48 @@ Since the spec will most likely change, this spec could become outdated in the f
 
 "bumped up": Short for "increased by one". Strictly used when talking about a sub-number of a version number.
 
-
 # Versioning Spec
 
 ## Alpha versioning
+
 - Formatting: ``v0.<CHANGE>-test.<DESCRIPTION>``
 
   - `<CHANGE>`: A number that gets bumped up with every update made to the code, no matter if it's MAJOR, MINOR or PATCH. In short, it denotes the number of changes made.
   - `<DESCRIPTION>`: A short description of the content in the update, with words separated by dots, required to be 0-3 words long at maximum. It shouldn't be too descriptive, but it should convey the meaning of what it adds/changes. Notable examples include "`spaghetti`", "`power.bugfix`" and "`ui.suboptions.labels`", all taken from Project Noema.
 
-### Additional notes:
+### Additional notes
+
 - The first alpha version number is always `v0.0-test.<DESCRIPTION>`. `<DESCRIPTION>` follows the same definition provided above.
 - Alpha versions shouldn't contain too much content, compared to a beta or release version, more so like small first steps. Updates should follow a consistent theme, and that theme should follow what the `<DESCRIPTION>` is describing.
 
-
 ## Beta versioning
+
 - Formatting: ``v0.<CONTENT>.<PATCH>``
 
   - `<CONTENT>`: This number strictly gets bumped up only if the change is classified as MAJOR or MINOR, and never PATCH.
   - `<PATCH>`: This number strictly gets bumped up only if the update is classified as PATCH, not MAJOR nor MINOR.
 
-### Additional notes:
+### Additional notes
+
 - The initial value of `<CONTENT>` is the last value of `<CHANGE>` from the alpha version number, but bumped up.
 
   - For example: if the last alpha version number was `v0.7-test.finalizing`, then the first beta version number should be `v0.8.0`.
 - The initial value of `<PATCH>` is always `0`.
 
-
 ## Release versioning
+
 - Formatting: ``v<MAJOR>.<MINOR>.<PATCH>``
 
   - `<MAJOR>`: This number strictly gets bumped up only if the change is classified as MAJOR, not MINOR nor PATCH.
   - `<MINOR>`: This number strictly gets bumped up only if the change is classified as MINOR, not MAJOR nor PATCH.
   - `<PATCH>`: This number strictly gets bumped up only if the update is classified as PATCH, not MAJOR nor MINOR.
 
-### Additional notes:
+### Additional notes
+
 - The first release version number is always `v1.0.0`, regardless of the last beta version number.
 
-
 ## Archived versioning
+
 - Formatting: ``v<MAJOR>.<MINOR>-archived.<YEAR>.<MONTH>.<TIMESTAMP>``
 
   - `<MAJOR>`: Either the value of `<MAJOR>` if the last version was in release, the value of `<CONTENT>` if the last version version was in beta, or `0` if the last version was in alpha.
@@ -73,4 +78,3 @@ Since the spec will most likely change, this spec could become outdated in the f
   - `<YEAR>`: The year when the Project was archived.
   - `<MONTH>`: The month of the year (as a number from 1 to 12) when the Project was archived.
   - `<TIMESTAMP>`: The unix timestamp of the date\* on which the version number was written. (*Can have up to 15 seconds of error.)
-  

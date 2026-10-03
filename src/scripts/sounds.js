@@ -28,7 +28,8 @@ function setMasterVolume(volume = 1) {
 	localStorage.masterVolume = masterVolume.toString();
 
 	if (isDefined(bgMusic))
-		bgMusic.volume = parseFloat(localStorage.musicVolume).clamp(0, 1) * masterVolume;
+		bgMusic.volume =
+			parseFloat(localStorage.musicVolume).clamp(0, 1) * masterVolume;
 
 	return masterVolume;
 }
@@ -38,7 +39,9 @@ async function playSound(sound, volume, properties = {}) {
 	if (typeof targetSoundIndex === 'number') {
 		const snd = new Audio(getAbsPath(`./assets/sounds/${sounds[targetSoundIndex]}`));
 		if (!isDefined(volume))
-			volume = parseFloat(localStorage.uiSoundVolume) * masterVolume.clamp(0, 1);
+			volume =
+				parseFloat(localStorage.uiSoundVolume) *
+				masterVolume.clamp(0, 1);
 
 		snd.volume = volume.clamp(0, 1);
 		for (const [property, value] of Object.entries(properties)) {
@@ -47,20 +50,24 @@ async function playSound(sound, volume, properties = {}) {
 		await snd.play();
 		return snd;
 	} else {
-		throw new ReferenceError(`The sound "${sound}" doesn't exist/isn't registered.`);
+		throw new ReferenceError(
+			`The sound "${sound}" doesn't exist/isn't registered.`
+		);
 	}
 }
 
 // keep sounds in memory to keep them "warm"
 const warmupSounds = [];
-async function soundWarmup(cb = () => { }) {
+async function soundWarmup(cb = () => {}) {
 	warmupSounds.length = 0; // clear warmup array
 	let done = 0;
 	for (const sound of sounds) {
 		const audio = new Audio(getAbsPath(`./assets/sounds/${sound}`));
 		audio.volume = 0;
 		let failed = false;
-		const result = await audio.play().catch(() => failed = true);
+		const result = await audio.play().catch(() => {
+			failed = true;
+		});
 		if (!failed) warmupSounds.push(audio);
 
 		done++;

@@ -1,4 +1,7 @@
-function downloadFileWithContent(filename = `Untitled file [${Date.now()}]`, content = '') {
+function downloadFileWithContent(
+	filename = `Untitled file [${Date.now()}]`,
+	content = ''
+) {
 	const blob = new Blob([content], { type: 'text/plain' });
 	const url = URL.createObjectURL(blob);
 

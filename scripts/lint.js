@@ -1,0 +1,55 @@
+const fs = require('fs');
+const prettier = require('@prettier/sync');
+const path = require('path');
+
+function canBePrettified(filePath) {
+	const prettifiableExtensions = ['.js'];
+	const extension = path.extname(filePath);
+	return prettifiableExtensions.includes(extension);
+}
+function prettifyFile(path) {
+	const prettierRules = JSON.parse(
+		fs.readFileSync('.prettierrc.json', {
+			encoding: 'utf-8',
+		})
+	);
+
+	// read content
+	const content = fs.readFileSync(path, { encoding: 'utf-8' });
+
+	// check prettifiability
+	if (!canBePrettified(path)) {
+		console.log(`Skipping unprettifiable file (${path}).`);
+		return;
+	}
+	console.log(`Prettifying file (${path})`);
+
+	// remove shebang from the content if there is one
+	const lines = content.split(/\r?\n/);
+	if (lines[0].startsWith('#!')) lines.shift();
+	const contentWithoutShebang = lines.join('\n');
+
+	// get formatted content
+	const formattedContent = prettier.format(contentWithoutShebang, {
+		parser: 'babel',
+		...prettierRules,
+	});
+	// write formatted content to file path being formatted
+	fs.writeFileSync(path, formattedContent);
+
+	return formattedContent;
+}
+
+function prettifyFiles() {
+	// get file paths (recursively, ignoring directories)
+	const filepaths = fs
+		.readdirSync('.', { recursive: true, withFileTypes: true })
+		.filter(dirent => dirent.isFile())
+		.map(dirent => path.join(dirent.parentPath, dirent.name));
+
+	// loop through every path and prettify it
+	for (const path of filepaths) {
+		prettifyFile(path);
+	}
+}
+prettifyFiles();

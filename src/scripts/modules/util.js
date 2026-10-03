@@ -11,70 +11,79 @@ class AdvDate {
 		timestampFn = Date.now,
 		is24hour = null,
 		am = 'AM',
-		pm = 'PM'
+		pm = 'PM',
 	} = {}) {
 		this.weekNames = [
-			"Sunday",
-			"Monday",
-			"Tuesday",
-			"Wednesday",
-			"Thursday",
-			"Friday",
-			"Saturday"
+			'Sunday',
+			'Monday',
+			'Tuesday',
+			'Wednesday',
+			'Thursday',
+			'Friday',
+			'Saturday',
 		];
 
-		const getTimestamp = timestampFn ? timestampFn : Date.now
-		const getHour = ()=>{
+		const getTimestamp = timestampFn ? timestampFn : Date.now;
+		const getHour = () => {
 			switch (is24hour) {
 				case true:
 					return parseInt(
 						new Date(getTimestamp()).toLocaleTimeString('en-US', {
 							hour12: false,
-							hour: '2-digit'
+							hour: '2-digit',
 						})
 					);
-				
+
 				case false:
 					return parseInt(
 						new Date(getTimestamp()).toLocaleTimeString('en-US', {
 							hour12: true,
-							hour: '2-digit'
+							hour: '2-digit',
 						})
 					);
-				
+
 				default:
 					return parseInt(
 						new Date(getTimestamp()).toLocaleTimeString(undefined, {
-							hour: '2-digit'
+							hour: '2-digit',
 						})
 					);
 			}
 		};
 		this.times = {
 			timestamp: getTimestamp,
-			weekDay: ()=>new Date(getTimestamp()).getDay() + 1,
-			day: ()=>new Date(getTimestamp()).getDate(),
-			dayOfWeek: ()=>new Date(getTimestamp()).getDay(),
-			daysInMonth: ()=>(new Date(new Date(getTimestamp()).getFullYear(), new Date(getTimestamp()).getMonth() + 1, 0).getDate()),
-			weekName: ()=>(this.weekNames[new Date(getTimestamp()).getDay()]),
-			month: ()=>new Date(getTimestamp()).getMonth() + 1,
-			year: ()=>new Date(getTimestamp()).getFullYear(),
+			weekDay: () => new Date(getTimestamp()).getDay() + 1,
+			day: () => new Date(getTimestamp()).getDate(),
+			dayOfWeek: () => new Date(getTimestamp()).getDay(),
+			daysInMonth: () =>
+				new Date(
+					new Date(getTimestamp()).getFullYear(),
+					new Date(getTimestamp()).getMonth() + 1,
+					0
+				).getDate(),
+			weekName: () => this.weekNames[new Date(getTimestamp()).getDay()],
+			month: () => new Date(getTimestamp()).getMonth() + 1,
+			year: () => new Date(getTimestamp()).getFullYear(),
 			hours: getHour,
-			minutes: ()=>new Date(getTimestamp()).getMinutes(),
-			seconds: ()=>new Date(getTimestamp()).getSeconds(),
-			milliseconds: ()=>new Date(getTimestamp()).getMilliseconds(),
-			meridiem: ()=>{
+			minutes: () => new Date(getTimestamp()).getMinutes(),
+			seconds: () => new Date(getTimestamp()).getSeconds(),
+			milliseconds: () => new Date(getTimestamp()).getMilliseconds(),
+			meridiem: () => {
 				if (isDefined(is24hour) && !is24hour) {
-					return new Date().toLocaleTimeString('en-US', {
-						hour: 'numeric',
-						minute: 'numeric',
-						hour12: true
-					}).split(' ')[1] === 'AM' ? am:pm;
+					return new Date()
+						.toLocaleTimeString('en-US', {
+							hour: 'numeric',
+							minute: 'numeric',
+							hour12: true,
+						})
+						.split(' ')[1] === 'AM'
+						? am
+						: pm;
 				} else return '';
-			}
+			},
 		};
 
-		Object.keys(this.times).forEach(k => this[k] = this.times[k]);
+		Object.keys(this.times).forEach(k => (this[k] = this.times[k]));
 	}
 
 	getDateString({
@@ -87,74 +96,88 @@ class AdvDate {
 		timeSeparator = ':',
 		msSeparator = '.',
 		dateOnly = false,
-		timeOnly = false
+		timeOnly = false,
 	} = {}) {
-		const week =
-		showWeek ?
-			(`${
-				trimWeek ?
-					this.times.weekName().substring(0, 3)
-				:
-					this.times.weekName()
-			} `)
-		: '';
-		const time = [
-			this.times.hours().toString().padStart(2, '0'),
-			this.times.minutes().toString().padStart(2, '0'),
-			this.times.seconds().toString().padStart(2, '0')
-		].join(timeSeparator)
-			+ (showMs ? `${msSeparator}${this.times.milliseconds().toString().padStart(3, '0')}` : '');
+		const week = showWeek
+			? `${
+					trimWeek
+						? this.times.weekName().substring(0, 3)
+						: this.times.weekName()
+				} `
+			: '';
+		const time =
+			[
+				this.times.hours().toString().padStart(2, '0'),
+				this.times.minutes().toString().padStart(2, '0'),
+				this.times.seconds().toString().padStart(2, '0'),
+			].join(timeSeparator) +
+			(showMs
+				? `${msSeparator}${this.times.milliseconds().toString().padStart(3, '0')}`
+				: '');
 
 		const date = [
-			(monthFirst ? this.times.month() : this.times.day()).toString().padStart(2, '0'),
-			(monthFirst ? this.times.day() : this.times.month()).toString().padStart(2, '0'),
-			this.times.year().toString().padStart(4, '0')
+			(monthFirst ? this.times.month() : this.times.day())
+				.toString()
+				.padStart(2, '0'),
+			(monthFirst ? this.times.day() : this.times.month())
+				.toString()
+				.padStart(2, '0'),
+			this.times.year().toString().padStart(4, '0'),
 		].join(dateSeparator);
 
-		if (timeOnly && dateOnly) throw new Error('You cannot only get the time while also only getting the date.');
+		if (timeOnly && dateOnly)
+			throw new Error(
+				'You cannot only get the time while also only getting the date.'
+			);
 
 		if (timeOnly) return time;
 		if (dateOnly) return date;
 
-		if (timeFirst)
-			return week + time + ' ' + date;
-		else
-			return week + date + ' ' + time;
+		if (timeFirst) return week + time + ' ' + date;
+		else return week + date + ' ' + time;
 	}
 }
 
 async function chargingTest(seconds = 60) {
-	console.log(`Testing battery charging rate (${seconds} seconds)...`)
+	console.log(`Testing battery charging rate (${seconds} seconds)...`);
 	const batterySnapshot1 = await navigator.getBattery();
 	if (!batterySnapshot1.charging) {
-		const msg = "Cannot test charging rate if battery isn't being charged!"
+		const msg = "Cannot test charging rate if battery isn't being charged!";
 		console.error(msg);
 		throw new Error(msg);
 	}
 	await delay(seconds * 1e3);
 	const batterySnapshot2 = await navigator.getBattery();
 
-	const chargedPercent = decimalToPercentage(batterySnapshot2.level - batterySnapshot1.level);
-	console.log(`Battery ${chargedPercent >= 0 ? 'charged': 'discharged'} by ${chargedPercent}% in ${seconds} seconds.`);
+	const chargedPercent = decimalToPercentage(
+		batterySnapshot2.level - batterySnapshot1.level
+	);
+	console.log(
+		`Battery ${chargedPercent >= 0 ? 'charged' : 'discharged'} by ${chargedPercent}% in ${seconds} seconds.`
+	);
 
 	console.log('Test complete');
 	return chargedPercent;
 }
 async function dischargingTest(seconds = 60) {
-	console.log(`Testing battery discharging rate (${seconds} seconds)...`)
+	console.log(`Testing battery discharging rate (${seconds} seconds)...`);
 	const batterySnapshot1 = await navigator.getBattery();
 	if (batterySnapshot1.charging) {
-		const msg = "Cannot test discharging rate if battery is being charged!"
+		const msg = 'Cannot test discharging rate if battery is being charged!';
 		console.error(msg);
 		throw new Error(msg);
 	}
 	await delay(seconds * 1e3);
 	const batterySnapshot2 = await navigator.getBattery();
 
-	const dischargedPercent = decimalToPercentage(batterySnapshot1.level - batterySnapshot2.level);
-	console.log(`Battery discharged by ${dischargedPercent}% in ${seconds} seconds.`);
+	const dischargedPercent = decimalToPercentage(
+		batterySnapshot1.level - batterySnapshot2.level
+	);
+	console.log(
+		`Battery discharged by ${dischargedPercent}% in ${seconds} seconds.`
+	);
 
-	console.log('Test complete')
+	console.log('Test complete');
 
 	return dischargedPercent;
 }
@@ -173,7 +196,7 @@ async function fetchCustom(url, method = 'text') {
 	}
 
 	if (typeof res[method] !== 'function') {
-		throw new Error(`Invalid method "${method}"`)
+		throw new Error(`Invalid method "${method}"`);
 	}
 
 	return res[method]();
@@ -185,7 +208,8 @@ function setCursor(cursor = 'auto') {
 function resetCursor() {
 	document.body.style.cursor = 'auto';
 }
-function isTrue(value) { // for localStorage
+function isTrue(value) {
+	// for localStorage
 	return value === true || value === 'true';
 }
 
@@ -226,25 +250,25 @@ function randomFloatFromRange(min, max) {
 }
 
 function getFolders(jszip) {
-    const dirs = [];
-    jszip.forEach((relativePath, folder)=>{
-        if (!folder.dir) return;
-        dirs.push([relativePath, folder])
-    });
-    return Object.fromEntries(dirs);
+	const dirs = [];
+	jszip.forEach((relativePath, folder) => {
+		if (!folder.dir) return;
+		dirs.push([relativePath, folder]);
+	});
+	return Object.fromEntries(dirs);
 }
 function getFiles(jszip) {
-    const files = [];
-    jszip.forEach((relativePath, file)=>{
-        if (file.dir) return;
-        files.push([relativePath, file])
-    });
-    return Object.fromEntries(files);
+	const files = [];
+	jszip.forEach((relativePath, file) => {
+		if (file.dir) return;
+		files.push([relativePath, file]);
+	});
+	return Object.fromEntries(files);
 }
 function getItems(jszip) {
-    const items = [];
-    jszip.forEach((relativePath, item)=>{
-        items.push([relativePath, item])
-    });
-    return Object.fromEntries(items);
+	const items = [];
+	jszip.forEach((relativePath, item) => {
+		items.push([relativePath, item]);
+	});
+	return Object.fromEntries(items);
 }

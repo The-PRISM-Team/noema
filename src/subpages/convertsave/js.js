@@ -8,19 +8,22 @@ $1 // convert $2 to $3
 */
 
 // /*
-function downloadFileWithContent(filename = `Untitled file [${Date.now()}]`, content = '') {
-    const blob = new Blob([content], { type: 'text/plain' });
-    const url = URL.createObjectURL(blob);
+function downloadFileWithContent(
+	filename = `Untitled file [${Date.now()}]`,
+	content = ''
+) {
+	const blob = new Blob([content], { type: 'text/plain' });
+	const url = URL.createObjectURL(blob);
 
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = filename;
+	const a = document.createElement('a');
+	a.href = url;
+	a.download = filename;
 
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
+	document.body.appendChild(a);
+	a.click();
+	document.body.removeChild(a);
 
-    return content;
+	return content;
 }
 // */
 
@@ -35,11 +38,11 @@ const convertButton = document.getElementById('convert-btn');
 let statusTimeouts = [];
 function setStatus(statusText, clearAfterMs = 3e3) {
 	function clearTimeouts() {
-		statusTimeouts.forEach((timeoutId, index)=>{
+		statusTimeouts.forEach((timeoutId, index) => {
 			clearTimeout(timeoutId);
 			statusTimeouts[index] = null;
 		});
-		statusTimeouts = statusTimeouts.filter(t=>t);
+		statusTimeouts = statusTimeouts.filter(t => t);
 	}
 	// clear status
 	if (isNaN(clearAfterMs)) return;
@@ -68,7 +71,7 @@ let saveFileName = '';
 const safeFormats = ['NSF2.0', 'NSF2.1'];
 
 // read file
-fileInput.addEventListener('change', (event) => {
+fileInput.addEventListener('change', event => {
 	convertSection.style.display = 'none';
 	const file = event.target.files[0];
 
@@ -76,7 +79,7 @@ fileInput.addEventListener('change', (event) => {
 		saveFileName = file.name;
 
 		setStatus('Initializing file reader...', Infinity);
-		statusElement.textContent = "Initializing file reader...";
+		statusElement.textContent = 'Initializing file reader...';
 		const reader = new FileReader();
 		reader.onload = function (e) {
 			let content = e.target.result;
@@ -97,7 +100,10 @@ fileInput.addEventListener('change', (event) => {
 			} else if (safeFormats.includes(content?.format)) {
 				setStatus('That save file is already safe!', 5e3);
 			} else {
-				setStatus('Invalid save file! Please use a valid save file.', 5e3);
+				setStatus(
+					'Invalid save file! Please use a valid save file.',
+					5e3
+				);
 			}
 		};
 
@@ -119,7 +125,7 @@ function populateFormatDropdown() {
 }
 populateFormatDropdown();
 
-const convertButtonCb = convertButton.onclick = () => {
+const convertButtonCb = (convertButton.onclick = () => {
 	setStatus('Starting conversion...', Infinity);
 	const targetFormat = convertToElement.value;
 	if (saveFile.format === targetFormat) {
@@ -131,29 +137,26 @@ const convertButtonCb = convertButton.onclick = () => {
 	const to = '~'; // conversion symbol
 	// conversion operation list
 	const conversions = {
-		[`NSF1.0${to}NSF2.0`]:
-		()=>{
+		[`NSF1.0${to}NSF2.0`]: () => {
 			delete saveFile.defaultScripts;
 			saveFile.lastVersion = null;
-			saveFile.format = "NSF2.0";
+			saveFile.format = 'NSF2.0';
 		},
 
-		[`NSF1.0${to}NSF2.1`]:
-		()=>{
+		[`NSF1.0${to}NSF2.1`]: () => {
 			delete saveFile.defaultScripts;
 			saveFile.lastChangelogHash = '';
-			saveFile.format = "NSF2.1";
+			saveFile.format = 'NSF2.1';
 		},
 
-		[`NSF2.0${to}NSF2.1`]:
-		()=>{
+		[`NSF2.0${to}NSF2.1`]: () => {
 			delete saveFile.lastVersion;
 			saveFile.lastChangelogHash = '';
-			saveFile.format = "NSF2.1";
-		}
-	}
+			saveFile.format = 'NSF2.1';
+		},
+	};
 
-	const convert = conversions?.[`${saveFile.format}${to}${targetFormat}`]
+	const convert = conversions?.[`${saveFile.format}${to}${targetFormat}`];
 	if (convert != null) {
 		setStatus('Converting...', Infinity);
 		try {
@@ -167,21 +170,26 @@ const convertButtonCb = convertButton.onclick = () => {
 			setStatus('Done!', 6e3);
 			convertButton.textContent = 'Convert another';
 			convertButton.onclick = () => {
-				fileInput.click()
+				fileInput.click();
 				convertButton.onclick = convertButtonCb;
 			};
 		} catch (err) {
-			setStatus(`
+			setStatus(
+				`
 There was an error while converting.
 Error: ${
-	err?.message
-	? `[${err.type}] ${err.message}`
-	: `[RawThrow] ${JSON.stringify(err)}`
-}
+					err?.message
+						? `[${err.type}] ${err.message}`
+						: `[RawThrow] ${JSON.stringify(err)}`
+				}
 Please try again.
-`.trim())
+`.trim()
+			);
 		}
 	} else {
-		setStatus(`The conversion from ${saveFile.format} to ${targetFormat} is not supported.`, 5e3)
+		setStatus(
+			`The conversion from ${saveFile.format} to ${targetFormat} is not supported.`,
+			5e3
+		);
 	}
-};
+});

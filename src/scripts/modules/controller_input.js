@@ -5,7 +5,7 @@ class controllerHandler extends EventTarget {
 
 	triggerEvent(eventName, data) {
 		const event = new CustomEvent(eventName, {
-			detail: data
+			detail: data,
 		});
 		this.dispatchEvent(event);
 	}
@@ -16,9 +16,9 @@ class controllerHandler extends EventTarget {
 const gamepadHandler = new controllerHandler();
 const gamepads = gamepadHandler.gamepads;
 
-window.addEventListener('gamepadconnected', (event)=>{
+window.addEventListener('gamepadconnected', event => {
 	gamepads.push(event.gamepad);
 });
-window.addEventListener('gamepaddisconnected', (event)=>{
+window.addEventListener('gamepaddisconnected', event => {
 	gamepads.splice(gamepads.indexOf(event.gamepad), 1);
 });
