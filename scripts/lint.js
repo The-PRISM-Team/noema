@@ -6,7 +6,6 @@ const path = require("path");
 
 function canBePrettified(filePath) {
 	const prettifiableExtensions = [
-		'.json',
 		'.js',
 	]
 	const extension = path.extname(filePath);
